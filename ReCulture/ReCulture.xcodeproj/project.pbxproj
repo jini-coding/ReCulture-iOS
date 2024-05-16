@@ -22,6 +22,8 @@
 		3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61B2BE43373003376F7 /* SearchVC.swift */; };
 		3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61D2BE4337C003376F7 /* RecordVC.swift */; };
 		3874B6202BE43383003376F7 /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61F2BE43383003376F7 /* MypageVC.swift */; };
+		38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E662BF5D0CE00A03D56 /* CALayer.swift */; };
+		38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		3874B61B2BE43373003376F7 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		3874B61D2BE4337C003376F7 /* RecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVC.swift; sourceTree = "<group>"; };
 		3874B61F2BE43383003376F7 /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
+		38D97E662BF5D0CE00A03D56 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 			children = (
 				3874B6072BE4328A003376F7 /* Color.swift */,
 				3874B6092BE43291003376F7 /* Font.swift */,
+				38D97E662BF5D0CE00A03D56 /* CALayer.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B61D2BE4337C003376F7 /* RecordVC.swift */,
+				38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -252,8 +258,10 @@
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
+				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
+				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
