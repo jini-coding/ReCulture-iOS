@@ -11,6 +11,7 @@
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
+		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
 		08E695182BE4A5F80055AC48 /* LevelProgressDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E695172BE4A5F80055AC48 /* LevelProgressDot.swift */; };
 		08E6951A2BE4A6C10055AC48 /* LevelProgressLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E695192BE4A6C10055AC48 /* LevelProgressLine.swift */; };
 		08E6951C2BE4A8460055AC48 /* LevelProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E6951B2BE4A8460055AC48 /* LevelProgressBar.swift */; };
@@ -38,6 +39,7 @@
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
+		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		08E695172BE4A5F80055AC48 /* LevelProgressDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressDot.swift; sourceTree = "<group>"; };
 		08E695192BE4A6C10055AC48 /* LevelProgressLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressLine.swift; sourceTree = "<group>"; };
 		08E6951B2BE4A8460055AC48 /* LevelProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressBar.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				3874B6092BE43291003376F7 /* Font.swift */,
 				38D97E662BF5D0CE00A03D56 /* CALayer.swift */,
 				08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */,
+				08D0CF382BF716AC005CBECA /* UIView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
+				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				08E695182BE4A5F80055AC48 /* LevelProgressDot.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
