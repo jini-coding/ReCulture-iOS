@@ -22,6 +22,13 @@
 		3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61B2BE43373003376F7 /* SearchVC.swift */; };
 		3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61D2BE4337C003376F7 /* RecordVC.swift */; };
 		3874B6202BE43383003376F7 /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61F2BE43383003376F7 /* MypageVC.swift */; };
+		389F8A642BF72168004593B5 /* EditPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A632BF72168004593B5 /* EditPasswordVC.swift */; };
+		389F8A662BF7222C004593B5 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A652BF7222C004593B5 /* Image.swift */; };
+		389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A672BF72461004593B5 /* FriendRequestVC.swift */; };
+		389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A692BF7246A004593B5 /* ViewFriendVC.swift */; };
+		389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6B2BF72474004593B5 /* EditProfileVC.swift */; };
+		389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */; };
+		389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */; };
 		38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E662BF5D0CE00A03D56 /* CALayer.swift */; };
 		38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +51,13 @@
 		3874B61B2BE43373003376F7 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		3874B61D2BE4337C003376F7 /* RecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVC.swift; sourceTree = "<group>"; };
 		3874B61F2BE43383003376F7 /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
+		389F8A632BF72168004593B5 /* EditPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordVC.swift; sourceTree = "<group>"; };
+		389F8A652BF7222C004593B5 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		389F8A672BF72461004593B5 /* FriendRequestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestVC.swift; sourceTree = "<group>"; };
+		389F8A692BF7246A004593B5 /* ViewFriendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFriendVC.swift; sourceTree = "<group>"; };
+		389F8A6B2BF72474004593B5 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalVC.swift; sourceTree = "<group>"; };
+		389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		38D97E662BF5D0CE00A03D56 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +120,7 @@
 				3874B6072BE4328A003376F7 /* Color.swift */,
 				3874B6092BE43291003376F7 /* Font.swift */,
 				38D97E662BF5D0CE00A03D56 /* CALayer.swift */,
+				389F8A652BF7222C004593B5 /* Image.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -135,6 +150,12 @@
 			isa = PBXGroup;
 			children = (
 				3874B61F2BE43383003376F7 /* MypageVC.swift */,
+				389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */,
+				389F8A692BF7246A004593B5 /* ViewFriendVC.swift */,
+				389F8A672BF72461004593B5 /* FriendRequestVC.swift */,
+				389F8A6B2BF72474004593B5 /* EditProfileVC.swift */,
+				389F8A632BF72168004593B5 /* EditPasswordVC.swift */,
+				389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -260,11 +281,18 @@
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
+				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
+				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
+				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
+				389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */,
+				389F8A642BF72168004593B5 /* EditPasswordVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
+				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
+				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
