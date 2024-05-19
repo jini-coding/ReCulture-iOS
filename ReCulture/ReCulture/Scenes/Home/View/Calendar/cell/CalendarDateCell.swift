@@ -53,7 +53,15 @@ class CalendarDateCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    func configure(dateOrDay: String){
+    func configure(section: Int, dateOrDay: String){
+        if section == 0 {
+            dateLabel.font = .rcFont14M()
+            dateLabel.textColor = UIColor(hexCode: "85888A")
+        }
+        else {
+            dateLabel.font = .rcFont18M()
+            dateLabel.textColor = .black
+        }
         self.dateLabel.text = dateOrDay
     }
 }

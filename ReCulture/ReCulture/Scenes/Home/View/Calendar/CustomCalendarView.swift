@@ -7,10 +7,26 @@
 
 import UIKit
 
+class CustomCollectionView: UICollectionView {
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        if bounds.size != intrinsicContentSize {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
+    override public var intrinsicContentSize: CGSize {
+        layoutIfNeeded()
+        return contentSize
+    }
+}
+
 class CustomCalendarView: UIView {
     
     // MARK: - Properties
     
+    private let minimumInterItemSpacing:CGFloat = 12
+    private let minimumLineSpacing:CGFloat = 20
     private let now = Date()
     private var calendar = Calendar(identifier: .gregorian)  // 현재 사용자가 사용 중인 달력 (ex. gregorian)
 //    private var currentMonth: Int
@@ -27,14 +43,14 @@ class CustomCalendarView: UIView {
     
     private let yearAndMonthLabel: UILabel = {
         let label = UILabel()
-        label.font = .rcFont16M()
+        label.font = .rcFont18M()
         label.text = "2024.04"
         return label
     }()
     
     private let previousButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.setImage(UIImage.chevronLeft, for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(prevButtonTapped), for: .touchUpInside)
         return button
@@ -42,25 +58,31 @@ class CustomCalendarView: UIView {
     
     private let nextButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        button.setImage(UIImage.chevronRight, for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private lazy var calendarCollectionView: UICollectionView = {
+    private lazy var calendarCollectionView: CustomCollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
-        flowlayout.minimumLineSpacing = 0
-        flowlayout.minimumInteritemSpacing = 0
+        flowlayout.minimumLineSpacing = minimumLineSpacing
+        flowlayout.minimumInteritemSpacing = minimumInterItemSpacing
         //flowlayout.scrollDirection = .horizontal
         
-        let view = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
+        let view = CustomCollectionView(frame: .zero, collectionViewLayout: flowlayout)
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         view.delegate = self
         view.dataSource = self
         view.backgroundColor = .white
         view.register(CalendarDateCell.self, forCellWithReuseIdentifier: CalendarDateCell.identifier)
+        return view
+    }()
+    
+    private let dummyView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -71,14 +93,26 @@ class CustomCalendarView: UIView {
         
         initCalendar()
         
+        self.backgroundColor = .white
+        self.clipsToBounds = true
+        self.layer.borderColor = UIColor(hexCode: "ECEFF7").cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 22
+        
         setYearAndMonthLabel()
         setChevronButtons()
         setCalendarCollectionView()
+//        setDummyView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    override func updateConstraints() {
+//        calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
+//        super.updateConstraints()
+//    }
     
     // MARK: - Layout
     
@@ -89,7 +123,7 @@ class CustomCalendarView: UIView {
         
         NSLayoutConstraint.activate([
             yearAndMonthLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            yearAndMonthLabel.topAnchor.constraint(equalTo: self.topAnchor)
+            yearAndMonthLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24)
         ])
     }
     
@@ -101,14 +135,14 @@ class CustomCalendarView: UIView {
         addSubview(nextButton)
         
         NSLayoutConstraint.activate([
-            previousButton.trailingAnchor.constraint(equalTo: yearAndMonthLabel.leadingAnchor, constant: -5),
+            previousButton.trailingAnchor.constraint(equalTo: yearAndMonthLabel.leadingAnchor, constant: -8),
             previousButton.centerYAnchor.constraint(equalTo: yearAndMonthLabel.centerYAnchor),
-            previousButton.widthAnchor.constraint(equalToConstant: 44),
-            previousButton.heightAnchor.constraint(equalToConstant: 44),
-            nextButton.leadingAnchor.constraint(equalTo: yearAndMonthLabel.trailingAnchor, constant: 5),
+            previousButton.widthAnchor.constraint(equalToConstant: 22),
+            previousButton.heightAnchor.constraint(equalToConstant: 22),
+            nextButton.leadingAnchor.constraint(equalTo: yearAndMonthLabel.trailingAnchor, constant: 8),
             nextButton.centerYAnchor.constraint(equalTo: yearAndMonthLabel.centerYAnchor),
-            nextButton.widthAnchor.constraint(equalToConstant: 44),
-            nextButton.heightAnchor.constraint(equalToConstant: 44)
+            nextButton.widthAnchor.constraint(equalToConstant: 22),
+            nextButton.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
     
@@ -118,10 +152,10 @@ class CustomCalendarView: UIView {
         addSubview(calendarCollectionView)
         
         NSLayoutConstraint.activate([
-            calendarCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            calendarCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            calendarCollectionView.topAnchor.constraint(equalTo: yearAndMonthLabel.bottomAnchor, constant: 9),
-            calendarCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            calendarCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 27),
+            calendarCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -27),
+            calendarCollectionView.topAnchor.constraint(equalTo: yearAndMonthLabel.bottomAnchor, constant: 24),
+            calendarCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -32),
         ])
     }
     
@@ -167,7 +201,8 @@ class CustomCalendarView: UIView {
         
         // 컬렉션 뷰에서 셀을 그릴 때 1일부터 그릴 수 있도록 그 앞에는 빈 값을 넣어주기 위함
         weekdayAdding = 2 - firstWeekday  // ex. 화요일부터 달의 시작인 경우 -> 2 - 3 = -1 -> -1, 0 동안은 빈 값, 1부터 실제 값을 넣게 됨
-        self.yearAndMonthLabel.text = dateFormatter.string(from: firstDayOfMonth!)
+        let dateFormatterString = dateFormatter.string(from: firstDayOfMonth!)
+        self.yearAndMonthLabel.text = dateFormatterString.replacingOccurrences(of: ".", with: "년 ") + "월"
         self.days.removeAll()
 
         for day in weekdayAdding...daysInMonth {
@@ -177,6 +212,13 @@ class CustomCalendarView: UIView {
                 self.days.append(String(day))
             }
         }
+    }
+    
+    func updateCollectionViewHeight() {
+        calendarCollectionView.constraints[0].identifier
+        calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
+        //calendarCollectionView.updateConstraints()
+        calendarCollectionView.layoutIfNeeded()
     }
 }
 
@@ -200,9 +242,9 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
         
         switch indexPath.section {
         case 0:
-            cell.configure(dateOrDay: weeks[indexPath.row])  // 요일 세팅
+            cell.configure(section: 0, dateOrDay: weeks[indexPath.row])  // 요일 세팅
         default:
-            cell.configure(dateOrDay: days[indexPath.row])  // 일
+            cell.configure(section: 1, dateOrDay: days[indexPath.row])  // 일
         }
         
         return cell
@@ -212,8 +254,8 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
 extension CustomCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
-//        let cellSize : CGFloat = (mainBoundWidth - 60) / 7
-        let cellSize : CGFloat = mainBoundWidth / 9
+        let cellSize : CGFloat = (mainBoundWidth - 32 - 54 - minimumInterItemSpacing*6) / 7
+//        let cellSize : CGFloat = mainBoundWidth / 9
         return CGSize(width: cellSize, height: cellSize)
     }
 }
