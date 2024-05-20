@@ -173,22 +173,5 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             mypageTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
-    private func setTempButton(){
-        tempButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(tempButton)
-        
-        NSLayoutConstraint.activate([
-            tempButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            tempButton.topAnchor.constraint(equalTo: label.bottomAnchor)
-        ])
-    }
-    
-    @objc func goToTicketBook(){
-        let ticketBookVC = TicketBookVC()
-        ticketBookVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(ticketBookVC, animated: true)
-    }
 }
 

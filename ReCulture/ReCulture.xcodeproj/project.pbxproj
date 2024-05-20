@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
 		0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */; };
+		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
+		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
 		3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F32BE43247003376F7 /* SceneDelegate.swift */; };
 		3874B5F62BE43247003376F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F52BE43247003376F7 /* ViewController.swift */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
 		0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookCollectionViewCell.swift; sourceTree = "<group>"; };
+		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
+		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3874B5F12BE43247003376F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3874B5F32BE43247003376F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,10 +84,20 @@
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
+				08B856452BF1D9260034E86D /* TicketBookDetail */,
 				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
 				0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */,
+				08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */,
 			);
 			path = TicketBook;
+			sourceTree = "<group>";
+		};
+		08B856452BF1D9260034E86D /* TicketBookDetail */ = {
+			isa = PBXGroup;
+			children = (
+				08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */,
+			);
+			path = TicketBookDetail;
 			sourceTree = "<group>";
 		};
 		3874B5E52BE43247003376F7 = {
@@ -302,8 +316,10 @@
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
+				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
 				389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */,
+				08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */,
 				389F8A642BF72168004593B5 /* EditPasswordVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
