@@ -64,7 +64,7 @@ class LevelProgressView: UIView {
         addSubview(tooltipView)
         
         NSLayoutConstraint.activate([
-            tooltipView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            tooltipView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
             tooltipView.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 8)
         ])
     }

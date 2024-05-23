@@ -27,19 +27,25 @@ class HomeVC: UIViewController {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
         view.isScrollEnabled = true
-        view.delegate = self
+//        view.delegate = self
+        view.backgroundColor = UIColor(hexCode: "F5F6FA")
         return view
     }()
     
     private let contentView = UIView()
     
-    private let currentLevelView: UIView = {
+    private let userLevelInfoView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 16
-        view.clipsToBounds = true
+        view.backgroundColor = UIColor(hexCode: "F5F6FA")
         return view
     }()
+    
+//    private let currentLevelView: UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 16
+//        view.clipsToBounds = true
+//        return view
+//    }()
     
     //LabelWithPadding(top: 12, left: 16, bottom: 12, right: 16)
     private let currentLevelLabel: UILabel = {
@@ -88,15 +94,16 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = UIColor(hexCode: "F5F6FA")
+        view.backgroundColor = .rcMain
         
         setupNavigation()
         
         // set up layout
         setScrollView()
         setContentView()
-        setCurrentLevelView()
-        setCurrentLevelLabel()
+        setUserLevelInfoView()
+//        setCurrentLevelView()
+//        setCurrentLevelLabel()
         setCharacterImageView()
         setTilNextLevelLabel()
         setLevelProgressView()
@@ -112,24 +119,16 @@ class HomeVC: UIViewController {
     // MARK: - Layouts
     
     private func setupNavigation(){
+        setLevelAttributes()
+        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
-        //self.navigationController?.navigationBar.tintColor = .white
-        //self.navigationController?.navigationBar.backgroundColor = .rcMain
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithOpaqueBackground()
-//        appearance.backgroundColor = .rcMain
-//        UINavigationBar.appearance().standardAppearance = appearance
-//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//        UINavigationBar.appearance().compactAppearance = appearance
-////        let appearance = UINavigationBarAppearance()
-//        appearance.backgroundColor = .rcMain
-//        appearance.backgroundImage = UIImage()
-//        appearance.shadowImage = UIImage()
-//        
-//        self.navigationController?.navigationBar.standardAppearance = appearance
-//        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = .rcMain
+      
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setScrollView(){
@@ -159,40 +158,27 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setCurrentLevelView(){
-        currentLevelView.translatesAutoresizingMaskIntoConstraints = false
-    
-        contentView.addSubview(currentLevelView)
+    private func setUserLevelInfoView(){
+        userLevelInfoView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(userLevelInfoView)
         
         NSLayoutConstraint.activate([
-            currentLevelView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            currentLevelView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
-            currentLevelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18)
-        ])
-    }
-    
-    private func setCurrentLevelLabel(){
-        setLevelAttributes()
-        
-        currentLevelLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        currentLevelView.addSubview(currentLevelLabel)
-
-        NSLayoutConstraint.activate([
-            currentLevelLabel.leadingAnchor.constraint(equalTo: currentLevelView.leadingAnchor, constant: 16),
-            currentLevelLabel.topAnchor.constraint(equalTo: currentLevelView.topAnchor, constant: 12),
-            currentLevelLabel.bottomAnchor.constraint(equalTo: currentLevelView.bottomAnchor, constant: -12),
+            userLevelInfoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            userLevelInfoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            userLevelInfoView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            //userLevelInfoView.bottomAnchor.constraint(equalTo: calendarContainerView.topAnchor),
         ])
     }
     
     private func setCharacterImageView(){
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(characterImageView)
+        userLevelInfoView.addSubview(characterImageView)
         
         NSLayoutConstraint.activate([
-            characterImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            characterImageView.topAnchor.constraint(equalTo: currentLevelView.bottomAnchor, constant: 29),
+            characterImageView.centerXAnchor.constraint(equalTo: userLevelInfoView.centerXAnchor),
+            characterImageView.topAnchor.constraint(equalTo: userLevelInfoView.topAnchor, constant: 24),
             characterImageView.widthAnchor.constraint(equalToConstant: 145),
             characterImageView.heightAnchor.constraint(equalTo: characterImageView.widthAnchor, multiplier: 1)
         ])
@@ -201,23 +187,24 @@ class HomeVC: UIViewController {
     private func setTilNextLevelLabel(){
         tilNextLevelLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(tilNextLevelLabel)
+        userLevelInfoView.addSubview(tilNextLevelLabel)
         
         NSLayoutConstraint.activate([
-            tilNextLevelLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
-            tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 39)
+            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 18),
+            tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36)
         ])
     }
     
     private func setLevelProgressView(){
         levelProgressView.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(levelProgressView)
+        userLevelInfoView.addSubview(levelProgressView)
         
         NSLayoutConstraint.activate([
-            levelProgressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
-            levelProgressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
-            levelProgressView.topAnchor.constraint(equalTo: tilNextLevelLabel.bottomAnchor, constant: 7)
+            levelProgressView.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 18),
+            levelProgressView.trailingAnchor.constraint(equalTo: userLevelInfoView.trailingAnchor, constant: -18),
+            levelProgressView.topAnchor.constraint(equalTo: tilNextLevelLabel.bottomAnchor, constant: 7),
+            levelProgressView.bottomAnchor.constraint(equalTo: userLevelInfoView.bottomAnchor)
         ])
     }
     
@@ -226,7 +213,6 @@ class HomeVC: UIViewController {
         
         contentView.addSubview(calendarContainerView)
         
-        
         calendarContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         calendarContainerView.layer.cornerRadius = 12
         calendarContainerView.layer.masksToBounds = true
@@ -234,7 +220,7 @@ class HomeVC: UIViewController {
         NSLayoutConstraint.activate([
             calendarContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             calendarContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            calendarContainerView.topAnchor.constraint(equalTo: levelProgressView.bottomAnchor, constant: 24),
+            calendarContainerView.topAnchor.constraint(equalTo: levelProgressView.bottomAnchor),
             calendarContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
         ])
     }
@@ -296,12 +282,12 @@ extension UIScrollView {
     }
 }
 
-extension HomeVC: UIScrollViewDelegate {
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
-    }
-}
+//extension HomeVC: UIScrollViewDelegate {
+//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+//            self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        } else {
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }
+//    }
+//}
