@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
 		3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F32BE43247003376F7 /* SceneDelegate.swift */; };
 		3874B5F62BE43247003376F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F52BE43247003376F7 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3874B5F12BE43247003376F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3874B5F32BE43247003376F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B61B2BE43373003376F7 /* SearchVC.swift */,
+				385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
+				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
