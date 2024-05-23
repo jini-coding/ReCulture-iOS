@@ -38,7 +38,7 @@ class ViewFriendVC: UIViewController {
     }
     
     func setupNavigationBar() {
-        self.navigationItem.title = "친구 목록"
+        self.navigationItem.title = "내 친구 목록"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.rcFont18B()]
         self.navigationController?.navigationBar.setBackgroundImage(nil, for:.default)
         self.navigationController?.navigationBar.shadowImage = nil
