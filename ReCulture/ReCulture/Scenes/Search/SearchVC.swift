@@ -347,7 +347,7 @@ class SearchContentCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.rcFont14M()
         label.textColor = UIColor.rcMain
-        label.backgroundColor = UIColor.rcGray100
+        label.backgroundColor = UIColor.rcGrayBg
         label.textAlignment = .center
         label.layer.cornerRadius = 6
         label.clipsToBounds = true
