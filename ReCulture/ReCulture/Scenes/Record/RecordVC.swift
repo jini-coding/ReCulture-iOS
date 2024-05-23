@@ -16,6 +16,14 @@ class RecordVC: UIViewController {
         
         return label
     }()
+    
+    let tmpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("티켓북 보기", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(goToTicketBook), for: .touchUpInside)
+        return button
+    }()
 
 
     override func viewDidLoad() {
@@ -23,6 +31,13 @@ class RecordVC: UIViewController {
         // Do any additional setup after loading the view.
         
         setTestLabel()
+        
+        tmpButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tmpButton)
+        NSLayoutConstraint.activate([
+            tmpButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            tmpButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5)
+        ])
         
     }
     
@@ -38,6 +53,8 @@ class RecordVC: UIViewController {
         ])
     }
 
-
+    @objc func goToTicketBook(){
+        self.navigationController?.pushViewController(TicketBookVC(), animated: true)
+    }
 }
 
