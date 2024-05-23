@@ -48,7 +48,7 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         setTableView()
         
         requestTableView.tableHeaderView = UIView(frame: .zero)
-        requestTableView.register(FriendCell.self, forCellReuseIdentifier: FriendCell.cellId)
+        requestTableView.register(FriendRequestCell.self, forCellReuseIdentifier: FriendRequestCell.cellId)
         
         requestTableView.delegate = self
         requestTableView.dataSource = self
@@ -61,7 +61,7 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = friendData[indexPath.row]
          
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendRequestCell.cellId, for: indexPath) as! FriendRequestCell
         cell.selectionStyle = .none
          // Assuming you have images added in assets
         cell.profileImageView.image = UIImage(named: data.profileImage)
@@ -109,7 +109,7 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
 }
 
-class FriendCell: UITableViewCell {
+class FriendRequestCell: UITableViewCell {
     
     static let cellId = "CellId"
     
