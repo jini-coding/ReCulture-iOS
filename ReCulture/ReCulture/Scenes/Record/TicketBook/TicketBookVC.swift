@@ -11,8 +11,11 @@ class TicketBookVC: UIViewController {
     
     // MARK: - Properties
     
-    private let minimumLineSpacing: CGFloat = 16
-    private let minimumInteritemSpacing: CGFloat = 16
+    private let tagMinimumLineSpacing: CGFloat = 0
+    private let tagMinimumInterItemSpacing: CGFloat = 8
+    private let ticketMinimumLineSpacing: CGFloat = 16
+    private let ticketMinimumInteritemSpacing: CGFloat = 16
+    private let tagList = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "독서", "전시회", "드라마", "기타"]
     
     // MARK: - Views
     
@@ -24,11 +27,26 @@ class TicketBookVC: UIViewController {
         return label
     }()
     
+    private lazy var tagCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = tagMinimumLineSpacing
+        flowLayout.minimumInteritemSpacing = tagMinimumInterItemSpacing
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        view.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        view.showsHorizontalScrollIndicator = false
+        view.dataSource = self
+        view.delegate = self
+        view.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier)
+        return view
+    }()
+    
     private lazy var ticketCollectionView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.scrollDirection = .vertical
-        flowlayout.minimumLineSpacing = minimumLineSpacing
-        flowlayout.minimumInteritemSpacing = minimumLineSpacing
+        flowlayout.minimumLineSpacing = ticketMinimumLineSpacing
+        flowlayout.minimumInteritemSpacing = ticketMinimumLineSpacing
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
         view.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
@@ -38,29 +56,6 @@ class TicketBookVC: UIViewController {
         return view
     }()
     
-    private lazy var floatingButton: UIButton = {
-        let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .rcMain
-        config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "tag.slash")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
-        
-        button.configuration = config
-        button.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
-        button.configurationUpdateHandler =  { button in
-            print("handler")
-            switch button.state {
-            case .selected:
-                button.configuration?.image = UIImage(systemName: "tag")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
-            default:
-                button.configuration?.image = UIImage(systemName: "tag.slash")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
-            }
-        }
-        return button
-    }()
-    
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -68,14 +63,8 @@ class TicketBookVC: UIViewController {
         
         setupNavigation()
         
-        setCollectionView()
-        setFloatingButton()  // 제일 마지막에 추가해야 모든 뷰 위에 추가됨
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        floatingButton.frame = CGRect(x: view.frame.size.width - 50 - 25, y: view.frame.size.height - 50 - 25, width: 50, height: 50)
+        setTagCollectionView()
+        setTicketCollectionView()
     }
     
     // MARK: - Layout
@@ -104,13 +93,21 @@ class TicketBookVC: UIViewController {
         self.navigationItem.rightBarButtonItem = addNewButtonItem
     }
     
-    private func setFloatingButton(){
-        floatingButton.translatesAutoresizingMaskIntoConstraints = false
+    private func setTagCollectionView(){
+        tagCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(floatingButton)
+        view.addSubview(tagCollectionView)
+        
+        NSLayoutConstraint.activate([
+            tagCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tagCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            tagCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            tagCollectionView.heightAnchor.constraint(equalToConstant: 33),
+            
+        ])
     }
     
-    private func setCollectionView(){
+    private func setTicketCollectionView(){
         ticketCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(ticketCollectionView)
@@ -118,7 +115,7 @@ class TicketBookVC: UIViewController {
         NSLayoutConstraint.activate([
             ticketCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             ticketCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            ticketCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            ticketCollectionView.topAnchor.constraint(equalTo: tagCollectionView.bottomAnchor, constant: 20),
             ticketCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -132,12 +129,6 @@ class TicketBookVC: UIViewController {
     @objc func addNewTicket(){
         print("새 티켓북 추가")
     }
-    
-    @objc func didTapFloatingButton(){
-        print("플로팅 버튼 선택됨")
-        floatingButton.isSelected.toggle()
-        print(floatingButton.isSelected)
-    }
 }
 
 // MARK: - Extension: UIGestureRecognizerDelegate
@@ -150,31 +141,75 @@ extension TicketBookVC: UIGestureRecognizerDelegate {
 extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        if collectionView == tagCollectionView{
+            return tagList.count
+        }
+        else{
+            return 7
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = ticketCollectionView.dequeueReusableCell(withReuseIdentifier: TicketBookCollectionViewCell.identifier, for: indexPath) as? TicketBookCollectionViewCell else { return UICollectionViewCell() }
-        
-        return cell
+        if collectionView == tagCollectionView {
+            guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(tag: tagList[indexPath.item])
+            return cell
+        }
+        else {
+            guard let cell = ticketCollectionView.dequeueReusableCell(withReuseIdentifier: TicketBookCollectionViewCell.identifier, for: indexPath) as? TicketBookCollectionViewCell else { return UICollectionViewCell() }
+            
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let ticketBookDetailVC = TicketBookDetailVC()
-        ticketBookDetailVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
+        if collectionView == tagCollectionView {
+            print("selected")
+        }
+        else {
+            let ticketBookDetailVC = TicketBookDetailVC()
+            ticketBookDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumLineSpacing
+        if collectionView == tagCollectionView{
+            return tagMinimumLineSpacing
+        }
+        else {
+            return ticketMinimumLineSpacing
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumInteritemSpacing
+        if collectionView == tagCollectionView {
+            return tagMinimumInterItemSpacing
+        }
+        else {
+            return ticketMinimumInteritemSpacing
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = CGFloat((collectionView.frame.width - 16 * 2 - minimumInteritemSpacing) / 2)  // 16은 collectionview inset
-        return CGSize(width: cellWidth, height: cellWidth * 26 / 17)
+        if collectionView == tagCollectionView {
+            guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else {
+                        return .zero
+                    }
+            
+            cell.configure(tag: tagList[indexPath.item])
+            // ✅ sizeToFit() : 텍스트에 맞게 사이즈가 조절
+
+            // ✅ cellWidth = 글자수에 맞는 UILabel 의 width + 24(여백)
+            let cellFrame = cell.getLabelFrame()
+            let cellWidth = cellFrame.width + 24
+            let cellHeight = cellFrame.height + 12
+
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
+        else {
+            let cellWidth = CGFloat((collectionView.frame.width - 16 * 2 - ticketMinimumInteritemSpacing) / 2)  // 16은 collectionview inset
+            return CGSize(width: cellWidth, height: cellWidth * 26 / 17)
+        }
     }
 }

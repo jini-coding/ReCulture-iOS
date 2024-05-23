@@ -19,6 +19,7 @@
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
 		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
+		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
 		3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F32BE43247003376F7 /* SceneDelegate.swift */; };
 		3874B5F62BE43247003376F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F52BE43247003376F7 /* ViewController.swift */; };
@@ -58,6 +59,7 @@
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
+		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3874B5F12BE43247003376F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3874B5F32BE43247003376F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,10 +119,10 @@
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
+				08E0F5852BFFB7DE000A046D /* cell */,
 				08E0F5812BFF9CE6000A046D /* TicketImage.png */,
 				08B856452BF1D9260034E86D /* TicketBookDetail */,
 				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
-				0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */,
 				08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */,
 			);
 			path = TicketBook;
@@ -132,6 +134,15 @@
 				08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */,
 			);
 			path = TicketBookDetail;
+			sourceTree = "<group>";
+		};
+		08E0F5852BFFB7DE000A046D /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */,
+				08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		08E695162BE4A5DE0055AC48 /* View */ = {
@@ -370,6 +381,7 @@
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */,
+				08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
