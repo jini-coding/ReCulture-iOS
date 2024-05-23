@@ -29,8 +29,11 @@ extension UIColor {
     
     
     static let rcMain = UIColor(hexCode: "#916AFF") //메인색 (임시) #9775FA
+    static let rcGray000 = UIColor(hexCode: "#ECEFF7") //bg
     static let rcGray100 = UIColor(hexCode: "#F5F6FA") //bg
     static let rcGray300 = UIColor(hexCode: "#BEC4C6")
     static let rcGray400 = UIColor(hexCode: "#85888A")
+    static let rcGray500 = UIColor(hexCode: "#4F555E")
+    static let rcGray600 = UIColor(hexCode: "#26292A")
     
 }
