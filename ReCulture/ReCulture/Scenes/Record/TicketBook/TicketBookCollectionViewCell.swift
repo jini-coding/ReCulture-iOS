@@ -19,6 +19,7 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
         let view = UIImageView()
         view.backgroundColor = .darkGray
         view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "TicketImage.png")
         return view
     }()
     
@@ -28,6 +29,8 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = .lightGray
+        layer.cornerRadius = 10
+        clipsToBounds = true
         
         setImageView()
     }
@@ -44,10 +47,10 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 17),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -17),
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 11),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -11)
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 }

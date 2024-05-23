@@ -11,15 +11,15 @@ class TicketBookVC: UIViewController {
     
     // MARK: - Properties
     
-    private let minimumLineSpacing: CGFloat = 18
-    private let minimumInteritemSpacing: CGFloat = 25
+    private let minimumLineSpacing: CGFloat = 16
+    private let minimumInteritemSpacing: CGFloat = 16
     
     // MARK: - Views
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "티켓북 보기"
-        label.font = .rcFont20B()
+        label.text = "내 티켓북"
+        label.font = .rcFont18B()
         label.textAlignment = .left
         return label
     }()
@@ -31,7 +31,7 @@ class TicketBookVC: UIViewController {
         flowlayout.minimumInteritemSpacing = minimumLineSpacing
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
-        view.contentInset = UIEdgeInsets(top: 0, left: 23, bottom: 0, right: 23)
+        view.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
         view.dataSource = self
         view.delegate = self
         view.register(TicketBookCollectionViewCell.self, forCellWithReuseIdentifier: TicketBookCollectionViewCell.identifier)
@@ -81,26 +81,26 @@ class TicketBookVC: UIViewController {
     // MARK: - Layout
     
     private func setupNavigation(){
-        let appearance = UINavigationBarAppearance()
-        appearance.titlePositionAdjustment = UIOffset(horizontal: -(view.frame.width/2), vertical: 0)
-        appearance.configureWithTransparentBackground()  // 내비게이션 바의 선을 지우고 뷰컨트롤러의 배경색을 사용
-
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.compactAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        let appearance = UINavigationBarAppearance()
+//        appearance.titlePositionAdjustment = UIOffset(horizontal: -(view.frame.width/2), vertical: 0)
+//        appearance.configureWithTransparentBackground()  // 내비게이션 바의 선을 지우고 뷰컨트롤러의 배경색을 사용
+//
+//        self.navigationController?.navigationBar.standardAppearance = appearance
+//        self.navigationController?.navigationBar.compactAppearance = appearance
+//        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
 
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
+//        self.navigationItem.title = "내 티켓북"
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.rcFont18B()]
         
-        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(goBack))
         
-        let addNewButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addNewTicket))
+        let addNewButtonItem = UIBarButtonItem(image: UIImage.addIcon, style: .done, target: self, action: #selector(addNewTicket))
 
         // left bar button을 추가하면 기존의 스와이프 pop 기능이 해제되므로 다시 세팅
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-        self.navigationItem.leftBarButtonItem = backButtonItem
         self.navigationItem.rightBarButtonItem = addNewButtonItem
     }
     
@@ -160,7 +160,9 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(TicketBookDetailVC(), animated: true)
+        let ticketBookDetailVC = TicketBookDetailVC()
+        ticketBookDetailVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -172,7 +174,7 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = CGFloat((collectionView.frame.width - 23 * 2 - minimumInteritemSpacing) / 2)
-        return CGSize(width: cellWidth, height: cellWidth * 3 / 2)  // 2:3 비율로
+        let cellWidth = CGFloat((collectionView.frame.width - 16 * 2 - minimumInteritemSpacing) / 2)  // 16은 collectionview inset
+        return CGSize(width: cellWidth, height: cellWidth * 26 / 17)
     }
 }
