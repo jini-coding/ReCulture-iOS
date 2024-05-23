@@ -9,7 +9,7 @@ import UIKit
 
 class TagLabel: UILabel {
     
-    private var padding = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+    private var padding = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8)
 
     convenience init(padding: UIEdgeInsets) {
         self.init()

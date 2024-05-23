@@ -18,44 +18,85 @@ class TicketBookDetailVC: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "티켓 상세 보기"
-        label.font = .rcFont20B()
+        label.font = .rcFont16M()
         return label
     }()
+    
+    private let editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("편집", for: .normal)
+        button.setTitleColor(.rcMain, for: .normal)
+        button.titleLabel?.font = .rcFont16M()
+        return button
+    }()
+    
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.isScrollEnabled = true
+        view.showsHorizontalScrollIndicator = false
+        return view
+    }()
+    
+    private let contentView = UIView()
     
     private let ticketImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .rcMain
         view.contentMode = .scaleAspectFit
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewDidTap)))
         view.isUserInteractionEnabled = true
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.image = UIImage(named: "TicketImage.png")
         return view
+    }()
+    
+    private let pageControl: UIPageControl = {
+        let control = UIPageControl()
+        control.numberOfPages = 2
+        control.currentPage = 0
+        control.currentPageIndicatorTintColor = .rcMain
+        control.pageIndicatorTintColor = .rcGray000
+        control.isUserInteractionEnabled = false
+//        control.addTarget(self, action: #selector(pageChanged), for: .touchUpInside)
+        return control
     }()
     
     private let tagStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 12
+        view.spacing = 8
         return view
     }()
     
     private let tag1: TagLabel = {
         let label = TagLabel()
-        label.text = "태그1"
+        label.text = "콘서트"
         label.font = .rcFont16M()
         label.backgroundColor = .rcGray100
         label.textColor = .rcMain
-        label.layer.cornerRadius = 15
+        label.layer.cornerRadius = 7.5
         label.clipsToBounds = true
         return label
     }()
     
     private let tag2: TagLabel = {
         let label = TagLabel()
-        label.text = "태그2"
+        label.text = "데이식스"
         label.font = .rcFont16M()
         label.backgroundColor = .rcGray100
         label.textColor = .rcMain
-        label.layer.cornerRadius = 15
+        label.layer.cornerRadius = 7.5
+        label.clipsToBounds = true
+        return label
+    }()
+    
+    private let tag3: TagLabel = {
+        let label = TagLabel()
+        label.text = "Welcome to the Show"
+        label.font = .rcFont16M()
+        label.backgroundColor = .rcGray100
+        label.textColor = .rcMain
+        label.layer.cornerRadius = 7.5
         label.clipsToBounds = true
         return label
     }()
@@ -63,7 +104,7 @@ class TicketBookDetailVC: UIViewController {
     private let buttonStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 20
+        view.spacing = 8
         return view
     }()
     
@@ -72,10 +113,11 @@ class TicketBookDetailVC: UIViewController {
         
         var config = UIButton.Configuration.filled()
         var attributeTitle = AttributedString("저장")
-        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18B(), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.white]))
         config.attributedTitle = attributeTitle
-        config.background.cornerRadius = 5
+        config.background.cornerRadius = 10
         config.baseBackgroundColor = .rcMain
+        config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
         
         button.configuration = config
         button.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
@@ -88,11 +130,16 @@ class TicketBookDetailVC: UIViewController {
         
         var config = UIButton.Configuration.filled()
         var attributeTitle = AttributedString("공유")
-        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18B(), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.rcMain]))
         config.attributedTitle = attributeTitle
-        config.background.cornerRadius = 5
-        config.baseBackgroundColor = .rcMain
-        
+        config.background.cornerRadius = 10
+        config.baseBackgroundColor = .white
+        config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
+
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = true
+        button.layer.borderColor = UIColor.rcMain.cgColor
         button.configuration = config
         button.addTarget(self, action: #selector(shareButtonDidTap), for: .touchUpInside)
         
@@ -107,7 +154,10 @@ class TicketBookDetailVC: UIViewController {
         view.backgroundColor = .white
         
         setupNavigation()
+        setScrollView()
+        setContentView()
         setTicketImageView()
+        setPageControl()
         setTagStackView()
         setButtonStackView()
 //        setSaveButton()
@@ -116,27 +166,57 @@ class TicketBookDetailVC: UIViewController {
     // MARK: - Layout
     
     private func setupNavigation(){
-        let appearance = UINavigationBarAppearance()
-        appearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
-        appearance.configureWithTransparentBackground()  // 내비게이션 바의 선을 지우고 뷰컨트롤러의 배경색을 사용
-
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.compactAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        let appearance = UINavigationBarAppearance()
+//        appearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
+//        appearance.configureWithTransparentBackground()  // 내비게이션 바의 선을 지우고 뷰컨트롤러의 배경색을 사용
+////
+//        self.navigationController?.navigationBar.standardAppearance = appearance
+//        self.navigationController?.navigationBar.compactAppearance = appearance
+//        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
 
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
+//        self.navigationItem.title = "티켓 상세 보기"
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.rcFont16M()]
         
-        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(goBack))
+//        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(goBack))
         
-        let addNewButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .done, target: self, action: #selector(editButtonDidTap))
+        let editButtonItem = UIBarButtonItem(customView: editButton)
+        editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
 
         // left bar button을 추가하면 기존의 스와이프 pop 기능이 해제되므로 다시 세팅
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-        self.navigationItem.leftBarButtonItem = backButtonItem
-        self.navigationItem.rightBarButtonItem = addNewButtonItem
+//        self.navigationItem.leftBarButtonItem = backButtonItem
+        self.navigationItem.rightBarButtonItem = editButtonItem
+    }
+    
+    private func setScrollView(){
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(scrollView)
+        
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
+    }
+    
+    private func setContentView(){
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        scrollView.addSubview(contentView)
+        
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
+        ])
     }
     
     private func setTicketImageView() {
@@ -144,13 +224,24 @@ class TicketBookDetailVC: UIViewController {
         
         ticketImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(ticketImageView)
+        contentView.addSubview(ticketImageView)
         
         NSLayoutConstraint.activate([
-            ticketImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            ticketImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            ticketImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            ticketImageView.heightAnchor.constraint(equalTo: ticketImageView.widthAnchor, multiplier: 3 / 2)
+            ticketImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            ticketImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            ticketImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            ticketImageView.heightAnchor.constraint(equalTo: ticketImageView.widthAnchor, multiplier: 26/17)
+        ])
+    }
+    
+    private func setPageControl(){
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(pageControl)
+        
+        NSLayoutConstraint.activate([
+            pageControl.topAnchor.constraint(equalTo: ticketImageView.bottomAnchor, constant: 8),
+            pageControl.centerXAnchor.constraint(equalTo: ticketImageView.centerXAnchor)
         ])
     }
     
@@ -159,16 +250,17 @@ class TicketBookDetailVC: UIViewController {
         
         tag1.translatesAutoresizingMaskIntoConstraints = false
         tag2.translatesAutoresizingMaskIntoConstraints = false
+        tag3.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(tagStackView)
+        contentView.addSubview(tagStackView)
         
-        [tag1, tag2].forEach {
+        [tag1, tag2, tag3].forEach {
             tagStackView.addArrangedSubview($0)
         }
         
         NSLayoutConstraint.activate([
             tagStackView.leadingAnchor.constraint(equalTo: ticketImageView.leadingAnchor),
-            tagStackView.topAnchor.constraint(equalTo: ticketImageView.bottomAnchor, constant: 15)
+            tagStackView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 15)
         ])
     }
     
@@ -177,7 +269,7 @@ class TicketBookDetailVC: UIViewController {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(buttonStackView)
+        contentView.addSubview(buttonStackView)
         
         [saveButton, shareButton].forEach {
             buttonStackView.addArrangedSubview($0)
@@ -185,41 +277,41 @@ class TicketBookDetailVC: UIViewController {
         
         NSLayoutConstraint.activate([
             buttonStackView.topAnchor.constraint(equalTo: tagStackView.bottomAnchor, constant: 31),
-            buttonStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -32)
+            buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
     
     // MARK: - Actions
     
-    @objc func goBack(){
+    @objc private func goBack(){
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func editButtonDidTap(){
+    @objc private func editButtonDidTap(){
         print("티켓북 수정")
     }
     
-    @objc func saveButtonDidTap(){
+    @objc private func saveButtonDidTap(){
         print("티켓북 저장")
     }
     
-    @objc func shareButtonDidTap(){
+    @objc private func shareButtonDidTap(){
         print("티켓북 공유")
     }
     
-    @objc func imageViewDidTap(){
+    @objc private func imageViewDidTap(){
         print("이미지 선택됨")
         if isFrontImage {
             isFrontImage = false
-//            let toImage = UIImage(named: "Image-1")
-//            imageView.image = toImage
+            pageControl.currentPage = 1
             ticketImageView.backgroundColor = .rcGray300
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
         else {
             isFrontImage = true
-//            let toImage = UIImage(named: "Image")
-//            imageView.image = toImage
+            pageControl.currentPage = 0
             ticketImageView.backgroundColor = .rcMain
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
