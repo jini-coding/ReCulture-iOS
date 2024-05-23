@@ -23,7 +23,7 @@ class ToolTipView: UIView {
     override init (frame: CGRect){
         super.init(frame: .zero)
         
-        self.backgroundColor = .darkGray
+        self.backgroundColor = .rcMain
         
         self.layer.masksToBounds = false
         self.layer.cornerRadius = 9

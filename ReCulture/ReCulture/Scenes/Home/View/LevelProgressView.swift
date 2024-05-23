@@ -84,7 +84,7 @@ class LevelProgressView: UIView {
 //        tooltipView.layoutIfNeeded()
         print("tooltipView.frame.width: \(tooltipView.frame.width)") // 32
         // 툴팁에 text 지정
-        tooltipView.configure(text: "\(progress * 100)% 달성!")
+        tooltipView.configure(text: "\(Int(progress * 100))% 달성!")
         tooltipView.layoutIfNeeded()
         print("tooltipView.frame.width: \(tooltipView.frame.width)")
         print("tooltipView.frame.x: \(tooltipView.frame.origin.x)")
@@ -110,7 +110,7 @@ class LevelProgressView: UIView {
 
             let shape = CAShapeLayer()
             shape.path = path
-            shape.fillColor = UIColor.darkGray.cgColor
+            shape.fillColor = UIColor.rcMain.cgColor
             
             self.layer.insertSublayer(shape, at: 0)
     }
