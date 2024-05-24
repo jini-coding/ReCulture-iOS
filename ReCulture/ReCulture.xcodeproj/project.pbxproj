@@ -18,13 +18,14 @@
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
+		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
+		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5882C0013F7000A046D /* RecordTypeVC.swift */; };
 		08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58B2C0017BA000A046D /* NextButton.swift */; };
 		08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */; };
 		08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */; };
-		385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */; };
-		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
-		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
+		08E0F5962C005CEE000A046D /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5952C005CEE000A046D /* RecordType.swift */; };
+		385FD0D42BFFC44A005F0532 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
 		3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F32BE43247003376F7 /* SceneDelegate.swift */; };
 		3874B5F62BE43247003376F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F52BE43247003376F7 /* ViewController.swift */; };
@@ -63,12 +64,13 @@
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
+		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5882C0013F7000A046D /* RecordTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeVC.swift; sourceTree = "<group>"; };
 		08E0F58B2C0017BA000A046D /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailVC.swift; sourceTree = "<group>"; };
-		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
-		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		08E0F5952C005CEE000A046D /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3874B5F12BE43247003376F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3874B5F32BE43247003376F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,22 +127,6 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
-		08E0F58A2C0017AF000A046D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				08E0F58B2C0017BA000A046D /* NextButton.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		08E0F58D2C001C81000A046D /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */,
-				);
-			path = cell;
-			sourceTree = "<group>";
-		};
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +156,22 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		08E0F58A2C0017AF000A046D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08E0F58B2C0017BA000A046D /* NextButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		08E0F58D2C001C81000A046D /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		08E0F5902C00271C000A046D /* AddRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +179,7 @@
 				08E0F58A2C0017AF000A046D /* Views */,
 				08E0F5912C002762000A046D /* RecordType */,
 				38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */,
+				08E0F5952C005CEE000A046D /* RecordType.swift */,
 			);
 			path = AddRecord;
 			sourceTree = "<group>";
@@ -312,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				3874B61B2BE43373003376F7 /* SearchVC.swift */,
-				385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -426,11 +428,12 @@
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
+				08E0F5962C005CEE000A046D /* RecordType.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
-				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
+				385FD0D42BFFC44A005F0532 /* (null) in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
