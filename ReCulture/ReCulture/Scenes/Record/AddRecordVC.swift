@@ -22,6 +22,10 @@ class AddRecordVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        let recordTypeVC = RecordTypeVC()
+        recordTypeVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(recordTypeVC, animated: true)
+        
         setTestLabel()
         
     }
