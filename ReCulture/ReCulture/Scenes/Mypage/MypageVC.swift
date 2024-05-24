@@ -173,7 +173,5 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             mypageTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
-
 }
 
