@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */; };
 		0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */; };
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B61B2BE43373003376F7 /* SearchVC.swift */,
+				385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
+				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,

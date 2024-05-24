@@ -34,10 +34,9 @@ class ProfileTableViewCell: UITableViewCell {
         return label
     }()
     
-    // 인셋을 주기 위한 컨테이너 뷰
     let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rcGray100
+        view.backgroundColor = UIColor.rcGrayBg
         view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
