@@ -31,10 +31,12 @@ class NextButton: UIButton {
         let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
             switch self.isActive {
             case true:
+                self.isEnabled = true
                 button.configuration?.background.backgroundColor = .rcMain
                 //button.configuration?.baseForegroundColor = .white
                 button.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.rcFont18M()]))
             case false:
+                self.isEnabled = false
                 button.configuration?.background.backgroundColor = UIColor(hexCode: "F6F2FF")
                 //button.configuration?.baseForegroundColor = UIColor(hexCode: "D2C2FF")
                 button.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor(hexCode: "D2C2FF"), NSAttributedString.Key.font: UIFont.rcFont18M()]))

@@ -14,6 +14,7 @@ class RecordTypeVC: UIViewController {
     private let recordTypeList = ["영화", "뮤지컬", "연극", "스포츠", "콘서트", "드라마", "독서", "전시회", "기타"]
     private let minimumLineSpacing:CGFloat = 8
     private let minimumInteritemSpacing:CGFloat = 8
+    private var selectedType: String?
     
     // MARK: - Views
     
@@ -53,7 +54,11 @@ class RecordTypeVC: UIViewController {
         return label
     }()
     
-    private let nextButton = NextButton()
+    private let nextButton: NextButton = {
+        let button = NextButton()
+        button.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +125,13 @@ class RecordTypeVC: UIViewController {
             nextButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
+    
+    // MARK: - Actions
+    
+    @objc private func nextButtonDidTap(){
+        let addRecordDetailVC = AddRecordDetailVC(type: selectedType!)
+        self.navigationController?.pushViewController(addRecordDetailVC, animated: true)
+    }
 }
 
 extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -136,6 +148,7 @@ extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         nextButton.isActive = true
         collectionView.cellForItem(at: indexPath)?.isSelected = true
+        selectedType = recordTypeList[indexPath.item]
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
