@@ -131,12 +131,20 @@
 		08E0F5902C00271C000A046D /* AddRecord */ = {
 			isa = PBXGroup;
 			children = (
-				38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */,
-				08E0F5882C0013F7000A046D /* RecordTypeVC.swift */,
 				08E0F58A2C0017AF000A046D /* Views */,
-				08E0F58D2C001C81000A046D /* cell */,
+				08E0F5912C002762000A046D /* RecordType */,
+				38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */,
 			);
 			path = AddRecord;
+			sourceTree = "<group>";
+		};
+		08E0F5912C002762000A046D /* RecordType */ = {
+			isa = PBXGroup;
+			children = (
+				08E0F58D2C001C81000A046D /* cell */,
+				08E0F5882C0013F7000A046D /* RecordTypeVC.swift */,
+			);
+			path = RecordType;
 			sourceTree = "<group>";
 		};
 		08E695162BE4A5DE0055AC48 /* View */ = {
