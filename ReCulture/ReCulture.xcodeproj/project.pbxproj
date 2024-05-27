@@ -12,6 +12,7 @@
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
 		083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */; };
 		0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E53E2C0319F500B6A4D6 /* RecordType.swift */; };
+		0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */; };
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
 		0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
@@ -58,6 +59,7 @@
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressView.swift; sourceTree = "<group>"; };
 		0845E53E2C0319F500B6A4D6 /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
+		0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
 		0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookCollectionViewCell.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
@@ -126,6 +128,14 @@
 				0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		0845E5402C031F9400B6A4D6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
@@ -197,6 +207,7 @@
 		08E0F5922C002785000A046D /* RecordDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0845E5402C031F9400B6A4D6 /* Views */,
 				08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */,
 			);
 			path = RecordDetail;
@@ -422,6 +433,7 @@
 				0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */,
 				0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */,
 				3874B6082BE4328A003376F7 /* Color.swift in Sources */,
+				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
