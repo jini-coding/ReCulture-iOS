@@ -15,6 +15,8 @@
 		0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */; };
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
 		0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */; };
+		08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08854E832C045208009E6AA6 /* FourTextFieldsView.swift */; };
+		088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
@@ -62,6 +64,8 @@
 		0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
 		0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookCollectionViewCell.swift; sourceTree = "<group>"; };
+		08854E832C045208009E6AA6 /* FourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourTextFieldsView.swift; sourceTree = "<group>"; };
+		088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveTextFieldsView.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */,
+				08854E832C045208009E6AA6 /* FourTextFieldsView.swift */,
+				088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
+				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
@@ -450,6 +457,7 @@
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
+				088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */,

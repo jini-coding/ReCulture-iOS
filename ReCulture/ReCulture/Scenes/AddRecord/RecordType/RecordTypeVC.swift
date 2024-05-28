@@ -11,10 +11,10 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Properties
     
-    private let recordTypeList = ["영화", "뮤지컬", "연극", "스포츠", "콘서트", "드라마", "독서", "전시회", "기타"]
+    private let recordTypeList:[RecordType] = [.movie, .musical, .play, .sports, .concert, .drama, .book, .exhibition, .etc]
     private let minimumLineSpacing:CGFloat = 8
     private let minimumInteritemSpacing:CGFloat = 8
-    private var selectedType: String?
+    private var selectedType: RecordType?
     
     // MARK: - Views
     
@@ -141,7 +141,7 @@ extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(recordTypeList[indexPath.item])
+        cell.configure(recordTypeList[indexPath.item].rawValue)
         return cell
     }
     
@@ -155,7 +155,7 @@ extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell else {
                                 return .zero
                             }
-        cell.configure(recordTypeList[indexPath.item])
+        cell.configure(recordTypeList[indexPath.item].rawValue)
 
         let cellFrame = cell.getLabelFrame()
         let cellHeight = cellFrame.height + 30
