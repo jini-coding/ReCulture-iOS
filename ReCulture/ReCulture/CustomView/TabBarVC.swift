@@ -95,11 +95,10 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         print("did select")
+        // 이때 selectedIndex는 새로운 탭 누르기 전까지 있던 인덱스 (즉, 바로 전 selectedIndex)
+        print(selectedIndex)
         if item == tabBar.items?[2] {
-            let modalVC = RecordTypeVC() // 모달로 띄울 새로운 뷰 컨트롤러
-            modalVC.modalPresentationStyle = .fullScreen
-            self.present(modalVC, animated: true, completion: nil)
-            // false 리턴 -> 탭 선택이 일어나지 않게
+            RecordTypeVC.previousSelectedTabbarIndex = selectedIndex
         }
     }
     

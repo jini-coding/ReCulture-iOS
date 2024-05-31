@@ -11,6 +11,7 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Properties
     
+    static var previousSelectedTabbarIndex = 0
     private let recordTypeList:[RecordType] = [.movie, .musical, .play, .sports, .concert, .drama, .book, .exhibition, .etc]
     private let minimumLineSpacing:CGFloat = 8
     private let minimumInteritemSpacing:CGFloat = 8
@@ -54,10 +55,18 @@ class RecordTypeVC: UIViewController {
         return button
     }()
     
+    // MARK: - Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hidesBottomBarWhenPushed = true
+        //self.hidesBottomBarWhenPushed = true
         self.tabBarController?.tabBar.isHidden = true
         self.modalPresentationStyle = .fullScreen
         
@@ -66,6 +75,11 @@ class RecordTypeVC: UIViewController {
         setWhatDidYouDoLabel()
         setCollectionView()
         setNextButton()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Layout
@@ -137,7 +151,8 @@ class RecordTypeVC: UIViewController {
     @objc private func goBack() {
         print("이전 탭으로 이동")
         print(self.tabBarController?.selectedIndex)
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        self.tabBarController?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
     }
 }
 
