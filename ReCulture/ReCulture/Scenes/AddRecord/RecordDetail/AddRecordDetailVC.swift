@@ -75,6 +75,7 @@ class AddRecordDetailVC: UIViewController {
     ]
     
     private let publicOrPrivateList: [String] = ["공개", "비공개"]
+    private var rangeIsSet: Bool = false
     
     var menuItems: [UIAction] {
         let isPublic = UIAction(
@@ -85,6 +86,8 @@ class AddRecordDetailVC: UIViewController {
                 self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
                     NSAttributedString.Key.foregroundColor: UIColor.black])
                 )
+                self.rangeIsSet = true
+                self.validateInputField()
             })
 
         let isPrivate = UIAction(
@@ -95,6 +98,8 @@ class AddRecordDetailVC: UIViewController {
                 self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
                     NSAttributedString.Key.foregroundColor: UIColor.black])
                 )
+                self.rangeIsSet = true
+                self.validateInputField()
             })
         return [isPublic, isPrivate]
     }
@@ -102,6 +107,8 @@ class AddRecordDetailVC: UIViewController {
     private var nextButtonBottomConstraint: NSLayoutConstraint?
     
     // MARK: - Views
+    
+    private let headerView = HeaderView()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -152,6 +159,7 @@ class AddRecordDetailVC: UIViewController {
         let textField = CustomTextField()
         textField.placeholder = "제목을 입력해주세요"
         textField.isUserInteractionEnabled = true
+        textField.addTarget(self, action: #selector(titleTextFieldDidChange), for: .editingChanged)
         return textField
     }()
     
@@ -186,8 +194,8 @@ class AddRecordDetailVC: UIViewController {
         return picker
     }()
     
-    private lazy var fourTextFieldsView = FourTextFieldsView()
-    private lazy var fiveTextFieldsView = FiveTextFieldsView()
+    private lazy var fourTextFieldsView = FourTextFieldsView(self)
+    private lazy var fiveTextFieldsView = FiveTextFieldsView(self)
     
     private let emojiStackView: UIStackView = {
         let view = UIStackView()
@@ -207,6 +215,7 @@ class AddRecordDetailVC: UIViewController {
     private let emojiTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.placeholder = "이모지로 감상을 표현해주세요"
+        textField.addTarget(self, action: #selector(emojiTextFieldDidChange), for: .editingChanged)
         return textField
     }()
     
@@ -253,13 +262,19 @@ class AddRecordDetailVC: UIViewController {
         return label
     }()
     
-    private let nextButton = NextButton()
+    private let nextButton: NextButton = {
+        let button = NextButton()
+        button.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        return button
+    }()
         
     // MARK: - Initialization
     
     init(type: RecordType) {
         self.recordType = type
         super.init(nibName: nil, bundle: nil)
+        
+        view.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -274,7 +289,8 @@ class AddRecordDetailVC: UIViewController {
         /* Keyboard 보여지고 숨겨질 때 발생되는 이벤트 등록 */
         addKeyboardObserver()
         
-        setupNavigation()
+        setHeaderView()
+        //setupNavigation()
         setScrollView()
         setContentView()
         setWriteDetailLabel()
@@ -313,6 +329,20 @@ class AddRecordDetailVC: UIViewController {
     
     // MARK: - Layout
     
+    private func setHeaderView(){
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(headerView)
+        
+        NSLayoutConstraint.activate([
+            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+        ])
+        
+        headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
+    }
+    
     private func setupNavigation(){
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
@@ -326,7 +356,7 @@ class AddRecordDetailVC: UIViewController {
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
         ])
         
@@ -509,14 +539,20 @@ class AddRecordDetailVC: UIViewController {
             nextButton.topAnchor.constraint(equalTo: recordRangeStackView.bottomAnchor, constant: 108),
             nextButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
         ])
-//        nextButtonBottomConstraint = nextButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
-//        nextButtonBottomConstraint?.isActive = true
     }
     
     // MARK: - Actions
     
+    @objc private func titleTextFieldDidChange(_ textField: UITextField) {
+        self.validateInputField()
+    }
+    
     @objc private func datePickerValueDidChange(_ sender: UIDatePicker){
         dateTextField.text = dateFormatToString(date: datePicker.date)
+    }
+    
+    @objc private func emojiTextFieldDidChange(_ textField: UITextField){
+        self.validateInputField()
     }
     
     // 키보드가 나타났다는 알림을 받으면 실행할 메서드
@@ -548,6 +584,18 @@ class AddRecordDetailVC: UIViewController {
     @objc private func scrollViewTapped(){
         scrollView.endEditing(true)
     }
+    
+    @objc private func nextButtonDidTap(){
+        print("다음으로")
+//        let addRecordDetailVC = AddRecordDetailVC(type: selectedType!)
+//        addRecordDetailVC.modalPresentationStyle = .fullScreen
+//        self.present(addRecordDetailVC, animated: true)
+    }
+    
+    @objc private func goBack() {
+        print("기록 종류 선택 화면으로 이동")
+        self.dismiss(animated: true, completion: nil)
+    }
 
     // MARK: - Functions
     
@@ -574,6 +622,12 @@ class AddRecordDetailVC: UIViewController {
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
+    
+    /// 필요한 내용이 다 쓰였는지 확인
+    func validateInputField() {
+        self.nextButton.isActive = !(self.recordTitleTextField.text?.isEmpty ?? true) && !(self.emojiTextField.text?.isEmpty ?? true) && rangeIsSet && (isFourTextFieldsView ? fourTextFieldsView.shortReviewIsSet : fiveTextFieldsView.shortReviewIsSet)
+    }
+
 }
 
 // MARK: - Extensions; UITextField

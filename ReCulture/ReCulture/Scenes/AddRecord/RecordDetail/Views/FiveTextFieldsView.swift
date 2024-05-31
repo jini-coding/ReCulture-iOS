@@ -13,7 +13,13 @@ class FiveTextFieldsView: UIView {
     
     // MARK: - Properties
     
+    private let parentVC: AddRecordDetailVC
     private let textViewPlaceHolder = "간단한 후기를 작성해주세요"
+    var shortReviewIsSet: Bool = false {
+        didSet {
+            parentVC.validateInputField()
+        }
+    }
     
     // MARK: - Views
     
@@ -113,8 +119,10 @@ class FiveTextFieldsView: UIView {
 
     // MARK: - Initialization
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(_ parentVC: UIViewController){
+        self.parentVC = (parentVC as? AddRecordDetailVC)!
+
+        super.init(frame: .zero)
         
         setStackView1()
         setStackView2()
@@ -122,6 +130,16 @@ class FiveTextFieldsView: UIView {
         setStackView4()
         setStackView5()
     }
+    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        
+//        setStackView1()
+//        setStackView2()
+//        setStackView3()
+//        setStackView4()
+//        setStackView5()
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -271,5 +289,9 @@ extension FiveTextFieldsView: UITextViewDelegate {
             textView.text = textViewPlaceHolder
             textView.textColor = .rcGray200
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        shortReviewIsSet = textView.text != "" ? true : false
     }
 }

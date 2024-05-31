@@ -18,13 +18,7 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Views
     
-    let label: UILabel = {
-        let label = UILabel()
-        label.text = "RecordTypeVC"
-        label.textColor = UIColor.rcMain
-        
-        return label
-    }()
+    private let headerView = HeaderView()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -63,25 +57,31 @@ class RecordTypeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigation()
+        self.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.modalPresentationStyle = .fullScreen
+        
+        setHeaderView()
+        //setupNavigation()
         setWhatDidYouDoLabel()
-        //setTestLabel()
         setCollectionView()
         setNextButton()
     }
     
     // MARK: - Layout
     
-    func setTestLabel() {
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private func setHeaderView(){
+        headerView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(label)
+        view.addSubview(headerView)
         
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
-            label.heightAnchor.constraint(equalToConstant: 23)
+            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
         ])
+        
+        headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
     }
     
     private func setupNavigation(){
@@ -96,7 +96,7 @@ class RecordTypeVC: UIViewController {
         
         NSLayoutConstraint.activate([
             whatDidYouDoLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            whatDidYouDoLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            whatDidYouDoLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 40),
         ])
     }
     
@@ -130,7 +130,14 @@ class RecordTypeVC: UIViewController {
     
     @objc private func nextButtonDidTap(){
         let addRecordDetailVC = AddRecordDetailVC(type: selectedType!)
-        self.navigationController?.pushViewController(addRecordDetailVC, animated: true)
+        addRecordDetailVC.modalPresentationStyle = .fullScreen
+        self.present(addRecordDetailVC, animated: true)
+    }
+    
+    @objc private func goBack() {
+        print("이전 탭으로 이동")
+        print(self.tabBarController?.selectedIndex)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
