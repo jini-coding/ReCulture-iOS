@@ -27,7 +27,7 @@ extension UIView {
         self.layer.mask = shape
     }
     
-    /// uiview에 corner radius가 적용된 점선 테두리 적용
+    /// uiview에 corner radius가 적용된 점선 테두리 적용, draw() 할 때 사용해야함!
     /// - Parameters:
     ///   - color: 테두리로 그릴 UIColor
     ///   - radius: 테두리에 적용한 corner radius 값
