@@ -25,6 +25,7 @@ class CustomCalendarView: UIView {
     
     // MARK: - Properties
     
+    weak var parentVC: HomeVC?
     private let minimumInterItemSpacing:CGFloat = 12
     private let minimumLineSpacing:CGFloat = 20
     private let now = Date()
@@ -32,7 +33,7 @@ class CustomCalendarView: UIView {
 //    private var currentMonth: Int
 //    private var currentYear: Int
 //    private var currentDate: Int
-    private var currentDateComponents = DateComponents()
+    var currentDateComponents = DateComponents()
     private var daysInMonth = 0  // 해당 월이 며칠까지 있는지
     private let dateFormatter = DateFormatter()
     private var weekdayAdding = 0
@@ -165,12 +166,14 @@ class CustomCalendarView: UIView {
         currentDateComponents.month = currentDateComponents.month! - 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
+        //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
     @objc func nextButtonTapped(){
         currentDateComponents.month = currentDateComponents.month! + 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
+        //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
     // MARK: - Helpers
@@ -185,7 +188,6 @@ class CustomCalendarView: UIView {
         currentDateComponents.month = calendar.component(.month, from: now)  // 현재의 월 리턴
         currentDateComponents.day = 1  // 날짜는 1로 초기화
         calculateCalendar()
-        
     }
     
     private func calculateCalendar(){
@@ -203,6 +205,7 @@ class CustomCalendarView: UIView {
         weekdayAdding = 2 - firstWeekday  // ex. 화요일부터 달의 시작인 경우 -> 2 - 3 = -1 -> -1, 0 동안은 빈 값, 1부터 실제 값을 넣게 됨
         let dateFormatterString = dateFormatter.string(from: firstDayOfMonth!)
         self.yearAndMonthLabel.text = dateFormatterString.replacingOccurrences(of: ".", with: "년 ") + "월"
+        parentVC?.setCalendarMonthTo(Int(dateFormatterString.components(separatedBy: ".")[1])!)
         self.days.removeAll()
 
         for day in weekdayAdding...daysInMonth {

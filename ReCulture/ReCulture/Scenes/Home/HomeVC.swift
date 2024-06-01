@@ -10,6 +10,7 @@ import UIKit
 class HomeVC: UIViewController {
     
     // MARK: - Properties
+    
     private var lastContentOffset: CGFloat = 0.0
     
     // MARK: - Views
@@ -84,7 +85,11 @@ class HomeVC: UIViewController {
         return label
     }()
     
-    private lazy var calendarView = CustomCalendarView()
+    private lazy var calendarView: CustomCalendarView = {
+        let view = CustomCalendarView()
+        view.parentVC = self
+        return view
+    }()
     
     private lazy var tooltipView = ToolTipView()
 
@@ -112,6 +117,8 @@ class HomeVC: UIViewController {
         setCalendarView()
         
         levelProgressView.setProgress(0.78)
+        
+        setCalendarMonthTo(calendarView.currentDateComponents.month!)
         
         scrollView.updateContentSize()
     }
@@ -251,13 +258,17 @@ class HomeVC: UIViewController {
         calendarContainerView.layoutIfNeeded()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func setLevelAttributes(){
         let text = "윤진님은 Level 02"
         let attributedString = NSMutableAttributedString(string: text)
         attributedString.addAttribute(.font, value: UIFont.rcFont16B(),  range: (text as NSString).range(of: "Level 02"))
         currentLevelLabel.attributedText = attributedString
+    }
+    
+    func setCalendarMonthTo(_ month: Int){
+        monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
     }
 }
 
