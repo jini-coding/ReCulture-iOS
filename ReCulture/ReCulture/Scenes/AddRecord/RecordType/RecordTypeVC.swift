@@ -60,15 +60,15 @@ class RecordTypeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.tabBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //self.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.modalPresentationStyle = .fullScreen
+        tabBarController?.tabBar.isHidden = true
+        modalPresentationStyle = .fullScreen
         
         setHeaderView()
         //setupNavigation()
@@ -79,7 +79,7 @@ class RecordTypeVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Layout
@@ -90,9 +90,9 @@ class RecordTypeVC: UIViewController {
         view.addSubview(headerView)
         
         NSLayoutConstraint.activate([
-            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
         ])
         
         headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
@@ -109,7 +109,7 @@ class RecordTypeVC: UIViewController {
         view.addSubview(whatDidYouDoLabel)
         
         NSLayoutConstraint.activate([
-            whatDidYouDoLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            whatDidYouDoLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             whatDidYouDoLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 40),
         ])
     }
@@ -120,8 +120,8 @@ class RecordTypeVC: UIViewController {
         view.addSubview(typeCollectionView)
         
         NSLayoutConstraint.activate([
-            typeCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
-            typeCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -14),
+            typeCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
+            typeCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -14),
 //            typeCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -50),
             typeCollectionView.topAnchor.constraint(equalTo: whatDidYouDoLabel.bottomAnchor, constant: 50),
         ])
@@ -133,10 +133,10 @@ class RecordTypeVC: UIViewController {
         view.addSubview(nextButton)
         
         NSLayoutConstraint.activate([
-            nextButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             nextButton.topAnchor.constraint(equalTo: typeCollectionView.bottomAnchor, constant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
     
@@ -150,11 +150,23 @@ class RecordTypeVC: UIViewController {
     
     @objc private func goBack() {
         print("이전 탭으로 이동")
-        print(self.tabBarController?.selectedIndex)
+        print(tabBarController?.selectedIndex)
         //self.dismiss(animated: true, completion: nil)
-        self.tabBarController?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
+        
+        initializeViews()
+        tabBarController?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
+    }
+    
+    // MARK: - Functions
+    
+    func initializeViews(){
+        selectedType = nil
+        typeCollectionView.deselectAllItems(animated: false)
+        nextButton.isActive = false
     }
 }
+
+// MARK: - Extension: UICollectionView
 
 extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

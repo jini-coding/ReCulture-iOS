@@ -587,9 +587,9 @@ class AddRecordDetailVC: UIViewController {
     
     @objc private func nextButtonDidTap(){
         print("다음으로")
-//        let addRecordDetailVC = AddRecordDetailVC(type: selectedType!)
-//        addRecordDetailVC.modalPresentationStyle = .fullScreen
-//        self.present(addRecordDetailVC, animated: true)
+        let addRecordPhotoVC = AddRecordPhotoVC()
+        addRecordPhotoVC.modalPresentationStyle = .fullScreen
+        self.present(addRecordPhotoVC, animated: true)
     }
     
     @objc private func goBack() {
