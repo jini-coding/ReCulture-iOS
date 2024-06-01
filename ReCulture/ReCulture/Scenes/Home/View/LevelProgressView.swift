@@ -81,7 +81,6 @@ class LevelProgressView: UIView {
                             tipStartY: progressBar.frame.height + 8,
                             tipWidth: 8,
                             tipHeight: 7)
-//        tooltipView.layoutIfNeeded()
         print("tooltipView.frame.width: \(tooltipView.frame.width)") // 32
         // 툴팁에 text 지정
         tooltipView.configure(text: "\(Int(progress * 100))% 달성!")

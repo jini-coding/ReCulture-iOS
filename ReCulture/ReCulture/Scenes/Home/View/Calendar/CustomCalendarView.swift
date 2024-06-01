@@ -30,9 +30,6 @@ class CustomCalendarView: UIView {
     private let minimumLineSpacing:CGFloat = 20
     private let now = Date()
     private var calendar = Calendar(identifier: .gregorian)  // 현재 사용자가 사용 중인 달력 (ex. gregorian)
-//    private var currentMonth: Int
-//    private var currentYear: Int
-//    private var currentDate: Int
     var currentDateComponents = DateComponents()
     private var daysInMonth = 0  // 해당 월이 며칠까지 있는지
     private let dateFormatter = DateFormatter()
@@ -69,7 +66,6 @@ class CustomCalendarView: UIView {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.minimumLineSpacing = minimumLineSpacing
         flowlayout.minimumInteritemSpacing = minimumInterItemSpacing
-        //flowlayout.scrollDirection = .horizontal
         
         let view = CustomCollectionView(frame: .zero, collectionViewLayout: flowlayout)
         view.showsHorizontalScrollIndicator = false
@@ -96,24 +92,18 @@ class CustomCalendarView: UIView {
         
         self.backgroundColor = .white
         self.clipsToBounds = true
-        self.layer.borderColor = UIColor(hexCode: "ECEFF7").cgColor
+        self.layer.borderColor = UIColor.rcGray000.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 22
         
         setYearAndMonthLabel()
         setChevronButtons()
         setCalendarCollectionView()
-//        setDummyView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override func updateConstraints() {
-//        calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
-//        super.updateConstraints()
-//    }
     
     // MARK: - Layout
     
@@ -220,7 +210,6 @@ class CustomCalendarView: UIView {
     func updateCollectionViewHeight() {
         calendarCollectionView.constraints[0].identifier
         calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
-        //calendarCollectionView.updateConstraints()
         calendarCollectionView.layoutIfNeeded()
     }
 }
@@ -258,7 +247,6 @@ extension CustomCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
         let cellSize : CGFloat = (mainBoundWidth - 32 - 54 - minimumInterItemSpacing*6) / 7
-//        let cellSize : CGFloat = mainBoundWidth / 9
         return CGSize(width: cellSize, height: cellSize)
     }
 }

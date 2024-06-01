@@ -28,7 +28,6 @@ class HomeVC: UIViewController {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
         view.isScrollEnabled = true
-//        view.delegate = self
         view.backgroundColor = UIColor(hexCode: "F5F6FA")
         return view
     }()
@@ -37,18 +36,10 @@ class HomeVC: UIViewController {
     
     private let userLevelInfoView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(hexCode: "F5F6FA")
+        view.backgroundColor = UIColor.rcGrayBg
         return view
     }()
     
-//    private let currentLevelView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 16
-//        view.clipsToBounds = true
-//        return view
-//    }()
-    
-    //LabelWithPadding(top: 12, left: 16, bottom: 12, right: 16)
     private let currentLevelLabel: UILabel = {
         let label = UILabel()
         label.font = .rcFont16R()
@@ -107,8 +98,6 @@ class HomeVC: UIViewController {
         setScrollView()
         setContentView()
         setUserLevelInfoView()
-//        setCurrentLevelView()
-//        setCurrentLevelLabel()
         setCharacterImageView()
         setTilNextLevelLabel()
         setLevelProgressView()
@@ -263,7 +252,7 @@ class HomeVC: UIViewController {
     private func setLevelAttributes(){
         let text = "윤진님은 Level 02"
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.font, value: UIFont.rcFont16B(),  range: (text as NSString).range(of: "Level 02"))
+        attributedString.addAttribute(.font, value: UIFont.rcFont16B(), range: (text as NSString).range(of: "Level 02"))
         currentLevelLabel.attributedText = attributedString
     }
     
@@ -292,13 +281,3 @@ extension UIScrollView {
         return totalRect.union(view.frame)
     }
 }
-
-//extension HomeVC: UIScrollViewDelegate {
-//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else {
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
-//    }
-//}
