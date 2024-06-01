@@ -36,6 +36,7 @@ class SignUpVC: UIViewController {
     private let emailTextField: CustomTextField = {
         let tf = CustomTextField()
         tf.placeholder = "이메일을 입력해주세요"
+        tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return tf
     }()
     
@@ -59,6 +60,7 @@ class SignUpVC: UIViewController {
         tf.placeholder = "비밀번호를 입력해주세요"
         tf.textContentType = .newPassword
         tf.isSecureTextEntry = true
+        tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return tf
     }()
     
@@ -81,7 +83,16 @@ class SignUpVC: UIViewController {
         let tf = CustomTextField()
         tf.placeholder = "비밀번호를 다시 한 번 입력해주세요"
         tf.isSecureTextEntry = true
+        tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return tf
+    }()
+    
+    private let pwDoesNotMatchLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호가 일치하지 않습니다."
+        label.font = .rcFont12M()
+        label.textColor = .red.withAlphaComponent(0.5)
+        return label
     }()
     
     private let signupButton: NextButton = {
@@ -103,6 +114,7 @@ class SignUpVC: UIViewController {
         setupEmailStackView()
         setupPasswordStackView()
         setupPasswordConfirmStackView()
+        setupPwDoesNotMatchLabel()
         setupSignupButton()
     }
     
@@ -177,6 +189,19 @@ class SignUpVC: UIViewController {
         ])
     }
     
+    private func setupPwDoesNotMatchLabel(){
+        pwDoesNotMatchLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(pwDoesNotMatchLabel)
+        
+        NSLayoutConstraint.activate([
+            pwDoesNotMatchLabel.leadingAnchor.constraint(equalTo: passwordConfirmStackView.leadingAnchor),
+            pwDoesNotMatchLabel.topAnchor.constraint(equalTo: passwordConfirmStackView.bottomAnchor, constant: 5),
+        ])
+        
+        pwDoesNotMatchLabel.isHidden = true
+    }
+    
     private func setupSignupButton(){
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -215,6 +240,20 @@ class SignUpVC: UIViewController {
         }
     }
     
+    @objc private func tfDidChange(_ sender: UITextField){
+        let isPwSame = isPasswordSame(passwordTextField, passwordConfirmTextField)
+        let isValidEmail = if let text = emailTextField.text { text.isValidEmail() } else { false }
+        
+        if isValidEmail
+            && !(passwordTextField.text?.isEmpty ?? true)
+            && isPwSame {
+            signupButton.isActive = true
+        }
+        else {
+            signupButton.isActive = false
+        }
+    }
+    
     // MARK: - Functions
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -243,5 +282,25 @@ class SignUpVC: UIViewController {
             self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - textField.frame.maxY))
         }
     }
-
+    
+    private func isPasswordSame(_ first: UITextField,_ second: UITextField) -> Bool {
+        // 두 텍스트필드 값이 같을 때 true
+        if(first.text == second.text) {
+            pwDoesNotMatchLabel.isHidden = true
+            return true
+        }
+        // 두 텍스트필드 값이 다를 때
+        else {
+            // 비번 확인 창이 비어있으면 확인 불가하므로 false
+            if second.text == "" {
+                pwDoesNotMatchLabel.isHidden = true
+                return false
+            }
+            // 비번 확인 창 내용이 있으면 값이 다른 거이므로 false
+            else {
+                pwDoesNotMatchLabel.isHidden = false
+                return false
+            }
+        }
+    }
 }
