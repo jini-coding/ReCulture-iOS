@@ -21,6 +21,7 @@
 		0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */; };
 		0866DBD02C0B455800FBBDB5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */; };
 		0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */; };
+		0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBD32C0BA57600FBBDB5 /* String+.swift */; };
 		0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */; };
 		0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */; };
 		08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08854E832C045208009E6AA6 /* FourTextFieldsView.swift */; };
@@ -79,6 +80,7 @@
 		0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		0866DBD32C0BA57600FBBDB5 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButtonView.swift; sourceTree = "<group>"; };
 		0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoCell.swift; sourceTree = "<group>"; };
 		08854E832C045208009E6AA6 /* FourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourTextFieldsView.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				08D0CF382BF716AC005CBECA /* UIView+.swift */,
 				389F8A652BF7222C004593B5 /* Image.swift */,
 				0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */,
+				0866DBD32C0BA57600FBBDB5 /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
+				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
