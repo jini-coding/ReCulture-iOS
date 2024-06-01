@@ -176,7 +176,8 @@ class LoginVC: UIViewController {
     }
     
     @objc private func signUpButtonDidTap(){
-        print("회원가입하러 가기")
+        print("회원가입 선택됨")
+        self.navigationController?.pushViewController(SignUpVC(), animated: true)
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification){
