@@ -11,10 +11,21 @@
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
 		083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */; };
+		0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E53E2C0319F500B6A4D6 /* RecordType.swift */; };
+		0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */; };
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
 		0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */; };
+		0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */; };
+		0856A6212C099B45001198E1 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A6202C099B45001198E1 /* PhotoService.swift */; };
+		0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */; };
+		0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */; };
+		0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */; };
+		0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */; };
+		08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08854E832C045208009E6AA6 /* FourTextFieldsView.swift */; };
+		088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
+		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
@@ -56,10 +67,21 @@
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressView.swift; sourceTree = "<group>"; };
+		0845E53E2C0319F500B6A4D6 /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
+		0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
 		0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookCollectionViewCell.swift; sourceTree = "<group>"; };
+		0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoVC.swift; sourceTree = "<group>"; };
+		0856A6202C099B45001198E1 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCell.swift; sourceTree = "<group>"; };
+		0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
+		0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButtonView.swift; sourceTree = "<group>"; };
+		0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoCell.swift; sourceTree = "<group>"; };
+		08854E832C045208009E6AA6 /* FourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourTextFieldsView.swift; sourceTree = "<group>"; };
+		088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveTextFieldsView.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
+		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -126,6 +148,16 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		0845E5402C031F9400B6A4D6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */,
+				08854E832C045208009E6AA6 /* FourTextFieldsView.swift */,
+				088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +168,34 @@
 				08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */,
 			);
 			path = TicketBook;
+			sourceTree = "<group>";
+		};
+		0856A61C2C098F08001198E1 /* RecordPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				0875CA6B2C0A485100F55B9E /* cell */,
+				0856A61F2C099B34001198E1 /* Photos */,
+				0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */,
+				0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */,
+			);
+			path = RecordPhoto;
+			sourceTree = "<group>";
+		};
+		0856A61F2C099B34001198E1 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				0856A6202C099B45001198E1 /* PhotoService.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		0875CA6B2C0A485100F55B9E /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */,
+				0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		08B856452BF1D9260034E86D /* TicketBookDetail */ = {
@@ -174,6 +234,7 @@
 		08E0F5902C00271C000A046D /* AddRecord */ = {
 			isa = PBXGroup;
 			children = (
+				0856A61C2C098F08001198E1 /* RecordPhoto */,
 				08E0F5922C002785000A046D /* RecordDetail */,
 				08E0F58A2C0017AF000A046D /* Views */,
 				08E0F5912C002762000A046D /* RecordType */,
@@ -187,6 +248,7 @@
 			children = (
 				08E0F58D2C001C81000A046D /* cell */,
 				08E0F5882C0013F7000A046D /* RecordTypeVC.swift */,
+				0845E53E2C0319F500B6A4D6 /* RecordType.swift */,
 			);
 			path = RecordType;
 			sourceTree = "<group>";
@@ -194,6 +256,7 @@
 		08E0F5922C002785000A046D /* RecordDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0845E5402C031F9400B6A4D6 /* Views */,
 				08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */,
 			);
 			path = RecordDetail;
@@ -260,6 +323,7 @@
 				08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */,
 				08D0CF382BF716AC005CBECA /* UIView+.swift */,
 				389F8A652BF7222C004593B5 /* Image.swift */,
+				0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -268,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B60D2BE432E0003376F7 /* TabBarVC.swift */,
+				08C72DA92C06EECA00999350 /* HeaderView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -415,18 +480,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */,
 				3874B5F62BE43247003376F7 /* ViewController.swift in Sources */,
 				0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */,
 				0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */,
 				3874B6082BE4328A003376F7 /* Color.swift in Sources */,
+				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
+				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
+				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
+				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
@@ -434,12 +504,17 @@
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
+				08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */,
+				088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */,
 				083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */,
 				08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */,
+				0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */,
+				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
+				0856A6212C099B45001198E1 /* PhotoService.swift in Sources */,
 				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
@@ -452,6 +527,7 @@
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
 				08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */,
+				0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */,
 				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

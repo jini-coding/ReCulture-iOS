@@ -256,5 +256,388 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "156AC397-56B6-4E24-B68A-5875FD8A0861"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "goBack()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "156AC397-56B6-4E24-B68A-5875FD8A0861 - 80f64296d0690bda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.goBack() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "240">
+               </Location>
+               <Location
+                  uuid = "156AC397-56B6-4E24-B68A-5875FD8A0861 - 80f64296d0690bda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.goBack() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "492">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E096AFA-4975-4F5A-A6E2-E9527CEC9996"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/CustomView/TabBarVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "TabBarVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "6E096AFA-4975-4F5A-A6E2-E9527CEC9996 - 18333c304e08bd7d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.TabBarVC.tabBarController(_: __C.UITabBarController, didSelect: __C.UIViewController) -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/TabBarVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "6E096AFA-4975-4F5A-A6E2-E9527CEC9996 - 18333c304e08bd7d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.TabBarVC.tabBarController(_: __C.UITabBarController, didSelect: __C.UIViewController) -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/TabBarVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53B229F0-AFD6-4F94-9161-FC0E46265793"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordDetail/AddRecordDetailVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
+            landmarkName = "validateInputField()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E15DAB4B-CEA6-45A0-B2C0-C56965F4E0C9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "picker(_:didFinishPicking:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "86EDFF6A-6D59-4830-9EE2-AC696D4F1A64"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "selectedPhotos"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "86EDFF6A-6D59-4830-9EE2-AC696D4F1A64 - af8d5c654d497b45"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.AddRecordPhotoVC.selectedPhotos.didset : Swift.Array&lt;__C.UIImage&gt;"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "86EDFF6A-6D59-4830-9EE2-AC696D4F1A64 - af8d5c654d497b64"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.AddRecordPhotoVC.selectedPhotos.didset : Swift.Array&lt;__C.UIImage&gt;"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "208">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9487C6D9-A059-46EC-B33C-FCB86551C7F3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4CC6AD3F-5651-4002-9AF0-A1448B667904"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "18776F7B-EF30-44AA-99F3-90B02D2631E3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "uploadButtonDidTap()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "18776F7B-EF30-44AA-99F3-90B02D2631E3 - 5b20cb309aa27fe4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "224"
+                  endingLineNumber = "224"
+                  offsetFromSymbolStart = "1016">
+               </Location>
+               <Location
+                  uuid = "18776F7B-EF30-44AA-99F3-90B02D2631E3 - 633b145bc262d398"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "224"
+                  endingLineNumber = "224"
+                  offsetFromSymbolStart = "784">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF8D78E9-1462-41D0-BF0E-68B1EA1A005B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACA0CC94-9E07-408B-8520-452A06A77DF7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "viewWillDisappear(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ACA0CC94-9E07-408B-8520-452A06A77DF7 - fa0a5457c9e939c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.viewDidLoad() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "312">
+               </Location>
+               <Location
+                  uuid = "ACA0CC94-9E07-408B-8520-452A06A77DF7 - 2b5fb5e2e34a9336"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.viewWillDisappear(Swift.Bool) -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "uploadButtonDidTap()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621 - 5b20cb309aa200cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "215"
+                  endingLineNumber = "215"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621 - 633b145bc262ac90"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "216"
+                  endingLineNumber = "216"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621 - 5b20cb309aa200cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "215"
+                  endingLineNumber = "215"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
