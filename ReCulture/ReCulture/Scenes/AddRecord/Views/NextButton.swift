@@ -19,12 +19,12 @@ class NextButton: UIButton {
     
     // MARK: - Initialization
     
-    init() {
+    init(_ title: String = "다음") {
         super.init(frame: .zero)
         
         var config = UIButton.Configuration.filled()
         config.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
-        config.attributedTitle = AttributedString("다음")
+        config.attributedTitle = AttributedString(title)
         config.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M()]))
         self.configuration = config
         
