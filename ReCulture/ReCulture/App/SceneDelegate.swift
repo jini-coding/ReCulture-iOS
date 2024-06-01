@@ -17,9 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let tabBarVC = TabBarVC() // 첫 시작 화면
-        
+        let loginNavVC = UINavigationController(rootViewController: LoginVC())
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = tabBarVC
+        window?.rootViewController = loginNavVC
         window?.makeKeyAndVisible()
     }
 

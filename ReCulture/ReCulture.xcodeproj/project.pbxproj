@@ -19,6 +19,8 @@
 		0856A6212C099B45001198E1 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A6202C099B45001198E1 /* PhotoService.swift */; };
 		0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */; };
 		0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */; };
+		0866DBD02C0B455800FBBDB5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */; };
+		0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */; };
 		0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */; };
 		0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */; };
 		08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08854E832C045208009E6AA6 /* FourTextFieldsView.swift */; };
@@ -75,6 +77,8 @@
 		0856A6202C099B45001198E1 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCell.swift; sourceTree = "<group>"; };
 		0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
+		0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButtonView.swift; sourceTree = "<group>"; };
 		0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoCell.swift; sourceTree = "<group>"; };
 		08854E832C045208009E6AA6 /* FourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourTextFieldsView.swift; sourceTree = "<group>"; };
@@ -333,6 +337,7 @@
 			children = (
 				3874B60D2BE432E0003376F7 /* TabBarVC.swift */,
 				08C72DA92C06EECA00999350 /* HeaderView.swift */,
+				0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B6152BE4334F003376F7 /* AuthVC.swift */,
+				0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -484,6 +490,7 @@
 				3874B5F62BE43247003376F7 /* ViewController.swift in Sources */,
 				0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */,
 				0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */,
+				0866DBD02C0B455800FBBDB5 /* CustomButton.swift in Sources */,
 				3874B6082BE4328A003376F7 /* Color.swift in Sources */,
 				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
@@ -495,6 +502,7 @@
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
+				0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
