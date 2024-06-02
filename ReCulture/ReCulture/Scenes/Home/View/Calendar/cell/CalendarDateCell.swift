@@ -44,10 +44,6 @@ class CalendarDateCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             dateLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//            dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-//            dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-//            dateLabel.topAnchor.constraint(equalTo: self.topAnchor),
-//            dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
@@ -56,7 +52,7 @@ class CalendarDateCell: UICollectionViewCell {
     func configure(section: Int, dateOrDay: String){
         if section == 0 {
             dateLabel.font = .rcFont14M()
-            dateLabel.textColor = UIColor(hexCode: "85888A")
+            dateLabel.textColor = UIColor.rcGray400
         }
         else {
             dateLabel.font = .rcFont18M()
