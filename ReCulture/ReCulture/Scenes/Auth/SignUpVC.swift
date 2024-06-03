@@ -218,6 +218,9 @@ class SignUpVC: UIViewController {
     
     @objc private func signUpButtonDidTap(){
         print("최종 회원가입하기")
+        print("프로필 설정으로 이동")
+
+        self.navigationController?.pushViewController(NewUserProfileVC(), animated: true)
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification){

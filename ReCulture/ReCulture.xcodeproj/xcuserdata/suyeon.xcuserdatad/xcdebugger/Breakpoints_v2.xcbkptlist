@@ -651,8 +651,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "181"
             endingLineNumber = "181"
-            landmarkName = "initCalendar()"
-            landmarkType = "7">
+            landmarkName = "CustomCalendarView"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "6B2F6D2F-9E90-4861-AD5B-4BAFD73B6A2A - efd730f35a4674b3"
@@ -732,21 +732,6 @@
                   endingLineNumber = "198"
                   offsetFromSymbolStart = "1904">
                </Location>
-               <Location
-                  uuid = "42485A2D-16A5-46A0-BB87-E9B8989BE674 - dc7cb659dfd0199d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.CustomCalendarView.calculateCalendar() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/View/Calendar/CustomCalendarView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "198"
-                  endingLineNumber = "198"
-                  offsetFromSymbolStart = "3444">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -795,21 +780,6 @@
                   endingLineNumber = "259"
                   offsetFromSymbolStart = "144">
                </Location>
-               <Location
-                  uuid = "7457A9F4-9DAB-4C00-AC5A-4F6B2527EB7B - 89bab57e1565ef23"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.HomeVC.setCalendarMonthTo(Swift.Int) -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "260"
-                  endingLineNumber = "260"
-                  offsetFromSymbolStart = "44">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -823,8 +793,8 @@
             filePath = "ReCulture/Scenes/Auth/SignUpVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "tfDidChange(_:)"
             landmarkType = "7">
             <Locations>
@@ -871,10 +841,10 @@
             filePath = "ReCulture/Scenes/Auth/SignUpVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
-            landmarkName = "SignUpVC"
-            landmarkType = "3">
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "isPasswordSame(_:_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
