@@ -40,6 +40,7 @@
 		08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */; };
 		08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */; };
 		08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */; };
+		08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */; };
 		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
 		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5882C0013F7000A046D /* RecordTypeVC.swift */; };
@@ -107,6 +108,7 @@
 		08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
 		08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTestVC.swift; sourceTree = "<group>"; };
+		08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserProfileVC.swift; sourceTree = "<group>"; };
 		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
 		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5882C0013F7000A046D /* RecordTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeVC.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 			children = (
 				3874B6152BE4334F003376F7 /* AuthVC.swift */,
 				0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */,
+				08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
+				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
 				08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */,
 				088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */,
