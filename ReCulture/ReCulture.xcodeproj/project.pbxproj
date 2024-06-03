@@ -32,6 +32,14 @@
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
+		08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5C92C0D6FAC00F1AB49 /* NetworkManager.swift */; };
+		08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */; };
+		08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */; };
+		08D1F5D32C0D71B300F1AB49 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D22C0D71B300F1AB49 /* HTTPMethods.swift */; };
+		08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */; };
+		08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */; };
+		08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */; };
+		08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */; };
 		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
 		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5882C0013F7000A046D /* RecordTypeVC.swift */; };
@@ -91,6 +99,14 @@
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		08D1F5C92C0D6FAC00F1AB49 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPI.swift; sourceTree = "<group>"; };
+		08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDTO.swift; sourceTree = "<group>"; };
+		08D1F5D22C0D71B300F1AB49 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
+		08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
+		08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTestVC.swift; sourceTree = "<group>"; };
 		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
 		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5882C0013F7000A046D /* RecordTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeVC.swift; sourceTree = "<group>"; };
@@ -212,6 +228,52 @@
 			path = TicketBookDetail;
 			sourceTree = "<group>";
 		};
+		08D1F5C82C0D6F9E00F1AB49 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				08D1F5CD2C0D6FD900F1AB49 /* Network */,
+				08D1F5CC2C0D6FD300F1AB49 /* DTOs */,
+				08D1F5CB2C0D6FC900F1AB49 /* APIs */,
+				08D1F5C92C0D6FAC00F1AB49 /* NetworkManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		08D1F5CB2C0D6FC900F1AB49 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		08D1F5CC2C0D6FD300F1AB49 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		08D1F5CD2C0D6FD900F1AB49 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				08D1F5D22C0D71B300F1AB49 /* HTTPMethods.swift */,
+				08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */,
+				08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */,
+				08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */ = {
+			isa = PBXGroup;
+			children = (
+				08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */,
+			);
+			path = NetworkingTest;
+			sourceTree = "<group>";
+		};
 		08E0F5852BFFB7DE000A046D /* cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +360,7 @@
 		3874B5F02BE43247003376F7 /* ReCulture */ = {
 			isa = PBXGroup;
 			children = (
+				08D1F5C82C0D6F9E00F1AB49 /* Networking */,
 				3874B6052BE43258003376F7 /* App */,
 				3874B6062BE43265003376F7 /* Extension */,
 				3874B60B2BE432C5003376F7 /* CustomView */,
@@ -348,6 +411,7 @@
 		3874B60C2BE432CD003376F7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */,
 				08E0F5902C00271C000A046D /* AddRecord */,
 				3874B6142BE43346003376F7 /* Auth */,
 				3874B6132BE4333F003376F7 /* Login */,
@@ -489,12 +553,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */,
 				0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */,
 				3874B5F62BE43247003376F7 /* ViewController.swift in Sources */,
 				0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */,
 				0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */,
 				0866DBD02C0B455800FBBDB5 /* CustomButton.swift in Sources */,
 				3874B6082BE4328A003376F7 /* Color.swift in Sources */,
+				08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */,
 				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
@@ -509,11 +575,13 @@
 				0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
+				08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
+				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
 				08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */,
@@ -524,9 +592,12 @@
 				083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */,
 				08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */,
 				0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */,
+				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
+				08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */,
 				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				0856A6212C099B45001198E1 /* PhotoService.swift in Sources */,
+				08D1F5D32C0D71B300F1AB49 /* HTTPMethods.swift in Sources */,
 				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
@@ -537,6 +608,7 @@
 				08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
+				08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
 				08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */,
 				0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */,
