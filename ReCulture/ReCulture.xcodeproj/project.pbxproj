@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */; };
+		081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9D2C102A54008573AF /* SignupAPI.swift */; };
+		081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */; };
 		0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */; };
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
@@ -75,6 +78,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequestDTO.swift; sourceTree = "<group>"; };
+		081EDA9D2C102A54008573AF /* SignupAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPI.swift; sourceTree = "<group>"; };
+		081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponseDTO.swift; sourceTree = "<group>"; };
 		0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */,
+				081EDA9D2C102A54008573AF /* SignupAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -253,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */,
+				081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */,
+				081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -571,6 +580,7 @@
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
+				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
@@ -585,6 +595,7 @@
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
+				081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
 				389F8A662BF7222C004593B5 /* Image.swift in Sources */,
@@ -597,6 +608,7 @@
 				08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */,
 				0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */,
 				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
+				081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */,
 				08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */,
 				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
