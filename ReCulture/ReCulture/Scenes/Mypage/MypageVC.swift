@@ -7,6 +7,23 @@
 
 import UIKit
 
+protocol LogoutModalDelegate: AnyObject {
+    func popupChecked(view: String)
+    func dismissLogoutModal()
+}
+
+extension MypageVC: LogoutModalDelegate {
+    func popupChecked(view: String) {
+        // Handle the delegate callback
+    }
+    
+    func dismissLogoutModal() {
+        // Dismiss the modal
+        dismiss(animated: true)
+        self.overlayView.removeFromSuperview()
+    }
+}
+
 class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     struct Section {
@@ -19,6 +36,13 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         Section(title: "친구 관리", items: ["친구 목록", "친구 요청"]),
         Section(title: "계정 설정", items: ["프로필 변경", "비밀번호 변경", "로그아웃", "계정 탈퇴"])
     ]
+    
+    let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     let label: UILabel = {
         let label = UILabel()
@@ -124,7 +148,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         case "로그아웃":
             print("로그아웃 선택됨")
-            //performLogout()
+            presentLogoutModal()
             
         case "계정 탈퇴":
             print("계정 탈퇴 선택됨")
@@ -172,6 +196,25 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             mypageTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             mypageTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func presentLogoutModal() {
+        guard let tabBarController = tabBarController else { return }
+        
+        // Add the overlay view to the tab bar controller's view
+        tabBarController.view.addSubview(overlayView)
+        
+        NSLayoutConstraint.activate([
+            overlayView.topAnchor.constraint(equalTo: tabBarController.view.topAnchor),
+            overlayView.leadingAnchor.constraint(equalTo: tabBarController.view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: tabBarController.view.trailingAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: tabBarController.view.bottomAnchor)
+        ])
+        
+        let vc = LogoutModal() // 로그아웃 완료 팝업 띄우기
+        vc.modalPresentationStyle = .overFullScreen  // Set the presentation style to overFullScreen
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
     }
 }
 
