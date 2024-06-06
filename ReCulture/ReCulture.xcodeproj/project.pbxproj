@@ -32,6 +32,9 @@
 		08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304402C122C160014F24B /* LoginRequestDTO.swift */; };
 		08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304422C122C360014F24B /* LoginResponseDTO.swift */; };
 		08A304452C122D860014F24B /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304442C122D860014F24B /* LoginAPI.swift */; };
+		08A304472C122E550014F24B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304462C122E550014F24B /* LoginViewModel.swift */; };
+		08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304492C1230A00014F24B /* KeychainManager.swift */; };
+		08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A3044B2C1230C70014F24B /* TokenStateManager.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
@@ -107,6 +110,9 @@
 		08A304402C122C160014F24B /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		08A304422C122C360014F24B /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		08A304442C122D860014F24B /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
+		08A304462C122E550014F24B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		08A304492C1230A00014F24B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		08A3044B2C1230C70014F24B /* TokenStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStateManager.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -243,6 +249,15 @@
 				08A304422C122C360014F24B /* LoginResponseDTO.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		08A304482C1230970014F24B /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				08A304492C1230A00014F24B /* KeychainManager.swift */,
+				08A3044B2C1230C70014F24B /* TokenStateManager.swift */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		08B856452BF1D9260034E86D /* TicketBookDetail */ = {
@@ -398,6 +413,7 @@
 		3874B5F02BE43247003376F7 /* ReCulture */ = {
 			isa = PBXGroup;
 			children = (
+				08A304482C1230970014F24B /* Global */,
 				08D1F5C82C0D6F9E00F1AB49 /* Networking */,
 				3874B6052BE43258003376F7 /* App */,
 				3874B6062BE43265003376F7 /* Extension */,
@@ -507,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B6172BE43363003376F7 /* LoginVC.swift */,
+				08A304462C122E550014F24B /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -602,6 +619,7 @@
 				3874B6082BE4328A003376F7 /* Color.swift in Sources */,
 				08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */,
 				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
+				08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */,
 				386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
@@ -616,6 +634,7 @@
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
 				0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */,
+				08A304472C122E550014F24B /* LoginViewModel.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */,
@@ -661,6 +680,7 @@
 				08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */,
 				0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */,
 				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,
+				08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

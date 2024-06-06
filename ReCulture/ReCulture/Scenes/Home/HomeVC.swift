@@ -89,7 +89,8 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        print("앱 최초 실행 값: \(isFirstLaunch)")
         view.backgroundColor = .rcMain
         
         setupNavigation()

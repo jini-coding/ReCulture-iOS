@@ -46,4 +46,21 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 사용자 로그인하는 함수
+    func postUserLogin(
+        loginRequestDTO: LoginRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<LoginResponseDTO, NetworkError>) -> Void
+    ){
+        let loginAPI = LoginAPI(requestDTO: loginRequestDTO)
+        networkService.request(loginAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
