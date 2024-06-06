@@ -793,8 +793,8 @@
             filePath = "ReCulture/Scenes/Auth/SignUpVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "tfDidChange(_:)"
             landmarkType = "7">
             <Locations>
@@ -841,8 +841,8 @@
             filePath = "ReCulture/Scenes/Auth/SignUpVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "isPasswordSame(_:_:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -9,6 +9,15 @@ import UIKit
 
 class SignUpVC: UIViewController {
     
+    // MARK: - Properties
+    
+    private var isValidPw = false {
+        willSet {
+            // 비밀번호가 유효한 경우 유효하지 않음 라벨 삭제, 유효하지 않으면 추가
+            newValue ? removePwIsNotValidLabel() : addPwIsNotValidLabel()
+        }
+    }
+    
     // MARK: - Views
     
     private let titleLabel: UILabel = {
@@ -62,6 +71,14 @@ class SignUpVC: UIViewController {
         tf.isSecureTextEntry = true
         tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return tf
+    }()
+    
+    private let pwIsNotValidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호는 대소문자, 특수문자, 숫자 8자 이상의 조합이어야 합니다."
+        label.font = .rcFont12M()
+        label.textColor = .red.withAlphaComponent(0.5)
+        return label
     }()
     
     private let passwordConfirmStackView: UIStackView = {
@@ -139,8 +156,8 @@ class SignUpVC: UIViewController {
         [emailLabel, emailTextField].forEach { emailStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
-            emailStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            emailStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            emailStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 35),
+            emailStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -35),
             emailStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
         ])
         
@@ -244,10 +261,12 @@ class SignUpVC: UIViewController {
     }
     
     @objc private func tfDidChange(_ sender: UITextField){
+        isValidPw = if let text = passwordTextField.text { text.isValidPassword() } else { true }
         let isPwSame = isPasswordSame(passwordTextField, passwordConfirmTextField)
         let isValidEmail = if let text = emailTextField.text { text.isValidEmail() } else { false }
         
         if isValidEmail
+            && isValidPw
             && !(passwordTextField.text?.isEmpty ?? true)
             && isPwSame {
             signupButton.isActive = true
@@ -304,6 +323,19 @@ class SignUpVC: UIViewController {
                 pwDoesNotMatchLabel.isHidden = false
                 return false
             }
+        }
+    }
+    
+    private func addPwIsNotValidLabel(){
+        pwIsNotValidLabel.isHidden = false
+        passwordStackView.addArrangedSubview(pwIsNotValidLabel)
+    }
+    
+    private func removePwIsNotValidLabel(){
+        // pwIsNotValidLabel이 스택뷰에 존재할 때만 삭제해야 하므로
+        if passwordStackView.arrangedSubviews.count != 2 {
+            passwordStackView.removeArrangedSubview(pwIsNotValidLabel)
+            pwIsNotValidLabel.isHidden = true
         }
     }
 }
