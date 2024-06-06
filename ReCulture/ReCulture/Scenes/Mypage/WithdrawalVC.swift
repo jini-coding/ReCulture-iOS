@@ -8,13 +8,82 @@
 import UIKit
 
 class WithdrawalVC: UIViewController {
-
-    let titleLabel : UILabel = {
+    
+    let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "WithdrawalVC"
-        label.textColor = UIColor.rcMain
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 5
+        
+        let attributedText = NSAttributedString(string: "탈퇴하시기 전에\n확인해주세요", attributes: [
+            .paragraphStyle: paragraphStyle,
+            .foregroundColor: UIColor.black,
+            .font: UIFont.rcFont24B()
+        ])
+        label.attributedText = attributedText
         
         return label
+    }()
+
+    let descLabel: UILabel = {
+        let label = UILabel()
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3
+        
+        let attributedText = NSAttributedString(string: "탈퇴 사유를 공유해주시면 반영하여\n더 좋은 서비스를 제공하기 위해 노력할게요", 
+            attributes: [
+                .paragraphStyle: paragraphStyle,
+                .foregroundColor: UIColor.rcGray300,
+                .font: UIFont.rcFont14M()
+        ])
+        label.attributedText = attributedText
+        
+        return label
+    }()
+    
+    
+    
+    // 나중에 여기에 유의사항 + 체크박스 추가 예정
+    
+    
+
+    let reasonLabel: UILabel = {
+        let label = UILabel()
+        label.text = "탈퇴 사유"
+        label.textColor = UIColor.rcGray400
+        label.font = UIFont.rcFont14M()
+        
+        return label
+    }()
+    
+    let reasonTextfield: UITextField = {
+        let textfield = UITextField()
+        textfield.placeholder = "탈퇴 사유를 작성해주세요"
+        textfield.backgroundColor = UIColor.rcGrayBg
+        textfield.font = UIFont.rcFont16M()
+        textfield.textColor = UIColor.black
+        textfield.layer.cornerRadius = 8
+        
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [
+             .font: UIFont.rcFont16M()
+         ]
+        textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
+        
+        return textfield
+    }()
+    
+    let confirmButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("탈퇴하기", for: .normal)
+        button.backgroundColor = UIColor(hexCode: "#F6F2FF")
+        button.setTitleColor(UIColor(hexCode: "#D2C2FF"), for: .normal)
+        button.titleLabel?.font = UIFont.rcFont18M()
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.isEnabled = false
+        
+        return button
     }()
 
     override func viewDidLoad() {
@@ -23,18 +92,11 @@ class WithdrawalVC: UIViewController {
         view.backgroundColor = UIColor.white
         
         setupNavigationBar()
-        setupTitleLabel()
-    }
-    
-    func setupTitleLabel() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        setupGuide()
+        setupReasonSelect()
+        setupConfirmButton()
         
-        view.addSubview(titleLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        reasonTextfield.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     func setupNavigationBar() {
@@ -44,6 +106,77 @@ class WithdrawalVC: UIViewController {
         self.navigationController?.navigationBar.shadowImage = nil
         self.navigationController?.navigationBar.layoutIfNeeded()
         
+    }
+    
+    func setupGuide() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(titleLabel)
+        view.addSubview(descLabel)
+        
+        titleLabel.numberOfLines = 0
+        descLabel.numberOfLines = 0
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            titleLabel.heightAnchor.constraint(equalToConstant: 72),
+            
+            descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            descLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            descLabel.heightAnchor.constraint(equalToConstant: 48),
+        ])
+    }
+    
+    func setupReasonSelect() {
+        reasonLabel.translatesAutoresizingMaskIntoConstraints = false
+        reasonTextfield.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(reasonLabel)
+        view.addSubview(reasonTextfield)
+        
+        // Left padding view
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: reasonTextfield.frame.height))
+        reasonTextfield.leftView = leftPaddingView
+        reasonTextfield.leftViewMode = .always
+        
+        NSLayoutConstraint.activate([
+            reasonLabel.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: 16),
+            reasonLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            reasonLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            reasonTextfield.topAnchor.constraint(equalTo: reasonLabel.bottomAnchor, constant: 5),
+            reasonTextfield.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            reasonTextfield.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            reasonTextfield.heightAnchor.constraint(equalToConstant: 52),
+        ])
+    }
+    
+    func setupConfirmButton() {
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(confirmButton)
+        
+        NSLayoutConstraint.activate([
+            confirmButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            confirmButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            confirmButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            confirmButton.heightAnchor.constraint(equalToConstant: 52),
+        ])
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        let text = textField.text ?? ""
+        if text.isEmpty {
+            confirmButton.isEnabled = false
+            confirmButton.backgroundColor = UIColor(hexCode: "#F6F2FF")
+            confirmButton.setTitleColor(UIColor(hexCode: "#D2C2FF"), for: .normal)
+        } else {
+            confirmButton.isEnabled = true
+            confirmButton.backgroundColor = UIColor.rcMain
+            confirmButton.setTitleColor(UIColor.white, for: .normal)
+        }
     }
 }
 
