@@ -29,6 +29,8 @@
 		0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */; };
 		08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08854E832C045208009E6AA6 /* FourTextFieldsView.swift */; };
 		088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */; };
+		08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304402C122C160014F24B /* LoginRequestDTO.swift */; };
+		08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304422C122C360014F24B /* LoginResponseDTO.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
@@ -100,6 +102,8 @@
 		0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoCell.swift; sourceTree = "<group>"; };
 		08854E832C045208009E6AA6 /* FourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourTextFieldsView.swift; sourceTree = "<group>"; };
 		088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveTextFieldsView.swift; sourceTree = "<group>"; };
+		08A304402C122C160014F24B /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
+		08A304422C122C360014F24B /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -228,6 +232,15 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		08A3043F2C122C070014F24B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				08A304402C122C160014F24B /* LoginRequestDTO.swift */,
+				08A304422C122C360014F24B /* LoginResponseDTO.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		08B856452BF1D9260034E86D /* TicketBookDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +272,7 @@
 		08D1F5CC2C0D6FD300F1AB49 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				08A3043F2C122C070014F24B /* Login */,
 				08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */,
 				081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */,
 				081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */,
@@ -579,6 +593,7 @@
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
+				08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
@@ -623,6 +638,7 @@
 				389F8A642BF72168004593B5 /* EditPasswordVC.swift in Sources */,
 				08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
+				08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */,
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
 				08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
