@@ -209,8 +209,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func setupCategoryButtons() {
-        
-        // Add scrollView to categoryView
 
         categoryView.addSubview(categoryScrollView)
         
