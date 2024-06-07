@@ -12,4 +12,7 @@ struct NewUserProfileResponseDTO: Codable {
     let userId: Int
     let nickname, bio, birthdate, interest: String
     let profilePhoto: String
+    let exp: Int
+    let levelId: Int
+    let level: String
 }
