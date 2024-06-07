@@ -11,7 +11,7 @@ struct SignupAPI: ServableAPI {
     let requestDTO: SignupRequestDTO
     
     var method: HTTPMethod { .post }
-    var path: String { "/user" }
+    var path: String { "/auth/register" }
     var headers: [String : String]? { ["Content-Type": "application/json"] }
     var requestBody: Encodable? { requestDTO }
 }
