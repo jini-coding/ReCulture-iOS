@@ -358,9 +358,11 @@ extension NewUserProfileVC: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         print(results.count)
         
-        if results[0].itemProvider.canLoadObject(ofClass: UIImage.self) {
-            results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-                self.selectedImage = image as! UIImage
+        if results.count != 0{
+            if results[0].itemProvider.canLoadObject(ofClass: UIImage.self) {
+                results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    self.selectedImage = image as! UIImage
+                }
             }
         }
         
