@@ -18,4 +18,10 @@ enum RecordType: String {
     case book = "독서"
     case exhibition = "전시회"
     case etc = "기타"
+    
+    static let allTypes = [movie, musical, play, sports, concert, drama, book, exhibition, etc]
+    
+    static func getAllRecordTypes() -> [String] {
+        return RecordType.allTypes.map { $0.rawValue }
+    }
 }

@@ -16,10 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        print("앱 최초 실행 값: \(isFirstLaunch)")
         let tabBarVC = TabBarVC() // 첫 시작 화면
         let loginNavVC = UINavigationController(rootViewController: LoginVC()) // 이거로 root 설정 시 로그인부터 시작함
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = tabBarVC
+        window?.rootViewController = isFirstLaunch ? tabBarVC :loginNavVC
         window?.makeKeyAndVisible()
     }
 
@@ -51,6 +53,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    /// 로그인, 회원가입 완료 후 홉으로 넘어가게 하기 위해!
+    func changeRootVcTo(_ vc: UIViewController, animated: Bool) {
+        guard let window = self.window else { return }
+        window.rootViewController = vc // 전환
 
+        UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
+    }
 }
 

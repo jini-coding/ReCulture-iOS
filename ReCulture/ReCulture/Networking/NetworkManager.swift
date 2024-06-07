@@ -29,4 +29,38 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 사용자 회원가입하는 함수
+    func postUserSignup(
+        signupRequestDTO: SignupRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<SignupResponseDTO, NetworkError>) -> Void
+    ){
+        let signupAPI = SignupAPI(requestDTO: signupRequestDTO)
+        networkService.request(signupAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 사용자 로그인하는 함수
+    func postUserLogin(
+        loginRequestDTO: LoginRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<LoginResponseDTO, NetworkError>) -> Void
+    ){
+        let loginAPI = LoginAPI(requestDTO: loginRequestDTO)
+        networkService.request(loginAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

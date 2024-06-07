@@ -8,6 +8,16 @@
 import UIKit
 
 class LoginVC: UIViewController {
+    
+    // MARK: - Properties
+    
+    private let viewModel = LoginViewModel()
+    
+    var loginSuccess = false {
+        didSet {
+            moveToHomeVC(loginSuccess)
+        }
+    }
 
     // MARK: - Views
     
@@ -173,6 +183,20 @@ class LoginVC: UIViewController {
     
     @objc private func loginButtonDidTap(){
         print("로그인 버튼 선택됨")
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        
+        // 정보 모두 입력됐는지 확인
+        if (email?.isEmpty ?? true) || (password?.isEmpty ?? true) {
+            let alert = UIAlertController(title: "정보를 모두 입력해주세요!", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        
+        let requestDTO = LoginRequestDTO(email: email!, password: password!)
+        print("dto: \(requestDTO)")
+        viewModel.postUserLogin(requestDTO: requestDTO, fromCurrentVC: self)
     }
     
     @objc private func signUpButtonDidTap(){
@@ -215,6 +239,16 @@ class LoginVC: UIViewController {
     private func removeKeyBoardObserver() {
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+    }
+    
+    private func moveToHomeVC(_ loginSuccess: Bool){
+        if loginSuccess {
+            let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+            print("앱 최초 실행 값: \(isFirstLaunch)")
+            DispatchQueue.main.async {
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVcTo(TabBarVC(), animated: false)
+            }
+        }
     }
 }
 
