@@ -29,6 +29,8 @@
 		0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */; };
 		08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08854E832C045208009E6AA6 /* FourTextFieldsView.swift */; };
 		088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */; };
+		089EDAC52C12CBF500D74C5F /* NewUserProfileRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089EDAC42C12CBF500D74C5F /* NewUserProfileRequestDTO.swift */; };
+		089EDAC72C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089EDAC62C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift */; };
 		08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304402C122C160014F24B /* LoginRequestDTO.swift */; };
 		08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304422C122C360014F24B /* LoginResponseDTO.swift */; };
 		08A304452C122D860014F24B /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304442C122D860014F24B /* LoginAPI.swift */; };
@@ -107,6 +109,8 @@
 		0875CA6C2C0A486100F55B9E /* AddRecordPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoCell.swift; sourceTree = "<group>"; };
 		08854E832C045208009E6AA6 /* FourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourTextFieldsView.swift; sourceTree = "<group>"; };
 		088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveTextFieldsView.swift; sourceTree = "<group>"; };
+		089EDAC42C12CBF500D74C5F /* NewUserProfileRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserProfileRequestDTO.swift; sourceTree = "<group>"; };
+		089EDAC62C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserProfileResponseDTO.swift; sourceTree = "<group>"; };
 		08A304402C122C160014F24B /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		08A304422C122C360014F24B /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		08A304442C122D860014F24B /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
@@ -242,6 +246,15 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		089EDAC32C12CBE500D74C5F /* NewUserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				089EDAC42C12CBF500D74C5F /* NewUserProfileRequestDTO.swift */,
+				089EDAC62C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift */,
+			);
+			path = NewUserProfile;
+			sourceTree = "<group>";
+		};
 		08A3043F2C122C070014F24B /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +305,7 @@
 		08D1F5CC2C0D6FD300F1AB49 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				089EDAC32C12CBE500D74C5F /* NewUserProfile */,
 				08A3043F2C122C070014F24B /* Login */,
 				08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */,
 				081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */,
@@ -629,10 +643,12 @@
 				08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
+				089EDAC52C12CBF500D74C5F /* NewUserProfileRequestDTO.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
+				089EDAC72C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift in Sources */,
 				0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */,
 				08A304472C122E550014F24B /* LoginViewModel.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
