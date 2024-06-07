@@ -13,6 +13,8 @@ class HomeVC: UIViewController {
     
     private var lastContentOffset: CGFloat = 0.0
     
+    private let viewModel = MyProfileViewModel()
+    
     // MARK: - Views
     
     private let logoLabel: UILabel = {
@@ -97,6 +99,9 @@ class HomeVC: UIViewController {
         print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
         
+        bind()
+        viewModel.getMyProfile(fromCurrentVC: self)
+        
         setupNavigation()
         
         // set up layout
@@ -110,7 +115,7 @@ class HomeVC: UIViewController {
         setMonthlyRecordLabel()
         setCalendarView()
         
-        levelProgressView.setProgress(0.78)
+//        levelProgressView.setProgress(0.78)
         
         setCalendarMonthTo(calendarView.currentDateComponents.month!)
         
@@ -120,10 +125,10 @@ class HomeVC: UIViewController {
     // MARK: - Layouts
     
     private func setupNavigation(){
-        setLevelAttributes()
+        //setLevelAttributes()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoLabel)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = .rcMain
@@ -254,15 +259,65 @@ class HomeVC: UIViewController {
     
     // MARK: - Functions
     
-    private func setLevelAttributes(){
-        let text = "윤진님은 Level 02"
+    private func setCharacterImage(){
+        let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+        imageUrlStr.loadAsyncImage(characterImageView)
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: imageUrl!) {
+//                if let image = UIImage(data: data) {
+////                    DispatchQueue.main.async {
+//                        self?.characterImageView.image = image
+////                    }
+//                }
+//            }
+//        }
+    }
+    
+    private func setLevelAttributes() {
+        let levelNum = viewModel.getLevelNum()
+        let text = "\(viewModel.getNickname())님은 Level \(levelNum)"
+        print(text)
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.font, value: UIFont.rcFont16B(), range: (text as NSString).range(of: "Level 02"))
+        attributedString.addAttribute(.font, value: UIFont.rcFont16B(), range: (text as NSString).range(of: "Level \(levelNum)"))
         currentLevelLabel.attributedText = attributedString
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+    }
+    
+    private func setLevelProgress() {
+        let currentExp = viewModel.getExp()
+        let currentLevelName = viewModel.getLevelName()
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType(rawValue: currentLevelName)!)
+        
+        levelProgressView.setProgress(Float(currentExp / totalScoreForThisLevel))
+    }
+    
+    private func setTilNextLevelValues() {
+        let currentLevelType = LevelType(rawValue: viewModel.getLevelName())!
+        let nextLevelName = LevelType.getNextLevelOf(currentLevelType)
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(currentLevelType)
+        
+        let percentLeftToNextLevel = 100 - (viewModel.getExp() / totalScoreForThisLevel) * 100
+        
+        let text = "\(nextLevelName)까지 \(percentLeftToNextLevel)% 남았어요! 💪"
+    
+        tilNextLevelLabel.text = text
     }
     
     func setCalendarMonthTo(_ month: Int){
         monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
+    }
+    
+    private func bind(){
+        viewModel.myProfileModelDidChange = { [weak self] in
+            
+            DispatchQueue.main.async {
+                self?.setCharacterImage()
+                self?.setLevelAttributes()
+                self?.setLevelProgress()
+                self?.setTilNextLevelValues()
+            }
+        }
     }
 }
 
