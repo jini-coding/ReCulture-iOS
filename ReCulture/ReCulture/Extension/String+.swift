@@ -5,7 +5,7 @@
 //  Created by Suyeon Hwang on 6/2/24.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     
@@ -24,5 +24,20 @@ extension String {
         let passwordValidation = NSPredicate.init(format: "SELF MATCHES %@", pwRegEx)
         // 조건에 대해 평가
         return passwordValidation.evaluate(with: self)
+    }
+    
+    /// URLSession을 통해 비동기로 웹 상 이미지 불러오기
+    func loadAsyncImage(_ imageView: UIImageView) {
+        URLSession.shared.dataTask(with: URL(string: self)!) { data, response, error in
+            guard let data = data,
+                  response != nil,
+                  error == nil else { return }
+            DispatchQueue.main.async {
+                print(data)
+                print(response)
+                print(error)
+                imageView.image = UIImage(data: data) ?? UIImage()
+            }
+        }.resume()
     }
 }
