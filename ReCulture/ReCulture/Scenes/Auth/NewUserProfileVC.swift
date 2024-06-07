@@ -12,7 +12,7 @@ class NewUserProfileVC: UIViewController {
     
     // MARK: - Properties
     
-    private let profileImageViewWidth: CGFloat = 125
+    private let profileImageViewWidth: CGFloat = 90
     
     private let addProfileImageButtonWidth: CGFloat = 30
     
@@ -27,6 +27,21 @@ class NewUserProfileVC: UIViewController {
     }()
     
     private var selectedImage = UIImage()
+    
+    var menuItems: [UIAction] {
+        var array: [UIAction] = []
+        RecordType.getAllRecordTypes().forEach { type in
+            array.append(UIAction(
+                title: type,
+                handler: { _ in
+                    self.interestRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
+                    self.interestRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                        NSAttributedString.Key.foregroundColor: UIColor.black]))
+                }
+            ))
+        }
+        return array
+    }
     
     // MARK: - Views
     
@@ -46,8 +61,8 @@ class NewUserProfileVC: UIViewController {
     
     private let addProfileImageButton: UIButton = {
         let button = UIButton()
-        button.setImage(.addIcon.withTintColor(.white), for: .normal)
-        button.backgroundColor = .rcMain
+        button.setImage(.cameraIcon, for: .normal)
+        button.backgroundColor = .rcGray100
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(addProfileImageButtonDidTap), for: .touchUpInside)
         return button
@@ -96,6 +111,62 @@ class NewUserProfileVC: UIViewController {
         return tf
     }()
     
+    private let birthStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 8
+        return view
+    }()
+    
+    private let birthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "생년월일"
+        label.font = .rcFont14M()
+        return label
+    }()
+    
+    private lazy var birthTextField: CustomTextField = {
+        let tf = CustomTextField()
+        tf.placeholder = "생년월일을 입력해주세요"
+        tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
+        tf.delegate = self
+        return tf
+    }()
+    
+    private let interestStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 8
+        return view
+    }()
+    
+    private let interestLabel: UILabel = {
+        let label = UILabel()
+        label.text = "관심분야"
+        label.font = .rcFont14M()
+        return label
+    }()
+    
+    private let interestRangeMenuBtn: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .rcGrayBg
+        config.attributedTitle = "관심분야를 설정해주세요"
+        config.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                                                                 NSAttributedString.Key.foregroundColor: UIColor.black]))
+        config.image = UIImage.chevronDown
+        config.imagePlacement = .trailing
+        config.imagePadding = 10
+        config.titleAlignment = .leading
+        config.background.cornerRadius = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 12)
+        
+        button.contentHorizontalAlignment = .leading
+        button.configuration = config
+        return button
+    }()
+    
     private let signupButton: NextButton = {
         let button = NextButton("회원가입")
         button.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
@@ -114,6 +185,8 @@ class NewUserProfileVC: UIViewController {
         setupAddProfileImageButton()
         setupNicknameStackView()
         setupBioStackView()
+        setupBirthStackView()
+        setupInterestStackView()
         setupSignupButton()
     }
     
@@ -145,8 +218,8 @@ class NewUserProfileVC: UIViewController {
         view.addSubview(addProfileImageButton)
         
         NSLayoutConstraint.activate([
-            addProfileImageButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: -7),
-            addProfileImageButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: -7),
+            addProfileImageButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor),
+            addProfileImageButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
             addProfileImageButton.widthAnchor.constraint(equalToConstant: addProfileImageButtonWidth),
             addProfileImageButton.heightAnchor.constraint(equalTo: addProfileImageButton.widthAnchor),
         ])
@@ -164,8 +237,8 @@ class NewUserProfileVC: UIViewController {
         [nicknameLabel, nicknameTextField].forEach { nicknameStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
-            nicknameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            nicknameStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            nicknameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nicknameStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             nicknameStackView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 30)
         ])
         
@@ -186,12 +259,57 @@ class NewUserProfileVC: UIViewController {
         NSLayoutConstraint.activate([
             bioStackView.leadingAnchor.constraint(equalTo: nicknameStackView.leadingAnchor),
             bioStackView.trailingAnchor.constraint(equalTo: nicknameStackView.trailingAnchor),
-            bioStackView.topAnchor.constraint(equalTo: nicknameStackView.bottomAnchor, constant: 30)
+            bioStackView.topAnchor.constraint(equalTo: nicknameStackView.bottomAnchor, constant: 28)
         ])
         
         NSLayoutConstraint.activate([
             bioTextField.heightAnchor.constraint(equalToConstant: 52)
         ])
+    }
+    
+    private func setupBirthStackView(){
+        birthStackView.translatesAutoresizingMaskIntoConstraints = false
+        birthLabel.translatesAutoresizingMaskIntoConstraints = false
+        birthTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(birthStackView)
+        
+        [birthLabel, birthTextField].forEach { birthStackView.addArrangedSubview($0) }
+        
+        NSLayoutConstraint.activate([
+            birthStackView.leadingAnchor.constraint(equalTo: bioStackView.leadingAnchor),
+            birthStackView.trailingAnchor.constraint(equalTo: bioStackView.trailingAnchor),
+            birthStackView.topAnchor.constraint(equalTo: bioStackView.bottomAnchor, constant: 28)
+        ])
+        
+        NSLayoutConstraint.activate([
+            birthTextField.heightAnchor.constraint(equalToConstant: 52)
+        ])
+    }
+    
+    private func setupInterestStackView(){
+        interestStackView.translatesAutoresizingMaskIntoConstraints = false
+        interestLabel.translatesAutoresizingMaskIntoConstraints = false
+        interestRangeMenuBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(interestStackView)
+        
+        [interestLabel, interestRangeMenuBtn].forEach { interestStackView.addArrangedSubview($0) }
+        
+        NSLayoutConstraint.activate([
+            interestStackView.leadingAnchor.constraint(equalTo: birthStackView.leadingAnchor),
+            interestStackView.trailingAnchor.constraint(equalTo: birthStackView.trailingAnchor),
+            interestStackView.topAnchor.constraint(equalTo: birthStackView.bottomAnchor, constant: 28)
+        ])
+        
+        NSLayoutConstraint.activate([
+            interestRangeMenuBtn.heightAnchor.constraint(equalToConstant: 52),
+            interestRangeMenuBtn.widthAnchor.constraint(equalTo: interestStackView.widthAnchor)
+        ])
+        
+        let menu = UIMenu(children: menuItems)
+        interestRangeMenuBtn.menu = menu
+        interestRangeMenuBtn.showsMenuAsPrimaryAction = true
     }
     
     private func setupSignupButton(){
