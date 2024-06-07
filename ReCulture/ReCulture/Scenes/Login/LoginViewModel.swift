@@ -20,8 +20,11 @@ class LoginViewModel {
                 let accessToken = String(responseDTO.accessToken)
                 let refreshToken = String(responseDTO.refreshToken)
                 
-                KeychainManager.shared.saveToken(accessToken)
-                KeychainManager.shared.saveToken(refreshToken)
+                KeychainManager.shared.saveToken(type: .accessToken, token: accessToken)
+                KeychainManager.shared.saveToken(type: .refreshToken, token: refreshToken)
+                
+                print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
+                print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
                 
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 UserDefaults.standard.set(responseDTO.id, forKey: "userId")

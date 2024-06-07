@@ -91,6 +91,10 @@ class HomeVC: UIViewController {
         // Do any additional setup after loading the view.
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("앱 최초 실행 값: \(isFirstLaunch)")
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        print("id: \(userId)")
+        print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
+        print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
         
         setupNavigation()
