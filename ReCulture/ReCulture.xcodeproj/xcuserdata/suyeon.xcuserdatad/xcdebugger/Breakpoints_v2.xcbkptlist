@@ -148,54 +148,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5E2A7362-EC28-43FF-ADDF-1D7E8629C161"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5E2A7362-EC28-43FF-ADDF-1D7E8629C161 - 3874dd691c8492d8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.HomeVC.viewDidLoad() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "356">
-               </Location>
-               <Location
-                  uuid = "5E2A7362-EC28-43FF-ADDF-1D7E8629C161 - 3874dd691c8492d8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.HomeVC.viewDidLoad() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "348">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "CE8DFA85-4DAD-4E7B-B874-DB97387DFE95"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -753,22 +705,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7457A9F4-9DAB-4C00-AC5A-4F6B2527EB7B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
-            landmarkName = "setCalendarMonthTo(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "78BE7D06-3DC7-4CB7-AA8D-10E197D1099E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -955,6 +891,182 @@
             endingLineNumber = "59"
             landmarkName = "changeRootVcTo(_:animated:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACE9DF3E-4AA2-4E32-BCB6-3253FD9F5874"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "868A0055-A023-4E77-AED5-727E1F741E91"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/Home/View/Calendar/CustomCalendarView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "calculateCalendar()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC9120E0-F589-47AC-B659-DF0FECE5229A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "setCharacterImage()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AC9120E0-F589-47AC-B659-DF0FECE5229A - fa370e799057ace3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HomeVC.setCharacterImage() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "328">
+               </Location>
+               <Location
+                  uuid = "AC9120E0-F589-47AC-B659-DF0FECE5229A - fa370e799057ace3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HomeVC.setCharacterImage() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5EA7EB06-94BA-4FB1-9EE6-2F7B39B39499"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "setCharacterImage()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5EA7EB06-94BA-4FB1-9EE6-2F7B39B39499 - 7e1dddea3fae96f4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () -&gt; () in ReCulture.HomeVC.setCharacterImage() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "268"
+                  endingLineNumber = "268"
+                  offsetFromSymbolStart = "684">
+               </Location>
+               <Location
+                  uuid = "5EA7EB06-94BA-4FB1-9EE6-2F7B39B39499 - fa370e799057ad9e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HomeVC.setCharacterImage() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "274"
+                  endingLineNumber = "274"
+                  offsetFromSymbolStart = "392">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B821F916-28D2-47B7-AB39-C57512236E64"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "setCharacterImage()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B821F916-28D2-47B7-AB39-C57512236E64 - 7e1dddea3fae96b6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () -&gt; () in ReCulture.HomeVC.setCharacterImage() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "270"
+                  endingLineNumber = "270"
+                  offsetFromSymbolStart = "908">
+               </Location>
+               <Location
+                  uuid = "B821F916-28D2-47B7-AB39-C57512236E64 - fa370e799057ad9e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HomeVC.setCharacterImage() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "274"
+                  endingLineNumber = "274"
+                  offsetFromSymbolStart = "392">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
