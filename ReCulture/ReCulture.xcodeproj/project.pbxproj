@@ -63,6 +63,12 @@
 		08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58B2C0017BA000A046D /* NextButton.swift */; };
 		08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */; };
 		08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */; };
+		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
+		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
+		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
+		384315C82C14D1BF00D379F3 /* CustomizingTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C72C14D1BF00D379F3 /* CustomizingTwoVC.swift */; };
+		384315CA2C14D1C600D379F3 /* CustomizingThreeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C92C14D1C600D379F3 /* CustomizingThreeVC.swift */; };
+		384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315CB2C14D1CD00D379F3 /* CustomizingFourVC.swift */; };
 		385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */; };
 		386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386325632C11EFCE00F96D0A /* LogoutModal.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
@@ -148,6 +154,12 @@
 		08E0F58B2C0017BA000A046D /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailVC.swift; sourceTree = "<group>"; };
+		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
+		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
+		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
+		384315C72C14D1BF00D379F3 /* CustomizingTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingTwoVC.swift; sourceTree = "<group>"; };
+		384315C92C14D1C600D379F3 /* CustomizingThreeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingThreeVC.swift; sourceTree = "<group>"; };
+		384315CB2C14D1CD00D379F3 /* CustomizingFourVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingFourVC.swift; sourceTree = "<group>"; };
 		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		386325632C11EFCE00F96D0A /* LogoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModal.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,7 +234,9 @@
 				08E0F5852BFFB7DE000A046D /* cell */,
 				08E0F5812BFF9CE6000A046D /* TicketImage.png */,
 				08B856452BF1D9260034E86D /* TicketBookDetail */,
+				384315C42C14D1A000D379F3 /* TicketCustomizingPage */,
 				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
+				384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */,
 				08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */,
 			);
 			path = TicketBook;
@@ -413,10 +427,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		384315C42C14D1A000D379F3 /* TicketCustomizingPage */ = {
+			isa = PBXGroup;
+			children = (
+				384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */,
+				384315C72C14D1BF00D379F3 /* CustomizingTwoVC.swift */,
+				384315C92C14D1C600D379F3 /* CustomizingThreeVC.swift */,
+				384315CB2C14D1CD00D379F3 /* CustomizingFourVC.swift */,
+			);
+			path = TicketCustomizingPage;
+			sourceTree = "<group>";
+		};
 		386325622C11EFC100F96D0A /* Modal */ = {
 			isa = PBXGroup;
 			children = (
 				386325632C11EFCE00F96D0A /* LogoutModal.swift */,
+				384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -663,8 +689,10 @@
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
 				089EDAC52C12CBF500D74C5F /* NewUserProfileRequestDTO.swift in Sources */,
 				089EDAD92C13478300D74C5F /* HomeViewModel.swift in Sources */,
+				384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
+				384315C82C14D1BF00D379F3 /* CustomizingTwoVC.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
 				089EDAC72C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift in Sources */,
@@ -673,6 +701,7 @@
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */,
+				384315CA2C14D1C600D379F3 /* CustomizingThreeVC.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
@@ -686,11 +715,13 @@
 				08A304452C122D860014F24B /* LoginAPI.swift in Sources */,
 				08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */,
 				088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */,
+				384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */,
 				089EDADB2C13670000D74C5F /* LevelType.swift in Sources */,
 				083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */,
+				384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */,
 				08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */,
 				0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */,
 				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
@@ -713,6 +744,7 @@
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
 				08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
+				384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */,
 				08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */,
 				0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */,
 				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,

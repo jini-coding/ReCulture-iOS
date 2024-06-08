@@ -1,16 +1,13 @@
 //
-//  LogoutModal.swift
+//  CompleteCustomizingModal.swift
 //  ReCulture
 //
-//  Created by Jini on 5/24/24.
+//  Created by Jini on 6/5/24.
 //
-
 
 import UIKit
 
-class LogoutModal : UIViewController {
-    
-    weak var delegate: LogoutModalDelegate?
+class CompleteCustomizingModal : UIViewController {
     
     let customModal = UIView(frame: CGRect(x: 0, y: 0, width: 322, height: 200))
     
@@ -35,17 +32,8 @@ class LogoutModal : UIViewController {
     let confirmButton : UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("확인", for: .normal)
         button.backgroundColor = UIColor.rcMain
-        button.layer.cornerRadius = 12
-        button.clipsToBounds = true
-        
-        return button
-    }()
-    
-    let cancelButton : UIButton = {
-        let button = UIButton()
-        button.setTitleColor(UIColor.rcMain, for: .normal)
-        button.backgroundColor = UIColor.rcGrayBg
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
         
@@ -62,7 +50,7 @@ class LogoutModal : UIViewController {
         
         presentCustomModal()
         setupBackground()
-        setupLogoutView()
+        setupCompleteView()
     }
     
     func presentCustomModal() {
@@ -78,67 +66,46 @@ class LogoutModal : UIViewController {
     
     
     
-    private func setupLogoutView() {
+    private func setupCompleteView() {
         customModal.addSubview(titleLabel)
         customModal.addSubview(contentLabel)
+        customModal.addSubview(confirmButton)
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5
         
-        let titleAttributedText = NSAttributedString(string: "로그아웃", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        let titleAttributedText = NSAttributedString(string: "티켓 완성!", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         titleLabel.attributedText = titleAttributedText
         titleLabel.textAlignment = .center
        
-        let contentAttributedText = NSAttributedString(string: "로그아웃하시겠습니까?", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        let contentAttributedText = NSAttributedString(string: "완성된 티켓은 티켓북에서 확인할 수 있어요", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         contentLabel.attributedText = contentAttributedText
         contentLabel.textAlignment = .center
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: customModal.topAnchor, constant: 35),
             titleLabel.centerXAnchor.constraint(equalTo: customModal.centerXAnchor),
             
             contentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            contentLabel.centerXAnchor.constraint(equalTo: customModal.centerXAnchor)
-            
-        ])
-        
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        customModal.addSubview(cancelButton)
-        customModal.addSubview(confirmButton)
-        
-        confirmButton.setTitle("로그아웃", for: .normal)
-        cancelButton.setTitle("취소", for: .normal)
-        
-        confirmButton.addTarget(self, action: #selector(performWithdrawal), for: .touchUpInside)
-        cancelButton.addTarget(self, action: #selector(popupDismiss), for: .touchUpInside)
-        
-        NSLayoutConstraint.activate([
-            cancelButton.bottomAnchor.constraint(equalTo: customModal.bottomAnchor, constant: -15),
-            cancelButton.leadingAnchor.constraint(equalTo: customModal.leadingAnchor, constant: 15),
-            cancelButton.widthAnchor.constraint(equalToConstant: 140),
-            cancelButton.heightAnchor.constraint(equalToConstant: 52),
+            contentLabel.centerXAnchor.constraint(equalTo: customModal.centerXAnchor),
             
             confirmButton.bottomAnchor.constraint(equalTo: customModal.bottomAnchor, constant: -15),
-            confirmButton.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: 15),
+            confirmButton.leadingAnchor.constraint(equalTo: customModal.leadingAnchor, constant: 15),
             confirmButton.trailingAnchor.constraint(equalTo: customModal.trailingAnchor, constant: -15),
-            confirmButton.widthAnchor.constraint(equalToConstant: 140),
             confirmButton.heightAnchor.constraint(equalToConstant: 52)
+            
         ])
-    }
-    
-    @objc func popupDismiss(){
-
-        delegate?.dismissLogoutModal()
-    }
-    
-    @objc func performWithdrawal() {
         
-        print("로그아웃")
+        confirmButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+    }
+    
+    @objc func goBack() {
+        
+        print("이전 화면으로 돌아가기")
+        
     }
 }
-
