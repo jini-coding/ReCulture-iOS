@@ -21,6 +21,8 @@ class NetworkService: NetworkServable {
         completion: @escaping (Result<API.Response, NetworkError>) -> Void
     ) where API : ServableAPI {
         let session = URLSession.shared
+        
+        print(api.urlRequest)
 
         session.dataTask(with: api.urlRequest) { data, response, error in
             guard error == nil else {

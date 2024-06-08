@@ -63,4 +63,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 로그인된 유저의 프로필 조회하는 함수
+    func getMyProfile(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MyProfileModel, NetworkError>) -> Void
+    ){
+        let myProfileAPI = MyProfileAPI()
+        networkService.request(myProfileAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(MyProfileDTO.convertMyProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
