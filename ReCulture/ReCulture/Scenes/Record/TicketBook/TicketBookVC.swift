@@ -128,6 +128,9 @@ class TicketBookVC: UIViewController {
     
     @objc func addNewTicket(){
         print("새 티켓북 추가")
+        let vc = TicketCustomizingVC()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
