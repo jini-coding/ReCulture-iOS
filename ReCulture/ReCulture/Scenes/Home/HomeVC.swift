@@ -51,7 +51,6 @@ class HomeVC: UIViewController {
     private let characterImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .yellow
         view.layer.cornerRadius = 145/2
         return view
     }()
@@ -196,7 +195,7 @@ class HomeVC: UIViewController {
         userLevelInfoView.addSubview(tilNextLevelLabel)
         
         NSLayoutConstraint.activate([
-            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 18),
+            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
             tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36)
         ])
     }
@@ -207,8 +206,8 @@ class HomeVC: UIViewController {
         userLevelInfoView.addSubview(levelProgressView)
         
         NSLayoutConstraint.activate([
-            levelProgressView.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 18),
-            levelProgressView.trailingAnchor.constraint(equalTo: userLevelInfoView.trailingAnchor, constant: -18),
+            levelProgressView.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
+            levelProgressView.trailingAnchor.constraint(equalTo: userLevelInfoView.trailingAnchor, constant: -30),
             levelProgressView.topAnchor.constraint(equalTo: tilNextLevelLabel.bottomAnchor, constant: 7),
             levelProgressView.bottomAnchor.constraint(equalTo: userLevelInfoView.bottomAnchor)
         ])
