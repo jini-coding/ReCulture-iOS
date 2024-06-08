@@ -141,6 +141,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         vc.contentImage = selectedData.contentImages
 
         // 뷰 컨트롤러 표시
+        
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
     

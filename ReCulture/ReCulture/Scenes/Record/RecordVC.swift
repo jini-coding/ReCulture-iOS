@@ -101,7 +101,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-            
+        
         // 네비게이션 바 숨김 설정
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
@@ -112,7 +112,6 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 다른 뷰로 이동할 때 네비게이션 바 보이도록 설정
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tempData.count
@@ -158,12 +157,15 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         vc.contentImage = selectedData.contentImages
 
         // 뷰 컨트롤러 표시
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
     
 
     @objc func goToTicketBook(){
-        self.navigationController?.pushViewController(TicketBookVC(), animated: true)
+        let vc = TicketBookVC()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func setupHeaderView() {
