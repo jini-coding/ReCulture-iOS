@@ -22,8 +22,6 @@ class NetworkService: NetworkServable {
     ) where API : ServableAPI {
         let session = URLSession.shared
         
-        print(api.urlRequest)
-
         session.dataTask(with: api.urlRequest) { data, response, error in
             guard error == nil else {
                 let networkError = self.convertErrorToNetworkError(from: error!)

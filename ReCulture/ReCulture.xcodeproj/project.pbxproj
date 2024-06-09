@@ -49,6 +49,7 @@
 		08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304492C1230A00014F24B /* KeychainManager.swift */; };
 		08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A3044B2C1230C70014F24B /* TokenStateManager.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
+		08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB15BE2C163C5F008ED4AE /* ImageFile.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
@@ -146,6 +147,7 @@
 		08A304492C1230A00014F24B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		08A3044B2C1230C70014F24B /* TokenStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStateManager.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
+		08BB15BE2C163C5F008ED4AE /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				089EDADA2C13670000D74C5F /* LevelType.swift */,
 				08A304492C1230A00014F24B /* KeychainManager.swift */,
 				08A3044B2C1230C70014F24B /* TokenStateManager.swift */,
+				08BB15BE2C163C5F008ED4AE /* ImageFile.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				089EDAC72C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift in Sources */,
 				0866DBD22C0B8BCF00FBBDB5 /* SignUpVC.swift in Sources */,
 				08A304472C122E550014F24B /* LoginViewModel.swift in Sources */,
+				08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */,
 				3874B60A2BE43291003376F7 /* Font.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */,
