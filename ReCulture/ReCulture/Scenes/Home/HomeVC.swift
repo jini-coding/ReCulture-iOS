@@ -50,8 +50,9 @@ class HomeVC: UIViewController {
     }()
     private let characterImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 145/2
+        view.clipsToBounds = true
         return view
     }()
     
