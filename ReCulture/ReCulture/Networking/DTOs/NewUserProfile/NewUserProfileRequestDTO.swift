@@ -9,6 +9,5 @@ struct NewUserProfileRequestDTO: Codable {
     let nickname: String
     let bio: String
     let birthdate: String
-    let interests: String
-    let profilePhoto: String
+    let interest: String
 }

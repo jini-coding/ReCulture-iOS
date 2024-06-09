@@ -31,7 +31,7 @@ final class NetworkManager {
     }
     
     /// 사용자 회원가입하는 함수
-    func postUserSignup(
+    func postUserRegister(
         signupRequestDTO: SignupRequestDTO,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<SignupResponseDTO, NetworkError>) -> Void
@@ -74,6 +74,24 @@ final class NetworkManager {
             switch result {
             case .success(let DTO):
                 completion(.success(MyProfileDTO.convertMyProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    /// 사용자 새로운 프로필 설정하는 함수
+    func postNewUserProfile(
+        newUserProfileRequestDTO: NewUserProfileRequestDTO,
+        profileImage: [ImageFile],
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<NewUserProfileResponseDTO, NetworkError>) -> Void
+    ){
+        let newUserProfileAPI = NewUserProfileAPI(requestDTO: newUserProfileRequestDTO.toDictionary!, profileImage: profileImage)
+        networkService.request(newUserProfileAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
             case .failure(let error):
                 completion(.failure(error))
             }

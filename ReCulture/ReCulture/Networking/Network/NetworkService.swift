@@ -48,6 +48,11 @@ class NetworkService: NetworkServable {
                 } catch NetworkError.clientError {
                     completion(.failure(NetworkError.clientError))
                 } catch NetworkError.serverError {
+                    if let jsonString = String(data: (data)!, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+//                    let decodedData = try! self.decode(ErrorDTO.self, from: data!)
+//                    print(decodedData)
                     completion(.failure(NetworkError.serverError))
                 } catch {
                     completion(.failure(NetworkError.unknownError))

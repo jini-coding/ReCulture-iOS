@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
-        print("앱 최초 실행 값: \(isFirstLaunch)")
+        print("sceneDelegate -- 앱 최초 실행 값: \(isFirstLaunch)")
         let tabBarVC = TabBarVC() // 첫 시작 화면
         let loginNavVC = UINavigationController(rootViewController: LoginVC()) // 이거로 root 설정 시 로그인부터 시작함
         window = UIWindow(windowScene: windowScene)

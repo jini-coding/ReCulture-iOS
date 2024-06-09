@@ -19,6 +19,7 @@ protocol ServableAPI {
     var method: HTTPMethod { get }
     var headers: [String : String]? { get }
     var requestBody: Encodable? { get }
+    var multipartRequestBody: Data? { get }
 }
 
 extension ServableAPI {
@@ -27,9 +28,13 @@ extension ServableAPI {
     var method: HTTPMethod { .get }
     var headers: [String : String]? { nil }
     var requestBody: Encodable? { nil }
+    var multipartRequestBody: Data? { nil }
     
     var urlRequest: URLRequest {
+        //print("making url request")
         let urlString = baseURL + path + params
+        print("multipart request body is")
+        //print(multipartRequestBody)
         
         let url = URL(string: urlString)!
         
@@ -43,9 +48,15 @@ extension ServableAPI {
         }
         
         if let requestBody = requestBody, let jsonData = try? JSONEncoder().encode(requestBody) {
+            print("requestbody")
             request.httpBody = jsonData
         }
         
+        if let multipartBody = multipartRequestBody {
+            print("multipart")
+            request.httpBody = multipartBody
+        }
+                
         return request
     }
 }

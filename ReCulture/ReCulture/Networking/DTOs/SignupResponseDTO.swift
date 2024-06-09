@@ -7,6 +7,6 @@
 
 struct SignupResponseDTO: Codable {
     let id: Int
-    let email: String
-    let createdAt: String
+    let accessToken: String
+    let refreshToken: String
 }
