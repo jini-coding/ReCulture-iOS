@@ -18,6 +18,8 @@ class NewUserProfileViewModel {
             switch result {
             case .success(let responseDTO):
                 print(responseDTO)
+                UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+                UserDefaults.standard.synchronize()
                 (fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
             case .failure(let error):
                 let networkAlertController = self.networkErrorAlert(error)

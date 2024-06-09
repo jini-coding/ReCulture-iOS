@@ -26,7 +26,6 @@ class SignupViewModel {
                 print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
                 print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
                 
-                //UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 UserDefaults.standard.set(responseDTO.id, forKey: "userId")
                 UserDefaults.standard.synchronize()
                 
