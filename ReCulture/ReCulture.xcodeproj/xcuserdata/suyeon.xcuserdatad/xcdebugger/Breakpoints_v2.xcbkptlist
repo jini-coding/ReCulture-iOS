@@ -643,7 +643,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "42485A2D-16A5-46A0-BB87-E9B8989BE674"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReCulture/Scenes/Home/View/Calendar/CustomCalendarView.swift"
@@ -705,6 +705,22 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "7457A9F4-9DAB-4C00-AC5A-4F6B2527EB7B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/Home/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "HomeVC"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "78BE7D06-3DC7-4CB7-AA8D-10E197D1099E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -712,8 +728,8 @@
             filePath = "ReCulture/Scenes/Auth/SignUpVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "tfDidChange(_:)"
             landmarkType = "7">
             <Locations>
@@ -760,8 +776,8 @@
             filePath = "ReCulture/Scenes/Auth/SignUpVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "isPasswordSame(_:_:)"
             landmarkType = "7">
          </BreakpointContent>

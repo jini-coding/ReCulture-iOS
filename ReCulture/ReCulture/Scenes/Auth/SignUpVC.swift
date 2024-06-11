@@ -11,10 +11,18 @@ class SignUpVC: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel = SignupViewModel()
+    
     private var isValidPw = false {
         willSet {
             // 비밀번호가 유효한 경우 유효하지 않음 라벨 삭제, 유효하지 않으면 추가
             newValue ? removePwIsNotValidLabel() : addPwIsNotValidLabel()
+        }
+    }
+    
+    var signupSuccess = false {
+        didSet {
+            moveToNewUserProfileVC(signupSuccess)
         }
     }
     
@@ -236,8 +244,12 @@ class SignUpVC: UIViewController {
     @objc private func signUpButtonDidTap(){
         print("최종 회원가입하기")
         print("프로필 설정으로 이동")
-
-        self.navigationController?.pushViewController(NewUserProfileVC(), animated: true)
+        
+        LoadingIndicator.showLoading()
+        
+        let requestDTO = SignupRequestDTO(email: emailTextField.text!, password: passwordTextField.text!)
+        print("dto: \(requestDTO)")
+        viewModel.postUserRegister(requestDTO: requestDTO, fromCurrentVC: self)
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification){
@@ -336,6 +348,15 @@ class SignUpVC: UIViewController {
         if passwordStackView.arrangedSubviews.count != 2 {
             passwordStackView.removeArrangedSubview(pwIsNotValidLabel)
             pwIsNotValidLabel.isHidden = true
+        }
+    }
+    
+    private func moveToNewUserProfileVC(_ signupSuccess: Bool){
+        if signupSuccess {
+            DispatchQueue.main.async {
+                LoadingIndicator.hideLoading()
+                self.navigationController?.pushViewController(NewUserProfileVC(), animated: true)
+            }
         }
     }
 }

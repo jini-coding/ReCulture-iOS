@@ -12,9 +12,13 @@ class NewUserProfileVC: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel = NewUserProfileViewModel()
+    
     private let profileImageViewWidth: CGFloat = 90
     
     private let addProfileImageButtonWidth: CGFloat = 30
+    
+    private var selectedInterest = ""
     
     private lazy var phPicker: PHPickerViewController = {
         var config = PHPickerConfiguration()
@@ -27,6 +31,7 @@ class NewUserProfileVC: UIViewController {
     }()
     
     private var selectedImage = UIImage()
+    private var imageFileName = ""
     
     var menuItems: [UIAction] {
         var array: [UIAction] = []
@@ -34,6 +39,7 @@ class NewUserProfileVC: UIViewController {
             array.append(UIAction(
                 title: type,
                 handler: { _ in
+                    self.selectedInterest = type
                     self.interestRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
                     self.interestRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
                         NSAttributedString.Key.foregroundColor: UIColor.black]))
@@ -41,6 +47,12 @@ class NewUserProfileVC: UIViewController {
             ))
         }
         return array
+    }
+    
+    var newUserProfileSuccess = false {
+        didSet {
+            moveToHomeVC(newUserProfileSuccess)
+        }
     }
     
     // MARK: - Views
@@ -340,13 +352,35 @@ class NewUserProfileVC: UIViewController {
     }
     
     @objc private func signUpButtonDidTap(){
-        print("회원가입 완료")
+        print("프로필 설정 버튼 선택됨")
+        LoadingIndicator.showLoading()
+        
+        let nickname = (nicknameTextField.text?.isEmpty ?? true) ? "" : nicknameTextField.text!
+        let bio = (bioTextField.text?.isEmpty ?? true) ? "" : bioTextField.text!
+        let birth = (birthTextField.text?.isEmpty ?? true) ? "" : birthTextField.text!
+        let interest = selectedInterest
+        let image = ImageFile(filename: imageFileName, data: selectedImage.pngData()!, type: "png")
+
+        viewModel.postNewUserProfile(
+            requestDTO: NewUserProfileRequestDTO(nickname: nickname, bio: bio, birthdate: birth, interest: interest),
+            profileImage: [image], 
+            fromCurrentVC: self
+        )
     }
     
     // MARK: - Functions
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    private func moveToHomeVC(_ success: Bool){
+        if success {
+            DispatchQueue.main.async {
+                LoadingIndicator.hideLoading()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVcTo(TabBarVC(), animated: false)
+            }
+        }
     }
 }
 
@@ -361,6 +395,10 @@ extension NewUserProfileVC: PHPickerViewControllerDelegate {
         if results.count != 0{
             if results[0].itemProvider.canLoadObject(ofClass: UIImage.self) {
                 results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    if let fileName = results[0].itemProvider.suggestedName {
+                        self.imageFileName = fileName
+                        print("선택된 이미지 파일 이름: \(fileName)")
+                    } else { return }
                     self.selectedImage = image as! UIImage
                 }
             }
@@ -386,7 +424,7 @@ extension NewUserProfileVC: UITextFieldDelegate {
         }
         
         if textField == bioTextField {
-            guard textField.text!.count < 5 else { return false } // 50 글자로 제한
+            guard textField.text!.count < 50 else { return false } // 50 글자로 제한
         }
         return true
     }
