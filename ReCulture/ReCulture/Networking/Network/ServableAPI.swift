@@ -16,6 +16,7 @@ protocol ServableAPI {
     associatedtype Response: Decodable
     var path: String { get }
     var params: String { get }
+    var queryParams: [String : String]? { get }
     var method: HTTPMethod { get }
     var headers: [String : String]? { get }
     var requestBody: Encodable? { get }
@@ -25,6 +26,7 @@ protocol ServableAPI {
 extension ServableAPI {
     var baseURL: String { "http://34.27.50.30:8080/api" }
     var params: String { "" }
+    var queryParams: [String : String]? { nil }
     var method: HTTPMethod { .get }
     var headers: [String : String]? { nil }
     var requestBody: Encodable? { nil }
@@ -33,7 +35,13 @@ extension ServableAPI {
     var urlRequest: URLRequest {
         let urlString = baseURL + path + params
         
-        let url = URL(string: urlString)!
+        var url = URL(string: urlString)!
+        
+        if let queryParams = queryParams {
+            queryParams.forEach { (key: String, value: String) in
+                url.append(queryItems: [URLQueryItem(name: key, value: value)])
+            }
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
