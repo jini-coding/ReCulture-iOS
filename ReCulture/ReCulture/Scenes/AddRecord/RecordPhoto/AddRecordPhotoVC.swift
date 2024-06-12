@@ -54,8 +54,6 @@ class AddRecordPhotoVC: UIViewController {
     }
     
     private var imageFiles: [ImageFile] = []
-//    private var imageFilesDict: [UIImage: ImageFile] = [:]
-    private var photoItemProvider: [NSItemProvider] = []
     
     var postNewRecordSuccess = false {
         didSet {
@@ -106,7 +104,6 @@ class AddRecordPhotoVC: UIViewController {
     
     init(requestDTO: AddRecordRequestDTO) {
         self.requestDTO = requestDTO
-        print(requestDTO)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -252,7 +249,6 @@ class AddRecordPhotoVC: UIViewController {
             print(grandParentVC)
             self.presentingViewController?.presentingViewController?.dismiss(animated: true) {
                 print(RecordTypeVC.previousSelectedTabbarIndex)
-                //RecordTypeVC.initializeViews(RecordTypeVC)
                 let recordTypeVC = grandParentVC?.viewControllers?[2] as? RecordTypeVC
                 recordTypeVC?.initializeViews()
                 grandParentVC?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
@@ -287,9 +283,6 @@ extension AddRecordPhotoVC: PHPickerViewControllerDelegate {
                         self.selectedPhotos.append(image)
                         self.photoCollectionView.reloadData()
                     }
-//                    print(result.itemProvider)
-//                    self.photoItemProvider.append(result.itemProvider)
-//                    print(self.photoItemProvider)
                     if let fileName = result.itemProvider.suggestedName {
                         self.imageFiles.append(ImageFile(filename: fileName, data: image.pngData()!, type: "png"))
                         print("선택된 이미지 파일 이름: \(fileName)")
@@ -307,11 +300,9 @@ extension AddRecordPhotoVC: PHPickerViewControllerDelegate {
 extension AddRecordPhotoVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if selectedPhotos.count == 5 || selectedPhotos.count == 0 {
-            print("현재 cell 개수: \(selectedPhotos.count)")
             return selectedPhotos.count
         }
         else {
-            print("현재 cell 개수: \(selectedPhotos.count + 1)")
             return selectedPhotos.count + 1
         }
     }

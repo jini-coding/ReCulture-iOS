@@ -314,25 +314,9 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordDetail/AddRecordDetailVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "627"
-            endingLineNumber = "627"
+            startingLineNumber = "651"
+            endingLineNumber = "651"
             landmarkName = "validateInputField()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E15DAB4B-CEA6-45A0-B2C0-C56965F4E0C9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "picker(_:didFinishPicking:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -346,8 +330,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "selectedPhotos"
             landmarkType = "24">
             <Locations>
@@ -394,8 +378,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,58 +394,10 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "18776F7B-EF30-44AA-99F3-90B02D2631E3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "uploadButtonDidTap()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "18776F7B-EF30-44AA-99F3-90B02D2631E3 - 5b20cb309aa27fe4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
-                  offsetFromSymbolStart = "1016">
-               </Location>
-               <Location
-                  uuid = "18776F7B-EF30-44AA-99F3-90B02D2631E3 - 633b145bc262d398"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
-                  offsetFromSymbolStart = "784">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -474,8 +410,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -524,69 +460,6 @@
                   startingLineNumber = "81"
                   endingLineNumber = "81"
                   offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "uploadButtonDidTap()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621 - 5b20cb309aa200cd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "215"
-                  endingLineNumber = "215"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621 - 633b145bc262ac90"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "216"
-                  endingLineNumber = "216"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  uuid = "3F3F94EF-62FB-4F1F-A6C6-4BFCC8E09621 - 5b20cb309aa200cd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReCulture.AddRecordPhotoVC.uploadButtonDidTap() -&gt; ()"
-                  moduleName = "ReCulture"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "215"
-                  endingLineNumber = "215"
-                  offsetFromSymbolStart = "60">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1083,6 +956,22 @@
                   offsetFromSymbolStart = "392">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F06B47A3-BFFC-402E-8A57-F8E0B02EE90D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/AddRecord/RecordPhoto/AddRecordPhotoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "picker(_:didFinishPicking:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
