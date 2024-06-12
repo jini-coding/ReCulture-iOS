@@ -51,11 +51,14 @@ extension ServableAPI {
         if let multipartBody = multipartRequestBody {
             request.httpBody = multipartBody
         }
-                
+        print("===Servable API Headers==")
+        print(request.allHTTPHeaderFields)
+        print("===Servable API MultipartBody==")
+        print(request.httpBody)
         return request
     }
     
-    func createBody(parameters: [String : Any], boundary: String, imageFiles: [ImageFile]?) -> Data {
+    func createBody(name: String, parameters: [String : Any], boundary: String, imageFiles: [ImageFile]?) -> Data {
         var body = Data()
         let boundaryPrefix = "--\(boundary)\r\n"
 
@@ -70,7 +73,7 @@ extension ServableAPI {
         if let images = imageFiles {
             for image in images {
               body.append(boundaryPrefix.data(using: .utf8)!)
-              body.append("Content-Disposition: form-data; name=\"photo\"; filename=\"\(image.filename).png\"\r\n".data(using: .utf8)!)
+              body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(image.filename).png\"\r\n".data(using: .utf8)!)
               body.append("Content-Type: image/\(image.type)\r\n\r\n".data(using: .utf8)!)
               body.append(image.data)
               body.append("\r\n".data(using: .utf8)!)

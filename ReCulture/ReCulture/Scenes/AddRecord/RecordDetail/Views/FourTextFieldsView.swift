@@ -226,6 +226,14 @@ class FourTextFieldsView: UIView {
         label3.text = placeholderInfoList[2][0]
         textField3.placeholder = placeholderInfoList[2][1]
     }
+    
+    func getDetails() -> DetailsModel {
+        return DetailsModel(review: textView4.text!,
+                            detail1: textField1.text ?? "",
+                            detail2: textField2.text ?? "",
+                            detail3: textField3.text ?? "",
+                            detail4: "")
+    }
 }
 
 // MARK: - Extensions

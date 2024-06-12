@@ -14,6 +14,9 @@
 		0830AE6E2C19D047005B61B0 /* DisclosureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6D2C19D047005B61B0 /* DisclosureType.swift */; };
 		0830AE702C19D291005B61B0 /* AddRecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */; };
 		0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */; };
+		0830AE742C19D8A6005B61B0 /* AddRecordDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE732C19D8A6005B61B0 /* AddRecordDetailModel.swift */; };
+		0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE752C19E142005B61B0 /* DetailsModel.swift */; };
+		0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */; };
 		0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */; };
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
@@ -116,6 +119,9 @@
 		0830AE6D2C19D047005B61B0 /* DisclosureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureType.swift; sourceTree = "<group>"; };
 		0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordAPI.swift; sourceTree = "<group>"; };
 		0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordResponseDTO.swift; sourceTree = "<group>"; };
+		0830AE732C19D8A6005B61B0 /* AddRecordDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailModel.swift; sourceTree = "<group>"; };
+		0830AE752C19E142005B61B0 /* DetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModel.swift; sourceTree = "<group>"; };
+		0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoViewModel.swift; sourceTree = "<group>"; };
 		0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
@@ -246,6 +252,7 @@
 				0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */,
 				08854E832C045208009E6AA6 /* FourTextFieldsView.swift */,
 				088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */,
+				0830AE752C19E142005B61B0 /* DetailsModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,6 +278,7 @@
 				0856A61F2C099B34001198E1 /* Photos */,
 				0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */,
 				0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */,
+				0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */,
 			);
 			path = RecordPhoto;
 			sourceTree = "<group>";
@@ -441,6 +449,7 @@
 			children = (
 				0845E5402C031F9400B6A4D6 /* Views */,
 				08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */,
+				0830AE732C19D8A6005B61B0 /* AddRecordDetailModel.swift */,
 			);
 			path = RecordDetail;
 			sourceTree = "<group>";
@@ -742,10 +751,12 @@
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
+				0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */,
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
 				089EDAE32C138BBA00D74C5F /* LoadingIndicator.swift in Sources */,
 				081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */,
+				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
 				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
@@ -763,6 +774,7 @@
 				083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */,
 				384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */,
 				08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */,
+				0830AE742C19D8A6005B61B0 /* AddRecordDetailModel.swift in Sources */,
 				0875CA6D2C0A486100F55B9E /* AddRecordPhotoCell.swift in Sources */,
 				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
 				081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */,

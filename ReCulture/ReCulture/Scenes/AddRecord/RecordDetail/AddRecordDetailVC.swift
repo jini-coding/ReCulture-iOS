@@ -76,6 +76,7 @@ class AddRecordDetailVC: UIViewController {
     
     private let publicOrPrivateList: [String] = ["공개", "비공개"]
     private var rangeIsSet: Bool = false
+    private var disclosure: DisclosureType = .Private
     
     var menuItems: [UIAction] {
         let isPublic = UIAction(
@@ -87,6 +88,7 @@ class AddRecordDetailVC: UIViewController {
                     NSAttributedString.Key.foregroundColor: UIColor.black])
                 )
                 self.rangeIsSet = true
+                self.disclosure = .Public
                 self.validateInputField()
             })
 
@@ -99,6 +101,7 @@ class AddRecordDetailVC: UIViewController {
                     NSAttributedString.Key.foregroundColor: UIColor.black])
                 )
                 self.rangeIsSet = true
+                self.disclosure = .Private
                 self.validateInputField()
             })
         return [isPublic, isPrivate]
@@ -587,7 +590,28 @@ class AddRecordDetailVC: UIViewController {
     
     @objc private func nextButtonDidTap(){
         print("다음으로")
-        let addRecordPhotoVC = AddRecordPhotoVC()
+        var detailsModel: DetailsModel?
+        if isFourTextFieldsView {
+            detailsModel = fourTextFieldsView.getDetails()
+        }
+        else {
+            detailsModel = fiveTextFieldsView.getDetails()
+        }
+        let addRecordPhotoVC = AddRecordPhotoVC(
+            requestDTO: AddRecordRequestDTO(title: recordTitleTextField.text!,
+                                            emoji: emojiTextField.text!,
+                                            date: ISO8601DateFormatter.string(from: datePicker.date,
+                                                                              timeZone: TimeZone(abbreviation: "KST")!,
+                                                                              formatOptions: [.withInternetDateTime]),
+                                            categoryId: String(RecordType.getCategoryIdOf(recordType)),
+                                            disclosure: disclosure.rawValue,
+                                            review: detailsModel!.review,
+                                            detail1: detailsModel!.detail1,
+                                            detail2: detailsModel!.detail2,
+                                            detail3: detailsModel!.detail3,
+                                            detail4: detailsModel!.detail4
+                                            )
+            )
         addRecordPhotoVC.modalPresentationStyle = .fullScreen
         self.present(addRecordPhotoVC, animated: true)
     }

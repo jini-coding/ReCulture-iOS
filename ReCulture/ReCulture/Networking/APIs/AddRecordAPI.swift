@@ -22,7 +22,8 @@ struct AddRecordAPI: ServableAPI {
     ]}
     
     var multipartRequestBody: Data? {
-        createBody(parameters: requestDTO,
+        createBody(name: "photos",
+                   parameters: requestDTO,
                    boundary: boundary,
                    imageFiles: photos)
     }

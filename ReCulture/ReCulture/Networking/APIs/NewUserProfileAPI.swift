@@ -23,7 +23,8 @@ struct NewUserProfileAPI: ServableAPI {
     ]}
     
     var multipartRequestBody: Data? {
-        createBody(parameters: requestDTO,
+        createBody(name: "photo",
+                   parameters: requestDTO,
                    boundary: boundary,
                    imageFiles: profileImage)
     }
