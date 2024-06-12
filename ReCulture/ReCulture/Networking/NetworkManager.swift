@@ -115,4 +115,21 @@ final class NetworkManager {
             }
         }
     }
+    
+    func getMyCalendar(
+        year: String,
+        month: String,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MyCalendarDTO, NetworkError>) -> Void
+    ){
+        let myCalendarAPI = MyCalendarAPI(year: year, month: month)
+        networkService.request(myCalendarAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
