@@ -19,7 +19,7 @@ struct CalendarRecordDetail: Codable {
     let detail2: String
     let detail3: String
     let detail4: String
-    let authorID: Int
+    let authorId: Int
     let createdAt: String
     let updatedAt: String
     let photos: [CulturePhotos]
