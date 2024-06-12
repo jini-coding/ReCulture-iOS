@@ -12,6 +12,8 @@
 		081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */; };
 		0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */; };
 		0830AE6E2C19D047005B61B0 /* DisclosureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6D2C19D047005B61B0 /* DisclosureType.swift */; };
+		0830AE702C19D291005B61B0 /* AddRecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */; };
+		0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */; };
 		0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */; };
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
@@ -112,6 +114,8 @@
 		081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponseDTO.swift; sourceTree = "<group>"; };
 		0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordRequestDTO.swift; sourceTree = "<group>"; };
 		0830AE6D2C19D047005B61B0 /* DisclosureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureType.swift; sourceTree = "<group>"; };
+		0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordAPI.swift; sourceTree = "<group>"; };
+		0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordResponseDTO.swift; sourceTree = "<group>"; };
 		0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
@@ -345,6 +349,7 @@
 				08A304442C122D860014F24B /* LoginAPI.swift */,
 				089EDAD42C1344EA00D74C5F /* MyProfileAPI.swift */,
 				089EDAC82C12D6D200D74C5F /* NewUserProfileAPI.swift */,
+				0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -360,6 +365,7 @@
 				089EDAD22C13449100D74C5F /* MyProfileDTO.swift */,
 				089EDAE02C13871C00D74C5F /* ErrorDTO.swift */,
 				0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */,
+				0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -717,6 +723,7 @@
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
 				089EDAC52C12CBF500D74C5F /* NewUserProfileRequestDTO.swift in Sources */,
 				089EDAD92C13478300D74C5F /* HomeViewModel.swift in Sources */,
+				0830AE702C19D291005B61B0 /* AddRecordAPI.swift in Sources */,
 				384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
@@ -760,6 +767,7 @@
 				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
 				081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */,
 				08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */,
+				0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */,
 				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				0856A6212C099B45001198E1 /* PhotoService.swift in Sources */,
