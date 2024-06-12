@@ -51,13 +51,17 @@ extension ServableAPI {
         if let multipartBody = multipartRequestBody {
             request.httpBody = multipartBody
         }
-        print("===Servable API Headers==")
-        print(request.allHTTPHeaderFields)
-        print("===Servable API MultipartBody==")
-        print(request.httpBody)
+        
         return request
     }
     
+    /// 멀티파트 통신을 위해 이미지로 바디 만들기
+    /// - Parameters:
+    ///   - name: 서버에 요청할 때 이미지에 사용하는 이름 (ex. photos)
+    ///   - parameters: 요청에 같이 넣을 이미지가 아닌 다른 파라미터들
+    ///   - boundary: 디바이스 고유 uuid
+    ///   - imageFiles: 요청에 넣을 ImageFile 객체들
+    /// - Returns: 만들어진 바디
     func createBody(name: String, parameters: [String : Any], boundary: String, imageFiles: [ImageFile]?) -> Data {
         var body = Data()
         let boundaryPrefix = "--\(boundary)\r\n"
