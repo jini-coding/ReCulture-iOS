@@ -24,4 +24,8 @@ enum RecordType: String {
     static func getAllRecordTypes() -> [String] {
         return RecordType.allTypes.map { $0.rawValue }
     }
+    
+    static func getCategoryIdOf(_ type: RecordType) -> Int {
+        return allTypes.firstIndex(of: type)!
+    }
 }
