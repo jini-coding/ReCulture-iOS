@@ -101,6 +101,7 @@ class HomeVC: UIViewController {
         
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
+        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
         
         setupNavigation()
         

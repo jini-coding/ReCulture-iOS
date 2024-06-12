@@ -18,7 +18,9 @@ class MyProfileViewModel {
     
     var myProfileModelDidChange: (() -> Void)?
     
-    // MARK: - Functions
+    private var calendarDTO: [CalendarRecordDetail] = []
+    
+    // MARK: - Functions; Home Profile
     
     func getMyProfile(fromCurrentVC: UIViewController){
         NetworkManager.shared.getMyProfile() { result in
@@ -58,6 +60,30 @@ class MyProfileViewModel {
     func getProfileImage() -> String {
         return myProfileModel.profilePhoto!
     }
+    
+    // MARK: - Functions; Calendar
+    
+    func getMyCalendar(year: String, month: String, fromCurrentVC: UIViewController){
+        NetworkManager.shared.getMyCalendar(year: year, month: month) { result in
+            switch result {
+            case .success(let dto):
+                self.calendarDTO = dto
+                print("-- home view model --")
+                print(self.calendarDTO)
+            case .failure(let error):
+                print("-- home view model --")
+                print(error)
+                let networkAlertController = self.networkErrorAlert(error)
+
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: - Helpers
     
     private func networkErrorAlert(_ error: Error) -> UIAlertController{
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)

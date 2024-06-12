@@ -13,3 +13,9 @@ struct MyProfileModel {
     var levelNum: Int?
     var levelName: String?
 }
+
+struct MyCalendarModel {
+    let year: Int
+    let month: Int
+    let day: Int
+}
