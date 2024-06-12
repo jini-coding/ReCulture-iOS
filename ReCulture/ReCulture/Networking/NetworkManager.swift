@@ -97,4 +97,22 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 새로운 기록 추가하는 함수
+    func postNewRecord(
+        addRecordRequestDTO: AddRecordRequestDTO,
+        photos: [ImageFile],
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<AddRecordResponseDTO, NetworkError>) -> Void
+    ){
+        let addRecordAPI = AddRecordAPI(requestDTO: addRecordRequestDTO.toDictionary!, photos: photos)
+        networkService.request(addRecordAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

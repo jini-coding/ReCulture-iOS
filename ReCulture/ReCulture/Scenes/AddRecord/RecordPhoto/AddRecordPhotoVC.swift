@@ -14,6 +14,10 @@ class AddRecordPhotoVC: UIViewController {
     
     static let photoMaxSelectionCount = 5
     
+    private let requestDTO: AddRecordRequestDTO
+    
+    private let viewModel = AddRecordPhotoViewModel()
+    
     private var phPickerConfig: PHPickerConfiguration = {
         var config = PHPickerConfiguration()
         config.selectionLimit = photoMaxSelectionCount
@@ -46,6 +50,14 @@ class AddRecordPhotoVC: UIViewController {
                     self.uploadButton.isActive = false
                 }
             }
+        }
+    }
+    
+    private var imageFiles: [ImageFile] = []
+    
+    var postNewRecordSuccess = false {
+        didSet {
+            goBackToPreviousTab(postNewRecordSuccess)
         }
     }
     
@@ -89,7 +101,16 @@ class AddRecordPhotoVC: UIViewController {
     }()
     
     // MARK: - init
-
+    
+    init(requestDTO: AddRecordRequestDTO) {
+        self.requestDTO = requestDTO
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -212,16 +233,27 @@ class AddRecordPhotoVC: UIViewController {
 //    }
     
     @objc private func uploadButtonDidTap(){
-        let parentVC = self.presentingViewController
-        print(parentVC)
-        let grandParentVC = parentVC?.presentingViewController as? TabBarVC
-        print(grandParentVC)
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true) {
-            print(RecordTypeVC.previousSelectedTabbarIndex)
-            //RecordTypeVC.initializeViews(RecordTypeVC)
-            let recordTypeVC = grandParentVC?.viewControllers?[2] as? RecordTypeVC
-            recordTypeVC?.initializeViews()
-            grandParentVC?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
+        LoadingIndicator.showLoading()
+        print("==업로드 버튼 눌림==")
+        print(imageFiles)
+        viewModel.postNewRecord(requestDTO: requestDTO, photos: imageFiles, fromCurrentVC: self)
+    }
+    
+    // MARK: - Functions
+    
+    func goBackToPreviousTab(_ success: Bool){
+        DispatchQueue.main.async {
+            let parentVC = self.presentingViewController
+            print(parentVC)
+            let grandParentVC = parentVC?.presentingViewController as? TabBarVC
+            print(grandParentVC)
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true) {
+                print(RecordTypeVC.previousSelectedTabbarIndex)
+                let recordTypeVC = grandParentVC?.viewControllers?[2] as? RecordTypeVC
+                recordTypeVC?.initializeViews()
+                grandParentVC?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
+            }
+            LoadingIndicator.hideLoading()
         }
     }
 }
@@ -232,20 +264,34 @@ extension AddRecordPhotoVC: PHPickerViewControllerDelegate {
     
     /// 이미지 수행 끝났을 때
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        // cancel 눌렀을 때
+        if results.isEmpty {
+            picker.dismiss(animated: true)
+            return
+        }
         selectedPhotos.removeAll()
-        print(results.count)
+        imageFiles.removeAll()
+        print("선택된 사진의 개수: \(results.count)")
+        
         
         results.forEach { result in
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
                 result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-                    self.selectedPhotos.append(image as! UIImage)
+                    let image = image as! UIImage
+                    
+                    DispatchQueue.main.async {
+                        self.selectedPhotos.append(image)
+                        self.photoCollectionView.reloadData()
+                    }
+                    if let fileName = result.itemProvider.suggestedName {
+                        self.imageFiles.append(ImageFile(filename: fileName, data: image.pngData()!, type: "png"))
+                        print("선택된 이미지 파일 이름: \(fileName)")
+                    }
                 }
             }
         }
         
-        picker.dismiss(animated: true) {
-            self.photoCollectionView.reloadData()
-        }
+        picker.dismiss(animated: true)
     }
 }
 
@@ -269,6 +315,7 @@ extension AddRecordPhotoVC: UICollectionViewDelegate, UICollectionViewDataSource
             cell.removeBtnCallBackMehtod = { [weak self] in
                 let index = indexPath.item
                 self?.selectedPhotos.remove(at: index)
+                self?.imageFiles.remove(at: index)
                 DispatchQueue.main.async { collectionView.reloadData() }
             }
             return cell
@@ -285,6 +332,7 @@ extension AddRecordPhotoVC: UICollectionViewDelegate, UICollectionViewDataSource
                 cell.removeBtnCallBackMehtod = { [weak self] in
                     let index = indexPath.item
                     self?.selectedPhotos.remove(at: index)
+                    self?.imageFiles.remove(at: index)
                     self?.phPicker = PHPickerViewController(configuration: (self?.phPickerConfig)!)
                     self?.phPicker.delegate = self
                     DispatchQueue.main.async { collectionView.reloadData() }

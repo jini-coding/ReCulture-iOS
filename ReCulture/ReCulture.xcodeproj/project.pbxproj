@@ -10,6 +10,12 @@
 		081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */; };
 		081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9D2C102A54008573AF /* SignupAPI.swift */; };
 		081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */; };
+		0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */; };
+		0830AE6E2C19D047005B61B0 /* DisclosureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6D2C19D047005B61B0 /* DisclosureType.swift */; };
+		0830AE702C19D291005B61B0 /* AddRecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */; };
+		0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */; };
+		0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE752C19E142005B61B0 /* DetailsModel.swift */; };
+		0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */; };
 		0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */; };
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
@@ -108,6 +114,12 @@
 		081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequestDTO.swift; sourceTree = "<group>"; };
 		081EDA9D2C102A54008573AF /* SignupAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPI.swift; sourceTree = "<group>"; };
 		081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponseDTO.swift; sourceTree = "<group>"; };
+		0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordRequestDTO.swift; sourceTree = "<group>"; };
+		0830AE6D2C19D047005B61B0 /* DisclosureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureType.swift; sourceTree = "<group>"; };
+		0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordAPI.swift; sourceTree = "<group>"; };
+		0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordResponseDTO.swift; sourceTree = "<group>"; };
+		0830AE752C19E142005B61B0 /* DetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModel.swift; sourceTree = "<group>"; };
+		0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoViewModel.swift; sourceTree = "<group>"; };
 		0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
@@ -238,6 +250,7 @@
 				0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */,
 				08854E832C045208009E6AA6 /* FourTextFieldsView.swift */,
 				088D5C152C05B4F500C574C4 /* FiveTextFieldsView.swift */,
+				0830AE752C19E142005B61B0 /* DetailsModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,6 +276,7 @@
 				0856A61F2C099B34001198E1 /* Photos */,
 				0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */,
 				0875CA692C0A07BC00F55B9E /* AddPhotoButtonView.swift */,
+				0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */,
 			);
 			path = RecordPhoto;
 			sourceTree = "<group>";
@@ -305,10 +319,12 @@
 		08A304482C1230970014F24B /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				0845E53E2C0319F500B6A4D6 /* RecordType.swift */,
 				089EDADA2C13670000D74C5F /* LevelType.swift */,
 				08A304492C1230A00014F24B /* KeychainManager.swift */,
 				08A3044B2C1230C70014F24B /* TokenStateManager.swift */,
 				08BB15BE2C163C5F008ED4AE /* ImageFile.swift */,
+				0830AE6D2C19D047005B61B0 /* DisclosureType.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -340,6 +356,7 @@
 				08A304442C122D860014F24B /* LoginAPI.swift */,
 				089EDAD42C1344EA00D74C5F /* MyProfileAPI.swift */,
 				089EDAC82C12D6D200D74C5F /* NewUserProfileAPI.swift */,
+				0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -354,6 +371,8 @@
 				081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */,
 				089EDAD22C13449100D74C5F /* MyProfileDTO.swift */,
 				089EDAE02C13871C00D74C5F /* ErrorDTO.swift */,
+				0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */,
+				0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -419,7 +438,6 @@
 			children = (
 				08E0F58D2C001C81000A046D /* cell */,
 				08E0F5882C0013F7000A046D /* RecordTypeVC.swift */,
-				0845E53E2C0319F500B6A4D6 /* RecordType.swift */,
 			);
 			path = RecordType;
 			sourceTree = "<group>";
@@ -686,6 +704,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */,
 				08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */,
 				0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */,
 				3874B5F62BE43247003376F7 /* ViewController.swift in Sources */,
@@ -710,6 +729,7 @@
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
 				089EDAC52C12CBF500D74C5F /* NewUserProfileRequestDTO.swift in Sources */,
 				089EDAD92C13478300D74C5F /* HomeViewModel.swift in Sources */,
+				0830AE702C19D291005B61B0 /* AddRecordAPI.swift in Sources */,
 				384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */,
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
@@ -728,10 +748,12 @@
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
 				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
+				0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */,
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
 				089EDAE32C138BBA00D74C5F /* LoadingIndicator.swift in Sources */,
 				081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */,
+				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
 				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
@@ -744,6 +766,7 @@
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				089EDAE12C13871C00D74C5F /* ErrorDTO.swift in Sources */,
 				08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */,
+				0830AE6E2C19D047005B61B0 /* DisclosureType.swift in Sources */,
 				089EDADB2C13670000D74C5F /* LevelType.swift in Sources */,
 				083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */,
 				384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */,
@@ -752,6 +775,7 @@
 				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
 				081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */,
 				08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */,
+				0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */,
 				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				0856A6212C099B45001198E1 /* PhotoService.swift in Sources */,
