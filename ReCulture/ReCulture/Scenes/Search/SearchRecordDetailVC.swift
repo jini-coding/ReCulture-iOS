@@ -204,8 +204,8 @@ class SearchRecordDetailVC: UIViewController {
                 }
 
                 self.titleLabel.text = model.culture.title
-                self.creatorLabel.text = "\(model.culture.authorId)" // Replace with actual name if available
-                self.createDateLabel.text = model.culture.date.toDate()?.toString() // Format date if needed
+                self.creatorLabel.text = "\(self.creator)"
+                self.createDateLabel.text = model.culture.date.toDate()?.toString() 
                 self.categoryLabel.text = category
                 self.contentImage = model.photoDocs.map { $0.url }
 
