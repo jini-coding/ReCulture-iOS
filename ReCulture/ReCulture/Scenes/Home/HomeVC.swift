@@ -13,7 +13,7 @@ class HomeVC: UIViewController {
     
     private var lastContentOffset: CGFloat = 0.0
     
-    private let viewModel = MyProfileViewModel()
+    let viewModel = HomeViewModel()
     
     // MARK: - Views
     
@@ -99,8 +99,10 @@ class HomeVC: UIViewController {
         print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
         
+        
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
+        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
         
         setupNavigation()
         
@@ -317,6 +319,10 @@ class HomeVC: UIViewController {
                 self?.setLevelProgress()
                 self?.setTilNextLevelValues()
             }
+        }
+        
+        viewModel.myCalendarModelDidSet = { [weak self] in
+            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
         }
     }
 }

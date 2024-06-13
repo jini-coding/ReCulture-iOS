@@ -16,3 +16,8 @@ struct MyProfileModel {
     var birthdate: String?
     var interest: String?
 }
+
+struct MyCalendarModel {
+    let day: Int
+    let count: Int
+}

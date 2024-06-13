@@ -76,6 +76,8 @@
 		08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58B2C0017BA000A046D /* NextButton.swift */; };
 		08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */; };
 		08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */; };
+		08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */; };
+		08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */; };
 		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
 		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
 		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
@@ -192,6 +194,8 @@
 		08E0F58B2C0017BA000A046D /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		08E0F58E2C001C8D000A046D /* RecordTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailVC.swift; sourceTree = "<group>"; };
+		08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarDTO.swift; sourceTree = "<group>"; };
+		08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarAPI.swift; sourceTree = "<group>"; };
 		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
 		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
 		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
@@ -383,6 +387,7 @@
 				0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */,
 				384315DB2C1AB2E800D379F3 /* RecordAPI.swift */,
 				384315EA2C1B1AEB00D379F3 /* SearchAPI.swift */,
+				08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				089EDAE02C13871C00D74C5F /* ErrorDTO.swift */,
 				0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */,
 				0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */,
+				08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -852,6 +858,7 @@
 				389F8A642BF72168004593B5 /* EditPasswordVC.swift in Sources */,
 				08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
+				08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */,
 				08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */,
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
 				08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */,
@@ -863,6 +870,7 @@
 				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,
 				384315ED2C1B31CA00D379F3 /* MypageModel.swift in Sources */,
 				384315DA2C1AB2A800D379F3 /* RecordResponseDTO.swift in Sources */,
+				08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */,
 				08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */,
 				384315E32C1B1A2F00D379F3 /* SearchRequestDTO.swift in Sources */,
 			);

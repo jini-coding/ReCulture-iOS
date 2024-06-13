@@ -33,9 +33,9 @@ extension String {
                   response != nil,
                   error == nil else { return }
             DispatchQueue.main.async {
-                print(data)
-                print(response)
-                print(error)
+//                print(data)
+//                print(response)
+//                print(error)
                 imageView.image = UIImage(data: data) ?? UIImage()
             }
         }.resume()
