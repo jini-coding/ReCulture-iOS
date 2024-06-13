@@ -1,5 +1,5 @@
 //
-//  SearchRecordDetailVC.swift
+//  RecordDetailVC.swift
 //  ReCulture
 //
 //  Created by Jini on 6/14/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchRecordDetailVC: UIViewController {
+class RecordDetailVC: UIViewController {
     
     private let viewModel = RecordViewModel()
     
