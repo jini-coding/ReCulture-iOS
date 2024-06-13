@@ -125,9 +125,44 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let model = viewModel.getRecord(at: indexPath.row)
         cell.titleLabel.text = model.culture.title
-        cell.creatorLabel.text = "\(model.culture.authorId ?? 0)" // Optional 값 처리
-        cell.createDateLabel.text = model.culture.date
-        cell.categoryLabel.text = "\(model.culture.categoryId ?? 0)" // Optional 값 처리
+        cell.creatorLabel.text = "\(model.culture.authorId)"
+
+        if let date = model.culture.date.toDate() {
+            cell.createDateLabel.text = date.toString()
+        } else {
+            cell.createDateLabel.text = model.culture.date
+        }
+        
+        let category: String
+        switch model.culture.categoryId {
+        case 1:
+            category = "영화"
+        case 2:
+            category = "뮤지컬"
+        case 3:
+            category = "연극"
+        case 4:
+            category = "스포츠"
+        case 5:
+            category = "콘서트"
+        case 6:
+            category = "드라마"
+        case 7:
+            category = "독서"
+        case 8:
+            category = "전시회"
+        case 9:
+            category = "기타"
+        default:
+            category = "기타"
+        }
+        cell.categoryLabel.text = category
+        
+        if let firstPhotoDoc = model.photoDocs.first {
+            let baseUrl = "http://34.27.50.30:8080"
+            let imageUrlStr = "\(baseUrl)\(firstPhotoDoc.url)"
+            imageUrlStr.loadAsyncImage(cell.contentImageView)
+        }
         
         return cell
     }
@@ -160,21 +195,20 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  
-        let selectedData = tempData[indexPath.row]
+        let model = viewModel.getRecord(at: indexPath.row)
 
         // 이동할 뷰 컨트롤러 초기화
         let vc = SearchRecordDetailVC()
 
         // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
-        vc.titleText = selectedData.title
-        vc.creator = selectedData.creator
-        vc.createdAt = selectedData.createdAt
-        vc.category = selectedData.category
-        vc.contentImage = selectedData.contentImages
+        vc.recordId = model.culture.id
+        vc.titleText = model.culture.title
+        vc.creator = "\(model.culture.authorId)"
+        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+        vc.category = "\(model.culture.categoryId)"
+        vc.contentImage = model.photoDocs.map { $0.url }
 
         // 뷰 컨트롤러 표시
-        
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -24,3 +24,15 @@ struct allRecordAPI: ServableAPI {
     var parameters: [String: String] { return [:] }
     var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
 }
+
+struct recordDetailAPI: ServableAPI {
+    typealias Response = RecordResponseDTO
+    
+    let id: Int
+        
+    var method: HTTPMethod { .get }
+    var path: String { "/culture/\(id)" }
+    var parameters: [String: String] { return [:] }
+    var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
+}
+
