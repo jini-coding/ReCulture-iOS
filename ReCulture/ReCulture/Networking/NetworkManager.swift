@@ -188,7 +188,7 @@ final class NetworkManager {
     /// 사용자의 티켓들 가져오는 함수
     func getMyTicketBook(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<MyTicketBookDTO, NetworkError>) -> Void
+        completion: @escaping (Result<[MyTicketBookDTO], NetworkError>) -> Void
     ){
         let myTicketBookAPI = MyTicketBookAPI()
         networkService.request(myTicketBookAPI) { result in

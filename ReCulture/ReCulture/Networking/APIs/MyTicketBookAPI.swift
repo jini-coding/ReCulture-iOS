@@ -7,7 +7,7 @@
 
 
 struct MyTicketBookAPI: ServableAPI {
-    typealias Response = MyTicketBookDTO
+    typealias Response = [MyTicketBookDTO]
     
     var method: HTTPMethod { .get }
     var path: String { "/ticket/my-ticket" }
