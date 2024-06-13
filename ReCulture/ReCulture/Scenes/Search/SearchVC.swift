@@ -66,6 +66,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let contentTableView: UITableView = {
         let tableview = UITableView()
         tableview.separatorStyle = .singleLine
+        tableview.showsVerticalScrollIndicator = false
         
         return tableview
     }()
@@ -294,7 +295,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             contentTableView.topAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: 0),
             contentTableView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
-            contentTableView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor),
+            contentTableView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
             contentTableView.bottomAnchor.constraint(equalTo: contentsView.bottomAnchor)
         ])
         
