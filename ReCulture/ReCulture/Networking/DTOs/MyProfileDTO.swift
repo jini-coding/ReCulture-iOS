@@ -26,7 +26,10 @@ extension MyProfileDTO {
             profilePhoto: DTO.profilePhoto,
             exp: DTO.exp,
             levelNum: DTO.levelId,
-            levelName: DTO.level
+            levelName: DTO.level,
+            bio: DTO.bio,
+            birthdate: DTO.birthdate,
+            interest: DTO.interest
         )
     }
 }

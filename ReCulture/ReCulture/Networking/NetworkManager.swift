@@ -115,4 +115,55 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 공개된 모든 기록 조회하는 함수
+    func getAllRecords(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
+    ) {
+        let recordAPI = allRecordAPI()
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
+                print(models)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 내 기록 조회하는 함수
+    func getMyRecords(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
+    ) {
+        let recordAPI = myRecordAPI()
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 로그인된 유저의 프로필 조회하는 함수 (마이페이지용)
+    func getMyInfo(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MyProfileModel, NetworkError>) -> Void
+    ){
+        let myProfileAPI = MyProfileAPI()
+        networkService.request(myProfileAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(MyProfileDTO.convertMyProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

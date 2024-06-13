@@ -12,4 +12,7 @@ struct MyProfileModel {
     var exp: Int?
     var levelNum: Int?
     var levelName: String?
+    var bio: String?
+    var birthdate: String?
+    var interest: String?
 }
