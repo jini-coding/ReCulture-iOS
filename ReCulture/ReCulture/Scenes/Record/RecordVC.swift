@@ -9,6 +9,8 @@ import UIKit
 
 class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private let viewModel = RecordViewModel()
+    
     struct RecordContent {
         var title: String
         var name: String
@@ -97,6 +99,13 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         contentTableView.delegate = self
         contentTableView.dataSource = self
         
+        viewModel.getmyRecords(fromCurrentVC: self)
+        viewModel.myRecordModelDidChange = { [weak self] in
+             DispatchQueue.main.async {
+                 self?.contentTableView.reloadData()
+             }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,31 +121,42 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 다른 뷰로 이동할 때 네비게이션 바 보이도록 설정
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempData.count
+        return viewModel.recordCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = tempData[indexPath.row]
-         
         let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
-        cell.selectionStyle = .none
-        
-        cell.profileImageView.image = UIImage(named: data.profileImage)
-        cell.titleLabel.text = data.title
-        cell.nameLabel.text = data.name
-        cell.idLabel.text = data.id
-        cell.createDateLabel.text = data.createdAt
-        cell.commentLabel.text = data.comment
-        //cell.categoryLabel.text = data.category
-
-        if let contentImage = data.contentImages.first {
-            cell.contentImageView.image = UIImage(named: contentImage)
-        }
-        
+        let data = viewModel.getRecord(at: indexPath.row)
+        //cell.bind(with: data)
         return cell
     }
+
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return tempData.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let data = tempData[indexPath.row]
+//         
+//        let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
+//        cell.selectionStyle = .none
+//        
+//        cell.profileImageView.image = UIImage(named: data.profileImage)
+//        cell.titleLabel.text = data.title
+//        cell.nameLabel.text = data.name
+//        cell.idLabel.text = data.id
+//        cell.createDateLabel.text = data.createdAt
+//        cell.commentLabel.text = data.comment
+//        //cell.categoryLabel.text = data.category
+//
+//        if let contentImage = data.contentImages.first {
+//            cell.contentImageView.image = UIImage(named: contentImage)
+//        }
+//        
+//        return cell
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 390
@@ -451,6 +471,12 @@ class RecordContentCell: UITableViewCell {
         ])
     }
 
-    
+//    func bind(with model: RecordModel) {
+//        titleLabel.text = model.title
+//        nameLabel.text = "\(model.authorId)"
+//        createDateLabel.text = model.date
+//        commentLabel.text = model.review
+//        // 추가적인 바인딩 로직...
+//    }
     
 }
