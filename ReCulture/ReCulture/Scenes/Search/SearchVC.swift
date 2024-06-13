@@ -315,7 +315,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ])
         
         // Define categories
-        let categories = ["전체", "뮤지컬", "전시회", "콘서트", "스포츠", "영화", "독서", "기타"]
+        let categories = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "드라마", "독서", "전시회", "기타"]
         
         var previousButton: UIButton?
 
@@ -364,12 +364,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func categoryButtonTapped(_ sender: UIButton) {
-        // Update UI based on selected category
         if let selectedCategory = sender.currentTitle {
             self.selectedCategory = selectedCategory
             updateCategoryButtonAppearance()
-            print("\(selectedCategory) 버튼 선택됨")
-            // Perform actions based on selected category...
+            viewModel.filterRecords(by: selectedCategory)
         }
     }
 

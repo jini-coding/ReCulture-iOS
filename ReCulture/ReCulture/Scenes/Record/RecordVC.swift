@@ -47,6 +47,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let button = UIButton()
         button.backgroundColor = UIColor.rcGrayBg
         button.setTitle("T", for: .normal)
+        button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.rcGray600, for: .normal)
         button.addTarget(self, action: #selector(goToTicketBook), for: .touchUpInside)
         
