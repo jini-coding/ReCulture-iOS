@@ -21,6 +21,7 @@ class ProfileTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.rcFont20B()
+        label.text = ""
         label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -29,15 +30,15 @@ class ProfileTableViewCell: UITableViewCell {
     let commentLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.rcFont14M()
+        label.text = ""
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    // 인셋을 주기 위한 컨테이너 뷰
     let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rcGray100
+        view.backgroundColor = UIColor.rcGrayBg
         view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

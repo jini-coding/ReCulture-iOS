@@ -26,4 +26,22 @@ extension UIView {
         shape.path = maskedPath.cgPath
         self.layer.mask = shape
     }
+    
+    /// uiview에 corner radius가 적용된 점선 테두리 적용, draw() 할 때 사용해야함!
+    /// - Parameters:
+    ///   - color: 테두리로 그릴 UIColor
+    ///   - radius: 테두리에 적용한 corner radius 값
+    func setDotLineWithCornerRadius(color: UIColor, radius: CGFloat){
+        let borderLayer = CAShapeLayer()
+        borderLayer.strokeColor = color.cgColor
+        borderLayer.fillColor = color.cgColor
+        borderLayer.backgroundColor = UIColor.clear.cgColor
+        borderLayer.lineDashPattern = [3, 3]
+        borderLayer.lineWidth = 2
+        borderLayer.frame = self.bounds
+        borderLayer.fillColor = nil
+        borderLayer.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: radius).cgPath
+
+        self.layer.addSublayer(borderLayer)
+    }
 }

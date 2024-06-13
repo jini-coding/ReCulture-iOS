@@ -10,7 +10,10 @@ import UIKit
 class HomeVC: UIViewController {
     
     // MARK: - Properties
+    
     private var lastContentOffset: CGFloat = 0.0
+    
+    let viewModel = HomeViewModel()
     
     // MARK: - Views
     
@@ -27,7 +30,6 @@ class HomeVC: UIViewController {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
         view.isScrollEnabled = true
-//        view.delegate = self
         view.backgroundColor = UIColor(hexCode: "F5F6FA")
         return view
     }()
@@ -36,18 +38,10 @@ class HomeVC: UIViewController {
     
     private let userLevelInfoView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(hexCode: "F5F6FA")
+        view.backgroundColor = UIColor.rcGrayBg
         return view
     }()
     
-//    private let currentLevelView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 16
-//        view.clipsToBounds = true
-//        return view
-//    }()
-    
-    //LabelWithPadding(top: 12, left: 16, bottom: 12, right: 16)
     private let currentLevelLabel: UILabel = {
         let label = UILabel()
         label.font = .rcFont16R()
@@ -56,9 +50,9 @@ class HomeVC: UIViewController {
     }()
     private let characterImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        view.backgroundColor = .yellow
+        view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 145/2
+        view.clipsToBounds = true
         return view
     }()
     
@@ -84,7 +78,11 @@ class HomeVC: UIViewController {
         return label
     }()
     
-    private lazy var calendarView = CustomCalendarView()
+    private lazy var calendarView: CustomCalendarView = {
+        let view = CustomCalendarView()
+        view.parentVC = self
+        return view
+    }()
     
     private lazy var tooltipView = ToolTipView()
 
@@ -93,8 +91,18 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        print("앱 최초 실행 값: \(isFirstLaunch)")
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        print("id: \(userId)")
+        print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
+        print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
+        
+        
+        bind()
+        viewModel.getMyProfile(fromCurrentVC: self)
+        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
         
         setupNavigation()
         
@@ -102,8 +110,6 @@ class HomeVC: UIViewController {
         setScrollView()
         setContentView()
         setUserLevelInfoView()
-//        setCurrentLevelView()
-//        setCurrentLevelLabel()
         setCharacterImageView()
         setTilNextLevelLabel()
         setLevelProgressView()
@@ -111,7 +117,9 @@ class HomeVC: UIViewController {
         setMonthlyRecordLabel()
         setCalendarView()
         
-        levelProgressView.setProgress(0.78)
+//        levelProgressView.setProgress(0.78)
+        
+        setCalendarMonthTo(calendarView.currentDateComponents.month!)
         
         scrollView.updateContentSize()
     }
@@ -119,10 +127,10 @@ class HomeVC: UIViewController {
     // MARK: - Layouts
     
     private func setupNavigation(){
-        setLevelAttributes()
+        //setLevelAttributes()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoLabel)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = .rcMain
@@ -190,7 +198,7 @@ class HomeVC: UIViewController {
         userLevelInfoView.addSubview(tilNextLevelLabel)
         
         NSLayoutConstraint.activate([
-            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 18),
+            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
             tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36)
         ])
     }
@@ -201,8 +209,8 @@ class HomeVC: UIViewController {
         userLevelInfoView.addSubview(levelProgressView)
         
         NSLayoutConstraint.activate([
-            levelProgressView.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 18),
-            levelProgressView.trailingAnchor.constraint(equalTo: userLevelInfoView.trailingAnchor, constant: -18),
+            levelProgressView.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
+            levelProgressView.trailingAnchor.constraint(equalTo: userLevelInfoView.trailingAnchor, constant: -30),
             levelProgressView.topAnchor.constraint(equalTo: tilNextLevelLabel.bottomAnchor, constant: 7),
             levelProgressView.bottomAnchor.constraint(equalTo: userLevelInfoView.bottomAnchor)
         ])
@@ -251,13 +259,71 @@ class HomeVC: UIViewController {
         calendarContainerView.layoutIfNeeded()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
-    private func setLevelAttributes(){
-        let text = "윤진님은 Level 02"
+    private func setCharacterImage(){
+        let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+        imageUrlStr.loadAsyncImage(characterImageView)
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: imageUrl!) {
+//                if let image = UIImage(data: data) {
+////                    DispatchQueue.main.async {
+//                        self?.characterImageView.image = image
+////                    }
+//                }
+//            }
+//        }
+    }
+    
+    private func setLevelAttributes() {
+        let levelNum = viewModel.getLevelNum()
+        let text = "\(viewModel.getNickname())님은 Level \(levelNum)"
+        print(text)
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.font, value: UIFont.rcFont16B(),  range: (text as NSString).range(of: "Level 02"))
+        attributedString.addAttribute(.font, value: UIFont.rcFont16B(), range: (text as NSString).range(of: "Level \(levelNum)"))
         currentLevelLabel.attributedText = attributedString
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+    }
+    
+    private func setLevelProgress() {
+        let currentExp = viewModel.getExp()
+        let currentLevelName = viewModel.getLevelName()
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType(rawValue: currentLevelName)!)
+        
+        levelProgressView.setProgress(Float(currentExp / totalScoreForThisLevel))
+    }
+    
+    private func setTilNextLevelValues() {
+        let currentLevelType = LevelType(rawValue: viewModel.getLevelName())!
+        let nextLevelName = LevelType.getNextLevelOf(currentLevelType)
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(currentLevelType)
+        
+        let percentLeftToNextLevel = 100 - (viewModel.getExp() / totalScoreForThisLevel) * 100
+        
+        let text = "\(nextLevelName)까지 \(percentLeftToNextLevel)% 남았어요! 💪"
+    
+        tilNextLevelLabel.text = text
+    }
+    
+    func setCalendarMonthTo(_ month: Int){
+        monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
+    }
+    
+    private func bind(){
+        viewModel.myProfileModelDidChange = { [weak self] in
+            
+            DispatchQueue.main.async {
+                self?.setCharacterImage()
+                self?.setLevelAttributes()
+                self?.setLevelProgress()
+                self?.setTilNextLevelValues()
+            }
+        }
+        
+        viewModel.myCalendarModelDidSet = { [weak self] in
+            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
+        }
     }
 }
 
@@ -281,13 +347,3 @@ extension UIScrollView {
         return totalRect.union(view.frame)
     }
 }
-
-//extension HomeVC: UIScrollViewDelegate {
-//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else {
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
-//    }
-//}

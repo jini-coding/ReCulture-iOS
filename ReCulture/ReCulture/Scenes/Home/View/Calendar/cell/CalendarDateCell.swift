@@ -13,6 +13,12 @@ class CalendarDateCell: UICollectionViewCell {
     
     static let identifier = "CalendarDateCell"
     
+    private let cellBgColors = [
+        "C1CFFF", // 1~2개
+        "9997FF", // 3~4개
+        // 5개 이상부터는 main색
+    ]
+    
     // MARK: - Views
     
     private let dateLabel: UILabel = {
@@ -27,11 +33,18 @@ class CalendarDateCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.contentView.clipsToBounds = true
+        
         setDateLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.contentView.backgroundColor = .white
     }
     
     // MARK: - Layout
@@ -44,24 +57,49 @@ class CalendarDateCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             dateLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//            dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-//            dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-//            dateLabel.topAnchor.constraint(equalTo: self.topAnchor),
-//            dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
     // MARK: - Functions
     
-    func configure(section: Int, dateOrDay: String){
+    func configure(section: Int, dateOrDay: String, recordCount: Int = 0){
         if section == 0 {
             dateLabel.font = .rcFont14M()
-            dateLabel.textColor = UIColor(hexCode: "85888A")
+            dateLabel.textColor = UIColor.rcGray400
         }
         else {
             dateLabel.font = .rcFont18M()
             dateLabel.textColor = .black
+            // 날이 있는 셀에만! (공백인 셀도 있음)
+            if dateOrDay != "" {
+                var color = UIColor()
+                
+                if recordCount != 0 {
+                    if recordCount == 1 || recordCount == 2 {
+                        color = UIColor(hexCode: cellBgColors[0])
+                    }
+                    else if recordCount == 3 || recordCount == 4 {
+                        color = UIColor(hexCode: cellBgColors[1])
+                    }
+                    else {
+                        color = .rcMain
+                    }
+                }
+                else {
+                    color = .white
+                }
+                setBgColor(color)
+            }
         }
         self.dateLabel.text = dateOrDay
+    }
+    
+    private func setBgColor(_ color: UIColor){
+        self.contentView.layer.cornerRadius = self.frame.width / 2
+        self.contentView.backgroundColor = color
+        
+        if color != .white {
+            self.dateLabel.textColor = .white
+        }
     }
 }

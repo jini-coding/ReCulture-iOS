@@ -25,19 +25,28 @@ class CustomCalendarView: UIView {
     
     // MARK: - Properties
     
+    weak var parentVC: HomeVC?
     private let minimumInterItemSpacing:CGFloat = 12
     private let minimumLineSpacing:CGFloat = 20
     private let now = Date()
     private var calendar = Calendar(identifier: .gregorian)  // 현재 사용자가 사용 중인 달력 (ex. gregorian)
-//    private var currentMonth: Int
-//    private var currentYear: Int
-//    private var currentDate: Int
-    private var currentDateComponents = DateComponents()
+    var currentDateComponents = DateComponents()
     private var daysInMonth = 0  // 해당 월이 며칠까지 있는지
     private let dateFormatter = DateFormatter()
     private var weekdayAdding = 0
     private var days: [String] = []
     private let weeks = ["일", "월", "화", "수", "목", "금", "토"]
+    
+    private var recordCountList: [Int] = []
+
+    private var recordCountListIsSet = false {
+        didSet{
+            print("recordCountList didset!")
+            DispatchQueue.main.async {
+                self.calendarCollectionView.reloadData()
+            }
+        }
+    }
     
     // MARK: - Views
     
@@ -68,7 +77,6 @@ class CustomCalendarView: UIView {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.minimumLineSpacing = minimumLineSpacing
         flowlayout.minimumInteritemSpacing = minimumInterItemSpacing
-        //flowlayout.scrollDirection = .horizontal
         
         let view = CustomCollectionView(frame: .zero, collectionViewLayout: flowlayout)
         view.showsHorizontalScrollIndicator = false
@@ -92,27 +100,23 @@ class CustomCalendarView: UIView {
         super.init(frame: frame)
         
         initCalendar()
+//        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: parentVC!)
+        initRecordCountList()
         
         self.backgroundColor = .white
         self.clipsToBounds = true
-        self.layer.borderColor = UIColor(hexCode: "ECEFF7").cgColor
+        self.layer.borderColor = UIColor.rcGray000.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 22
         
         setYearAndMonthLabel()
         setChevronButtons()
         setCalendarCollectionView()
-//        setDummyView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override func updateConstraints() {
-//        calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
-//        super.updateConstraints()
-//    }
     
     // MARK: - Layout
     
@@ -165,12 +169,20 @@ class CustomCalendarView: UIView {
         currentDateComponents.month = currentDateComponents.month! - 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
+        
+        let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
+        let splitted = yearDotMonthString.split(separator: ".")
+        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
+        //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
     @objc func nextButtonTapped(){
         currentDateComponents.month = currentDateComponents.month! + 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
+        let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
+        let splitted = yearDotMonthString.split(separator: ".")
+        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
     }
     
     // MARK: - Helpers
@@ -185,7 +197,6 @@ class CustomCalendarView: UIView {
         currentDateComponents.month = calendar.component(.month, from: now)  // 현재의 월 리턴
         currentDateComponents.day = 1  // 날짜는 1로 초기화
         calculateCalendar()
-        
     }
     
     private func calculateCalendar(){
@@ -203,6 +214,7 @@ class CustomCalendarView: UIView {
         weekdayAdding = 2 - firstWeekday  // ex. 화요일부터 달의 시작인 경우 -> 2 - 3 = -1 -> -1, 0 동안은 빈 값, 1부터 실제 값을 넣게 됨
         let dateFormatterString = dateFormatter.string(from: firstDayOfMonth!)
         self.yearAndMonthLabel.text = dateFormatterString.replacingOccurrences(of: ".", with: "년 ") + "월"
+        parentVC?.setCalendarMonthTo(Int(dateFormatterString.components(separatedBy: ".")[1])!)
         self.days.removeAll()
 
         for day in weekdayAdding...daysInMonth {
@@ -217,8 +229,25 @@ class CustomCalendarView: UIView {
     func updateCollectionViewHeight() {
         calendarCollectionView.constraints[0].identifier
         calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
-        //calendarCollectionView.updateConstraints()
         calendarCollectionView.layoutIfNeeded()
+    }
+    
+    func setRecordCountList(_ dict: [Int: Int]?) {
+        recordCountList.removeAll()
+        initRecordCountList()
+        print(recordCountList)
+        if let dict = dict {
+            dict.keys.forEach { key in
+                recordCountList[key] = dict[key]!
+            }
+        }
+        recordCountListIsSet = true
+    }
+    
+    private func initRecordCountList() {
+        for i in 1...50 {
+            recordCountList.append(0)
+        }
     }
 }
 
@@ -240,11 +269,15 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarDateCell.identifier, for: indexPath) as? CalendarDateCell else { return UICollectionViewCell() }
         
+        cell.prepareForReuse()
+        
+        let row = indexPath.row
+
         switch indexPath.section {
         case 0:
             cell.configure(section: 0, dateOrDay: weeks[indexPath.row])  // 요일 세팅
         default:
-            cell.configure(section: 1, dateOrDay: days[indexPath.row])  // 일
+            cell.configure(section: 1, dateOrDay: days[row], recordCount: recordCountList[Int(days[row]) ?? 0])  // 일
         }
         
         return cell
@@ -255,7 +288,6 @@ extension CustomCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
         let cellSize : CGFloat = (mainBoundWidth - 32 - 54 - minimumInterItemSpacing*6) / 7
-//        let cellSize : CGFloat = mainBoundWidth / 9
         return CGSize(width: cellSize, height: cellSize)
     }
 }
