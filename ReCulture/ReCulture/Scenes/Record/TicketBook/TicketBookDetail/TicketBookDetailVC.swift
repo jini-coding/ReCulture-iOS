@@ -48,7 +48,6 @@ class TicketBookDetailVC: UIViewController {
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.isOpaque = true
-        view.image = UIImage(named: "TicketImage.png")
         return view
     }()
     
@@ -217,6 +216,8 @@ class TicketBookDetailVC: UIViewController {
         setDetailStackView()
         setTagStackView()
         setButtonStackView()
+        
+        configure()
 //        setSaveButton()
     }
     
@@ -411,6 +412,18 @@ class TicketBookDetailVC: UIViewController {
             pageControl.currentPage = 0
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
+    }
+    
+    // MARK: - Functions
+    
+    private func configure(){
+        let imageUrlStr = "http://34.27.50.30:8080\(ticketBookModel.imageURL)"
+        imageUrlStr.loadAsyncImage(ticketImageView)
+        
+        ticketTitleLabel.text = ticketBookModel.title
+        emojiLabel.text = ticketBookModel.emoji
+        dateLabel.text = String(ticketBookModel.date.split(separator: "T")[0]).replacingOccurrences(of: "-", with: ".")
+        reviewLabel.text = ticketBookModel.review
     }
 }
 
