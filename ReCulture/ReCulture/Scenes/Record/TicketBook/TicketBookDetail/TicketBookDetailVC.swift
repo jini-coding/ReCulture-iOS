@@ -100,13 +100,13 @@ class TicketBookDetailVC: UIViewController {
         let label = UILabel()
         label.textColor = .rcGray400
         label.text = "date"
-        label.font = .rcFont16R()
+        label.font = .rcFont14R()
         return label
     }()
     
     private let reviewLabel: UILabel = {
         let label = UILabel()
-        label.font = .rcFont18R()
+        label.font = .rcFont16M()
         label.numberOfLines = 0
         return label
     }()
@@ -214,40 +214,26 @@ class TicketBookDetailVC: UIViewController {
         setPageControl()
         setDetailContentView()
         setDetailStackView()
-        setTagStackView()
-        setButtonStackView()
+//        setTagStackView()
+//        setButtonStackView()
         
         configure()
-//        setSaveButton()
     }
     
     // MARK: - Layout
     
     private func setupNavigation(){
-//        let appearance = UINavigationBarAppearance()
-//        appearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
-//        appearance.configureWithTransparentBackground()  // 내비게이션 바의 선을 지우고 뷰컨트롤러의 배경색을 사용
-////
-//        self.navigationController?.navigationBar.standardAppearance = appearance
-//        self.navigationController?.navigationBar.compactAppearance = appearance
-//        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
-//        self.navigationItem.title = "티켓 상세 보기"
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.rcFont16M()]
         
-//        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(goBack))
-        
-        let editButtonItem = UIBarButtonItem(customView: editButton)
-        editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
+//        let editButtonItem = UIBarButtonItem(customView: editButton)
+//        editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
 
         // left bar button을 추가하면 기존의 스와이프 pop 기능이 해제되므로 다시 세팅
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-//        self.navigationItem.leftBarButtonItem = backButtonItem
-        self.navigationItem.rightBarButtonItem = editButtonItem
+//        self.navigationItem.rightBarButtonItem = editButtonItem
     }
     
     private func setScrollView(){
@@ -285,7 +271,7 @@ class TicketBookDetailVC: UIViewController {
         contentView.addSubview(ticketImageView)
         
         NSLayoutConstraint.activate([
-            ticketImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            ticketImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             ticketImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             ticketImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             ticketImageView.heightAnchor.constraint(equalTo: ticketImageView.widthAnchor, multiplier: 26/17)
@@ -299,7 +285,8 @@ class TicketBookDetailVC: UIViewController {
         
         NSLayoutConstraint.activate([
             pageControl.topAnchor.constraint(equalTo: ticketImageView.bottomAnchor, constant: 8),
-            pageControl.centerXAnchor.constraint(equalTo: ticketImageView.centerXAnchor)
+            pageControl.centerXAnchor.constraint(equalTo: ticketImageView.centerXAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
     
