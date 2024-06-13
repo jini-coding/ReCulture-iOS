@@ -44,7 +44,6 @@ class CalendarDateCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("=== calendar date cell, preparing for reuse ===")
         self.contentView.backgroundColor = .white
     }
     
@@ -64,6 +63,8 @@ class CalendarDateCell: UICollectionViewCell {
     // MARK: - Functions
     
     func configure(section: Int, dateOrDay: String, recordCount: Int = 0){
+        print("=== calendar date cell, configuring ===")
+        print(recordCount)
         if section == 0 {
             dateLabel.font = .rcFont14M()
             dateLabel.textColor = UIColor.rcGray400

@@ -37,7 +37,9 @@ class CustomCalendarView: UIView {
     private var days: [String] = []
     private let weeks = ["일", "월", "화", "수", "목", "금", "토"]
     
-   private var recordCountList = Array(repeating: 0, count: 50) {
+    private var recordCountList: [Int] = []
+
+    private var recordCountListIsSet = false {
         didSet{
             print("recordCountList didset!")
             DispatchQueue.main.async {
@@ -99,7 +101,8 @@ class CustomCalendarView: UIView {
         
         initCalendar()
 //        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: parentVC!)
-
+        initRecordCountList()
+        
         self.backgroundColor = .white
         self.clipsToBounds = true
         self.layer.borderColor = UIColor.rcGray000.cgColor
@@ -166,6 +169,11 @@ class CustomCalendarView: UIView {
         currentDateComponents.month = currentDateComponents.month! - 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
+        
+        let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
+        let splitted = yearDotMonthString.split(separator: ".")
+        print(dateFormatter.string(from: calendar.date(from: currentDateComponents)!))
+        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
         //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
@@ -173,6 +181,10 @@ class CustomCalendarView: UIView {
         currentDateComponents.month = currentDateComponents.month! + 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
+        let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
+        let splitted = yearDotMonthString.split(separator: ".")
+        print(dateFormatter.string(from: calendar.date(from: currentDateComponents)!))
+        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
         //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
@@ -224,17 +236,25 @@ class CustomCalendarView: UIView {
     }
     
     func setRecordCountList(_ dict: [Int: Int]?) {
-        print("set record count list")
+        recordCountList.removeAll()
+        initRecordCountList()
+        print(recordCountList)
+        print("=== custom calendar view, set record count list ===")
+        print("홈 뷰모델에서 받아온 딕셔너리: \(dict)")
         if let dict = dict {
             dict.keys.forEach { key in
-                print("=== dict key ===")
-                print(key)
-                print(dict[key])
                 recordCountList[key] = dict[key]!
             }
         }
         print("record count list")
         print(recordCountList)
+        recordCountListIsSet = true
+    }
+    
+    private func initRecordCountList() {
+        for i in 1...50 {
+            recordCountList.append(0)
+        }
     }
 }
 
@@ -256,8 +276,10 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarDateCell.identifier, for: indexPath) as? CalendarDateCell else { return UICollectionViewCell() }
         
+        cell.prepareForReuse()
+        
         let row = indexPath.row
-        print("row:\(row)")
+
         switch indexPath.section {
         case 0:
             cell.configure(section: 0, dateOrDay: weeks[indexPath.row])  // 요일 세팅

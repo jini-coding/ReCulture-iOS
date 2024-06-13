@@ -13,7 +13,7 @@ class HomeVC: UIViewController {
     
     private var lastContentOffset: CGFloat = 0.0
     
-    private let viewModel = HomeViewModel()
+    let viewModel = HomeViewModel()
     
     // MARK: - Views
     
@@ -98,6 +98,7 @@ class HomeVC: UIViewController {
         print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
         print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
+        
         
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
@@ -321,7 +322,7 @@ class HomeVC: UIViewController {
         }
         
         viewModel.myCalendarModelDidSet = { [weak self] in
-            print("home vc의 my calendar model is all set")
+            print("뷰 모델에서 딕셔너리 세팅 후, 홈 뷰컨트롤러")
             self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
         }
     }

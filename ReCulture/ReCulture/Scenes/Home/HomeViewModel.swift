@@ -77,14 +77,13 @@ class HomeViewModel {
     
     func getMyCalendar(year: String, month: String, fromCurrentVC: UIViewController){
         NetworkManager.shared.getMyCalendar(year: year, month: month) { result in
+            print("=== home view model ===")
+            print("month: \(month)")
             switch result {
             case .success(let dto):
                 self.calendarDTO = dto
-                print("-- home view model --")
-                print(self.calendarDTO)
                 self.countSameDayRecords()
             case .failure(let error):
-                print("-- home view model --")
                 print(error)
                 let networkAlertController = self.networkErrorAlert(error)
 
