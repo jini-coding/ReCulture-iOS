@@ -5,8 +5,6 @@
 //  Created by Suyeon Hwang on 6/13/24.
 //
 
-import Foundation
-
 struct MyTicketBookDTO: Codable {
     let id: Int
     let title: String
@@ -24,4 +22,21 @@ struct Photo: Codable {
     let id: Int
     let url: String
     let ticketPostId: Int
+}
+
+extension MyTicketBookDTO {
+    static func convertMyTicketBookDTOToModel(DTO: MyTicketBookDTO) -> MyTicketBookModel {
+        return MyTicketBookModel(
+            ticketBookId: DTO.id,
+            title: DTO.title,
+            emoji: DTO.emoji,
+            date: DTO.date,
+            review: DTO.review,
+            imageURL: DTO.photos[0].url
+        )
+    }
+
+    static func convertMyTicketBookDTOsToModels(DTOs: [MyTicketBookDTO]) -> [MyTicketBookModel] {
+        return DTOs.map { convertMyTicketBookDTOToModel(DTO: $0) }
+    }
 }
