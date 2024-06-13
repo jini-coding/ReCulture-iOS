@@ -42,6 +42,12 @@ class CalendarDateCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        print("=== calendar date cell, preparing for reuse ===")
+        self.contentView.backgroundColor = .white
+    }
+    
     // MARK: - Layout
     
     private func setDateLabel(){
