@@ -183,7 +183,7 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             print("selected")
         }
         else {
-            let ticketBookDetailVC = TicketBookDetailVC()
+            let ticketBookDetailVC = TicketBookDetailVC(model: viewModel.getMyTicketBookDetailAt(indexPath.item))
             ticketBookDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
         }
