@@ -11,6 +11,7 @@ struct MyTicketBookModel {
     let ticketBookId: Int
     let title: String
     let emoji: String
+    let date: String
     let review: String
     let imageURL: String
 }

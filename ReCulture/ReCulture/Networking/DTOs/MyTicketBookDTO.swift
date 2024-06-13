@@ -30,6 +30,7 @@ extension MyTicketBookDTO {
             ticketBookId: DTO.id,
             title: DTO.title,
             emoji: DTO.emoji,
+            date: DTO.date,
             review: DTO.review,
             imageURL: DTO.photos[0].url
         )
