@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyProfileViewModel {
+class HomeViewModel {
     // MARK: - Properties
         
     private var myProfileModel: MyProfileModel = MyProfileModel() {
@@ -19,6 +19,18 @@ class MyProfileViewModel {
     var myProfileModelDidChange: (() -> Void)?
     
     private var calendarDTO: [CalendarRecordDetail] = []
+    
+    private var myCalendarModelList: [Int: Int] = [:]
+    
+    private var myCalendarModelIsSet = false {
+        didSet {
+            if myCalendarModelIsSet{
+                myCalendarModelDidSet?()
+            }
+        }
+    }
+    
+    var myCalendarModelDidSet: (() -> Void)?
     
     // MARK: - Functions; Home Profile
     
@@ -70,6 +82,7 @@ class MyProfileViewModel {
                 self.calendarDTO = dto
                 print("-- home view model --")
                 print(self.calendarDTO)
+                self.countSameDayRecords()
             case .failure(let error):
                 print("-- home view model --")
                 print(error)
@@ -82,6 +95,36 @@ class MyProfileViewModel {
         }
     }
     
+    func getCalendarModelList() -> [Int:Int] {
+        return myCalendarModelList
+    }
+    
+    private func countSameDayRecords(){
+        myCalendarModelList.removeAll()
+        
+        for record in calendarDTO {
+            // date: 2024-06-10T03:34:56.000Z
+            let date = String(record.date.split(separator: "T")[0])  // 2024-06-10
+            let day = String(date.split(separator: "-")[2])  // 10 -> 현재 필요한 값!!
+            print(day)
+            //TODO: 여기부터
+            
+            let key = Int(day)!
+            
+            // 해당 날짜가 이미 추가돼있으면
+            if myCalendarModelList[key] != nil {
+                myCalendarModelList[key] = myCalendarModelList[key]! + 1
+            }
+            else{
+                myCalendarModelList[key] = 1
+            }
+//            myCalendarModelList[Int(day)!] = (myCalendarModelList[Int(day)!] ?? 1) + 1
+            
+            print(myCalendarModelList)
+        }
+        
+        myCalendarModelIsSet = true
+    }
     
     // MARK: - Helpers
     

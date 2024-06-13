@@ -15,7 +15,6 @@ struct MyProfileModel {
 }
 
 struct MyCalendarModel {
-    let year: Int
-    let month: Int
     let day: Int
+    let count: Int
 }

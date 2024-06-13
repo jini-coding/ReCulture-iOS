@@ -37,6 +37,15 @@ class CustomCalendarView: UIView {
     private var days: [String] = []
     private let weeks = ["일", "월", "화", "수", "목", "금", "토"]
     
+   private var recordCountList = Array(repeating: 0, count: 50) {
+        didSet{
+            print("recordCountList didset!")
+            DispatchQueue.main.async {
+                self.calendarCollectionView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - Views
     
     private let yearAndMonthLabel: UILabel = {
@@ -89,7 +98,8 @@ class CustomCalendarView: UIView {
         super.init(frame: frame)
         
         initCalendar()
-        
+//        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: parentVC!)
+
         self.backgroundColor = .white
         self.clipsToBounds = true
         self.layer.borderColor = UIColor.rcGray000.cgColor
@@ -212,6 +222,20 @@ class CustomCalendarView: UIView {
         calendarCollectionView.heightAnchor.constraint(equalToConstant: calendarCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
         calendarCollectionView.layoutIfNeeded()
     }
+    
+    func setRecordCountList(_ dict: [Int: Int]?) {
+        print("set record count list")
+        if let dict = dict {
+            dict.keys.forEach { key in
+                print("=== dict key ===")
+                print(key)
+                print(dict[key])
+                recordCountList[key] = dict[key]!
+            }
+        }
+        print("record count list")
+        print(recordCountList)
+    }
 }
 
 // MARK: - Extension; CollectionView
@@ -232,11 +256,13 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarDateCell.identifier, for: indexPath) as? CalendarDateCell else { return UICollectionViewCell() }
         
+        let row = indexPath.row
+        print("row:\(row)")
         switch indexPath.section {
         case 0:
             cell.configure(section: 0, dateOrDay: weeks[indexPath.row])  // 요일 세팅
         default:
-            cell.configure(section: 1, dateOrDay: days[indexPath.row])  // 일
+            cell.configure(section: 1, dateOrDay: days[row], recordCount: recordCountList[Int(days[row]) ?? 0])  // 일
         }
         
         return cell

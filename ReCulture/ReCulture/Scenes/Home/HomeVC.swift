@@ -13,7 +13,7 @@ class HomeVC: UIViewController {
     
     private var lastContentOffset: CGFloat = 0.0
     
-    private let viewModel = MyProfileViewModel()
+    private let viewModel = HomeViewModel()
     
     // MARK: - Views
     
@@ -318,6 +318,11 @@ class HomeVC: UIViewController {
                 self?.setLevelProgress()
                 self?.setTilNextLevelValues()
             }
+        }
+        
+        viewModel.myCalendarModelDidSet = { [weak self] in
+            print("home vc의 my calendar model is all set")
+            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
         }
     }
 }
