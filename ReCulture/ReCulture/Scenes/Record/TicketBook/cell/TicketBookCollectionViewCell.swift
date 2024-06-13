@@ -17,7 +17,7 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .lightGray
         view.contentMode = .scaleAspectFill
 //        view.image = UIImage(named: "TicketImage.png")
         return view
