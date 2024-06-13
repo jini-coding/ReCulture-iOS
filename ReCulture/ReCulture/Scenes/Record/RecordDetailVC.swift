@@ -204,8 +204,8 @@ class RecordDetailVC: UIViewController {
                 }
 
                 self.titleLabel.text = model.culture.title
-                self.creatorLabel.text = "\(model.culture.authorId)" // Replace with actual name if available
-                self.createDateLabel.text = model.culture.date.toDate()?.toString() // Format date if needed
+                self.creatorLabel.text = "\(self.creator)"
+                self.createDateLabel.text = model.culture.date.toDate()?.toString()
                 self.categoryLabel.text = category
                 self.contentImage = model.photoDocs.map { $0.url }
 
@@ -331,7 +331,7 @@ class RecordDetailVC: UIViewController {
     }
     
     func setupNavigationBar() {
-        self.navigationItem.title = "\(creator)님의 기록"
+        self.navigationItem.title = "나의 기록"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.rcFont18B()]
         self.navigationController?.navigationBar.setBackgroundImage(nil, for:.default)
         self.navigationController?.navigationBar.shadowImage = nil
