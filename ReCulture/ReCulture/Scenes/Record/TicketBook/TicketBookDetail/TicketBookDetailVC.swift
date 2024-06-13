@@ -13,6 +13,8 @@ class TicketBookDetailVC: UIViewController {
     
     private var isFrontImage = true
     
+    private let ticketBookModel: MyTicketBookModel
+    
     // MARK: - Views
     
     private let titleLabel: UILabel = {
@@ -41,11 +43,11 @@ class TicketBookDetailVC: UIViewController {
     
     private let ticketImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .rcMain
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         view.isUserInteractionEnabled = true
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
+        view.isOpaque = true
         view.image = UIImage(named: "TicketImage.png")
         return view
     }()
@@ -66,6 +68,48 @@ class TicketBookDetailVC: UIViewController {
         view.axis = .horizontal
         view.spacing = 8
         return view
+    }()
+
+    private let detailContentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    private let detailStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 5
+        return view
+    }()
+    
+    private let ticketTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .rcFont20B()
+        label.text = "title"
+        return label
+    }()
+    
+    private let emojiLabel: UILabel = {
+        let label = UILabel()
+        label.font = .rcFont20B()
+        return label
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .rcGray400
+        label.text = "date"
+        label.font = .rcFont16R()
+        return label
+    }()
+    
+    private let reviewLabel: UILabel = {
+        let label = UILabel()
+        label.font = .rcFont18R()
+        label.numberOfLines = 0
+        return label
     }()
     
     private let tag1: TagLabel = {
@@ -148,16 +192,29 @@ class TicketBookDetailVC: UIViewController {
     
     // MARK: - Lifecycle
     
+    init(model: MyTicketBookModel){
+        self.ticketBookModel = model
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        detailStackView.isHidden = true  // 초기 세팅
         
         setupNavigation()
         setScrollView()
         setContentView()
         setTicketImageView()
         setPageControl()
+        setDetailContentView()
+        setDetailStackView()
         setTagStackView()
         setButtonStackView()
 //        setSaveButton()
@@ -245,6 +302,43 @@ class TicketBookDetailVC: UIViewController {
         ])
     }
     
+    private func setDetailContentView(){
+        detailContentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        ticketImageView.addSubview(detailContentView)
+        
+        detailContentView.addSubview(detailStackView)
+        
+        NSLayoutConstraint.activate([
+            detailContentView.topAnchor.constraint(equalTo: ticketImageView.topAnchor),
+            detailContentView.leadingAnchor.constraint(equalTo: ticketImageView.leadingAnchor),
+            detailContentView.trailingAnchor.constraint(equalTo: ticketImageView.trailingAnchor),
+            detailContentView.bottomAnchor.constraint(equalTo: ticketImageView.bottomAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            detailStackView.centerYAnchor.constraint(equalTo: detailContentView.centerYAnchor),
+            detailStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 33),
+            detailStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -33),
+        ])
+    }
+    
+    private func setDetailStackView(){
+        detailStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        [emojiLabel, ticketTitleLabel, dateLabel, reviewLabel].forEach {
+            detailStackView.addArrangedSubview($0)
+        }
+        
+//        ticketImageView.addSubview(detailStackView)
+//        
+//        NSLayoutConstraint.activate([
+//            detailStackView.centerYAnchor.constraint(equalTo: ticketImageView.centerYAnchor),
+//            detailStackView.leadingAnchor.constraint(equalTo: ticketImageView.leadingAnchor, constant: 33),
+//            detailStackView.trailingAnchor.constraint(equalTo: ticketImageView.trailingAnchor, constant: -33),
+//        ])
+    }
+    
     private func setTagStackView(){
         tagStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -305,14 +399,16 @@ class TicketBookDetailVC: UIViewController {
         print("이미지 선택됨")
         if isFrontImage {
             isFrontImage = false
+            detailContentView.backgroundColor = .rcWhiteBg
+            detailStackView.isHidden = false
             pageControl.currentPage = 1
-            ticketImageView.backgroundColor = .rcGray300
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
         else {
             isFrontImage = true
+            detailContentView.backgroundColor = .clear
+            detailStackView.isHidden = true
             pageControl.currentPage = 0
-            ticketImageView.backgroundColor = .rcMain
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
     }
