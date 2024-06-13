@@ -8,6 +8,8 @@
 import UIKit
 
 class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    private let viewModel = SearchViewModel()
 
     struct SearchContent {
         var title: String
@@ -83,6 +85,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         contentTableView.delegate = self
         contentTableView.dataSource = self
+        
+        
+        bind()
+        viewModel.getAllRecords(fromCurrentVC: self)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,28 +106,54 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    private func bind() {
+        viewModel.allRecordModelDidChange = { [weak self] in
+             DispatchQueue.main.async {
+                 self?.contentTableView.reloadData()
+             }
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempData.count
+        return viewModel.recordCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = tempData[indexPath.row]
-         
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as! SearchContentCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as? SearchContentCell else { return UITableViewCell() }
         cell.selectionStyle = .none
-         // Assuming you have images added in assets
-        cell.profileImageView.image = UIImage(named: data.profileImage)
-        cell.titleLabel.text = data.title
-        cell.creatorLabel.text = data.creator
-        cell.createDateLabel.text = data.createdAt
-        cell.categoryLabel.text = data.category
-         // Assuming the first image for contentImages
-        if let contentImage = data.contentImages.first {
-            cell.contentImageView.image = UIImage(named: contentImage)
-        }
+        
+        let model = viewModel.getRecord(at: indexPath.row)
+        cell.titleLabel.text = model.culture.title
+        cell.creatorLabel.text = "\(model.culture.authorId ?? 0)" // Optional 값 처리
+        cell.createDateLabel.text = model.culture.date
+        cell.categoryLabel.text = "\(model.culture.categoryId ?? 0)" // Optional 값 처리
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return tempData.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let data = tempData[indexPath.row]
+//         
+//        let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as! SearchContentCell
+//        cell.selectionStyle = .none
+//         // Assuming you have images added in assets
+//        cell.profileImageView.image = UIImage(named: data.profileImage)
+//        cell.titleLabel.text = data.title
+//        cell.creatorLabel.text = data.creator
+//        cell.createDateLabel.text = data.createdAt
+//        cell.categoryLabel.text = data.category
+//         // Assuming the first image for contentImages
+//        if let contentImage = data.contentImages.first {
+//            cell.contentImageView.image = UIImage(named: contentImage)
+//        }
+//        
+//        return cell
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
@@ -425,5 +458,4 @@ class SearchContentCell: UITableViewCell {
     
     
 }
-
 
