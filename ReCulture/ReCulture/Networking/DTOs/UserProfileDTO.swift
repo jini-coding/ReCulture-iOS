@@ -17,3 +17,19 @@ struct UserProfileDTO: Codable {
     let levelId: Int
     let level: String
 }
+
+extension UserProfileDTO {
+    static func convertUserProfileDTOToModel(DTO: UserProfileDTO) -> UserProfileModel {
+        return UserProfileModel(
+            id: DTO.id,
+            nickname: DTO.nickname,
+            profilePhoto: DTO.profilePhoto,
+            exp: DTO.exp,
+            levelNum: DTO.levelId,
+            levelName: DTO.level,
+            bio: DTO.bio,
+            birthdate: DTO.birthdate,
+            interest: DTO.interest
+        )
+    }
+}

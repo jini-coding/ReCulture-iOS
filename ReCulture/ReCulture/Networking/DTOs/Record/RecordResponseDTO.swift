@@ -5,7 +5,6 @@
 //  Created by Jini on 6/3/24.
 //
 
-
 struct RecordResponseDTO: Codable {
     let id: Int
     let title: String

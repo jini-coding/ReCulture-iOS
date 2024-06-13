@@ -124,8 +124,31 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         let model = viewModel.getRecord(at: indexPath.row)
+        
+        let authorId = model.culture.authorId
+        
+        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
+            cell.creatorLabel.text = userProfile.nickname
+            if let profileImageUrl = userProfile.profilePhoto {
+                let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+                imageUrlStr.loadAsyncImage(cell.profileImageView)
+            }
+        } else {
+            // Fetch user profile if not loaded yet
+            viewModel.getUserProfile(userId: authorId) { userProfile in
+                DispatchQueue.main.async {
+                    cell.creatorLabel.text = userProfile?.nickname
+                    if let profileImageUrl = userProfile?.profilePhoto {
+                        let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+                    }
+                }
+            }
+        }
+    
+ 
         cell.titleLabel.text = model.culture.title
-        cell.creatorLabel.text = "\(model.culture.authorId)"
+        //cell.creatorLabel.text = "\(model.culture.authorId)"
 
         if let date = model.culture.date.toDate() {
             cell.createDateLabel.text = date.toString()
@@ -196,14 +219,16 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = viewModel.getRecord(at: indexPath.row)
-
+        let authorId = model.culture.authorId
+        
+        let userProfile = viewModel.getUserProfileModel(for: authorId)
         // 이동할 뷰 컨트롤러 초기화
         let vc = SearchRecordDetailVC()
 
         // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
         vc.recordId = model.culture.id
         vc.titleText = model.culture.title
-        vc.creator = "\(model.culture.authorId)"
+        vc.creator = userProfile?.nickname ?? "Unknown"
         vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
         vc.category = "\(model.culture.categoryId)"
         vc.contentImage = model.photoDocs.map { $0.url }
@@ -367,7 +392,7 @@ class SearchContentCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = UIColor.rcGray300
         imageView.layer.cornerRadius = 14
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
