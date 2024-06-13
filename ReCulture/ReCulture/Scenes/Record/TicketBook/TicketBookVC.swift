@@ -17,6 +17,8 @@ class TicketBookVC: UIViewController {
     private let ticketMinimumInteritemSpacing: CGFloat = 16
     private let tagList = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "독서", "전시회", "드라마", "기타"]
     
+    private let viewModel = TicketBookViewModel()
+    
     // MARK: - Views
     
     private let titleLabel: UILabel = {
@@ -60,6 +62,9 @@ class TicketBookVC: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
+        
+        bind()
+        viewModel.getMyTicketBook(fromCurrentVC: self)
         
         setupNavigation()
         
@@ -120,6 +125,14 @@ class TicketBookVC: UIViewController {
         ])
     }
     
+    private func bind(){
+        viewModel.myTicketBookListDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.ticketCollectionView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - Actions
     
     @objc func goBack(){
@@ -148,7 +161,7 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             return tagList.count
         }
         else{
-            return 7
+            return viewModel.getMyTicketBookCount()
         }
     }
     
@@ -160,7 +173,7 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         }
         else {
             guard let cell = ticketCollectionView.dequeueReusableCell(withReuseIdentifier: TicketBookCollectionViewCell.identifier, for: indexPath) as? TicketBookCollectionViewCell else { return UICollectionViewCell() }
-            
+            cell.configure(viewModel.getMyTicketBookDetailAt(indexPath.item))
             return cell
         }
     }

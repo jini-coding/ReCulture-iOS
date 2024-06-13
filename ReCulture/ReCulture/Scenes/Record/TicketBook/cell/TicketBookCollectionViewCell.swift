@@ -18,8 +18,8 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .darkGray
-        view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "TicketImage.png")
+        view.contentMode = .scaleAspectFill
+//        view.image = UIImage(named: "TicketImage.png")
         return view
     }()
     
@@ -52,5 +52,12 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: self.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+    }
+    
+    // MARK: - Helpers
+    
+    func configure(_ model: MyTicketBookModel){
+        let imageUrlStr = "http://34.27.50.30:8080\(model.imageURL)"
+        imageUrlStr.loadAsyncImage(imageView)
     }
 }
