@@ -172,7 +172,6 @@ class CustomCalendarView: UIView {
         
         let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
         let splitted = yearDotMonthString.split(separator: ".")
-        print(dateFormatter.string(from: calendar.date(from: currentDateComponents)!))
         parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
         //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
@@ -183,9 +182,7 @@ class CustomCalendarView: UIView {
         self.calendarCollectionView.reloadData()
         let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
         let splitted = yearDotMonthString.split(separator: ".")
-        print(dateFormatter.string(from: calendar.date(from: currentDateComponents)!))
         parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
-        //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
     // MARK: - Helpers
@@ -239,15 +236,11 @@ class CustomCalendarView: UIView {
         recordCountList.removeAll()
         initRecordCountList()
         print(recordCountList)
-        print("=== custom calendar view, set record count list ===")
-        print("홈 뷰모델에서 받아온 딕셔너리: \(dict)")
         if let dict = dict {
             dict.keys.forEach { key in
                 recordCountList[key] = dict[key]!
             }
         }
-        print("record count list")
-        print(recordCountList)
         recordCountListIsSet = true
     }
     

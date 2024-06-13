@@ -322,7 +322,6 @@ class HomeVC: UIViewController {
         }
         
         viewModel.myCalendarModelDidSet = { [weak self] in
-            print("뷰 모델에서 딕셔너리 세팅 후, 홈 뷰컨트롤러")
             self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
         }
     }
