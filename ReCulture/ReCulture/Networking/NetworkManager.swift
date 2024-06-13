@@ -184,4 +184,52 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 사용자의 티켓들 가져오는 함수
+    func getMyTicketBook(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[MyTicketBookModel], NetworkError>) -> Void
+    ){
+        let myTicketBookAPI = MyTicketBookAPI()
+        networkService.request(myTicketBookAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(MyTicketBookDTO.convertMyTicketBookDTOsToModels(DTOs: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 특정 기록 상세보기
+    func getRecordDetails(recordId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+    ) {
+        let recordAPI = recordDetailAPI(id: recordId)
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(RecordResponseDTO.convertRecordDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 특정 유저 프로필 정보 불러오기
+    func getUserProfile(userId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<UserProfileModel, NetworkError>) -> Void
+    ){
+        let userProfileAPI = UserProfileAPI(id: userId)
+        networkService.request(userProfileAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(UserProfileDTO.convertUserProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

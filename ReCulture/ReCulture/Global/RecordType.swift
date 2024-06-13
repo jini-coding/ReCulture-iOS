@@ -28,4 +28,9 @@ enum RecordType: String {
     static func getCategoryIdOf(_ type: RecordType) -> Int {
         return allTypes.firstIndex(of: type)!
     }
+    
+    init?(categoryId: Int) {
+        guard categoryId >= 0, categoryId < RecordType.allTypes.count else { return nil }
+        self = RecordType.allTypes[categoryId]
+    }
 }

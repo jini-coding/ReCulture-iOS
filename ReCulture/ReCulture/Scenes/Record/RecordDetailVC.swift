@@ -1,5 +1,5 @@
 //
-//  SearchRecordDetailVC.swift
+//  RecordDetailVC.swift
 //  ReCulture
 //
 //  Created by Jini on 6/14/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchRecordDetailVC: UIViewController {
+class RecordDetailVC: UIViewController {
     
     private let viewModel = RecordViewModel()
     
@@ -204,8 +204,8 @@ class SearchRecordDetailVC: UIViewController {
                 }
 
                 self.titleLabel.text = model.culture.title
-                self.creatorLabel.text = "\(self.creator)"
-                self.createDateLabel.text = model.culture.date.toDate()?.toString() 
+                self.creatorLabel.text = "\(model.culture.authorId)" // Replace with actual name if available
+                self.createDateLabel.text = model.culture.date.toDate()?.toString() // Format date if needed
                 self.categoryLabel.text = category
                 self.contentImage = model.photoDocs.map { $0.url }
 

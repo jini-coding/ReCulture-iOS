@@ -39,5 +39,6 @@ extension UIColor {
     static let rcGray500 = UIColor(hexCode: "#4F555E")
     static let rcGray600 = UIColor(hexCode: "#26292A")
     static let rcGray800 = UIColor(hexCode: "#2B2D36")
+    static let rcWhiteBg = UIColor.white.withAlphaComponent(0.65)
     
 }
