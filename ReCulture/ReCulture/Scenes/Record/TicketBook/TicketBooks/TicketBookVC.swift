@@ -64,12 +64,16 @@ class TicketBookVC: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        viewModel.getMyTicketBook(fromCurrentVC: self)
+        //viewModel.getMyTicketBook(fromCurrentVC: self)
         
         setupNavigation()
         
         setTagCollectionView()
         setTicketCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getMyTicketBook(fromCurrentVC: self)
     }
     
     // MARK: - Layout

@@ -10,6 +10,8 @@ import UIKit
 class CustomizingTwoVC: UIViewController {
     
     let item = ["영화", "뮤지컬", "연극", "스포츠", "콘서트", "드라마", "독서", "전시회", "기타"]
+    
+    var selectedItem = ""
 
     let guideLabel: UILabel = {
         let label = UILabel()
@@ -83,6 +85,11 @@ extension CustomizingTwoVC: UICollectionViewDataSource, UICollectionViewDelegate
         cell.layer.cornerRadius = 12
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedItem = item[indexPath.item]
+        print("선택된 카테고리: \(selectedItem)")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

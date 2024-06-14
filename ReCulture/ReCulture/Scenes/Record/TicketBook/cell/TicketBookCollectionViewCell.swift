@@ -60,4 +60,9 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
         let imageUrlStr = "http://34.27.50.30:8080\(model.imageURL)"
         imageUrlStr.loadAsyncImage(imageView)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = UIImage()
+    }
 }
