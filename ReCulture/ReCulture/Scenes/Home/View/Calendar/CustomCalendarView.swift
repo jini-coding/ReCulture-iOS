@@ -26,7 +26,7 @@ class CustomCalendarView: UIView {
     // MARK: - Properties
     
     weak var parentVC: HomeVC?
-    private let minimumInterItemSpacing:CGFloat = 12
+    private let minimumInterItemSpacing:CGFloat = 8
     private let minimumLineSpacing:CGFloat = 20
     private let now = Date()
     private var calendar = Calendar(identifier: .gregorian)  // 현재 사용자가 사용 중인 달력 (ex. gregorian)
@@ -286,8 +286,9 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension CustomCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
-        let cellSize : CGFloat = (mainBoundWidth - 32 - 54 - minimumInterItemSpacing*6) / 7
+        //let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
+        let mainBoundWidth: CGFloat = collectionView.frame.width
+        let cellSize : CGFloat = (mainBoundWidth/* - 32 - 54 */- minimumInterItemSpacing * 6) / 7
         return CGSize(width: cellSize, height: cellSize)
     }
 }
