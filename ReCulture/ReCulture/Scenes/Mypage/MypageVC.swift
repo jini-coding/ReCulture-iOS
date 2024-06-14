@@ -54,7 +54,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return label
     }()
     
-    let mypageTableView: UITableView = {
+    lazy var mypageTableView: UITableView = {
         let tableview = UITableView()
         tableview.separatorStyle = .none
         
@@ -203,6 +203,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileTableViewCell
             cell.selectionStyle = .none
             //cell.profileImageView.image = UIImage(named: "profile_image_placeholder") // 프로필 이미지
+            print(viewModel.getProfileImage())
             let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
             imageUrlStr.loadAsyncImage(cell.profileImageView)
             

@@ -130,6 +130,10 @@ class HomeVC: UIViewController {
         scrollView.updateContentSize()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getMyProfile(fromCurrentVC: self)
+    }
+    
     // MARK: - Layouts
     
     private func setupNavigation(){

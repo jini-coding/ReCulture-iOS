@@ -24,6 +24,7 @@ class LoginVC: UIViewController {
     private let logoImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .rcGrayBg
+        view.image = .appICON
         return view
     }()
     

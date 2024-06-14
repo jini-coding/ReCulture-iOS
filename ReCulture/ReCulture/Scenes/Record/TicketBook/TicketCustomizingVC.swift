@@ -210,7 +210,9 @@ class TicketCustomizingVC: UIViewController {
             LoadingIndicator.hideLoading()
             
             if (self.postNewTicketSuccess){
-                self.presentCompleteModal()
+                print("postNewTicketSuccess:\(self.postNewTicketSuccess)")
+                //self.presentCompleteModal()
+                self.navigationController?.popViewController(animated: true)
             }
             else {
                 let alert = UIAlertController(title: "티켓 커스터마이징에 실패하였습니다.", message: "다시 한 번 시도해주세요.", preferredStyle: .alert)
