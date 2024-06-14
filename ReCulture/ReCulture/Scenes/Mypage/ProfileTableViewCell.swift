@@ -46,7 +46,8 @@ class ProfileTableViewCell: UITableViewCell {
     
     let editInfoLabel: UILabel = {
         let label = UILabel()
-        label.text = "정보 수정"
+        //label.text = "정보 수정"
+        label.text = ""
         label.font = UIFont.rcFont14R()
         label.textColor = UIColor.rcGray400
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +56,7 @@ class ProfileTableViewCell: UITableViewCell {
     
     let editImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "btn_arrow_small")
+        //imageView.image = UIImage(named: "btn_arrow_small")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

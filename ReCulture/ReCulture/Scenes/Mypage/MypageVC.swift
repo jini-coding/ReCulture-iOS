@@ -148,21 +148,33 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         case "친구 목록":
             print("친구 목록 선택됨")
             let nextVC = ViewFriendVC()
+            nextVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextVC, animated: true)
             
         case "친구 요청":
             print("친구 요청 선택됨")
             let nextVC = FriendRequestVC()
+            nextVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextVC, animated: true)
             
         case "프로필 변경":
             print("프로필 변경 선택됨")
             let nextVC = EditProfileVC()
+            
+            let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+            imageUrlStr.loadAsyncImage(nextVC.profileImage)
+            nextVC.nicknameTextfield.text = viewModel.getNickname()
+            nextVC.introTextfield.text = viewModel.getBio()
+            //nextVC.birthTextField.text = viewModel.getBirth().toDate()?.toString()
+            nextVC.interestTextfield.text = viewModel.getInterest()
+            
+            nextVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextVC, animated: true)
             
         case "비밀번호 변경":
             print("비밀번호 변경 선택됨")
             let nextVC = EditPasswordVC()
+            nextVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextVC, animated: true)
             
         case "로그아웃":
@@ -172,6 +184,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         case "계정 탈퇴":
             print("계정 탈퇴 선택됨")
             let nextVC = WithdrawalVC()
+            nextVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextVC, animated: true)
             
             
@@ -234,7 +247,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ])
         
         let vc = LogoutModal() // 로그아웃 완료 팝업 띄우기
-        vc.modalPresentationStyle = .overFullScreen  // Set the presentation style to overFullScreen
+        vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
         present(vc, animated: true, completion: nil)
     }

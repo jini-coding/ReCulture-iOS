@@ -21,6 +21,7 @@ class CustomizingFourVC: UIViewController {
     let ticketImage: UIImageView = {
         let imageview = UIImageView()
         imageview.backgroundColor = UIColor.rcGray300
+        imageview.layer.cornerRadius = 16
         
         return imageview
     }()
