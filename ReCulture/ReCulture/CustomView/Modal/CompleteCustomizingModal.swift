@@ -9,6 +9,8 @@ import UIKit
 
 class CompleteCustomizingModal : UIViewController {
     
+    weak var delegate: CompleteModalDelegate?
+    
     let customModal = UIView(frame: CGRect(x: 0, y: 0, width: 322, height: 200))
     
     let titleLabel: UILabel = {
@@ -106,6 +108,14 @@ class CompleteCustomizingModal : UIViewController {
     @objc func goBack() {
         
         print("이전 화면으로 돌아가기")
+        delegate?.dismissCompleteModal()
+        let vc = TabBarVC()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         
+    }
+    
+    @objc func popupDismiss(){
+
+        delegate?.dismissCompleteModal()
     }
 }
