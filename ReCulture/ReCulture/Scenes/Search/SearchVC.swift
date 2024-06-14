@@ -158,7 +158,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         let category: String
-        switch model.culture.categoryId {
+        switch model.culture.categoryId+1 {
         case 1:
             category = "영화"
         case 2:
@@ -231,7 +231,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         vc.titleText = model.culture.title
         vc.creator = userProfile?.nickname ?? "Unknown"
         vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
-        vc.category = "\(model.culture.categoryId)"
+        //vc.category = "\(model.culture.categoryId+1)"
         vc.contentImage = model.photoDocs.map { $0.url }
 
         // 뷰 컨트롤러 표시

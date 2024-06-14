@@ -180,7 +180,7 @@ class SearchRecordDetailVC: UIViewController {
                 guard let model = self.viewModel.getRecordDetail() else { return }
                 
                 let category: String
-                switch model.culture.categoryId {
+                switch model.culture.categoryId+1 {
                 case 1:
                     category = "영화"
                 case 2:
@@ -215,7 +215,7 @@ class SearchRecordDetailVC: UIViewController {
                     imageUrlStr.loadAsyncImage(self.contentImageView)
                 }
 
-                if let recordType = RecordType(categoryId: model.culture.categoryId-1) {
+                if let recordType = RecordType(categoryId: model.culture.categoryId) {
                     let placeholders = self.textFieldPlaceholders.first { $0.keys.contains(recordType) }?[recordType] ?? []
 
                     let details = [
