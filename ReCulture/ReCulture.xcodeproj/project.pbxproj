@@ -109,6 +109,8 @@
 		3850C3312C1B6C3900570424 /* RecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3302C1B6C3900570424 /* RecordDetailVC.swift */; };
 		3850C3332C1B950F00570424 /* UserProfileAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3322C1B950F00570424 /* UserProfileAPI.swift */; };
 		3850C3352C1B960800570424 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3342C1B960800570424 /* UserProfileModel.swift */; };
+		3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3372C1BC5ED00570424 /* FollowAPI.swift */; };
+		3850C33A2C1BC66000570424 /* FollowDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3392C1BC66000570424 /* FollowDTO.swift */; };
 		385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */; };
 		386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386325632C11EFCE00F96D0A /* LogoutModal.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
@@ -240,6 +242,8 @@
 		3850C3302C1B6C3900570424 /* RecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailVC.swift; sourceTree = "<group>"; };
 		3850C3322C1B950F00570424 /* UserProfileAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileAPI.swift; sourceTree = "<group>"; };
 		3850C3342C1B960800570424 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
+		3850C3372C1BC5ED00570424 /* FollowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAPI.swift; sourceTree = "<group>"; };
+		3850C3392C1BC66000570424 /* FollowDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
 		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		386325632C11EFCE00F96D0A /* LogoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModal.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,6 +432,7 @@
 				08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */,
 				0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */,
 				0813C4ED2C1B88CA004CD0B4 /* NewTicketAPI.swift */,
+				3850C3372C1BC5ED00570424 /* FollowAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 		08D1F5CC2C0D6FD300F1AB49 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				3850C3362C1BC5B000570424 /* Follow */,
 				384315E12C1B1A2300D379F3 /* Search */,
 				384315D62C1AB28D00D379F3 /* Record */,
 				089EDAC32C12CBE500D74C5F /* NewUserProfile */,
@@ -568,6 +574,14 @@
 				384315E42C1B1A3600D379F3 /* SearchResponseDTO.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		3850C3362C1BC5B000570424 /* Follow */ = {
+			isa = PBXGroup;
+			children = (
+				3850C3392C1BC66000570424 /* FollowDTO.swift */,
+			);
+			path = Follow;
 			sourceTree = "<group>";
 		};
 		386325622C11EFC100F96D0A /* Modal */ = {
@@ -833,6 +847,7 @@
 				384315EF2C1B31D100D379F3 /* MypageViewModel.swift in Sources */,
 				384315E02C1AB44300D379F3 /* RecordViewModel.swift in Sources */,
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
+				3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */,
 				089EDAD72C13473200D74C5F /* HomeModel.swift in Sources */,
 				384315EB2C1B1AEB00D379F3 /* SearchAPI.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
@@ -925,6 +940,7 @@
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
 				384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */,
 				08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */,
+				3850C33A2C1BC66000570424 /* FollowDTO.swift in Sources */,
 				0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */,
 				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,
 				384315ED2C1B31CA00D379F3 /* MypageModel.swift in Sources */,

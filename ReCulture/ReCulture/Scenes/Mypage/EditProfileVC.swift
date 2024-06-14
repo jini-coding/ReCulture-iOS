@@ -9,11 +9,29 @@ import UIKit
 
 class EditProfileVC: UIViewController {
     
+    let viewModel = MypageViewModel()
+    
     let profileImage: UIImageView = {
         let imageview = UIImageView()
         imageview.backgroundColor = UIColor.rcGray200
         imageview.layer.cornerRadius = 45
         imageview.clipsToBounds = true
+        
+        return imageview
+    }()
+
+    let roundImage: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.rcGray300
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        
+        return view
+    }()
+    
+    let plusImage: UIImageView = {
+        let imageview = UIImageView()
+        imageview.image = UIImage(named: "AddIcon")
         
         return imageview
     }()
@@ -104,11 +122,16 @@ class EditProfileVC: UIViewController {
     
     let interestTextfield: UITextField = {
         let textfield = UITextField()
-        textfield.text = "관심분야를 설정해주세요"
+        textfield.placeholder = "관심분야를 설정해주세요"
         textfield.backgroundColor = UIColor.rcGrayBg
         textfield.font = UIFont.rcFont16M()
         textfield.textColor = UIColor.black
         textfield.layer.cornerRadius = 8
+        
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [
+             .font: UIFont.rcFont16M()
+         ]
+        textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
         
         return textfield
     }()
@@ -122,6 +145,8 @@ class EditProfileVC: UIViewController {
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         
+        button.addTarget(self, action: #selector(didTapConfirmButton), for: .touchUpInside)
+        
         return button
     }()
 
@@ -130,13 +155,27 @@ class EditProfileVC: UIViewController {
         
         view.backgroundColor = UIColor.white
         
+        bind()
+        viewModel.getMyInfo(fromCurrentVC: self)
+        
         setupNavigationBar()
         setupProfileImage()
         setupInputNickname()
         setupInputIntro()
-        setupInputBirth()
+        //setupInputBirth()
         setupSelectField()
         setupConfirmButton()
+    }
+    
+    private func bind() {
+        viewModel.myPageModelDidChange = { [weak self] in
+            DispatchQueue.main.async { [self] in
+                self?.nicknameTextfield.text = self?.viewModel.getNickname()
+                self?.introTextfield.text = self?.viewModel.getBio()
+                self?.interestTextfield.text = self?.viewModel.getInterest()
+            }
+        }
+        
     }
     
     func setupNavigationBar() {
@@ -150,14 +189,28 @@ class EditProfileVC: UIViewController {
     
     func setupProfileImage() {
         profileImage.translatesAutoresizingMaskIntoConstraints = false
+        roundImage.translatesAutoresizingMaskIntoConstraints = false
+        plusImage.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(profileImage)
+        view.addSubview(roundImage)
+        roundImage.addSubview(plusImage)
         
         NSLayoutConstraint.activate([
             profileImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 32),
             profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             profileImage.heightAnchor.constraint(equalToConstant: 90),
-            profileImage.widthAnchor.constraint(equalToConstant: 90)
+            profileImage.widthAnchor.constraint(equalToConstant: 90),
+            
+            roundImage.bottomAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: -2),
+            roundImage.trailingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: -10),
+            roundImage.heightAnchor.constraint(equalToConstant: 20),
+            roundImage.widthAnchor.constraint(equalToConstant: 20),
+            
+            plusImage.centerXAnchor.constraint(equalTo: roundImage.centerXAnchor),
+            plusImage.centerYAnchor.constraint(equalTo: roundImage.centerYAnchor),
+            plusImage.heightAnchor.constraint(equalToConstant: 18),
+            plusImage.widthAnchor.constraint(equalToConstant: 18),
         ])
         
     }
@@ -247,7 +300,7 @@ class EditProfileVC: UIViewController {
         interestTextfield.leftViewMode = .always
         
         NSLayoutConstraint.activate([
-            interestLabel.topAnchor.constraint(equalTo: birthTextField.bottomAnchor, constant: 28),
+            interestLabel.topAnchor.constraint(equalTo: introTextfield.bottomAnchor, constant: 28),
             interestLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             interestLabel.heightAnchor.constraint(equalToConstant: 20),
             
@@ -269,6 +322,40 @@ class EditProfileVC: UIViewController {
             confirmButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             confirmButton.heightAnchor.constraint(equalToConstant: 52),
         ])
+    }
+    
+    @objc func didTapConfirmButton() {
+//        guard let nickname = nicknameTextfield.text,
+//              let bio = introTextfield.text,
+//              let birthdate = birthTextField.text,
+//              let interest = interestTextfield.text else {
+//            return
+//        }
+//        
+//        let requestDTO: [String: Any] = [
+//            "nickname": nickname,
+//            "bio": bio,
+//            "birthdate": birthdate,
+//            "interest": interest,
+//            "photo":
+//        ]
+//        
+//        // profileImage는 예시로 비어 있는 [ImageFile]을 보냅니다.
+//        // 실제로는 사용자가 선택한 이미지를 이 배열에 담아야 합니다.
+//        let profileImages: [ImageFile] = []
+//        
+//        viewModel.editMyProfile(
+//            requestDTO: NewUserProfileRequestDTO(nickname: nickname, bio: bio, birthdate: birth, interest: interest),
+//            profileImage: [image],
+//            fromCurrentVC: self
+//        )
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
+        present(alertController, animated: true)
     }
 }
 

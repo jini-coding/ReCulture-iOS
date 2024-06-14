@@ -29,6 +29,8 @@ class ViewFriendVC: UIViewController, UIPageViewControllerDelegate, UIPageViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.white
+        
         setupNavigationBar()
         setupSegmentedControl()
         setupContainerView()
@@ -169,6 +171,10 @@ class ViewFriendVC: UIViewController, UIPageViewControllerDelegate, UIPageViewCo
 }
 
 class FollowerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    private let viewModel = MypageViewModel()
+    var followers: [Follower] = []
+    
     struct Friend {
         var profileImage: String
         var name: String
@@ -206,6 +212,9 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         
         view.backgroundColor = UIColor.white
         
+        bind()
+        viewModel.getFollowers()
+        
         setupNavigationBar()
         setTableView()
         
@@ -216,34 +225,59 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         followerTableView.dataSource = self
     }
     
+    private func bind() {
+        viewModel.followersDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.followerTableView.reloadData()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendData.count
+        return viewModel.followers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = friendData[indexPath.row]
+        let data = viewModel.followers[indexPath.row]
          
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
         cell.selectionStyle = .none
-         // Assuming you have images added in assets
-        cell.profileImageView.image = UIImage(named: data.profileImage)
-        cell.nameLabel.text = data.name
-        cell.idLabel.text = data.id
+        cell.nameLabel.text = "\(data.followerID)"
+        cell.idLabel.text = data.follower.email
         
-        if (data.follow == true) {
-            cell.followButton.setTitle("팔로잉", for: .normal)
-            cell.followButton.backgroundColor = UIColor.rcGray000
-            cell.followButton.setTitleColor(UIColor.rcGray800, for: .normal)
-            cell.followButton.titleLabel?.font = UIFont.rcFont14M()
-        } else {
-            cell.followButton.setTitle("팔로우", for: .normal)
-            cell.followButton.backgroundColor = UIColor.rcMain
-            cell.followButton.setTitleColor(UIColor.white, for: .normal)
-            cell.followButton.titleLabel?.font = UIFont.rcFont14M()
-        }
+        // 설정에 따라 팔로우 버튼 업데이트
+        cell.followButton.setTitle("팔로우", for: .normal)
+        cell.followButton.backgroundColor = UIColor.rcMain
+        cell.followButton.setTitleColor(UIColor.white, for: .normal)
+        cell.followButton.titleLabel?.font = UIFont.rcFont14M()
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let data = friendData[indexPath.row]
+//         
+//        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
+//        cell.selectionStyle = .none
+//         // Assuming you have images added in assets
+//        cell.profileImageView.image = UIImage(named: data.profileImage)
+//        cell.nameLabel.text = data.name
+//        cell.idLabel.text = data.id
+//        
+//        if (data.follow == true) {
+//            cell.followButton.setTitle("팔로잉", for: .normal)
+//            cell.followButton.backgroundColor = UIColor.rcGray000
+//            cell.followButton.setTitleColor(UIColor.rcGray800, for: .normal)
+//            cell.followButton.titleLabel?.font = UIFont.rcFont14M()
+//        } else {
+//            cell.followButton.setTitle("팔로우", for: .normal)
+//            cell.followButton.backgroundColor = UIColor.rcMain
+//            cell.followButton.setTitleColor(UIColor.white, for: .normal)
+//            cell.followButton.titleLabel?.font = UIFont.rcFont14M()
+//        }
+//        
+//        return cell
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
@@ -284,6 +318,9 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
 }
 
 class FollowingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let viewModel = MypageViewModel()
+    var followings: [Following] = []
+    
     struct Friend {
         var profileImage: String
         var name: String
@@ -313,6 +350,9 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         
         view.backgroundColor = UIColor.white
         
+        bind()
+        viewModel.getFollowings()
+        
         setupNavigationBar()
         setTableView()
         
@@ -323,20 +363,27 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         followingTableView.dataSource = self
     }
     
+    private func bind() {
+        viewModel.followingsDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.followingTableView.reloadData()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendData.count
+        return viewModel.followings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = friendData[indexPath.row]
+        let data = viewModel.followings[indexPath.row]
          
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
         cell.selectionStyle = .none
-         // Assuming you have images added in assets
-        cell.profileImageView.image = UIImage(named: data.profileImage)
-        cell.nameLabel.text = data.name
-        cell.idLabel.text = data.id
+        cell.nameLabel.text = "\(data.following.id)"
+        cell.idLabel.text = data.following.email
         
+        // 설정에 따라 팔로우 버튼 업데이트
         cell.followButton.setTitle("팔로잉", for: .normal)
         cell.followButton.backgroundColor = UIColor.rcGray000
         cell.followButton.setTitleColor(UIColor.rcGray800, for: .normal)

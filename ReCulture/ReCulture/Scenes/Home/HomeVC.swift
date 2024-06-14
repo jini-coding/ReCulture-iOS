@@ -26,6 +26,12 @@ class HomeVC: UIViewController {
         return label
     }()
     
+    private let logoImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = .appLogo
+        return view
+    }()
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
@@ -129,7 +135,7 @@ class HomeVC: UIViewController {
     private func setupNavigation(){
         //setLevelAttributes()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
@@ -299,7 +305,7 @@ class HomeVC: UIViewController {
         let nextLevelName = LevelType.getNextLevelOf(currentLevelType)
         let totalScoreForThisLevel = LevelType.getTotalScoreOf(currentLevelType)
         
-        let percentLeftToNextLevel = 100 - (viewModel.getExp() / totalScoreForThisLevel) * 100
+        let percentLeftToNextLevel = 100 - Int((Float(viewModel.getExp()) / Float(totalScoreForThisLevel)) * 100)
         
         let text = "\(nextLevelName)까지 \(percentLeftToNextLevel)% 남았어요! 💪"
     

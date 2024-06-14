@@ -10,6 +10,7 @@ import UIKit
 class CompleteCustomizingModal : UIViewController {
     
     let currentVC: UIViewController
+    weak var delegate: CompleteModalDelegate?
     
     let customModal = UIView(frame: CGRect(x: 0, y: 0, width: 322, height: 200))
     
@@ -117,10 +118,19 @@ class CompleteCustomizingModal : UIViewController {
     @objc func goBack() {
         
         print("이전 화면으로 돌아가기")
-        dismiss(animated: true){
-            let vc = self.currentVC as! TicketCustomizingVC
-            vc.popVC()
-        }
+//         dismiss(animated: true){
+//             let vc = self.currentVC as! TicketCustomizingVC
+//             vc.popVC()
+//         }
+
+        delegate?.dismissCompleteModal()
+        let vc = TabBarVC()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         
+    }
+    
+    @objc func popupDismiss(){
+
+        delegate?.dismissCompleteModal()
     }
 }

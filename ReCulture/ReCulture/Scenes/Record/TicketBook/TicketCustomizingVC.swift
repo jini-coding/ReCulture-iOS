@@ -7,6 +7,23 @@
 
 import UIKit
 
+protocol CompleteModalDelegate: AnyObject {
+    func popupChecked(view: String)
+    func dismissCompleteModal()
+}
+
+extension TicketCustomizingVC: CompleteModalDelegate {
+    func popupChecked(view: String) {
+        // Handle the delegate callback
+    }
+    
+    func dismissCompleteModal() {
+        // Dismiss the modal
+        dismiss(animated: true)
+        self.overlayView.removeFromSuperview()
+    }
+}
+
 class TicketCustomizingVC: UIViewController {
     
     var pageViewController: UIPageViewController!
@@ -218,6 +235,7 @@ class TicketCustomizingVC: UIViewController {
         
         let vc = CompleteCustomizingModal(currentVC: self) // 로그아웃 완료 팝업 띄우기
         vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
     

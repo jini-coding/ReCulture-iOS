@@ -250,4 +250,56 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 사용자 정보 수정
+    func editMyProfile(
+        requestDTO: [String: Any],
+        profileImage: [ImageFile],
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MyProfileModel, NetworkError>) -> Void
+    ) {
+        let editMyProfileAPI = EidtMyProfileAPI(requestDTO: requestDTO, profileImage: profileImage)
+        networkService.request(editMyProfileAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(MyProfileDTO.convertMyProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    func getMyFollowers(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FollowModel], NetworkError>) -> Void
+    ) {
+        let followAPI = FollowerAPI()
+        networkService.request(followAPI) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = FollowDTO.convertFollowDTOsToModels(DTOs: DTOs)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    func getMyFollowings(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FollowModel], NetworkError>) -> Void
+    ) {
+        let followAPI = FollowingAPI()
+        networkService.request(followAPI) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = FollowDTO.convertFollowDTOsToModels(DTOs: DTOs)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
