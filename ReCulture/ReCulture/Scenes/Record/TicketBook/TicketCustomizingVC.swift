@@ -29,6 +29,9 @@ class TicketCustomizingVC: UIViewController {
     var pageViewController: UIPageViewController!
     var pages: [UIViewController] = []
     
+    let viewModel = TicketCustomizingViewModel()
+    var postNewTicketSuccess = false
+    
     let pageControl = UIPageControl()
     let nextBtn = UIButton()
     
@@ -52,7 +55,8 @@ class TicketCustomizingVC: UIViewController {
     }
     
     func setupPages() {
-        pages = [CustomizingOneVC(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
+        //pages = [CustomizingOneVC(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
+        pages = [CustomizingSelectPhotoPage(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
     }
     
     func setupNavigationBar() {
@@ -127,8 +131,33 @@ class TicketCustomizingVC: UIViewController {
     @objc func nextButtonPressed() {
         let currentPage = pageControl.currentPage
         let nextPage = currentPage + 1
+        var allFieldsFilled = true
         
-        if nextPage < pages.count {
+        if currentPage == 0 && (pages[0] as! CustomizingSelectPhotoPage).imageFiles.isEmpty {
+            allFieldsFilled = false
+            let alertController = UIAlertController(title: "사진을 선택해주세요!", message: nil, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(confirmAction)
+            self.present(alertController, animated: true)
+        }
+        
+        else if currentPage == 1 && (pages[1] as! CustomizingTwoVC).selectedItem == "" {
+            allFieldsFilled = false
+            let alertController = UIAlertController(title: "문화생활 카테고리를 선택해주세요!", message: nil, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(confirmAction)
+            self.present(alertController, animated: true)
+        }
+        
+        else if currentPage == 2 && !(pages[2] as? CustomizingThreeVC)!.validateInputField() {
+            allFieldsFilled = false
+            let alertController = UIAlertController(title: "내용을 모두 입력해주세요!", message: nil, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(confirmAction)
+            self.present(alertController, animated: true)
+        }
+        
+        if allFieldsFilled && nextPage < pages.count {
             pageViewController.setViewControllers([pages[nextPage]], direction: .forward, animated: true, completion: { completed in
                 if completed {
                     self.pageControl.currentPage = nextPage
@@ -159,7 +188,36 @@ class TicketCustomizingVC: UIViewController {
     }
     
     @objc func confirmButtonTapped() {
-        presentCompleteModal()
+        let requestDTO = TicketRequestDTO(
+            title: (pages[2] as! CustomizingThreeVC).titleTextfield.text!,
+            emoji: (pages[2] as! CustomizingThreeVC).emojiTextfield.text!,
+            date: ISO8601DateFormatter.string(from: (pages[2] as! CustomizingThreeVC).datePicker.date,
+                                              timeZone: TimeZone(abbreviation: "KST")!,
+                                              formatOptions: [.withInternetDateTime]),
+            disclosure: "PUBLIC",
+            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!)
+        
+        print("티켓북 아래와 같이 만들 예정")
+        print(requestDTO)
+        
+        LoadingIndicator.showLoading()
+        
+        viewModel.postNewTicket(
+            requestDTO: requestDTO,
+            photos: (pages[0] as! CustomizingSelectPhotoPage).imageFiles,
+            fromCurrentVC: self
+        ){
+            LoadingIndicator.hideLoading()
+            
+            if (self.postNewTicketSuccess){
+                self.presentCompleteModal()
+            }
+            else {
+                let alert = UIAlertController(title: "티켓 커스터마이징에 실패하였습니다.", message: "다시 한 번 시도해주세요.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default))
+                self.present(alert, animated: true)
+            }
+        }
     }
     
     func presentCompleteModal() {
@@ -175,10 +233,15 @@ class TicketCustomizingVC: UIViewController {
             overlayView.bottomAnchor.constraint(equalTo: tabBarController.view.bottomAnchor)
         ])
         
-        let vc = CompleteCustomizingModal() // 로그아웃 완료 팝업 띄우기
+        let vc = CompleteCustomizingModal(currentVC: self) // 로그아웃 완료 팝업 띄우기
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
         present(vc, animated: true, completion: nil)
+    }
+    
+    func popVC(){
+        overlayView.removeFromSuperview()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

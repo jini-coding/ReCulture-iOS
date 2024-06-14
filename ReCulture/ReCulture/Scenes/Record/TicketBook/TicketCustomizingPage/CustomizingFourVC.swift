@@ -32,7 +32,7 @@ class CustomizingFourVC: UIViewController {
         view.backgroundColor = UIColor.white
         
         setupGuide()
-        setupImage()
+        //setupImage()
     }
     
     func setupGuide() {
@@ -40,10 +40,15 @@ class CustomizingFourVC: UIViewController {
         
         view.addSubview(guideLabel)
         
+//        NSLayoutConstraint.activate([
+//            guideLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
+//            guideLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+//            guideLabel.heightAnchor.constraint(equalToConstant: 72)
+//        ])
+        
         NSLayoutConstraint.activate([
-            guideLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
-            guideLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            guideLabel.heightAnchor.constraint(equalToConstant: 72)
+            guideLabel.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            guideLabel.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
         ])
     }
     

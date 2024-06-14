@@ -9,6 +9,7 @@ import UIKit
 
 class CompleteCustomizingModal : UIViewController {
     
+    let currentVC: UIViewController
     weak var delegate: CompleteModalDelegate?
     
     let customModal = UIView(frame: CGRect(x: 0, y: 0, width: 322, height: 200))
@@ -45,6 +46,15 @@ class CompleteCustomizingModal : UIViewController {
     // 모달 제목 바꾸는 함수
     func changeTitle(title : String){
         titleLabel.text = title
+    }
+    
+    init(currentVC: UIViewController){
+        self.currentVC = currentVC
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -108,6 +118,11 @@ class CompleteCustomizingModal : UIViewController {
     @objc func goBack() {
         
         print("이전 화면으로 돌아가기")
+//         dismiss(animated: true){
+//             let vc = self.currentVC as! TicketCustomizingVC
+//             vc.popVC()
+//         }
+
         delegate?.dismissCompleteModal()
         let vc = TabBarVC()
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)

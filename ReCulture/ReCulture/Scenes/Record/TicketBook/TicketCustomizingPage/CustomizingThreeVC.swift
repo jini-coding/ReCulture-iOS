@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomizingThreeVC: UIViewController, UITextViewDelegate {
-    
+        
     let guideLabel: UILabel = {
         let label = UILabel()
         label.text = "기록하고 싶은 내용을\n입력해주세요"
@@ -69,6 +69,14 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
         return textfield
     }()
     
+    let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .wheels
+        picker.addTarget(self, action: #selector(datePickerValueDidChange), for: .valueChanged)
+        return picker
+    }()
+    
     let commentLabel: UILabel = {
         let label = UILabel()
         label.text = "총평"
@@ -122,11 +130,21 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
+        addKeyboardObserver()
+        
         setupGuide()
         setupInputTitle()
         setupInputDate()
         setupInputComment()
         setupInputEmoji()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        removeKeyBoardObserver()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func setupGuide() {
@@ -166,6 +184,8 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
     }
     
     func setupInputDate() {
+        dateTextfield.inputView = datePicker
+        
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateTextfield.translatesAutoresizingMaskIntoConstraints = false
         
@@ -247,6 +267,58 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
             textView.text = placeholder
             textView.textColor = UIColor.rcGray300
         }
+    }
+    
+    @objc private func datePickerValueDidChange(_ sender: UIDatePicker){
+        dateTextfield.text = dateFormatToString(date: datePicker.date)
+    }
+    
+    private func dateFormatToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
+    }
+    
+    // 키보드
+    
+    @objc private func keyboardWillShow(_ notification: NSNotification){
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height / 2
+            }
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: NSNotification){
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    private func removeKeyBoardObserver() {
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+    }
+    
+    /// 필요한 내용이 다 쓰였는지 확인
+    func validateInputField() -> Bool {
+        return !(self.titleTextfield.text?.isEmpty ?? true)
+                && !(self.emojiTextfield.text?.isEmpty ?? true)
+                && !(self.dateTextfield.text?.isEmpty ?? true)
+                && (self.commentTextView.text != placeholder)
     }
 }
 

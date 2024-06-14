@@ -201,6 +201,24 @@ final class NetworkManager {
         }
     }
     
+    /// 새로운 티켓 추가하는 함수
+    func postNewTicket(
+        newTicketRequestDTO: TicketRequestDTO,
+        photos: [ImageFile],
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<TicketResponseDTO, NetworkError>) -> Void
+    ){
+        let newTicketAPI = NewTicketAPI(requestDTO: newTicketRequestDTO.toDictionary!, photos: photos)
+        networkService.request(newTicketAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     /// 특정 기록 상세보기
     func getRecordDetails(recordId: Int,
         _ networkService: NetworkServable = NetworkService(),
