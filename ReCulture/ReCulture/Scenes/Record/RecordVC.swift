@@ -10,6 +10,7 @@ import UIKit
 class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let viewModel = RecordViewModel()
+    private let myviewModel = MypageViewModel()
     
     struct RecordContent {
         var title: String
@@ -46,6 +47,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let button = UIButton()
         button.backgroundColor = UIColor.rcGrayBg
         button.setTitle("T", for: .normal)
+        button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.rcGray600, for: .normal)
         button.addTarget(self, action: #selector(goToTicketBook), for: .touchUpInside)
         
@@ -91,6 +93,10 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         view.backgroundColor = UIColor.rcMain
         
+        bind()
+        viewModel.getmyRecords(fromCurrentVC: self)
+        myviewModel.getMyInfo(fromCurrentVC: self)
+        
         setupHeaderView()
         setupContentView()
         
@@ -99,12 +105,6 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         contentTableView.delegate = self
         contentTableView.dataSource = self
         
-        viewModel.getmyRecords(fromCurrentVC: self)
-        viewModel.myRecordModelDidChange = { [weak self] in
-             DispatchQueue.main.async {
-                 self?.contentTableView.reloadData()
-             }
-        }
         
     }
     
@@ -122,14 +122,41 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    private func bind() {
+        viewModel.myRecordModelDidChange = { [weak self] in
+             DispatchQueue.main.async {
+                 self?.contentTableView.reloadData()
+             }
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.recordCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
-        let data = viewModel.getRecord(at: indexPath.row)
-        //cell.bind(with: data)
+        cell.selectionStyle = .none
+        let model = viewModel.getRecord(at: indexPath.row)
+        
+        cell.titleLabel.text = model.culture.title
+        
+        cell.nameLabel.text = "\(myviewModel.getNickname())"
+        let imageUrlStr = "http://34.27.50.30:8080\(myviewModel.getProfileImage())"
+        imageUrlStr.loadAsyncImage(cell.profileImageView)
+        
+        cell.idLabel.text = "@\(model.culture.authorId)"
+        cell.createDateLabel.text = model.culture.date.toDate()?.toString()
+        cell.commentLabel.text = model.culture.review
+        
+        if let imageUrl = model.photoDocs.first {
+            let baseUrl = "http://34.27.50.30:8080"
+            let imageUrlStr = "\(baseUrl)\(imageUrl.url)"
+            imageUrlStr.loadAsyncImage(cell.contentImageView)
+        }
+        
+
         return cell
     }
 
@@ -163,18 +190,18 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  
-        let selectedData = tempData[indexPath.row]
+        let model = viewModel.getRecord(at: indexPath.row)
 
         // 이동할 뷰 컨트롤러 초기화
-        let vc = SearchRecordDetailVC()
+        let vc = RecordDetailVC()
 
         // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
-        vc.titleText = selectedData.title
-        vc.creator = selectedData.name
-        vc.createdAt = selectedData.createdAt
-        vc.category = selectedData.category
-        vc.contentImage = selectedData.contentImages
+        vc.recordId = model.culture.id
+        vc.titleText = model.culture.title
+        vc.creator = "\(myviewModel.getNickname())"
+        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+        vc.category = "\(model.culture.categoryId)"
+        vc.contentImage = model.photoDocs.map { $0.url }
 
         // 뷰 컨트롤러 표시
         vc.hidesBottomBarWhenPushed = true
@@ -230,7 +257,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             contentTableView.topAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: 0),
             contentTableView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
-            contentTableView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor),
+            contentTableView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
             contentTableView.bottomAnchor.constraint(equalTo: contentsView.bottomAnchor)
         ])
         
@@ -448,7 +475,8 @@ class RecordContentCell: UITableViewCell {
             separateLineImageView.heightAnchor.constraint(equalToConstant: 12),
             separateLineImageView.widthAnchor.constraint(equalToConstant: 1),
             
-            idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            //idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
             idLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
             idLabel.heightAnchor.constraint(equalToConstant: 15),
             

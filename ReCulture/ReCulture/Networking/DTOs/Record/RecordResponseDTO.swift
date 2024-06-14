@@ -5,7 +5,6 @@
 //  Created by Jini on 6/3/24.
 //
 
-
 struct RecordResponseDTO: Codable {
     let id: Int
     let title: String
@@ -24,31 +23,11 @@ struct RecordResponseDTO: Codable {
     
     let photos: [PhotoDoc]
     
-//    struct Culture: Codable {
-//        let id: Int
-//        let title: String
-//        let emoji: String
-//        let date: String
-//        let categoryId: Int
-//        let disclosure: String
-//        let review: String
-//        let detail1: String
-//        let detail2: String
-//        let detail3: String
-//        let detail4: String
-//        let authorId: Int
-//        let createdAt: String
-//        let updatedAt: String
-//    }
-    
     struct PhotoDoc: Codable {
         let id: Int
         let url: String
         let culturePostId: Int
     }
-    
-//    let culture: Culture
-//    let photos: [PhotoDoc]
 }
 
 extension RecordResponseDTO {

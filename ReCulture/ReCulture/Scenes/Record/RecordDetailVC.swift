@@ -1,5 +1,5 @@
 //
-//  SearchRecordDetailVC.swift
+//  RecordDetailVC.swift
 //  ReCulture
 //
 //  Created by Jini on 6/14/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchRecordDetailVC: UIViewController {
+class RecordDetailVC: UIViewController {
     
     private let viewModel = RecordViewModel()
     
@@ -205,7 +205,7 @@ class SearchRecordDetailVC: UIViewController {
 
                 self.titleLabel.text = model.culture.title
                 self.creatorLabel.text = "\(self.creator)"
-                self.createDateLabel.text = model.culture.date.toDate()?.toString() 
+                self.createDateLabel.text = model.culture.date.toDate()?.toString()
                 self.categoryLabel.text = category
                 self.contentImage = model.photoDocs.map { $0.url }
 
@@ -331,7 +331,7 @@ class SearchRecordDetailVC: UIViewController {
     }
     
     func setupNavigationBar() {
-        self.navigationItem.title = "\(creator)님의 기록"
+        self.navigationItem.title = "나의 기록"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.rcFont18B()]
         self.navigationController?.navigationBar.setBackgroundImage(nil, for:.default)
         self.navigationController?.navigationBar.shadowImage = nil

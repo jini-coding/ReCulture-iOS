@@ -290,8 +290,8 @@ class HomeVC: UIViewController {
         let currentExp = viewModel.getExp()
         let currentLevelName = viewModel.getLevelName()
         let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType(rawValue: currentLevelName)!)
-        
-        levelProgressView.setProgress(Float(currentExp / totalScoreForThisLevel))
+
+        levelProgressView.setProgress(Float(currentExp) / Float(totalScoreForThisLevel))
     }
     
     private func setTilNextLevelValues() {

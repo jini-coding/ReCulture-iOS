@@ -66,6 +66,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let contentTableView: UITableView = {
         let tableview = UITableView()
         tableview.separatorStyle = .singleLine
+        tableview.showsVerticalScrollIndicator = false
         
         return tableview
     }()
@@ -124,10 +125,68 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         let model = viewModel.getRecord(at: indexPath.row)
+        
+        let authorId = model.culture.authorId
+        
+        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
+            cell.creatorLabel.text = userProfile.nickname
+            if let profileImageUrl = userProfile.profilePhoto {
+                let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+                imageUrlStr.loadAsyncImage(cell.profileImageView)
+            }
+        } else {
+            // Fetch user profile if not loaded yet
+            viewModel.getUserProfile(userId: authorId) { userProfile in
+                DispatchQueue.main.async {
+                    cell.creatorLabel.text = userProfile?.nickname
+                    if let profileImageUrl = userProfile?.profilePhoto {
+                        let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+                    }
+                }
+            }
+        }
+    
+ 
         cell.titleLabel.text = model.culture.title
-        cell.creatorLabel.text = "\(model.culture.authorId ?? 0)" // Optional 값 처리
-        cell.createDateLabel.text = model.culture.date
-        cell.categoryLabel.text = "\(model.culture.categoryId ?? 0)" // Optional 값 처리
+        //cell.creatorLabel.text = "\(model.culture.authorId)"
+
+        if let date = model.culture.date.toDate() {
+            cell.createDateLabel.text = date.toString()
+        } else {
+            cell.createDateLabel.text = model.culture.date
+        }
+        
+        let category: String
+        switch model.culture.categoryId {
+        case 1:
+            category = "영화"
+        case 2:
+            category = "뮤지컬"
+        case 3:
+            category = "연극"
+        case 4:
+            category = "스포츠"
+        case 5:
+            category = "콘서트"
+        case 6:
+            category = "드라마"
+        case 7:
+            category = "독서"
+        case 8:
+            category = "전시회"
+        case 9:
+            category = "기타"
+        default:
+            category = "기타"
+        }
+        cell.categoryLabel.text = category
+        
+        if let firstPhotoDoc = model.photoDocs.first {
+            let baseUrl = "http://34.27.50.30:8080"
+            let imageUrlStr = "\(baseUrl)\(firstPhotoDoc.url)"
+            imageUrlStr.loadAsyncImage(cell.contentImageView)
+        }
         
         return cell
     }
@@ -160,21 +219,22 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  
-        let selectedData = tempData[indexPath.row]
-
+        let model = viewModel.getRecord(at: indexPath.row)
+        let authorId = model.culture.authorId
+        
+        let userProfile = viewModel.getUserProfileModel(for: authorId)
         // 이동할 뷰 컨트롤러 초기화
         let vc = SearchRecordDetailVC()
 
         // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
-        vc.titleText = selectedData.title
-        vc.creator = selectedData.creator
-        vc.createdAt = selectedData.createdAt
-        vc.category = selectedData.category
-        vc.contentImage = selectedData.contentImages
+        vc.recordId = model.culture.id
+        vc.titleText = model.culture.title
+        vc.creator = userProfile?.nickname ?? "Unknown"
+        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+        vc.category = "\(model.culture.categoryId)"
+        vc.contentImage = model.photoDocs.map { $0.url }
 
         // 뷰 컨트롤러 표시
-        
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -235,7 +295,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             contentTableView.topAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: 0),
             contentTableView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
-            contentTableView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor),
+            contentTableView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
             contentTableView.bottomAnchor.constraint(equalTo: contentsView.bottomAnchor)
         ])
         
@@ -255,7 +315,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ])
         
         // Define categories
-        let categories = ["전체", "뮤지컬", "전시회", "콘서트", "스포츠", "영화", "독서", "기타"]
+        let categories = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "드라마", "독서", "전시회", "기타"]
         
         var previousButton: UIButton?
 
@@ -304,12 +364,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func categoryButtonTapped(_ sender: UIButton) {
-        // Update UI based on selected category
         if let selectedCategory = sender.currentTitle {
             self.selectedCategory = selectedCategory
             updateCategoryButtonAppearance()
-            print("\(selectedCategory) 버튼 선택됨")
-            // Perform actions based on selected category...
+            viewModel.filterRecords(by: selectedCategory)
         }
     }
 
@@ -333,7 +391,7 @@ class SearchContentCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = UIColor.rcGray300
         imageView.layer.cornerRadius = 14
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

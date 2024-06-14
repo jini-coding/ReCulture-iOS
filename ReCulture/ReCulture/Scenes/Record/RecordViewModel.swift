@@ -16,6 +16,12 @@ class RecordViewModel {
         }
     }
     
+    private var recordDetail: RecordModel? {
+        didSet {
+            myRecordModelDidChange?()
+        }
+    }
+    
     var myRecordModelDidChange: (() -> Void)?
     
     // MARK: - Functions
@@ -37,6 +43,30 @@ class RecordViewModel {
                 }
             }
         }
+    }
+    
+    func getRecordDetail(at index: Int) -> RecordModel {
+        return myRecordModel[index]
+    }
+
+    func getRecordDetails(recordId: Int) {
+        NetworkManager.shared.getRecordDetails(recordId: recordId) { result in
+            switch result {
+            case .success(let model):
+                self.recordDetail = model
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+            }
+        }
+    }
+    
+    func getRecordDetail() -> RecordModel? {
+        return recordDetail
+    }
+    
+    func recordCount() -> Int {
+        return myRecordModel.count
     }
     
 //    func getNickname() -> String {
@@ -82,10 +112,7 @@ class RecordViewModel {
 //    func getDetail4() -> String {
 //        return myRecordModel.detail4!
 //    }
-//    
-    func recordCount() -> Int {
-        return myRecordModel.count
-    }
+//
     
     func getRecord(at index: Int) -> RecordModel {
         return myRecordModel[index]
