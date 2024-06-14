@@ -144,11 +144,11 @@ extension CustomizingSelectPhotoPage: PHPickerViewControllerDelegate {
                     let image = image as! UIImage
                     
                     DispatchQueue.main.async {
-                        self.imageView.image = image
+                        self.imageView.image = image.resizeImage(size: self.imageView.frame.size)
                     }
                     
                     if let fileName = result.itemProvider.suggestedName {
-                        image.resizeImage(size: self.imageView.frame.size)
+                        
                         self.imageFiles.append(ImageFile(filename: fileName, data: image.pngData()!, type: "png"))
                         print("선택된 이미지 파일 이름: \(fileName)")
                     }
