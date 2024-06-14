@@ -200,7 +200,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         vc.titleText = model.culture.title
         vc.creator = "\(myviewModel.getNickname())"
         vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
-        vc.category = "\(model.culture.categoryId)"
+        //vc.category = "\(model.culture.categoryId)"
         vc.contentImage = model.photoDocs.map { $0.url }
 
         // 뷰 컨트롤러 표시
