@@ -151,6 +151,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.commentLabel.text = model.culture.review
         
         if let imageUrl = model.photoDocs.first {
+            print("기록 이미지:\(imageUrl)")
             let baseUrl = "http://34.27.50.30:8080"
             let imageUrlStr = "\(baseUrl)\(imageUrl.url)"
             imageUrlStr.loadAsyncImage(cell.contentImageView)
