@@ -27,6 +27,7 @@
 		0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */; };
 		0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */; };
 		0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */; };
+		08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08369CEE2C23066C005725C8 /* UIImageView+.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
 		083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */; };
 		0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E53E2C0319F500B6A4D6 /* RecordType.swift */; };
@@ -160,6 +161,7 @@
 		0830AE772C19E810005B61B0 /* AddRecordPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoViewModel.swift; sourceTree = "<group>"; };
 		0833EF702BE4B9210024FB2C /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		0833EF752BE4C0730024FB2C /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
+		08369CEE2C23066C005725C8 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressView.swift; sourceTree = "<group>"; };
 		0845E53E2C0319F500B6A4D6 /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 				0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */,
 				0866DBD32C0BA57600FBBDB5 /* String+.swift */,
 				089EDACC2C12E2F400D74C5F /* Codable+.swift */,
+				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -854,6 +857,7 @@
 				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */,
 				386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */,
+				08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */,
 				089EDAD52C1344EA00D74C5F /* MyProfileAPI.swift in Sources */,
 				089EDAD32C13449100D74C5F /* MyProfileDTO.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
