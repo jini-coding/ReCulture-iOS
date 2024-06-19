@@ -17,11 +17,10 @@ struct TicketResponseDetail: Codable {
     let title: String
     let emoji: String
     let date: String
+    let categoryId: Int
+    let authorId: Int
     let disclosure: String
     let review: String
-    let authorId: Int
-    let createdAt: String
-    let updatedAt: String
 }
 
 struct TicketPhotoDoc: Codable {

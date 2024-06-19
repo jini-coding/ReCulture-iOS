@@ -193,7 +193,8 @@ class TicketCustomizingVC: UIViewController {
             emoji: (pages[2] as! CustomizingThreeVC).emojiTextfield.text!,
             date: ISO8601DateFormatter.string(from: (pages[2] as! CustomizingThreeVC).datePicker.date,
                                               timeZone: TimeZone(abbreviation: "KST")!,
-                                              formatOptions: [.withInternetDateTime]),
+                                              formatOptions: [.withInternetDateTime]), 
+            categoryId: (pages[1] as! CustomizingTwoVC).selectedCategoryId!,
             disclosure: "PUBLIC",
             review: (pages[2] as! CustomizingThreeVC).commentTextView.text!)
         

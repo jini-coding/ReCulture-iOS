@@ -15,9 +15,14 @@ class TicketBookVC: UIViewController {
     private let tagMinimumInterItemSpacing: CGFloat = 8
     private let ticketMinimumLineSpacing: CGFloat = 16
     private let ticketMinimumInteritemSpacing: CGFloat = 16
-    private let tagList = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "독서", "전시회", "드라마", "기타"]
+    //private let tagList = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "독서", "전시회", "드라마", "기타"]
     
     private let viewModel = TicketBookViewModel()
+    private var filteredTickets: [MyTicketBookModel] = []  // 필터링한 티켓북을 담을 배열
+    private var isFiltering = false  // 필터링 되고 있는 상태인지의 유무 - false면 viewModel의 데이터 사용
+    private var selectedCategory: RecordType = .all
+    
+    private var isAllTagSelected = true  // 태그 필터링 초기화 - 전체로
     
     // MARK: - Views
     
@@ -149,6 +154,24 @@ class TicketBookVC: UIViewController {
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    // MARK: - Functions
+    
+    private func filterTicketsBy(_ type: RecordType){
+        filteredTickets.removeAll()
+        
+        if type != .all {
+            for i in 0 ..< viewModel.getMyTicketBookCount() {
+                let data = viewModel.getMyTicketBookDetailAt(i)
+                if data.categoryType == type {
+                    print(data)
+                    filteredTickets.append(data)
+                }
+            }
+        }
+        
+        ticketCollectionView.reloadData()
+    }
 }
 
 // MARK: - Extension: UIGestureRecognizerDelegate
@@ -162,34 +185,61 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == tagCollectionView{
-            return tagList.count
+            return RecordType.allTypesWithAll.count
         }
         else{
-            return viewModel.getMyTicketBookCount()
+            if selectedCategory == .all {
+                return viewModel.getMyTicketBookCount()
+            }
+            else {
+                return filteredTickets.count
+            }
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == tagCollectionView {
             guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(tag: tagList[indexPath.item])
+            cell.configure(tag: RecordType.allTypesWithAll[indexPath.item].rawValue)
+            if indexPath.item == 0 && isAllTagSelected {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+                cell.isSelected = true
+            }
             return cell
         }
         else {
             guard let cell = ticketCollectionView.dequeueReusableCell(withReuseIdentifier: TicketBookCollectionViewCell.identifier, for: indexPath) as? TicketBookCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(viewModel.getMyTicketBookDetailAt(indexPath.item))
+            
+            // 전체로 필터링하는 경우
+            if selectedCategory == .all {
+                cell.configure(viewModel.getMyTicketBookDetailAt(indexPath.item))
+            }
+            // 그외의 경우
+            else {
+                cell.configure(filteredTickets[indexPath.item])
+            }
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == tagCollectionView {
-            print("selected")
+            isAllTagSelected = false
+            selectedCategory = RecordType.allTypesWithAll[indexPath.item]
+            print("selected filter item: \(selectedCategory.rawValue)")
+            filterTicketsBy(selectedCategory)
         }
         else {
-            let ticketBookDetailVC = TicketBookDetailVC(model: viewModel.getMyTicketBookDetailAt(indexPath.item))
-            ticketBookDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
+            if selectedCategory == .all {
+                let ticketBookDetailVC = TicketBookDetailVC(model: viewModel.getMyTicketBookDetailAt(indexPath.item))
+                ticketBookDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
+            }
+            else {
+                let ticketBookDetailVC = TicketBookDetailVC(model: filteredTickets[indexPath.item])
+                ticketBookDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(ticketBookDetailVC, animated: true)
+            }
         }
     }
     
@@ -217,7 +267,7 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
                         return .zero
                     }
             
-            cell.configure(tag: tagList[indexPath.item])
+            cell.configure(tag: RecordType.allTypesWithAll[indexPath.item].rawValue)
             // ✅ sizeToFit() : 텍스트에 맞게 사이즈가 조절
 
             // ✅ cellWidth = 글자수에 맞는 UILabel 의 width + 24(여백)

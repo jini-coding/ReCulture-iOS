@@ -404,14 +404,32 @@ class TicketBookDetailVC: UIViewController {
     // MARK: - Functions
     
     private func configure(){
-        let imageUrlStr = "http://34.27.50.30:8080\(ticketBookModel.imageURL)"
-        imageUrlStr.loadAsyncImage(ticketImageView)
+        print("==configuring ticket book detail==")
+//        let imageUrlStr = "http://34.22.96.154:8080\(ticketBookModel.imageURL)"
+//        imageUrlStr.loadAsyncImage(ticketImageView)
+        
+        let url = URL(string: "http://34.22.96.154:8080\(ticketBookModel.imageURL)")!
+        ticketImageView.load(url: url)
+        
         
         ticketTitleLabel.text = ticketBookModel.title
         emojiLabel.text = ticketBookModel.emoji
         dateLabel.text = String(ticketBookModel.date.split(separator: "T")[0]).replacingOccurrences(of: "-", with: ".")
         reviewLabel.text = ticketBookModel.review
     }
+    
+//    private func loadImageData() {
+//        let url = URL(string: "http://34.22.96.154:8080\(self)")
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: url!) {
+//                if let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self?.image = image
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 // MARK: - Extensions: UIGestureRecognizerDelegate

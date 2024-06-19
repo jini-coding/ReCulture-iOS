@@ -10,6 +10,7 @@ struct MyTicketBookDTO: Codable {
     let title: String
     let emoji: String
     let date: String
+    let categoryId: Int
     let disclosure: String
     let review: String
     let authorId: Int
@@ -30,7 +31,8 @@ extension MyTicketBookDTO {
             ticketBookId: DTO.id,
             title: DTO.title,
             emoji: DTO.emoji,
-            date: DTO.date,
+            date: DTO.date, 
+            categoryType: RecordType(categoryId: DTO.categoryId)!,
             review: DTO.review,
             imageURL: DTO.photos[0].url
         )
