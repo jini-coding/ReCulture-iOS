@@ -603,7 +603,7 @@ class AddRecordDetailVC: UIViewController {
                                             date: ISO8601DateFormatter.string(from: datePicker.date,
                                                                               timeZone: TimeZone(abbreviation: "KST")!,
                                                                               formatOptions: [.withInternetDateTime]),
-                                            categoryId: String(RecordType.getCategoryIdOf(recordType)+1),
+                                            categoryId: String(RecordType.getCategoryIdOf(recordType)),
                                             disclosure: disclosure.rawValue,
                                             review: detailsModel!.review,
                                             detail1: detailsModel!.detail1,
