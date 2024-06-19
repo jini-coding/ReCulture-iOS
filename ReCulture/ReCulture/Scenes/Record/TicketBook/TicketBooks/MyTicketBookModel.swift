@@ -12,6 +12,7 @@ struct MyTicketBookModel {
     let title: String
     let emoji: String
     let date: String
+    let categoryType: RecordType
     let review: String
     let imageURL: String
 }
