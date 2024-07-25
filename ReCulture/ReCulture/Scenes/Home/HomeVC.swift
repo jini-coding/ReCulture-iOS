@@ -272,7 +272,7 @@ class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+        let imageUrlStr = "http://34.22.96.154:8080\(viewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(characterImageView)
 //        DispatchQueue.global().async { [weak self] in
 //            if let data = try? Data(contentsOf: imageUrl!) {
@@ -334,26 +334,5 @@ class HomeVC: UIViewController {
         viewModel.myCalendarModelDidSet = { [weak self] in
             self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
         }
-    }
-}
-
-extension UIScrollView {
-    func updateContentSize() {
-        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
-        
-        // 계산된 크기로 컨텐츠 사이즈 설정
-        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
-    }
-    
-    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-        var totalRect: CGRect = .zero
-        
-        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
-        for subView in view.subviews {
-            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
-        }
-        
-        // 최종 계산 영역의 크기를 반환
-        return totalRect.union(view.frame)
     }
 }

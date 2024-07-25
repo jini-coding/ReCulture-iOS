@@ -88,6 +88,7 @@
 		08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */; };
 		08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */; };
 		08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */; };
+		08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */; };
 		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
 		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
 		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
@@ -222,6 +223,7 @@
 		08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailVC.swift; sourceTree = "<group>"; };
 		08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarDTO.swift; sourceTree = "<group>"; };
 		08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarAPI.swift; sourceTree = "<group>"; };
+		08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
 		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
 		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				0866DBD32C0BA57600FBBDB5 /* String+.swift */,
 				089EDACC2C12E2F400D74C5F /* Codable+.swift */,
 				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
+				08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				384315DE2C1AB43C00D379F3 /* RecordModel.swift in Sources */,
 				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
+				08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */,
 				384315DC2C1AB2E800D379F3 /* RecordAPI.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
 				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
