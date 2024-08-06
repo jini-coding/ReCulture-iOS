@@ -158,7 +158,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         let category: String
-        switch model.culture.categoryId+1 {
+        switch model.culture.categoryId {
         case 1:
             category = "영화"
         case 2:
