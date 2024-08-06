@@ -282,6 +282,18 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            return
+        default:
+            let vc = CalendarDetailModal()
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overFullScreen
+            parentVC?.present(vc, animated: true)
+        }
+    }
 }
 
 extension CustomCalendarView: UICollectionViewDelegateFlowLayout {

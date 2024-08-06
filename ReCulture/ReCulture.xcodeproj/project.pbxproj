@@ -68,6 +68,7 @@
 		08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB15BE2C163C5F008ED4AE /* ImageFile.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
+		08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
@@ -89,6 +90,7 @@
 		08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */; };
 		08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */; };
 		08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */; };
+		08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */; };
 		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
 		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
 		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
@@ -203,6 +205,7 @@
 		08BB15BE2C163C5F008ED4AE /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCell.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -224,6 +227,7 @@
 		08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarDTO.swift; sourceTree = "<group>"; };
 		08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarAPI.swift; sourceTree = "<group>"; };
 		08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailModal.swift; sourceTree = "<group>"; };
 		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
 		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
 		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
@@ -427,6 +431,23 @@
 			path = TicketBookDetail;
 			sourceTree = "<group>";
 		};
+		08CC1A0A2C590D6D00EC99BA /* CalendarDetail */ = {
+			isa = PBXGroup;
+			children = (
+				08CC1A0B2C590D7B00EC99BA /* cell */,
+				08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */,
+			);
+			path = CalendarDetail;
+			sourceTree = "<group>";
+		};
+		08CC1A0B2C590D7B00EC99BA /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		08D1F5C82C0D6F9E00F1AB49 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +579,7 @@
 		08E695162BE4A5DE0055AC48 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				08CC1A0A2C590D6D00EC99BA /* CalendarDetail */,
 				0833EF732BE4BA810024FB2C /* Calendar */,
 				08D0CF342BF71284005CBECA /* LabelWithPadding.swift */,
 				083FBCC92BF8A4710054D010 /* ToolTipView.swift */,
@@ -863,6 +885,7 @@
 				08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */,
 				089EDAD52C1344EA00D74C5F /* MyProfileAPI.swift in Sources */,
 				089EDAD32C13449100D74C5F /* MyProfileDTO.swift in Sources */,
+				08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
@@ -949,6 +972,7 @@
 				089EDACD2C12E2F400D74C5F /* Codable+.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
+				08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */,
 				389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */,
 				08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */,
 				08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */,
