@@ -34,6 +34,7 @@
 		0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */; };
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
 		0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */; };
+		0855833F2C62607E00BD8A6B /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855833E2C62607E00BD8A6B /* ImageSaver.swift */; };
 		0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */; };
 		0856A6212C099B45001198E1 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A6202C099B45001198E1 /* PhotoService.swift */; };
 		0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */; };
@@ -168,6 +169,7 @@
 		0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
 		0851FD242BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookCollectionViewCell.swift; sourceTree = "<group>"; };
+		0855833E2C62607E00BD8A6B /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoVC.swift; sourceTree = "<group>"; };
 		0856A6202C099B45001198E1 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCell.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			children = (
 				08A304492C1230A00014F24B /* KeychainManager.swift */,
 				08A3044B2C1230C70014F24B /* TokenStateManager.swift */,
+				0855833E2C62607E00BD8A6B /* ImageSaver.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				089EDAE12C13871C00D74C5F /* ErrorDTO.swift in Sources */,
 				08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */,
+				0855833F2C62607E00BD8A6B /* ImageSaver.swift in Sources */,
 				0830AE6E2C19D047005B61B0 /* DisclosureType.swift in Sources */,
 				0813C4F02C1B89C5004CD0B4 /* CustomizingSelectPhotoPage.swift in Sources */,
 				089EDADB2C13670000D74C5F /* LevelType.swift in Sources */,
