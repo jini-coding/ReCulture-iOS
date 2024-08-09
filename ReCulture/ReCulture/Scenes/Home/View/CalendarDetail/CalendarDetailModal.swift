@@ -124,6 +124,7 @@ extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: 기록 상세 페이지로 이동해야 함
         print(indexPath)
     }
     
