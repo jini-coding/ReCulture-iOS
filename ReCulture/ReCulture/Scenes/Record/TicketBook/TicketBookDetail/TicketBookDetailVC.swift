@@ -391,7 +391,12 @@ class TicketBookDetailVC: UIViewController {
     }
     
     @objc private func saveButtonDidTap(){
-        print("티켓북 저장")
+        print("== 티켓북 저장 ==")
+        ImageSaver().saveAsImage(ticketImageView.transfromToImage()!, target: self) {
+            let alertVC = UIAlertController(title: "티켓북 저장에 성공하였습니다!", message: nil, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
     
     @objc private func shareButtonDidTap(){
