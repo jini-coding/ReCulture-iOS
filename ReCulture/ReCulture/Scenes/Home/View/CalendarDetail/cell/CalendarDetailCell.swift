@@ -24,6 +24,14 @@ class CalendarDetailCell: UICollectionViewCell {
         return view
     }()
     
+    private let contentStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 8
+        view.alignment = .center
+        return view
+    }()
+    
     private let titleCategoryStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -35,6 +43,7 @@ class CalendarDetailCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "민경아 록시를 드디어 보다!"
+        label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         label.font = .rcFont16M()
         return label
@@ -59,10 +68,11 @@ class CalendarDetailCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+                
         setupRecordImageView()
-        setupTitleCategoryStackView()
-        setupMoveToRecordButton()
+        setupContentStackView()
+        //setupTitleCategoryStackView()
+        //setupMoveToRecordButton()
     }
     
     required init?(coder: NSCoder) {
@@ -80,7 +90,29 @@ class CalendarDetailCell: UICollectionViewCell {
             recordImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             recordImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             recordImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            recordImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            //recordImageView.heightAnchor.constraint(equalToConstant: 60),
             recordImageView.widthAnchor.constraint(equalTo: recordImageView.heightAnchor, multiplier: 1)
+        ])
+    }
+    
+    private func setupContentStackView() {
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        titleCategoryStackView.translatesAutoresizingMaskIntoConstraints = false
+        moveToRecordImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        titleCategoryStackView.addArrangedSubview(titleLabel)
+        titleCategoryStackView.addArrangedSubview(categoryLabel)
+        
+        contentStackView.addArrangedSubview(titleCategoryStackView)
+        contentStackView.addArrangedSubview(moveToRecordImageView)
+        
+        contentView.addSubview(contentStackView)
+        
+        NSLayoutConstraint.activate([
+            contentStackView.leadingAnchor.constraint(equalTo: recordImageView.trailingAnchor, constant: 10),
+            contentStackView.centerYAnchor.constraint(equalTo: recordImageView.centerYAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
     
