@@ -71,8 +71,6 @@ class CalendarDetailCell: UICollectionViewCell {
                 
         setupRecordImageView()
         setupContentStackView()
-        //setupTitleCategoryStackView()
-        //setupMoveToRecordButton()
     }
     
     required init?(coder: NSCoder) {
@@ -91,7 +89,6 @@ class CalendarDetailCell: UICollectionViewCell {
             recordImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             recordImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             recordImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            //recordImageView.heightAnchor.constraint(equalToConstant: 60),
             recordImageView.widthAnchor.constraint(equalTo: recordImageView.heightAnchor, multiplier: 1)
         ])
     }
@@ -141,8 +138,6 @@ class CalendarDetailCell: UICollectionViewCell {
             moveToRecordImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             moveToRecordImageView.centerYAnchor.constraint(equalTo: titleCategoryStackView.centerYAnchor),
             moveToRecordImageView.heightAnchor.constraint(equalTo: moveToRecordImageView.widthAnchor, multiplier: 1)
-//            moveToRecordButton.widthAnchor.constraint(equalToConstant: 18),
-//            moveToRecordButton.heightAnchor.constraint(equalToConstant: 18),
         ])
     }
     
