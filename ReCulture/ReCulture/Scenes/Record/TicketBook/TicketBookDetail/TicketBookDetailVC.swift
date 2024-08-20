@@ -156,7 +156,8 @@ class TicketBookDetailVC: UIViewController {
         
         var config = UIButton.Configuration.filled()
         var attributeTitle = AttributedString("저장")
-        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(),
+                                                         NSAttributedString.Key.foregroundColor: UIColor.white]))
         config.attributedTitle = attributeTitle
         config.background.cornerRadius = 10
         config.baseBackgroundColor = .rcMain
@@ -168,26 +169,26 @@ class TicketBookDetailVC: UIViewController {
         return button
     }()
     
-    private let shareButton: UIButton = {
-        let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        var attributeTitle = AttributedString("공유")
-        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.rcMain]))
-        config.attributedTitle = attributeTitle
-        config.background.cornerRadius = 10
-        config.baseBackgroundColor = .white
-        config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
-
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.layer.masksToBounds = true
-        button.layer.borderColor = UIColor.rcMain.cgColor
-        button.configuration = config
-        button.addTarget(self, action: #selector(shareButtonDidTap), for: .touchUpInside)
-        
-        return button
-    }()
+//    private let shareButton: UIButton = {
+//        let button = UIButton()
+//        
+//        var config = UIButton.Configuration.filled()
+//        var attributeTitle = AttributedString("공유")
+//        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.rcMain]))
+//        config.attributedTitle = attributeTitle
+//        config.background.cornerRadius = 10
+//        config.baseBackgroundColor = .white
+//        config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
+//
+//        button.layer.cornerRadius = 10
+//        button.layer.borderWidth = 1
+//        button.layer.masksToBounds = true
+//        button.layer.borderColor = UIColor.rcMain.cgColor
+//        button.configuration = config
+//        button.addTarget(self, action: #selector(shareButtonDidTap), for: .touchUpInside)
+//        
+//        return button
+//    }()
     
     // MARK: - Lifecycle
     
@@ -214,6 +215,7 @@ class TicketBookDetailVC: UIViewController {
         setPageControl()
         setDetailContentView()
         setDetailStackView()
+        setSaveButton()
 //        setTagStackView()
 //        setButtonStackView()
         
@@ -245,7 +247,7 @@ class TicketBookDetailVC: UIViewController {
             scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            //scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
     
@@ -346,22 +348,35 @@ class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setButtonStackView(){
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+//    private func setButtonStackView(){
+//        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+//        saveButton.translatesAutoresizingMaskIntoConstraints = false
+//        shareButton.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        contentView.addSubview(buttonStackView)
+//        
+//        [saveButton, shareButton].forEach {
+//            buttonStackView.addArrangedSubview($0)
+//        }
+//        
+//        NSLayoutConstraint.activate([
+//            buttonStackView.topAnchor.constraint(equalTo: tagStackView.bottomAnchor, constant: 31),
+//            buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+//            buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+//            buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+//        ])
+//    }
+    
+    private func setSaveButton() {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(buttonStackView)
-        
-        [saveButton, shareButton].forEach {
-            buttonStackView.addArrangedSubview($0)
-        }
+        view.addSubview(saveButton)
         
         NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: tagStackView.bottomAnchor, constant: 31),
-            buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+            saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -4),
+            saveButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10)
         ])
     }
     
@@ -376,7 +391,12 @@ class TicketBookDetailVC: UIViewController {
     }
     
     @objc private func saveButtonDidTap(){
-        print("티켓북 저장")
+        print("== 티켓북 저장 ==")
+        ImageSaver().saveAsImage(ticketImageView.transfromToImage()!, target: self) {
+            let alertVC = UIAlertController(title: "티켓북 저장에 성공하였습니다!", message: nil, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
     
     @objc private func shareButtonDidTap(){
