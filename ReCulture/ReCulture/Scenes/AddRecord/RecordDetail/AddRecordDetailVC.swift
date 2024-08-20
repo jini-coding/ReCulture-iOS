@@ -91,7 +91,18 @@ class AddRecordDetailVC: UIViewController {
                 self.disclosure = .Public
                 self.validateInputField()
             })
-
+        let isFollower = UIAction(
+            title: "팔로워",
+            handler: { _ in
+                print("팔로워")
+                self.recordRangeMenuBtn.configuration?.attributedTitle = "팔로워"
+                self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                    NSAttributedString.Key.foregroundColor: UIColor.black])
+                )
+                self.rangeIsSet = true
+                self.disclosure = .Private
+                self.validateInputField()
+            })
         let isPrivate = UIAction(
             title: "비공개",
             handler: { _ in
@@ -104,7 +115,8 @@ class AddRecordDetailVC: UIViewController {
                 self.disclosure = .Private
                 self.validateInputField()
             })
-        return [isPublic, isPrivate]
+        
+        return [isPublic, isFollower, isPrivate]
     }
     
     private var nextButtonBottomConstraint: NSLayoutConstraint?
