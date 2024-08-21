@@ -474,8 +474,8 @@
             filePath = "ReCulture/Scenes/Home/View/Calendar/CustomCalendarView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "initCalendar()"
             landmarkType = "7">
             <Locations>
@@ -522,8 +522,8 @@
             filePath = "ReCulture/Scenes/Home/View/Calendar/CustomCalendarView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "calculateCalendar()"
             landmarkType = "7">
             <Locations>
@@ -806,8 +806,8 @@
             filePath = "ReCulture/Scenes/Home/View/Calendar/CustomCalendarView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "calculateCalendar()"
             landmarkType = "7">
          </BreakpointContent>
@@ -946,9 +946,9 @@
             filePath = "ReCulture/Scenes/Home/HomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "countSameDayRecords()"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "countSameDayRecordsAndSetData(year:month:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -994,8 +994,8 @@
             filePath = "ReCulture/Scenes/Home/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "bind()"
             landmarkType = "7">
             <Locations>

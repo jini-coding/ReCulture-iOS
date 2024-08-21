@@ -14,6 +14,8 @@ class CalendarDetailModal: UIViewController {
     private static let minimumLineSpacing: CGFloat = 12
     private static let minimumInteritemSpacing: CGFloat = 12
     
+    private var recordDetailDataList: [MyCalendarRecordDetail] = []
+    
     // MARK: - Views
     
     private let contentView: UIView = {
@@ -108,24 +110,55 @@ class CalendarDetailModal: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
+    
+    // MARK: - Functions
+    
+    func configure(_ data: MyCalendarData) {
+        recordDetailDataList.removeAll()
+        dateLabel.text = "\(data.year).\(data.month).\(data.day)"
+        recordDetailDataList = data.records
+        collectionView.reloadData()
+    }
 }
 
 // MARK: - Extension: UICollectionView
 
+// TODO: 데이터 불러오는거에 맞게 수정
 extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return recordDetailDataList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarDetailCell.identifier, for: indexPath) as? CalendarDetailCell else { return UICollectionViewCell() }
+        let dataForThisCell = recordDetailDataList[indexPath.item]
+        cell.configure(recordId: dataForThisCell.recordId,
+                       photoURL: dataForThisCell.photoURL,
+                       title: dataForThisCell.title,
+                       categoryId: dataForThisCell.categoryId)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 기록 상세 페이지로 이동해야 함
         print(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath) as! CalendarDetailCell
+        print(cell.recordId)
+        
+        // TODO: 이동
+//        let vc = RecordDetailVC()
+//
+//        // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
+//        vc.recordId = model.culture.id
+//        vc.titleText = model.culture.title
+//        vc.creator = "\(myviewModel.getNickname())"
+//        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+//        //vc.category = "\(model.culture.categoryId)"
+//        vc.contentImage = model.photoDocs.map { $0.url }
+//
+//        // 뷰 컨트롤러 표시
+//        vc.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

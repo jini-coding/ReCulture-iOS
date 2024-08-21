@@ -13,6 +13,10 @@ class CalendarDetailCell: UICollectionViewCell {
     
     static let identifier = "CalendarDetailCell"
     
+    // 추후 기록 디테일에 전달해줘야 하는 값이어서 public으로 선언
+    var recordId: Int = 0
+    var title: String = ""
+    
     // MARK: - Views
     
     private let recordImageView: UIImageView = {
@@ -144,4 +148,19 @@ class CalendarDetailCell: UICollectionViewCell {
     // MARK: - Actions
     
     // MARK: - Functions
+    
+    func configure(recordId: Int, photoURL: String, title: String, categoryId: Int) {
+        print("=== calendar detail cell ===")
+        print(photoURL)
+        if let url = URL(string: "\(Server.baseURL)/\(photoURL)") {
+            recordImageView.load(url: url)
+        }
+//        "http://34.64.120.187:8080/\(photoURL)".loadAsyncImage(recordImageView)
+        self.recordId = recordId
+        
+        titleLabel.text = title
+        self.title = title
+        
+        categoryLabel.text = RecordType(categoryId: categoryId)?.rawValue
+    }
 }

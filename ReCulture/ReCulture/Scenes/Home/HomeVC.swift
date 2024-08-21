@@ -272,7 +272,7 @@ class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        let imageUrlStr = "http://34.22.96.154:8080\(viewModel.getProfileImage())"
+        let imageUrlStr = "\(Server.baseURL)/\(viewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(characterImageView)
 //        DispatchQueue.global().async { [weak self] in
 //            if let data = try? Data(contentsOf: imageUrl!) {
@@ -331,8 +331,17 @@ class HomeVC: UIViewController {
             }
         }
         
-        viewModel.myCalendarModelDidSet = { [weak self] in
-            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
+        viewModel.myCalendarDataListDidSet = { [weak self] in
+            self?.calendarView.setRecordDataList(self!.viewModel.getMyCalendarDataList())
         }
+        
+//        viewModel.myCalendarModelDidSet = { [weak self] in
+//            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
+//        }
+//        
+//        // 캘린더 각 날짜의 디테일을 보여줄 떄 사용될 데이터
+//        viewModel.myCalendarDetailModelListDidSet = { [weak self] in
+//            self?.calendarView.myCalendarDetailModels = (self?.viewModel.getMyCalendarDetailModels()) ?? []
+//        }
     }
 }
