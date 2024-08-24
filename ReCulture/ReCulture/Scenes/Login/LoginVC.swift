@@ -38,18 +38,20 @@ class LoginVC: UIViewController {
     private let emailTextField: CustomTextField = {
         let tf = CustomTextField()
         tf.placeholder = "이메일을 입력해주세요"
+        tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return tf
     }()
     
     private let passwordTextField: CustomTextField = {
         let tf = CustomTextField()
         tf.placeholder = "비밀번호를 입력해주세요"
+        tf.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         tf.isSecureTextEntry = true
         return tf
     }()
     
-    private let loginButton: CustomButton = {
-        let button = CustomButton(title: "로그인")
+    private let loginButton: NextButton = {
+        let button = NextButton("로그인")
         button.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
         return button
     }()
@@ -221,6 +223,19 @@ class LoginVC: UIViewController {
     }
     
     // MARK: - Actions
+    
+    @objc private func tfDidChange(_ sender: UITextField) {
+        let emailText = emailTextField.text
+        let passwordText = passwordTextField.text
+        print("email: \(emailText), password:\(passwordText)")
+        
+        if emailText != "" && passwordText != "" {
+            loginButton.isActive = true
+        }
+        else {
+            loginButton.isActive = false
+        }
+    }
     
     @objc private func loginButtonDidTap(){
         print("로그인 버튼 선택됨")
