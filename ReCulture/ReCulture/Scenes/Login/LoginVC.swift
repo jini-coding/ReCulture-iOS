@@ -23,7 +23,7 @@ class LoginVC: UIViewController {
     
     private let logoImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .rcGrayBg
+        view.backgroundColor = .clear
         view.image = .appICON
         return view
     }()
@@ -67,6 +67,18 @@ class LoginVC: UIViewController {
         label.textColor = .rcGray400
         return label
     }()
+    
+    private let leftLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .rcGray400
+        return view
+    }()
+    
+    private let rightLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .rcGray400
+        return view
+    }()
 
     // MARK: - Lifecycle
     
@@ -78,11 +90,13 @@ class LoginVC: UIViewController {
         addKeyboardObserver()
         
         setupLogoImageView()
-        setupWelcomeLabel()
+        //setupWelcomeLabel()
         setEmailTextField()
         setPasswordTextField()
         setupLoginButton()
         setNoAccountLabel()
+        setNoAccountLeftLine()
+        setNoAccountRightLine()
         setupSignUpButton()
     }
     
@@ -123,9 +137,9 @@ class LoginVC: UIViewController {
         view.addSubview(emailTextField)
         
         NSLayoutConstraint.activate([
-            emailTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            emailTextField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-            emailTextField.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 45),
+            emailTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            emailTextField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            emailTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 85),
             emailTextField.heightAnchor.constraint(equalToConstant: 42)
         ])
     }
@@ -156,14 +170,40 @@ class LoginVC: UIViewController {
         ])
     }
     
-    private func setNoAccountLabel(){
+    private func setNoAccountLabel() {
         noAccountLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(noAccountLabel)
         
         NSLayoutConstraint.activate([
             noAccountLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            noAccountLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40),
+            noAccountLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 80),
+        ])
+    }
+    
+    private func setNoAccountLeftLine() {
+        leftLine.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(leftLine)
+        
+        NSLayoutConstraint.activate([
+            leftLine.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+            leftLine.heightAnchor.constraint(equalToConstant: 1),
+            leftLine.trailingAnchor.constraint(equalTo: noAccountLabel.leadingAnchor, constant: -20),
+            leftLine.centerYAnchor.constraint(equalTo: noAccountLabel.centerYAnchor)
+        ])
+    }
+    
+    private func setNoAccountRightLine() {
+        rightLine.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(rightLine)
+        
+        NSLayoutConstraint.activate([
+            rightLine.leadingAnchor.constraint(equalTo: noAccountLabel.trailingAnchor, constant: 20),
+            rightLine.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
+            rightLine.heightAnchor.constraint(equalToConstant: 1),
+            rightLine.centerYAnchor.constraint(equalTo: noAccountLabel.centerYAnchor)
         ])
     }
     
@@ -173,8 +213,8 @@ class LoginVC: UIViewController {
         view.addSubview(signUpButton)
         
         NSLayoutConstraint.activate([
-            signUpButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            signUpButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            signUpButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+            signUpButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
             signUpButton.topAnchor.constraint(equalTo: noAccountLabel.bottomAnchor, constant: 15),
             signUpButton.heightAnchor.constraint(equalToConstant: 42)
         ])

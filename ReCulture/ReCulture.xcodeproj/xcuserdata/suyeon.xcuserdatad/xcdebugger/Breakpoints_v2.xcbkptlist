@@ -649,8 +649,8 @@
             filePath = "ReCulture/Scenes/Login/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "loginButtonDidTap()"
             landmarkType = "7">
             <Locations>
@@ -712,10 +712,10 @@
             filePath = "ReCulture/Scenes/Login/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "moveToHomeVC(_:)"
-            landmarkType = "7">
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "LoginVC"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "3033C0AC-17B3-4A05-9C6F-FB9BE84709E5 - 464820b4921638d6"
