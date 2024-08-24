@@ -51,7 +51,7 @@ class LoginVC: UIViewController {
     }()
     
     private let loginButton: NextButton = {
-        let button = NextButton("로그인")
+        let button = NextButton("로그인", .rcFont16B())
         button.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
         return button
     }()
