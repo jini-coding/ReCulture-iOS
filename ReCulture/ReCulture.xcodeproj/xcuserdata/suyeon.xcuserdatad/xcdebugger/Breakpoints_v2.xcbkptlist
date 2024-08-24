@@ -714,8 +714,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "300"
             endingLineNumber = "300"
-            landmarkName = "LoginVC"
-            landmarkType = "3">
+            landmarkName = "moveToHomeVC(_:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "3033C0AC-17B3-4A05-9C6F-FB9BE84709E5 - 464820b4921638d6"
