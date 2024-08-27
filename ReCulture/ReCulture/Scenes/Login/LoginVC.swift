@@ -250,6 +250,7 @@ class LoginVC: UIViewController {
             return
         }
         
+        LoadingIndicator.showLoading()
         let requestDTO = LoginRequestDTO(email: email!, password: password!)
         print("dto: \(requestDTO)")
         viewModel.postUserLogin(requestDTO: requestDTO, fromCurrentVC: self)
@@ -297,7 +298,8 @@ class LoginVC: UIViewController {
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
     
-    private func moveToHomeVC(_ loginSuccess: Bool){
+    private func moveToHomeVC(_ loginSuccess: Bool) {
+        LoadingIndicator.hideLoading()
         if loginSuccess {
             let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
             print("앱 최초 실행 값: \(isFirstLaunch)")

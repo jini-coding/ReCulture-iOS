@@ -712,8 +712,8 @@
             filePath = "ReCulture/Scenes/Login/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "moveToHomeVC(_:)"
             landmarkType = "7">
             <Locations>
