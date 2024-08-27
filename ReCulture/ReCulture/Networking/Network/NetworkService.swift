@@ -41,6 +41,8 @@ class NetworkService: NetworkServable {
                     let decodedData = try self.decode(API.Response.self, from: data)
 
                     completion(.success(decodedData))
+                } catch NetworkError.userAuthError {
+                    completion(.failure(NetworkError.userAuthError))
                 } catch NetworkError.unableToDecode {
                     completion(.failure(NetworkError.unableToDecode))
                 } catch NetworkError.clientError {
@@ -72,6 +74,7 @@ extension NetworkService {
     }
 
     private func httpProcess(response: HTTPURLResponse) throws {
+        print(response.statusCode)
         switch response.statusCode {
         case 200..<300: return
         case 400..<405: throw NetworkError.userAuthError
