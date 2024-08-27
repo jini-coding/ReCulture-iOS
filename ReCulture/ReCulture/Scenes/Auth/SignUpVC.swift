@@ -149,12 +149,12 @@ class SignUpVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationItem.titleView = titleLabel
         self.navigationController?.navigationBar.tintColor = .black
     }
     
-    private func setupEmailStackView(){
+    private func setupEmailStackView() {
         emailStackView.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -174,7 +174,7 @@ class SignUpVC: UIViewController {
         ])
     }
     
-    private func setupPasswordStackView(){
+    private func setupPasswordStackView() {
         passwordStackView.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -194,7 +194,7 @@ class SignUpVC: UIViewController {
         ])
     }
     
-    private func setupPasswordConfirmStackView(){
+    private func setupPasswordConfirmStackView() {
         passwordConfirmStackView.translatesAutoresizingMaskIntoConstraints = false
         passwordConfirmLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordConfirmTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -214,7 +214,7 @@ class SignUpVC: UIViewController {
         ])
     }
     
-    private func setupPwDoesNotMatchLabel(){
+    private func setupPwDoesNotMatchLabel() {
         pwDoesNotMatchLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(pwDoesNotMatchLabel)
@@ -227,7 +227,7 @@ class SignUpVC: UIViewController {
         pwDoesNotMatchLabel.isHidden = true
     }
     
-    private func setupSignupButton(){
+    private func setupSignupButton() {
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(signupButton)
@@ -241,7 +241,7 @@ class SignUpVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func signUpButtonDidTap(){
+    @objc private func signUpButtonDidTap() {
         print("최종 회원가입하기")
         print("프로필 설정으로 이동")
         
@@ -252,27 +252,27 @@ class SignUpVC: UIViewController {
         viewModel.postUserRegister(requestDTO: requestDTO, fromCurrentVC: self)
     }
     
-    @objc private func keyboardWillShow(_ notification: NSNotification){
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if emailTextField.isEditing == true{
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  {
+            if emailTextField.isEditing == true {
                 keyboardAnimate(keyboardRectangle: keyboardSize, textField: emailTextField)
             }
-            else if passwordTextField.isEditing == true{
+            else if passwordTextField.isEditing == true {
                 keyboardAnimate(keyboardRectangle: keyboardSize, textField: passwordTextField)
             }
-            else if passwordConfirmTextField.isEditing == true{
+            else if passwordConfirmTextField.isEditing == true {
                 keyboardAnimate(keyboardRectangle: keyboardSize, textField: passwordConfirmTextField)
             }
         }
     }
     
-    @objc private func keyboardWillHide(_ notification: NSNotification){
+    @objc private func keyboardWillHide(_ notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
     }
     
-    @objc private func tfDidChange(_ sender: UITextField){
+    @objc private func tfDidChange(_ sender: UITextField) {
         isValidPw = if let text = passwordTextField.text { text.isValidPassword() } else { true }
         let isPwSame = isPasswordSame(passwordTextField, passwordConfirmTextField)
         let isValidEmail = if let text = emailTextField.text { text.isValidEmail() } else { false }
@@ -311,8 +311,8 @@ class SignUpVC: UIViewController {
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
     
-    private func keyboardAnimate(keyboardRectangle: CGRect ,textField: UITextField){
-        if keyboardRectangle.height > (self.view.frame.height - textField.frame.maxY){
+    private func keyboardAnimate(keyboardRectangle: CGRect ,textField: UITextField) {
+        if keyboardRectangle.height > (self.view.frame.height - textField.frame.maxY) {
             self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - textField.frame.maxY))
         }
     }
@@ -338,12 +338,12 @@ class SignUpVC: UIViewController {
         }
     }
     
-    private func addPwIsNotValidLabel(){
+    private func addPwIsNotValidLabel() {
         pwIsNotValidLabel.isHidden = false
         passwordStackView.addArrangedSubview(pwIsNotValidLabel)
     }
     
-    private func removePwIsNotValidLabel(){
+    private func removePwIsNotValidLabel() {
         // pwIsNotValidLabel이 스택뷰에 존재할 때만 삭제해야 하므로
         if passwordStackView.arrangedSubviews.count != 2 {
             passwordStackView.removeArrangedSubview(pwIsNotValidLabel)
@@ -351,7 +351,7 @@ class SignUpVC: UIViewController {
         }
     }
     
-    private func moveToNewUserProfileVC(_ signupSuccess: Bool){
+    private func moveToNewUserProfileVC(_ signupSuccess: Bool) {
         if signupSuccess {
             DispatchQueue.main.async {
                 LoadingIndicator.hideLoading()

@@ -204,12 +204,12 @@ class NewUserProfileVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationItem.titleView = titleLabel
         self.navigationController?.navigationBar.tintColor = .black
     }
     
-    private func setupProfileImageView(){
+    private func setupProfileImageView() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(profileImageView)
@@ -224,7 +224,7 @@ class NewUserProfileVC: UIViewController {
         profileImageView.layer.cornerRadius = profileImageViewWidth / 2
     }
     
-    private func setupAddProfileImageButton(){
+    private func setupAddProfileImageButton() {
         addProfileImageButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(addProfileImageButton)
@@ -239,7 +239,7 @@ class NewUserProfileVC: UIViewController {
         addProfileImageButton.layer.cornerRadius = addProfileImageButtonWidth / 2
     }
     
-    private func setupNicknameStackView(){
+    private func setupNicknameStackView() {
         nicknameStackView.translatesAutoresizingMaskIntoConstraints = false
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
         nicknameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -259,7 +259,7 @@ class NewUserProfileVC: UIViewController {
         ])
     }
     
-    private func setupBioStackView(){
+    private func setupBioStackView() {
         bioStackView.translatesAutoresizingMaskIntoConstraints = false
         bioLabel.translatesAutoresizingMaskIntoConstraints = false
         bioTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -279,7 +279,7 @@ class NewUserProfileVC: UIViewController {
         ])
     }
     
-    private func setupBirthStackView(){
+    private func setupBirthStackView() {
         birthStackView.translatesAutoresizingMaskIntoConstraints = false
         birthLabel.translatesAutoresizingMaskIntoConstraints = false
         birthTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -299,7 +299,7 @@ class NewUserProfileVC: UIViewController {
         ])
     }
     
-    private func setupInterestStackView(){
+    private func setupInterestStackView() {
         interestStackView.translatesAutoresizingMaskIntoConstraints = false
         interestLabel.translatesAutoresizingMaskIntoConstraints = false
         interestRangeMenuBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -324,7 +324,7 @@ class NewUserProfileVC: UIViewController {
         interestRangeMenuBtn.showsMenuAsPrimaryAction = true
     }
     
-    private func setupSignupButton(){
+    private func setupSignupButton() {
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(signupButton)
@@ -338,7 +338,7 @@ class NewUserProfileVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func tfDidChange(_ sender: UITextField){
+    @objc private func tfDidChange(_ sender: UITextField) {
         if !(nicknameTextField.text?.isEmpty ?? true){
             signupButton.isActive = true
         }
@@ -347,11 +347,11 @@ class NewUserProfileVC: UIViewController {
         }
     }
     
-    @objc private func addProfileImageButtonDidTap(){
+    @objc private func addProfileImageButtonDidTap() {
         self.present(phPicker, animated: true)
     }
     
-    @objc private func signUpButtonDidTap(){
+    @objc private func signUpButtonDidTap() {
         print("프로필 설정 버튼 선택됨")
         LoadingIndicator.showLoading()
         
@@ -374,7 +374,7 @@ class NewUserProfileVC: UIViewController {
         self.view.endEditing(true)
     }
     
-    private func moveToHomeVC(_ success: Bool){
+    private func moveToHomeVC(_ success: Bool) {
         if success {
             DispatchQueue.main.async {
                 LoadingIndicator.hideLoading()
@@ -392,7 +392,7 @@ extension NewUserProfileVC: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         print(results.count)
         
-        if results.count != 0{
+        if results.count != 0 {
             if results[0].itemProvider.canLoadObject(ofClass: UIImage.self) {
                 results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     if let fileName = results[0].itemProvider.suggestedName {
