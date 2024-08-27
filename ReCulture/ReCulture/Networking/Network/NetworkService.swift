@@ -74,7 +74,8 @@ extension NetworkService {
     private func httpProcess(response: HTTPURLResponse) throws {
         switch response.statusCode {
         case 200..<300: return
-        case 400..<500: throw NetworkError.clientError
+        case 400..<405: throw NetworkError.userAuthError
+        case 405..<500: throw NetworkError.clientError
         case 500..<600: throw NetworkError.serverError
         default: throw NetworkError.unknownError
         }
