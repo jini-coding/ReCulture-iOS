@@ -57,6 +57,8 @@ class NewUserProfileVC: UIViewController {
     
     // MARK: - Views
     
+    private let customHeaderView = HeaderView("프로필 설정", true)
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "프로필 설정"
@@ -192,7 +194,8 @@ class NewUserProfileVC: UIViewController {
         
         view.backgroundColor = .white
         
-        setupNavigation()
+        //setupNavigation()
+        setupCustomHeaderView()
         setupProfileImageView()
         setupAddProfileImageButton()
         setupNicknameStackView()
@@ -209,6 +212,20 @@ class NewUserProfileVC: UIViewController {
         self.navigationController?.navigationBar.tintColor = .black
     }
     
+    private func setupCustomHeaderView() {
+        customHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(customHeaderView)
+        
+        NSLayoutConstraint.activate([
+            customHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        ])
+        
+        customHeaderView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
+    }
+    
     private func setupProfileImageView() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -218,7 +235,7 @@ class NewUserProfileVC: UIViewController {
             profileImageView.widthAnchor.constraint(equalToConstant: profileImageViewWidth),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
             profileImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35)
+            profileImageView.topAnchor.constraint(equalTo: customHeaderView.bottomAnchor, constant: 35)
         ])
         
         profileImageView.layer.cornerRadius = profileImageViewWidth / 2
@@ -337,6 +354,20 @@ class NewUserProfileVC: UIViewController {
     }
     
     // MARK: - Actions
+    
+    @objc private func goBack() {
+        print("뒤로 가기 선택됨")
+        
+        let alertController = UIAlertController(title: "정말 프로필 설정을 그만하시겠어요?",
+                                                message: "작성 내용은 저장되지 않습니다.",
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "나가기", style: .destructive, handler: { action in
+            self.dismiss(animated: true)
+        }))
+        
+        self.present(alertController, animated: true)
+    }
     
     @objc private func tfDidChange(_ sender: UITextField) {
         if !(nicknameTextField.text?.isEmpty ?? true){
