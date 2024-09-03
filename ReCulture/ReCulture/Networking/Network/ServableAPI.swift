@@ -24,7 +24,7 @@ protocol ServableAPI {
 }
 
 extension ServableAPI {
-    var baseURL: String { "http://34.22.96.154:8080/api" }
+    var baseURL: String { "http://34.64.120.187:8080/api" }
     var params: String { "" }
     var queryParams: [String : String]? { nil }
     var method: HTTPMethod { .get }

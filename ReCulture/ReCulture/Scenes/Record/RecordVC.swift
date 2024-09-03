@@ -45,12 +45,8 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let ticketButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.rcGrayBg
-        button.setTitle("T", for: .normal)
-        button.layer.cornerRadius = 8
-        button.setTitleColor(UIColor.rcGray600, for: .normal)
+        button.setImage(UIImage.bookmark, for: .normal)
         button.addTarget(self, action: #selector(goToTicketBook), for: .touchUpInside)
-        
         return button
     }()
     
