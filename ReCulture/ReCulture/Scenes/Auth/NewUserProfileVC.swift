@@ -69,6 +69,7 @@ class NewUserProfileVC: UIViewController {
     private let profileImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .rcLightPurple
+        view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         return view
     }()
