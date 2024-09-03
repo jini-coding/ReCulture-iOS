@@ -355,7 +355,16 @@ class SignUpVC: UIViewController {
         if signupSuccess {
             DispatchQueue.main.async {
                 LoadingIndicator.hideLoading()
-                self.navigationController?.pushViewController(NewUserProfileVC(), animated: true)
+                // 회원가입 창 내리고
+                self.navigationController?.popViewController(animated: true)
+                // 프로필 설정 창 올리기
+                let newUserProfileVC = NewUserProfileVC()
+                newUserProfileVC.modalPresentationStyle = .fullScreen
+                print(self.navigationController?.topViewController)
+                if let loginVC = self.navigationController?.topViewController as? LoginVC {
+                    loginVC.present(newUserProfileVC, animated: true)
+                }
+                //self.navigationController?.topViewController?.present(newUserProfileVC, animated: true)
             }
         }
     }
