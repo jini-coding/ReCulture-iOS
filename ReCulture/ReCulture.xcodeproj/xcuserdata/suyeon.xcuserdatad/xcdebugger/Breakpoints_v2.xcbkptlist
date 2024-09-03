@@ -649,8 +649,8 @@
             filePath = "ReCulture/Scenes/Login/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "loginButtonDidTap()"
             landmarkType = "7">
             <Locations>
@@ -712,8 +712,8 @@
             filePath = "ReCulture/Scenes/Login/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "moveToHomeVC(_:)"
             landmarkType = "7">
             <Locations>
@@ -1370,6 +1370,54 @@
                   startingLineNumber = "201"
                   endingLineNumber = "201"
                   offsetFromSymbolStart = "164">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0CBD023-4D71-42FC-A36E-8BC6146E3247"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Networking/Network/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "httpProcess(response:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D0CBD023-4D71-42FC-A36E-8BC6146E3247 - dba1a1c81013874"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.NetworkService.httpProcess(response: __C.NSHTTPURLResponse) throws -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Networking/Network/NetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "864">
+               </Location>
+               <Location
+                  uuid = "D0CBD023-4D71-42FC-A36E-8BC6146E3247 - dba1a1c81013874"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.NetworkService.httpProcess(response: __C.NSHTTPURLResponse) throws -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Networking/Network/NetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "292">
                </Location>
             </Locations>
          </BreakpointContent>
