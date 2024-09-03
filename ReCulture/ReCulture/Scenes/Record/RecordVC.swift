@@ -45,7 +45,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let ticketButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage.bookmark, for: .normal)
+        button.setImage(UIImage.ticketBook, for: .normal)
         button.addTarget(self, action: #selector(goToTicketBook), for: .touchUpInside)
         return button
     }()
