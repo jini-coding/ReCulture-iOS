@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */; };
 		0813C4DF2C1AFE17004CD0B4 /* MyTicketBookDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */; };
 		0813C4E12C1AFEA7004CD0B4 /* MyTicketBookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */; };
 		0813C4E52C1B5A92004CD0B4 /* TicketBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */; };
@@ -139,6 +140,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListVC.swift; sourceTree = "<group>"; };
 		0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketBookDTO.swift; sourceTree = "<group>"; };
 		0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketBookAPI.swift; sourceTree = "<group>"; };
 		0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookViewModel.swift; sourceTree = "<group>"; };
@@ -283,6 +285,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		080ACDC52C8C719900C44DE7 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
 		0813C4E82C1B6364004CD0B4 /* TicketBooks */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +714,7 @@
 		3874B60C2BE432CD003376F7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				080ACDC52C8C719900C44DE7 /* Bookmark */,
 				08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */,
 				08E0F5902C00271C000A046D /* AddRecord */,
 				3874B6142BE43346003376F7 /* Auth */,
@@ -882,6 +893,7 @@
 				384315EF2C1B31D100D379F3 /* MypageViewModel.swift in Sources */,
 				384315E02C1AB44300D379F3 /* RecordViewModel.swift in Sources */,
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
+				080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */,
 				3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */,
 				089EDAD72C13473200D74C5F /* HomeModel.swift in Sources */,
 				384315EB2C1B1AEB00D379F3 /* SearchAPI.swift in Sources */,
