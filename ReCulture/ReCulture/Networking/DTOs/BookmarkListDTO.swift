@@ -1,0 +1,63 @@
+//
+//  BookmarkListDTO.swift
+//  ReCulture
+//
+//  Created by Suyeon Hwang on 9/8/24.
+//
+
+import Foundation
+
+struct BookmarkListDTO: Codable {
+    let timestamp: String
+    let success: Bool
+    let status: Int
+    let data: [BookmarkListItem]
+}
+
+struct BookmarkListItem: Codable {
+    let id: Int
+    let userId: Int
+    let postId: Int
+    let createdAt: String
+    let updatedAt: String
+    let post: BookmarkPost
+}
+
+struct BookmarkPost: Codable {
+    let id: Int
+    let title: String
+    let emoji: String
+    let date: String
+    let categoryId: Int
+    let disclosure: String
+    let review: String
+    let detail1: String
+    let detail2: String
+    let detail3: String
+    let detail4: String
+    let authorId: Int
+    let createdAt: String
+    let updatedAt: String
+    let photos: [BookmarkPhoto]
+}
+
+struct BookmarkPhoto: Codable {
+    let id: Int
+    let url: String
+    let culturePostId: Int
+}
+
+extension BookmarkListDTO {
+    static func convertBookmarkListDTOToModel(DTO: BookmarkListItem) -> BookmarkModel {
+        return BookmarkModel(postId: DTO.postId,
+                             title: DTO.post.title,
+                             postOwnerId: DTO.post.authorId,
+                             date: DTO.post.date,
+                             categoryType: RecordType(categoryId: DTO.post.categoryId) ?? .movie,
+                             imageURL: DTO.post.photos[0].url)
+    }
+
+    static func convertBookmarkListDTOsToModels(DTOs: [BookmarkListItem]) -> [BookmarkModel] {
+        return DTOs.map { convertBookmarkListDTOToModel(DTO: $0) }
+    }
+}

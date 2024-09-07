@@ -302,4 +302,21 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 사용자의 북마크 기록들 리스트를 조회하는 함수입니다.
+    func getBookmarkList(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[BookmarkModel], NetworkError>) -> Void
+    ){
+        let api = BookmarkAPI()
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = BookmarkListDTO.convertBookmarkListDTOsToModels(DTOs: DTOs.data)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
