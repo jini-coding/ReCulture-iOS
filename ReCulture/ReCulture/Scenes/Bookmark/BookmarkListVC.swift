@@ -16,6 +16,7 @@ class BookmarkListVC: UIViewController {
     private let viewModel = BookmarkViewModel()
     private var isAllTagSelected = true  // 태그 필터링 초기화 - 전체로
     private var selectedCategory: RecordType = .all
+    private var filteredRecords: [BookmarkModel] = []  // 필터링한 기록들을 담을 배열
     
     // MARK: - Views
     
@@ -97,19 +98,19 @@ class BookmarkListVC: UIViewController {
     // MARK: - Functions
     
     private func filterRecordsBy(_ type: RecordType){
-//        filteredTickets.removeAll()
-//        
-//        if type != .all {
-//            for i in 0 ..< viewModel.getMyTicketBookCount() {
-//                let data = viewModel.getMyTicketBookDetailAt(i)
-//                if data.categoryType == type {
-//                    print(data)
-//                    filteredTickets.append(data)
-//                }
-//            }
-//        }
-//        
-//        ticketCollectionView.reloadData()
+        filteredRecords.removeAll()
+        
+        if type != .all {
+            for i in 0 ..< viewModel.getBookmarkCount() {
+                let data = viewModel.getBookmarkAt(i)
+                if data.categoryType == type {
+                    print(data)
+                    filteredRecords.append(data)
+                }
+            }
+        }
+        
+        recordTableView.reloadData()
     }
     
     private func bind() {
@@ -173,16 +174,32 @@ extension BookmarkListVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getBookmarkCount()
+        if selectedCategory == .all {
+            return viewModel.getBookmarkCount()
+        }
+        else {
+            return filteredRecords.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as? SearchContentCell else { return UITableViewCell() }
         cell.selectionStyle = .none
 
-        let bookmarkData = viewModel.getBookmarkAt(indexPath.row)
+        var bookmarkData: BookmarkModel?
         
-        let authorId = bookmarkData.postOwnerId
+        // 전체로 필터링하는 경우
+        if selectedCategory == .all {
+            bookmarkData = viewModel.getBookmarkAt(indexPath.row)
+            //cell.configure(viewModel.getMyTicketBookDetailAt(indexPath.item))
+        }
+        // 그외의 경우
+        else {
+            //cell.configure(filteredTickets[indexPath.item])
+            bookmarkData = filteredRecords[indexPath.row]
+        }
+                
+        let authorId = bookmarkData?.postOwnerId
         
         // TODO: 수정 필요
 //        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
@@ -205,16 +222,20 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
 //        }
     
         cell.creatorLabel.text = "바꿔야 함"
-        cell.titleLabel.text = bookmarkData.title
+        cell.titleLabel.text = bookmarkData?.title
 
-        if let date = bookmarkData.date.toDate() {
+        if let date = bookmarkData?.date.toDate() {
             cell.createDateLabel.text = date.toString()
         } else {
-            cell.createDateLabel.text = bookmarkData.date
+            cell.createDateLabel.text = bookmarkData?.date
         }
         
-        cell.categoryLabel.text = bookmarkData.categoryType.rawValue
-        cell.contentImageView.loadImage(urlWithoutBaseURL: bookmarkData.firstImageURL)
+        cell.categoryLabel.text = bookmarkData?.categoryType.rawValue
+        
+        if let urlString = bookmarkData?.firstImageURL {
+            cell.contentImageView.loadImage(urlWithoutBaseURL: urlString)
+        }
+        
         return cell
     }
     
