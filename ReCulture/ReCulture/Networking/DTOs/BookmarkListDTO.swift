@@ -54,7 +54,7 @@ extension BookmarkListDTO {
                              postOwnerId: DTO.post.authorId,
                              date: DTO.post.date,
                              categoryType: RecordType(categoryId: DTO.post.categoryId) ?? .movie,
-                             imageURL: DTO.post.photos[0].url)
+                             firstImageURL: DTO.post.photos[0].url)
     }
 
     static func convertBookmarkListDTOsToModels(DTOs: [BookmarkListItem]) -> [BookmarkModel] {
