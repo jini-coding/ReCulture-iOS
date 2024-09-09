@@ -21,4 +21,19 @@ extension UIImageView {
             }
         }
     }
+    
+    func loadImage(urlWithoutBaseURL: String) {
+        if let url = URL(string: "http://34.64.120.187:8080\(urlWithoutBaseURL)") {
+            DispatchQueue.global().async { [weak self] in
+                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                    }
+                }
+            }
+        }   
+    }
 }
