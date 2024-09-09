@@ -88,7 +88,7 @@ class BookmarkListVC: UIViewController {
         
         NSLayoutConstraint.activate([
             recordTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            recordTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            recordTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant:  -16),
             recordTableView.topAnchor.constraint(equalTo: tagCollectionView.bottomAnchor),
             recordTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
@@ -184,6 +184,7 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
         
         let authorId = bookmarkData.postOwnerId
         
+        // TODO: 수정 필요
 //        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
 //            cell.creatorLabel.text = userProfile.nickname
 //            if let profileImageUrl = userProfile.profilePhoto {
@@ -212,31 +213,34 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
             cell.createDateLabel.text = bookmarkData.date
         }
         
-//        let category: String
-//        switch bookmarkData.categoryType+1 {
-//        case 1:
-//            category = "영화"
-//        case 2:
-//            category = "뮤지컬"
-//        case 3:
-//            category = "연극"
-//        case 4:
-//            category = "스포츠"
-//        case 5:
-//            category = "콘서트"
-//        case 6:
-//            category = "드라마"
-//        case 7:
-//            category = "독서"
-//        case 8:
-//            category = "전시회"
-//        case 9:
-//            category = "기타"
-//        default:
-//            category = "기타"
-//        }
         cell.categoryLabel.text = bookmarkData.categoryType.rawValue
         cell.contentImageView.loadImage(urlWithoutBaseURL: bookmarkData.firstImageURL)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row)번째 기록 선택됨")
+//        let model = viewModel.getRecord(at: indexPath.row)
+//        let authorId = model.culture.authorId
+//        
+//        let userProfile = viewModel.getUserProfileModel(for: authorId)
+//        // 이동할 뷰 컨트롤러 초기화
+//        let vc = SearchRecordDetailVC()
+//
+//        // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
+//        vc.recordId = model.culture.id
+//        vc.titleText = model.culture.title
+//        vc.creator = userProfile?.nickname ?? "Unknown"
+//        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+//        //vc.category = "\(model.culture.categoryId+1)"
+//        vc.contentImage = model.photoDocs.map { $0.url }
+//
+//        // 뷰 컨트롤러 표시
+//        vc.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
