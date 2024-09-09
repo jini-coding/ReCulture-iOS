@@ -13,6 +13,7 @@ class BookmarkListVC: UIViewController {
     
     private let tagMinimumLineSpacing: CGFloat = 0
     private let tagMinimumInterItemSpacing: CGFloat = 8
+    private let viewModel = BookmarkViewModel()
     private var isAllTagSelected = true  // 태그 필터링 초기화 - 전체로
     private var selectedCategory: RecordType = .all
     
@@ -53,6 +54,11 @@ class BookmarkListVC: UIViewController {
         setupNavigationBar()
         setupTagCollectionView()
         setupRecordTableView()
+        bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getBookmarkList(fromCurrentVC: self)
     }
     
     // MARK: - Layouts
@@ -104,6 +110,15 @@ class BookmarkListVC: UIViewController {
 //        }
 //        
 //        ticketCollectionView.reloadData()
+    }
+    
+    private func bind() {
+        viewModel.bookmarkListDidChange = { [weak self] in
+            print("==== bind() ====")
+            DispatchQueue.main.async {
+                self?.recordTableView.reloadData()
+            }
+        }
     }
 }
 
@@ -158,12 +173,70 @@ extension BookmarkListVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.getBookmarkCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as? SearchContentCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
+
+        let bookmarkData = viewModel.getBookmarkAt(indexPath.row)
         
+        let authorId = bookmarkData.postOwnerId
+        
+//        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
+//            cell.creatorLabel.text = userProfile.nickname
+//            if let profileImageUrl = userProfile.profilePhoto {
+//                let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+//                imageUrlStr.loadAsyncImage(cell.profileImageView)
+//            }
+//        } else {
+//            // Fetch user profile if not loaded yet
+//            viewModel.getUserProfile(userId: authorId) { userProfile in
+//                DispatchQueue.main.async {
+//                    cell.creatorLabel.text = userProfile?.nickname
+//                    if let profileImageUrl = userProfile?.profilePhoto {
+//                        let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+//                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                    }
+//                }
+//            }
+//        }
+    
+        cell.creatorLabel.text = "바꿔야 함"
+        cell.titleLabel.text = bookmarkData.title
+
+        if let date = bookmarkData.date.toDate() {
+            cell.createDateLabel.text = date.toString()
+        } else {
+            cell.createDateLabel.text = bookmarkData.date
+        }
+        
+//        let category: String
+//        switch bookmarkData.categoryType+1 {
+//        case 1:
+//            category = "영화"
+//        case 2:
+//            category = "뮤지컬"
+//        case 3:
+//            category = "연극"
+//        case 4:
+//            category = "스포츠"
+//        case 5:
+//            category = "콘서트"
+//        case 6:
+//            category = "드라마"
+//        case 7:
+//            category = "독서"
+//        case 8:
+//            category = "전시회"
+//        case 9:
+//            category = "기타"
+//        default:
+//            category = "기타"
+//        }
+        cell.categoryLabel.text = bookmarkData.categoryType.rawValue
+        cell.contentImageView.loadImage(urlWithoutBaseURL: bookmarkData.firstImageURL)
         return cell
     }
 }
