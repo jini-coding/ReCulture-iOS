@@ -18,6 +18,8 @@ class SearchRecordDetailVC: UIViewController {
     var category: String = ""
     var contentImage: [String] = []
     
+    var isBookmarked: Bool = false
+    
     let textFieldPlaceholders: [[RecordType: [[String]]]] = [
         [.movie: [["영화 이름", "어떤 영화인가요?"],
                   ["출연진 및 감독", "출연진 및 감독을 적어주세요"],
@@ -180,7 +182,7 @@ class SearchRecordDetailVC: UIViewController {
                 guard let model = self.viewModel.getRecordDetail() else { return }
                 
                 let category: String
-                switch model.culture.categoryId+1 {
+                switch model.culture.categoryId {
                 case 1:
                     category = "영화"
                 case 2:
@@ -210,7 +212,7 @@ class SearchRecordDetailVC: UIViewController {
                 self.contentImage = model.photoDocs.map { $0.url }
 
                 if let imageUrl = self.contentImage.first {
-                    let baseUrl = "http://34.27.50.30:8080"
+                    let baseUrl = "http://34.64.120.187:8080"
                     let imageUrlStr = "\(baseUrl)\(imageUrl)"
                     imageUrlStr.loadAsyncImage(self.contentImageView)
                 }
@@ -337,6 +339,23 @@ class SearchRecordDetailVC: UIViewController {
         self.navigationController?.navigationBar.shadowImage = nil
         self.navigationController?.navigationBar.layoutIfNeeded()
         
+        let bookmarkButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(didTapBookmark))
+        bookmarkButton.tintColor = UIColor.black
+        self.navigationItem.rightBarButtonItem = bookmarkButton
+    }
+
+    @objc func didTapBookmark() {
+        isBookmarked.toggle()
+        
+        let newBookmarkIcon = isBookmarked ? "bookmark.fill" : "bookmark"
+        let newTintColor = UIColor.black
+        
+        if let bookmarkButton = self.navigationItem.rightBarButtonItem {
+            bookmarkButton.image = UIImage(systemName: newBookmarkIcon)
+            bookmarkButton.tintColor = newTintColor
+        }
+        
+        print(isBookmarked ? "북마크 설정됨" : "북마크가 해제됨")
     }
     
     func setupScrollView() {
@@ -399,9 +418,10 @@ class SearchRecordDetailVC: UIViewController {
         
     }
     
+    
     func setupImage() {
         if let imageUrl = contentImage.first {
-            let baseUrl = "http://34.27.50.30:8080"
+            let baseUrl = "http://34.64.120.187:8080"
             let imageUrlStr = "\(baseUrl)\(imageUrl)"
             imageUrlStr.loadAsyncImage(contentImageView)
         }

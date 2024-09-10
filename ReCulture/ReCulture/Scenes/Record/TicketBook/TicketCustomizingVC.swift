@@ -55,8 +55,8 @@ class TicketCustomizingVC: UIViewController {
     }
     
     func setupPages() {
-        //pages = [CustomizingOneVC(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
-        pages = [CustomizingSelectPhotoPage(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
+        //pages = [CustomizingSelectPhotoPage(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
+        pages = [CustomizingOneVC(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
     }
     
     func setupNavigationBar() {
@@ -133,7 +133,7 @@ class TicketCustomizingVC: UIViewController {
         let nextPage = currentPage + 1
         var allFieldsFilled = true
         
-        if currentPage == 0 && (pages[0] as! CustomizingSelectPhotoPage).imageFiles.isEmpty {
+        if currentPage == 0 && (pages[0] as! CustomizingOneVC).imageFiles.isEmpty {
             allFieldsFilled = false
             let alertController = UIAlertController(title: "사진을 선택해주세요!", message: nil, preferredStyle: .alert)
             let confirmAction = UIAlertAction(title: "확인", style: .default)
@@ -205,7 +205,7 @@ class TicketCustomizingVC: UIViewController {
         
         viewModel.postNewTicket(
             requestDTO: requestDTO,
-            photos: (pages[0] as! CustomizingSelectPhotoPage).imageFiles,
+            photos: (pages[0] as! CustomizingOneVC).imageFiles,
             fromCurrentVC: self
         ){
             LoadingIndicator.hideLoading()
