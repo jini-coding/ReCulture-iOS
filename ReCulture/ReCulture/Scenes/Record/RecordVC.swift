@@ -139,7 +139,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = model.culture.title
         
         cell.nameLabel.text = "\(myviewModel.getNickname())"
-        let imageUrlStr = "http://34.27.50.30:8080\(myviewModel.getProfileImage())"
+        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(cell.profileImageView)
         
         cell.idLabel.text = "@\(model.culture.authorId)"
@@ -148,7 +148,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if let imageUrl = model.photoDocs.first {
             print("기록 이미지:\(imageUrl)")
-            let baseUrl = "http://34.27.50.30:8080"
+            let baseUrl = "http://34.64.120.187:8080"
             let imageUrlStr = "\(baseUrl)\(imageUrl.url)"
             imageUrlStr.loadAsyncImage(cell.contentImageView)
         }
