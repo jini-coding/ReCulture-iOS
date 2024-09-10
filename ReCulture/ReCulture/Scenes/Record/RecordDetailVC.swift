@@ -370,7 +370,10 @@ class RecordDetailVC: UIViewController {
     }
     
     @objc func deleteRecord() {
-        //삭제
+        self.viewModel.deleteRecord(postId: recordId)
+        print("\(recordId)번 기록 삭제 완료됨")
+        //이전 페이지로 이동
+        navigationController?.popViewController(animated: true)
     }
     
     func setupScrollView() {

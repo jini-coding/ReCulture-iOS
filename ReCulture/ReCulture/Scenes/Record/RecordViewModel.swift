@@ -69,6 +69,18 @@ class RecordViewModel {
         return myRecordModel.count
     }
     
+    func deleteRecord(postId: Int) {
+        NetworkManager.shared.deleteRecord(postId: postId) { result in
+            switch result {
+            case .success(let model):
+                self.recordDetail = model
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+            }
+        }
+    }
+    
 //    func getNickname() -> String {
 //        return myRecordModel.title!
 //    }
