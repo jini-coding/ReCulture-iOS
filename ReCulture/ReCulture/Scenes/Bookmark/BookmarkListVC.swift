@@ -202,27 +202,8 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
         let authorId = bookmarkData?.postOwnerId
         
         // TODO: 수정 필요
-//        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
-//            cell.creatorLabel.text = userProfile.nickname
-//            if let profileImageUrl = userProfile.profilePhoto {
-//                let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
-//                imageUrlStr.loadAsyncImage(cell.profileImageView)
-//            }
-//        } else {
-//            // Fetch user profile if not loaded yet
-//            viewModel.getUserProfile(userId: authorId) { userProfile in
-//                DispatchQueue.main.async {
-//                    cell.creatorLabel.text = userProfile?.nickname
-//                    if let profileImageUrl = userProfile?.profilePhoto {
-//                        let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
-//                        imageUrlStr.loadAsyncImage(cell.profileImageView)
-//                    }
-//                }
-//            }
-//        }
-    
-        cell.creatorLabel.text = "바꿔야 함"
-        cell.titleLabel.text = bookmarkData?.title
+        cell.creatorLabel.text = bookmarkData?.postOwnerNickname ?? "unknown"
+        cell.titleLabel.text = bookmarkData?.title ?? "unknown"
 
         if let date = bookmarkData?.date.toDate() {
             cell.createDateLabel.text = date.toString()
