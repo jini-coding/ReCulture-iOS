@@ -302,4 +302,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 기록 삭제하기
+    func deleteRecord(postId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+    ){
+        let recordAPI = deleteRecordAPI(id: postId)
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(RecordResponseDTO.convertRecordDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
