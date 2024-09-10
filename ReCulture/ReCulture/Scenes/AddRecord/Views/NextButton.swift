@@ -19,13 +19,13 @@ class NextButton: UIButton {
     
     // MARK: - Initialization
     
-    init(_ title: String = "다음") {
+    init(_ title: String = "다음", _ font: UIFont = .rcFont18M()) {
         super.init(frame: .zero)
         
         var config = UIButton.Configuration.filled()
         config.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
         config.attributedTitle = AttributedString(title)
-        config.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M()]))
+        config.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: font]))
         self.configuration = config
         
         let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
@@ -34,12 +34,12 @@ class NextButton: UIButton {
                 self.isEnabled = true
                 button.configuration?.background.backgroundColor = .rcMain
                 //button.configuration?.baseForegroundColor = .white
-                button.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.rcFont18M()]))
+                button.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: font]))
             case false:
                 self.isEnabled = false
                 button.configuration?.background.backgroundColor = UIColor(hexCode: "F6F2FF")
                 //button.configuration?.baseForegroundColor = UIColor(hexCode: "D2C2FF")
-                button.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor(hexCode: "D2C2FF"), NSAttributedString.Key.font: UIFont.rcFont18M()]))
+                button.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor(hexCode: "D2C2FF"), NSAttributedString.Key.font: font]))
             }
         }
         
