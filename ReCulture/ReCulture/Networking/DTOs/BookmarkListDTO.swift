@@ -39,6 +39,7 @@ struct BookmarkPost: Codable {
     let createdAt: String
     let updatedAt: String
     let photos: [BookmarkPhoto]
+    let author: BookmarkAuthor
 }
 
 struct BookmarkPhoto: Codable {
@@ -47,11 +48,31 @@ struct BookmarkPhoto: Codable {
     let culturePostId: Int
 }
 
+struct BookmarkAuthor: Codable {
+    let id: Int
+    let email: String
+    let profile: BookmarkAuthorProfile
+}
+
+struct BookmarkAuthorProfile: Codable {
+    let id: Int
+    let userId: Int
+    let nickname: String
+    let bio: String
+    let birthdate: String
+    let interest: String
+    let profilePhoto: String
+    let exp: Int
+    let levelId: Int
+    let level: String
+}
+
 extension BookmarkListDTO {
     static func convertBookmarkListDTOToModel(DTO: BookmarkListItem) -> BookmarkModel {
         return BookmarkModel(postId: DTO.postId,
                              title: DTO.post.title,
                              postOwnerId: DTO.post.authorId,
+                             postOwnerNickname: DTO.post.author.profile.nickname,
                              date: DTO.post.date,
                              categoryType: RecordType(categoryId: DTO.post.categoryId) ?? .movie,
                              firstImageURL: DTO.post.photos[0].url)

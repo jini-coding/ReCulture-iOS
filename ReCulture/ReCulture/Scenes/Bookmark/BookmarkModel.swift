@@ -10,8 +10,8 @@ import Foundation
 struct BookmarkModel {
     let postId: Int
     let title: String
-    // TODO: 서버 수정 필요 -> 작성한 사람 닉네임으로
     let postOwnerId: Int
+    let postOwnerNickname: String
     let date: String
     let categoryType: RecordType
     let firstImageURL: String
