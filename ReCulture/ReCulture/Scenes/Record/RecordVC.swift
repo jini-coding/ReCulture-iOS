@@ -139,7 +139,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = model.culture.title
         
         cell.nameLabel.text = "\(myviewModel.getNickname())"
-        let imageUrlStr = "http://34.27.50.30:8080\(myviewModel.getProfileImage())"
+        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(cell.profileImageView)
         
         cell.idLabel.text = "@\(model.culture.authorId)"
@@ -148,7 +148,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if let imageUrl = model.photoDocs.first {
             print("기록 이미지:\(imageUrl)")
-            let baseUrl = "http://34.27.50.30:8080"
+            let baseUrl = "http://34.64.120.187:8080"
             let imageUrlStr = "\(baseUrl)\(imageUrl.url)"
             imageUrlStr.loadAsyncImage(cell.contentImageView)
         }
@@ -194,11 +194,11 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
         vc.recordId = model.culture.id
-        vc.titleText = model.culture.title
+//        vc.titleText = model.culture.title
         vc.creator = "\(myviewModel.getNickname())"
-        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
-        //vc.category = "\(model.culture.categoryId)"
-        vc.contentImage = model.photoDocs.map { $0.url }
+//        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+//        //vc.category = "\(model.culture.categoryId)"
+//        vc.contentImage = model.photoDocs.map { $0.url }
 
         // 뷰 컨트롤러 표시
         vc.hidesBottomBarWhenPushed = true

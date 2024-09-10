@@ -41,6 +41,14 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return textfield
     }()
     
+    let bookmarkButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "bookmarkIcon"), for: .normal)
+        button.addTarget(self, action: #selector(goToBookMark), for: .touchUpInside)
+        
+        return button
+    }()
+    
     let contentsView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
@@ -80,6 +88,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.backgroundColor = UIColor.rcMain
         
         setupSearchField()
+        setupBookmarkButton()
         setupContentView()
         
         contentTableView.register(SearchContentCell.self, forCellReuseIdentifier: SearchContentCell.cellId)
@@ -131,7 +140,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if let userProfile = viewModel.getUserProfileModel(for: authorId) {
             cell.creatorLabel.text = userProfile.nickname
             if let profileImageUrl = userProfile.profilePhoto {
-                let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+                let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
                 imageUrlStr.loadAsyncImage(cell.profileImageView)
             }
         } else {
@@ -140,7 +149,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 DispatchQueue.main.async {
                     cell.creatorLabel.text = userProfile?.nickname
                     if let profileImageUrl = userProfile?.profilePhoto {
-                        let imageUrlStr = "http://34.27.50.30:8080\(profileImageUrl)"
+                        let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
                         imageUrlStr.loadAsyncImage(cell.profileImageView)
                     }
                 }
@@ -158,7 +167,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         let category: String
-        switch model.culture.categoryId+1 {
+        switch model.culture.categoryId {
         case 1:
             category = "영화"
         case 2:
@@ -183,7 +192,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.categoryLabel.text = category
         
         if let firstPhotoDoc = model.photoDocs.first {
-            let baseUrl = "http://34.27.50.30:8080"
+            let baseUrl = "http://34.64.120.187:8080"
             let imageUrlStr = "\(baseUrl)\(firstPhotoDoc.url)"
             imageUrlStr.loadAsyncImage(cell.contentImageView)
         }
@@ -268,9 +277,29 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NSLayoutConstraint.activate([
             searchTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
             searchTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            searchTextField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            searchTextField.heightAnchor.constraint(equalToConstant: 44)
+            searchTextField.heightAnchor.constraint(equalToConstant: 44),
+            searchTextField.widthAnchor.constraint(equalToConstant: 321)
         ])
+    }
+    
+    func setupBookmarkButton() {
+        bookmarkButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(bookmarkButton)
+        
+        NSLayoutConstraint.activate([
+            bookmarkButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 19),
+            bookmarkButton.leadingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: 16),
+            bookmarkButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -21),
+            bookmarkButton.heightAnchor.constraint(equalToConstant: 24),
+            bookmarkButton.widthAnchor.constraint(equalToConstant: 24)
+        ])
+    }
+    
+    @objc func goToBookMark(){
+        let vc = HomeVC() //Bookmark페이지로 설정
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     func setupContentView() {
