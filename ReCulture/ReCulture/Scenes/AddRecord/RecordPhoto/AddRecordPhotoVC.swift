@@ -278,13 +278,14 @@ extension AddRecordPhotoVC: PHPickerViewControllerDelegate {
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
                 result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     let image = image as! UIImage
+                    let compressionedImage: Data? = image.jpegData(compressionQuality: 0.2)!
                     
                     DispatchQueue.main.async {
                         self.selectedPhotos.append(image)
                         self.photoCollectionView.reloadData()
                     }
                     if let fileName = result.itemProvider.suggestedName {
-                        self.imageFiles.append(ImageFile(filename: fileName, data: image.pngData()!, type: "png"))
+                        self.imageFiles.append(ImageFile(filename: fileName, data: compressionedImage!, type: "jpeg"))
                         print("선택된 이미지 파일 이름: \(fileName)")
                     }
                 }
