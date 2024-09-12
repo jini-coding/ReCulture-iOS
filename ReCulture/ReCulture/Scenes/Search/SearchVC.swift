@@ -296,8 +296,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ])
     }
     
-    @objc func goToBookMark(){
-        let vc = HomeVC() //Bookmark페이지로 설정
+    @objc func goToBookMark() {
+        let vc = BookmarkListVC()
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

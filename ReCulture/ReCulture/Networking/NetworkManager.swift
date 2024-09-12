@@ -79,7 +79,7 @@ final class NetworkManager {
             }
         }
     }
-
+    
     /// 사용자 새로운 프로필 설정하는 함수
     func postNewUserProfile(
         newUserProfileRequestDTO: NewUserProfileRequestDTO,
@@ -166,8 +166,8 @@ final class NetworkManager {
             }
         }
     }
-  
-  
+    
+    
     func getMyCalendar(
         year: String,
         month: String,
@@ -218,11 +218,11 @@ final class NetworkManager {
             }
         }
     }
-
+    
     /// 특정 기록 상세보기
     func getRecordDetails(recordId: Int,
-        _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+                          _ networkService: NetworkServable = NetworkService(),
+                          completion: @escaping (Result<RecordModel, NetworkError>) -> Void
     ) {
         let recordAPI = recordDetailAPI(id: recordId)
         networkService.request(recordAPI) { result in
@@ -237,8 +237,8 @@ final class NetworkManager {
     
     /// 특정 유저 프로필 정보 불러오기
     func getUserProfile(userId: Int,
-        _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<UserProfileModel, NetworkError>) -> Void
+                        _ networkService: NetworkServable = NetworkService(),
+                        completion: @escaping (Result<UserProfileModel, NetworkError>) -> Void
     ){
         let userProfileAPI = UserProfileAPI(id: userId)
         networkService.request(userProfileAPI) { result in
@@ -303,10 +303,27 @@ final class NetworkManager {
         }
     }
     
+    /// 사용자의 북마크 기록들 리스트를 조회하는 함수입니다.
+    func getBookmarkList(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[BookmarkModel], NetworkError>) -> Void
+    ){
+        let api = BookmarkAPI()
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = BookmarkListDTO.convertBookmarkListDTOsToModels(DTOs: DTOs.data)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     /// 기록 삭제하기
     func deleteRecord(postId: Int,
-        _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+                      _ networkService: NetworkServable = NetworkService(),
+                      completion: @escaping (Result<RecordModel, NetworkError>) -> Void
     ){
         let recordAPI = deleteRecordAPI(id: postId)
         networkService.request(recordAPI) { result in

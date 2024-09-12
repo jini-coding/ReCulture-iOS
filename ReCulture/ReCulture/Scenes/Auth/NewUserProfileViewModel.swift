@@ -19,6 +19,7 @@ class NewUserProfileViewModel {
             case .success(let responseDTO):
                 print(responseDTO)
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+                UserDefaults.standard.set(responseDTO.nickname, forKey: "nickname")
                 UserDefaults.standard.synchronize()
                 (fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
             case .failure(let error):
