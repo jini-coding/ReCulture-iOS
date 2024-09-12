@@ -10,6 +10,7 @@ import Foundation
 enum NetworkError: Error {
     /** 네트워크에 연결되어 있지 않을 때 에러*/ case disconnected
     /** API에 문제가 있을 때 에러*/ case apiIssue
+    /** 로그인 오류 혹은 액세스 토큰 에러 */ case userAuthError
     /** 클라이언트 에러*/ case clientError
     /** 서버 에러*/ case serverError
     /** response에 데이터가 없을 때 에러*/ case noData
@@ -22,6 +23,7 @@ extension NetworkError {
         switch self {
         case .disconnected: return "네트워크에 연결되어있지 않습니다."
         case .apiIssue: return "요청 API에 문제가 있습니다."
+        case .userAuthError: return "토큰 혹은 비밀번호에 문제가 있습니다."
         case .clientError: return "클라이언트에 문제가 있습니다."
         case .serverError: return "서버에 문제가 있습니다."
         case .noData: return "데이터가 없습니다."

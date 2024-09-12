@@ -180,7 +180,7 @@ class RecordDetailVC: UIViewController {
                 guard let model = self.viewModel.getRecordDetail() else { return }
                 
                 let category: String
-                switch model.culture.categoryId+1 {
+                switch model.culture.categoryId {
                 case 1:
                     category = "영화"
                 case 2:
@@ -210,7 +210,7 @@ class RecordDetailVC: UIViewController {
                 self.contentImage = model.photoDocs.map { $0.url }
 
                 if let imageUrl = self.contentImage.first {
-                    let baseUrl = "http://34.27.50.30:8080"
+                    let baseUrl = "http://34.64.120.187:8080"
                     let imageUrlStr = "\(baseUrl)\(imageUrl)"
                     imageUrlStr.loadAsyncImage(self.contentImageView)
                 }
@@ -332,11 +332,48 @@ class RecordDetailVC: UIViewController {
     
     func setupNavigationBar() {
         self.navigationItem.title = "나의 기록"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.rcFont18B()]
-        self.navigationController?.navigationBar.setBackgroundImage(nil, for:.default)
-        self.navigationController?.navigationBar.shadowImage = nil
-        self.navigationController?.navigationBar.layoutIfNeeded()
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: UIFont.rcFont18B()
+        ]
         
+        // Create a button with UIButton.Configuration
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.image = UIImage(systemName: "ellipsis")
+        buttonConfig.imagePadding = 5
+        buttonConfig.baseForegroundColor = UIColor.black
+        buttonConfig.buttonSize = .medium
+        
+        let moreButton = UIButton(configuration: buttonConfig)
+        
+        let editAction = UIAction(title: "수정하기", attributes: .init()) { _ in
+            self.editRecord()
+        }
+        
+        let deleteAction = UIAction(title: "삭제하기", attributes: .destructive) { _ in
+            self.deleteRecord()
+        }
+        
+        // Create the UIMenu and assign it to the button
+        let menu = UIMenu(title: "", children: [editAction, deleteAction])
+        moreButton.menu = menu
+        moreButton.showsMenuAsPrimaryAction = true  // Shows the menu when the button is tapped
+        
+        // Assign the button to the navigation bar as a UIBarButtonItem
+        let moreBarButtonItem = UIBarButtonItem(customView: moreButton)
+        self.navigationItem.rightBarButtonItem = moreBarButtonItem
+        
+    }
+    
+    @objc func editRecord() {
+        //수정
+    }
+    
+    @objc func deleteRecord() {
+        self.viewModel.deleteRecord(postId: recordId)
+        print("\(recordId)번 기록 삭제 완료됨")
+        //이전 페이지로 이동
+        navigationController?.popViewController(animated: true)
     }
     
     func setupScrollView() {
@@ -401,7 +438,7 @@ class RecordDetailVC: UIViewController {
     
     func setupImage() {
         if let imageUrl = contentImage.first {
-            let baseUrl = "http://34.27.50.30:8080"
+            let baseUrl = "http://34.64.120.187:8080"
             let imageUrlStr = "\(baseUrl)\(imageUrl)"
             imageUrlStr.loadAsyncImage(contentImageView)
         }

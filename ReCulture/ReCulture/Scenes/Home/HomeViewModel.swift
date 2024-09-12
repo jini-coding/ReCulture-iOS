@@ -60,6 +60,7 @@ class HomeViewModel {
                 self.myProfileModel = model
                 print("-- home view model --")
                 print(model)
+                UserDefaults.standard.set(model.nickname, forKey: "nickname")
             case .failure(let error):
                 print("-- home view model --")
                 print(error)

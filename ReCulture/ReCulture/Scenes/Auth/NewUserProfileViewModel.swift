@@ -19,6 +19,7 @@ class NewUserProfileViewModel {
             case .success(let responseDTO):
                 print(responseDTO)
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+                UserDefaults.standard.set(responseDTO.nickname, forKey: "nickname")
                 UserDefaults.standard.synchronize()
                 UserDefaultsManager.setData(value: requestDTO.nickname, key: .nickname)
                 
