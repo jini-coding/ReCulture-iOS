@@ -201,7 +201,6 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
                 
         let authorId = bookmarkData?.postOwnerId
         
-        // TODO: 수정 필요
         cell.creatorLabel.text = bookmarkData?.postOwnerNickname ?? "unknown"
         cell.titleLabel.text = bookmarkData?.title ?? "unknown"
 
@@ -226,23 +225,30 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row)번째 기록 선택됨")
-//        let model = viewModel.getRecord(at: indexPath.row)
-//        let authorId = model.culture.authorId
-//        
-//        let userProfile = viewModel.getUserProfileModel(for: authorId)
-//        // 이동할 뷰 컨트롤러 초기화
-//        let vc = SearchRecordDetailVC()
-//
-//        // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
-//        vc.recordId = model.culture.id
-//        vc.titleText = model.culture.title
-//        vc.creator = userProfile?.nickname ?? "Unknown"
-//        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
-//        //vc.category = "\(model.culture.categoryId+1)"
-//        vc.contentImage = model.photoDocs.map { $0.url }
-//
-//        // 뷰 컨트롤러 표시
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(vc, animated: true)
+        var bookmarkData: BookmarkModel?
+        
+        // 전체로 필터링된 경우
+        if selectedCategory == .all {
+            bookmarkData = viewModel.getBookmarkAt(indexPath.row)
+        }
+        // 그외의 경우
+        else {
+            bookmarkData = filteredRecords[indexPath.row]
+        }
+        
+        // TODO: 내가 작성한 글을 북마크하지는 못하므로 바로 search record detail vc로 .. (확인 필요)
+        let vc = SearchRecordDetailVC()
+
+        // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
+        if let postId = bookmarkData?.postId {
+            vc.recordId = postId
+        }
+        if let postOwnerNickname = bookmarkData?.postOwnerNickname {
+            vc.creator = "\(postOwnerNickname)"
+        }
+
+        // 뷰 컨트롤러 표시
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
