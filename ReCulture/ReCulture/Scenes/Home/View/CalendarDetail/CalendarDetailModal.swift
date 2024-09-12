@@ -14,7 +14,7 @@ class CalendarDetailModal: UIViewController {
     private static let minimumLineSpacing: CGFloat = 12
     private static let minimumInteritemSpacing: CGFloat = 12
     
-    private var recordDetailDataList: [MyCalendarRecordDetail] = []
+    private var recordDetailDataList: [MyCalendarRecordDetailModel] = []
     
     // MARK: - Views
     
@@ -144,21 +144,17 @@ extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSou
         print(indexPath)
         let cell = collectionView.cellForItem(at: indexPath) as! CalendarDetailCell
         print(cell.recordId)
+        let dataForThisCell = recordDetailDataList[indexPath.item]
         
-        // TODO: 이동
-//        let vc = RecordDetailVC()
-//
-//        // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
-//        vc.recordId = model.culture.id
-//        vc.titleText = model.culture.title
-//        vc.creator = "\(myviewModel.getNickname())"
-//        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
-//        //vc.category = "\(model.culture.categoryId)"
-//        vc.contentImage = model.photoDocs.map { $0.url }
-//
-//        // 뷰 컨트롤러 표시
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(vc, animated: true)
+        // TODO: 지금 열린 이 모달 내리기
+        
+        // 상세 페이지로 이동
+        let vc = RecordDetailVC()
+        vc.recordId = dataForThisCell.recordId
+        vc.creator = UserDefaultsManager.shared.getData(type: String.self, forKey: .nickname)
+
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
