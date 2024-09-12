@@ -135,7 +135,7 @@ class HomeViewModel {
             let day = String(date.split(separator: "-")[2])  // 10 -> 현재 필요한 값!!
             
             myCalendarDataList[Int(day)!].count += 1
-            myCalendarDataList[Int(day)!].records.append(MyCalendarRecordDetail(recordId: record.id,
+            myCalendarDataList[Int(day)!].records.append(MyCalendarRecordDetailModel(recordId: record.id,
                                                                           title: record.title,
                                                                           categoryId: record.categoryId,
                                                                           photoURL: record.photos[0].url))

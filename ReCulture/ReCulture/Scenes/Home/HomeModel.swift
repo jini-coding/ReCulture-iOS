@@ -22,10 +22,10 @@ struct MyCalendarData {
     let month: Int
     let day: Int
     var count: Int
-    var records: [MyCalendarRecordDetail]
+    var records: [MyCalendarRecordDetailModel]
 }
 
-struct MyCalendarRecordDetail {
+struct MyCalendarRecordDetailModel {
     let recordId: Int
     let title: String
     let categoryId: Int
