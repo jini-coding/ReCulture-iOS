@@ -7,7 +7,9 @@
 
 import Foundation
 
-class UserDefaultsManager {
+final class UserDefaultsManager {
+    static let shared = UserDefaultsManager()
+    
     enum UserDefaultsKeys: String, CaseIterable {
         case userId /// 해당 사용자의 id
         case nickname /// 해당 사용자의 닉네임
@@ -15,18 +17,18 @@ class UserDefaultsManager {
         case handle /// 해당 사용자의 핸들(@으로 시작하는)
     }
     
-    static func setData<T>(value: T, key: UserDefaultsKeys) {
+    func setData<T>(value: T, key: UserDefaultsKeys) {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: key.rawValue)
     }
     
-    static func getData<T>(type: T.Type, forKey: UserDefaultsKeys) -> T? {
+    func getData<T>(type: T.Type, forKey: UserDefaultsKeys) -> T {
         let defaults = UserDefaults.standard
         let value = defaults.object(forKey: forKey.rawValue) as? T
-        return value
+        return value ?? "unknown" as! T
     }
     
-    static func removeData(key: UserDefaultsKeys) {
+    func removeData(key: UserDefaultsKeys) {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: key.rawValue)
     }
