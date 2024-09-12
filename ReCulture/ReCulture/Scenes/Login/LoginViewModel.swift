@@ -29,7 +29,7 @@ class LoginViewModel {
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
 //                UserDefaults.standard.set(responseDTO.id, forKey: "userId")
 //                UserDefaults.standard.synchronize()
-                UserDefaultsManager.setData(value: responseDTO.id, key: .userId)
+                UserDefaultsManager.shared.setData(value: responseDTO.id, key: .userId)
                 
                 (fromCurrentVC as? LoginVC)?.loginSuccess = true
             case .failure(let error):

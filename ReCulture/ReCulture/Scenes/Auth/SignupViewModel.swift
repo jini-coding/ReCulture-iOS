@@ -28,7 +28,7 @@ class SignupViewModel {
                 
 //                UserDefaults.standard.set(responseDTO.id, forKey: "userId")
 //                UserDefaults.standard.synchronize()
-                UserDefaultsManager.setData(value: responseDTO.id, key: .userId)
+                UserDefaultsManager.shared.setData(value: responseDTO.id, key: .userId)
                 
                 (fromCurrentVC as? SignUpVC)?.signupSuccess = true
             case .failure(let error):
