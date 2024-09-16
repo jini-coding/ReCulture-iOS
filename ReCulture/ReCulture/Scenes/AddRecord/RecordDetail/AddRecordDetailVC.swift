@@ -123,7 +123,7 @@ class AddRecordDetailVC: UIViewController {
     
     // MARK: - Views
     
-    private let headerView = HeaderView()
+    private let headerView = HeaderView(title: "기록 추가", withCloseButton: false)
     
     private let titleLabel: UILabel = {
         let label = UILabel()
