@@ -218,8 +218,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "goBack()"
             landmarkType = "7">
             <Locations>
@@ -426,8 +426,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "viewWillDisappear(_:)"
             landmarkType = "7">
             <Locations>
@@ -1447,8 +1447,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
@@ -1495,10 +1495,10 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "RecordTypeVC"
-            landmarkType = "21">
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "B4281812-09A4-4F30-99F8-B0711F8263B9 - 840df34fab164575"
@@ -1543,8 +1543,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "RecordTypeVC"
             landmarkType = "21">
             <Locations>
@@ -1591,8 +1591,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
             <Locations>
@@ -1687,8 +1687,8 @@
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "collectionView(_:layout:sizeForItemAt:)"
             landmarkType = "7">
             <Locations>

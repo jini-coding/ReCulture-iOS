@@ -13,8 +13,8 @@ class RecordTypeVC: UIViewController {
     
     static var previousSelectedTabbarIndex = 0
     private let recordTypeList: [RecordType] = [.movie, .musical, .play, .sports, .concert, .drama, .book, .exhibition, .etc]
-    private let minimumLineSpacing:CGFloat = 8
-    private let minimumInteritemSpacing:CGFloat = 8
+    private let minimumLineSpacing: CGFloat = 8
+    private let minimumInteritemSpacing: CGFloat = 8
     private var selectedType: RecordType?
     
     // MARK: - Views
@@ -33,9 +33,13 @@ class RecordTypeVC: UIViewController {
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = minimumLineSpacing
         flowLayout.minimumInteritemSpacing = minimumInteritemSpacing
+        
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         view.contentInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
-
+        view.dataSource = self
+        view.delegate = self
+        view.register(RecordTypeCollectionViewCell.self,
+                      forCellWithReuseIdentifier: RecordTypeCollectionViewCell.identifier)
         return view
     }()
     
@@ -67,15 +71,6 @@ class RecordTypeVC: UIViewController {
         setNextButton()
     }
     
-    override func viewDidLayoutSubviews() {
-        print(typeCollectionView.bounds)
-
-        typeCollectionView.dataSource = self
-        typeCollectionView.delegate = self
-        typeCollectionView.register(RecordTypeCollectionViewCell.self,
-                      forCellWithReuseIdentifier: RecordTypeCollectionViewCell.identifier)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -89,7 +84,7 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setHeaderView(){
+    private func setHeaderView() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(headerView)
@@ -104,7 +99,7 @@ class RecordTypeVC: UIViewController {
         headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
     }
     
-    private func setWhatDidYouDoLabel(){
+    private func setWhatDidYouDoLabel() {
         whatDidYouDoLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(whatDidYouDoLabel)
@@ -115,7 +110,7 @@ class RecordTypeVC: UIViewController {
         ])
     }
     
-    private func setCollectionView(){
+    private func setCollectionView() {
         typeCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(typeCollectionView)
@@ -127,7 +122,7 @@ class RecordTypeVC: UIViewController {
         ])
     }
     
-    private func setNextButton(){
+    private func setNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(nextButton)
@@ -142,7 +137,7 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func nextButtonDidTap(){
+    @objc private func nextButtonDidTap() {
         let addRecordDetailVC = AddRecordDetailVC(type: selectedType!)
         addRecordDetailVC.modalPresentationStyle = .fullScreen
         self.present(addRecordDetailVC, animated: true)
@@ -166,7 +161,7 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Functions
     
-    func initializeViews(){
+    func initializeViews() {
         selectedType = nil
         typeCollectionView.deselectAllItems(animated: false)
         nextButton.isActive = false
@@ -178,8 +173,7 @@ class RecordTypeVC: UIViewController {
 extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("numberOfItemsInSection: \(recordTypeList.count)")
-        return 9
+        return recordTypeList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -207,9 +201,6 @@ extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell
         else { return .zero }
         cell.configure(recordTypeList[indexPath.item].rawValue)
-//        let label = UILabel()
-//        label.font = .rcFont18M()
-//        label.text = "뮤지컬"
         
         let cellFrame = cell.getLabelFrame()
         let cellHeight = cellFrame.height + 30
