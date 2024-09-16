@@ -105,7 +105,6 @@ class HomeVC: UIViewController {
         print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
         
-        
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
         viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
@@ -132,21 +131,30 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.getMyProfile(fromCurrentVC: self)
+        setupNavigation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+//        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: -7), for: .default)
+//        let backButtonImage = UIImage(named: "btn_arrow_big")?.withRenderingMode(.alwaysOriginal)
+//        backButtonImage?.resizeImage(size: CGSize(width: 36, height: 36))
+//        UINavigationBar.appearance().backIndicatorImage = backButtonImage
+//        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
+//        UINavigationBar.appearance().backgroundColor = .white
     }
     
     // MARK: - Layouts
     
     private func setupNavigation(){
-        //setLevelAttributes()
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = .rcMain
       
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        self.navigationController?.navigationBar.backgroundColor = .rcMain
     }
     
     private func setScrollView(){
@@ -272,18 +280,7 @@ class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        imageUrlStr.loadAsyncImage(characterImageView)
-        
         characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: imageUrl!) {
-//                if let image = UIImage(data: data) {
-////                    DispatchQueue.main.async {
-//                        self?.characterImageView.image = image
-////                    }
-//                }
-//            }
-//        }
     }
     
     private func setLevelAttributes() {

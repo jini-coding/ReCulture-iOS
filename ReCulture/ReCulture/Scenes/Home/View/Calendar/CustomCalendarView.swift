@@ -311,8 +311,10 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
                 let vc = CalendarDetailModal()
                 vc.modalTransitionStyle = .crossDissolve
                 vc.modalPresentationStyle = .overFullScreen
-                vc.configure(recordDataList[Int(selectedDay)!])
-                parentVC?.present(vc, animated: true)
+                if let parentVC = self.parentVC {
+                    vc.configure(recordDataList[Int(selectedDay)!], from: parentVC)
+                    parentVC.present(vc, animated: true)
+                }
             }
         }
     }

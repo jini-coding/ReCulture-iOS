@@ -11,6 +11,8 @@ class CalendarDetailModal: UIViewController {
     
     // MARK: - Properties
     
+    private weak var homeVC: HomeVC?
+    
     private static let minimumLineSpacing: CGFloat = 12
     private static let minimumInteritemSpacing: CGFloat = 12
     
@@ -113,8 +115,9 @@ class CalendarDetailModal: UIViewController {
     
     // MARK: - Functions
     
-    func configure(_ data: MyCalendarData) {
+    func configure(_ data: MyCalendarData, from homeVC: HomeVC) {
         recordDetailDataList.removeAll()
+        self.homeVC = homeVC
         dateLabel.text = "\(data.year).\(data.month).\(data.day)"
         recordDetailDataList = data.records
         collectionView.reloadData()
@@ -147,14 +150,18 @@ extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSou
         let dataForThisCell = recordDetailDataList[indexPath.item]
         
         // TODO: 지금 열린 이 모달 내리기
-        
-        // 상세 페이지로 이동
-        let vc = RecordDetailVC()
-        vc.recordId = dataForThisCell.recordId
-        vc.creator = UserDefaultsManager.shared.getData(type: String.self, forKey: .nickname)
+        if let homeVC = self.homeVC {
+            homeVC.dismiss(animated: true) {
+                // 상세 페이지로 이동
+                let vc = RecordDetailVC()
+                vc.recordId = dataForThisCell.recordId
+                vc.creator = UserDefaultsManager.shared.getData(type: String.self, forKey: .nickname)
 
-        vc.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(vc, animated: true)
+                vc.hidesBottomBarWhenPushed = true
+                homeVC.navigationController?.navigationBar.backgroundColor = .white
+                homeVC.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
