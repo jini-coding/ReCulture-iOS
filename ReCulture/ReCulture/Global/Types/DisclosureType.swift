@@ -10,4 +10,5 @@ import Foundation
 enum DisclosureType: String {
     case Public = "PUBLIC"
     case Private = "PRIVATE"
+    case Follower = "FOLLOWER"
 }
