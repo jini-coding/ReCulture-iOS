@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-class AddRecordPhotoVC: UIViewController {
+final class AddRecordPhotoVC: UIViewController {
     
     // MARK: - Properties
     
@@ -129,7 +129,7 @@ class AddRecordPhotoVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setHeaderView(){
+    private func setHeaderView() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(headerView)
@@ -143,7 +143,7 @@ class AddRecordPhotoVC: UIViewController {
         headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
     }
     
-    private func setPhotoTitlelLabel(){
+    private func setPhotoTitlelLabel() {
         photoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(photoTitleLabel)
@@ -154,7 +154,7 @@ class AddRecordPhotoVC: UIViewController {
         ])
     }
     
-    private func setAddPhotoButtonView(){
+    private func setAddPhotoButtonView() {
         print(addPhotoButtonView.layer.sublayers)
         
         addPhotoButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openLibrary)))
@@ -169,7 +169,7 @@ class AddRecordPhotoVC: UIViewController {
         ])
     }
     
-    private func setPhotoCollectionView(){
+    private func setPhotoCollectionView() {
         photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(photoCollectionView)
@@ -181,7 +181,7 @@ class AddRecordPhotoVC: UIViewController {
         ])
     }
     
-    private func setUploadButton(){
+    private func setUploadButton() {
         uploadButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(uploadButton)
@@ -194,7 +194,7 @@ class AddRecordPhotoVC: UIViewController {
         ])
     }
     
-    private func setPhPicker(){
+    private func setPhPicker() {
         phPicker.delegate = self
     }
     
@@ -205,7 +205,7 @@ class AddRecordPhotoVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func openLibrary(_ gesture: UITapGestureRecognizer){
+    @objc private func openLibrary(_ gesture: UITapGestureRecognizer) {
         self.present(phPicker, animated: true, completion: nil)
     }
     
@@ -232,7 +232,7 @@ class AddRecordPhotoVC: UIViewController {
 //        self.present(imagePicker, animated: true, completion: nil)
 //    }
     
-    @objc private func uploadButtonDidTap(){
+    @objc private func uploadButtonDidTap() {
         LoadingIndicator.showLoading()
         print("==업로드 버튼 눌림==")
         print(imageFiles)
@@ -241,7 +241,7 @@ class AddRecordPhotoVC: UIViewController {
     
     // MARK: - Functions
     
-    func goBackToPreviousTab(_ success: Bool){
+    func goBackToPreviousTab(_ success: Bool) {
         DispatchQueue.main.async {
             let parentVC = self.presentingViewController
             print(parentVC)
@@ -311,7 +311,9 @@ extension AddRecordPhotoVC: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // 5개 다 채웠을 때는 선택된 사진으로만 된 셀로 구성
         if selectedPhotos.count == 5 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddRecordPhotoCell.identifier, for: indexPath) as? AddRecordPhotoCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddRecordPhotoCell.identifier, for: indexPath) as? AddRecordPhotoCell
+            else { return UICollectionViewCell() }
+            
             cell.configure(image: selectedPhotos[indexPath.item])
             cell.removeBtnCallBackMehtod = { [weak self] in
                 let index = indexPath.item
@@ -328,7 +330,9 @@ extension AddRecordPhotoVC: UICollectionViewDelegate, UICollectionViewDataSource
                 return cell
             }
             else {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddRecordPhotoCell.identifier, for: indexPath) as? AddRecordPhotoCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddRecordPhotoCell.identifier, for: indexPath) as? AddRecordPhotoCell
+                else { return UICollectionViewCell() }
+                
                 cell.configure(image: selectedPhotos[indexPath.item])
                 cell.removeBtnCallBackMehtod = { [weak self] in
                     let index = indexPath.item

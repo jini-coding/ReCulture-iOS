@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddRecordDetailVC: UIViewController {
+final class AddRecordDetailVC: UIViewController {
     
     // MARK: - Properties
     
@@ -305,12 +305,12 @@ class AddRecordDetailVC: UIViewController {
         addKeyboardObserver()
         
         setHeaderView()
-        //setupNavigation()
         setScrollView()
         setContentView()
         setWriteDetailLabel()
         setTitleStackView()
         setDateStackView()
+        
         // 영화, 뮤지컬, 연극, 드라마, 전시회, 기타이면 4칸짜리 뷰를 넣어야 함
         if (recordType == .movie
             || recordType == .musical
@@ -322,7 +322,7 @@ class AddRecordDetailVC: UIViewController {
             setFourTextFieldsView()
         }
         // 그 외에는 5칸짜리 뷰 필요
-        else{
+        else {
             isFourTextFieldsView = false
             setFiveTextFieldsView()
         }
@@ -344,7 +344,7 @@ class AddRecordDetailVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setHeaderView(){
+    private func setHeaderView() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(headerView)
@@ -358,12 +358,12 @@ class AddRecordDetailVC: UIViewController {
         headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
     }
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
     }
     
-    private func setScrollView(){
+    private func setScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -378,7 +378,7 @@ class AddRecordDetailVC: UIViewController {
         scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped)))
     }
     
-    private func setContentView(){
+    private func setContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(contentView)
@@ -392,7 +392,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setWriteDetailLabel(){
+    private func setWriteDetailLabel() {
         writeDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(writeDetailLabel)
@@ -403,7 +403,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setTitleStackView(){
+    private func setTitleStackView() {
         recordTitleStackView.translatesAutoresizingMaskIntoConstraints = false
         recordTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         recordTitleTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -424,7 +424,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setDateStackView(){
+    private func setDateStackView() {
         dateTextField.inputView = datePicker
         dateTextField.text = dateFormatToString(date: Date())
         
@@ -448,12 +448,12 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setFourTextFieldsView(){
+    private func setFourTextFieldsView() {
         print("4칸짜리 세팅 중")
-        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) else { return }
-//        print(textFieldPlaceholders.)
+        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) 
+        else { return }
+
         let placeholderList = textFieldPlaceholders[index].map{ $0.1 }
-        //print(placeholderList.description)
         
         fourTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -469,9 +469,11 @@ class AddRecordDetailVC: UIViewController {
         
     }
     
-    private func setFiveTextFieldsView(){
+    private func setFiveTextFieldsView() {
         print("5칸짜리 세팅 중")
-        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) else { return }
+        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) 
+        else { return }
+        
         let placeholderList = textFieldPlaceholders[index].map{ $0.1 }
         
         fiveTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
@@ -487,7 +489,7 @@ class AddRecordDetailVC: UIViewController {
         fiveTextFieldsView.configure(placeholderList[0])
     }
     
-    private func setEmojiStackView(){
+    private func setEmojiStackView() {
         emojiStackView.translatesAutoresizingMaskIntoConstraints = false
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
         emojiTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -497,14 +499,14 @@ class AddRecordDetailVC: UIViewController {
         emojiStackView.addArrangedSubview(emojiLabel)
         emojiStackView.addArrangedSubview(emojiTextField)
         
-        if(isFourTextFieldsView){
+        if(isFourTextFieldsView) {
             NSLayoutConstraint.activate([
                 emojiStackView.leadingAnchor.constraint(equalTo: fourTextFieldsView.leadingAnchor),
                 emojiStackView.trailingAnchor.constraint(equalTo: fourTextFieldsView.trailingAnchor),
                 emojiStackView.topAnchor.constraint(equalTo: fourTextFieldsView.bottomAnchor, constant: 28),
             ])
         }
-        else{
+        else {
             NSLayoutConstraint.activate([
                 emojiStackView.leadingAnchor.constraint(equalTo: fiveTextFieldsView.leadingAnchor),
                 emojiStackView.trailingAnchor.constraint(equalTo: fiveTextFieldsView.trailingAnchor),
@@ -517,7 +519,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setRecordRangeStackView(){
+    private func setRecordRangeStackView() {
         recordRangeStackView.translatesAutoresizingMaskIntoConstraints = false
         recordRangeLabel.translatesAutoresizingMaskIntoConstraints = false
         recordRangeMenuBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -543,7 +545,7 @@ class AddRecordDetailVC: UIViewController {
         recordRangeMenuBtn.showsMenuAsPrimaryAction = true
     }
     
-    private func setNextButton(){
+    private func setNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(nextButton)
@@ -562,26 +564,26 @@ class AddRecordDetailVC: UIViewController {
         self.validateInputField()
     }
     
-    @objc private func datePickerValueDidChange(_ sender: UIDatePicker){
+    @objc private func datePickerValueDidChange(_ sender: UIDatePicker) {
         dateTextField.text = dateFormatToString(date: datePicker.date)
     }
     
-    @objc private func emojiTextFieldDidChange(_ textField: UITextField){
+    @objc private func emojiTextFieldDidChange(_ textField: UITextField) {
         self.validateInputField()
     }
     
     // 키보드가 나타났다는 알림을 받으면 실행할 메서드
-    @objc private func keyboardWillShow(_ notification: NSNotification){
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo as NSDictionary?,
-            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                return
-            }
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else { return }
+        
         /// 키보드의 높이
         let keyboardHeight = keyboardFrame.size.height
         scrollView.contentInset.bottom = keyboardHeight
             
         UIView.animate(withDuration: 0.3,
-                       animations: { self.view.layoutIfNeeded()},
+                       animations: { self.view.layoutIfNeeded() },
                        completion: nil)
     }
 
@@ -596,11 +598,11 @@ class AddRecordDetailVC: UIViewController {
         }
     }
     
-    @objc private func scrollViewTapped(){
+    @objc private func scrollViewTapped() {
         scrollView.endEditing(true)
     }
     
-    @objc private func nextButtonDidTap(){
+    @objc private func nextButtonDidTap() {
         print("다음으로")
         var detailsModel: DetailsModel?
         if isFourTextFieldsView {
