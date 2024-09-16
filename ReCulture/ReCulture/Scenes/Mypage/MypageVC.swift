@@ -161,7 +161,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("프로필 변경 선택됨")
             let nextVC = EditProfileVC()
             
-            let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+            let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
             imageUrlStr.loadAsyncImage(nextVC.profileImage)
             nextVC.nicknameTextfield.text = viewModel.getNickname()
             nextVC.introTextfield.text = viewModel.getBio()
@@ -204,7 +204,7 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             //cell.profileImageView.image = UIImage(named: "profile_image_placeholder") // 프로필 이미지
             print(viewModel.getProfileImage())
-            let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+            let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
             imageUrlStr.loadAsyncImage(cell.profileImageView)
             
             //cell.profileImageView.backgroundColor = UIColor.rcMain

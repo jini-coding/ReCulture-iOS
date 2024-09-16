@@ -55,10 +55,9 @@ class TicketBookCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Helpers
-    
-    func configure(_ model: MyTicketBookModel){
-        let imageUrlStr = "http://34.22.96.154:8080\(model.imageURL)"
-        imageUrlStr.loadAsyncImage(imageView)
+
+    func configure(_ model: MyTicketBookModel) {
+        imageView.loadImage(urlWithoutBaseURL: model.imageURL)
     }
     
     override func prepareForReuse() {

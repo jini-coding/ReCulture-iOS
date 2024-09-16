@@ -9,6 +9,10 @@ import UIKit
 
 class HeaderView: UIView {
     
+    // MARK: - Properties
+    
+    private var withCloseButton: Bool = false
+    
     // MARK: - Views
     
     private let backButton: UIButton = {
@@ -18,9 +22,16 @@ class HeaderView: UIView {
         return button
     }()
     
+    private let closeButton: UIButton = {
+        let button = UIButton()
+        let closeImage = UIImage.closeIcon.withRenderingMode(.alwaysOriginal).resizeImage(size: CGSize(width: 36, height: 36))
+        button.setImage(closeImage, for: .normal)
+        return button
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "기록 추가"
+        //label.text = "기록 추가"
         label.font = .rcFont16M()
         label.textColor = .black
         return label
@@ -28,11 +39,18 @@ class HeaderView: UIView {
     
     // MARK: - Initialization
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(_ title: String = "기록 추가", _ withCloseButton: Bool = false) {
+        super.init(frame: .zero)
+        
+        titleLabel.text = title
+        self.withCloseButton = withCloseButton
         
         setBackButton()
         setTitleLabel()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
@@ -42,15 +60,30 @@ class HeaderView: UIView {
     // MARK: - Layout
     
     private func setBackButton() {
-        backButton.translatesAutoresizingMaskIntoConstraints = false
+        print(withCloseButton)
+        if withCloseButton {
+            closeButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            addSubview(closeButton)
+            
+            NSLayoutConstraint.activate([
+                closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                closeButton.topAnchor.constraint(equalTo: self.topAnchor),
+                closeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            ])
+        }
         
-        addSubview(backButton)
-        
-        NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            backButton.topAnchor.constraint(equalTo: self.topAnchor),
-            backButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-        ])
+        else {
+            backButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            addSubview(backButton)
+            
+            NSLayoutConstraint.activate([
+                backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                backButton.topAnchor.constraint(equalTo: self.topAnchor),
+                backButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            ])
+        }
     }
     
     private func setTitleLabel() {
@@ -68,6 +101,12 @@ class HeaderView: UIView {
     
     // header view 사용하는 뷰컨트롤러에서 action 정의
     func addBackButtonTarget(target: Any?, action: Selector, for controlEvents: UIControl.Event) {
-        backButton.addTarget(target, action: action, for: controlEvents)
+        if withCloseButton {
+            closeButton.addTarget(target, action: action, for: controlEvents)
+        }
+        else {
+            backButton.addTarget(target, action: action, for: controlEvents)
+            
+        }
     }
 }

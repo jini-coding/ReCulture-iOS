@@ -425,12 +425,11 @@ class TicketBookDetailVC: UIViewController {
     
     private func configure(){
         print("==configuring ticket book detail==")
-//        let imageUrlStr = "http://34.22.96.154:8080\(ticketBookModel.imageURL)"
+//        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
 //        imageUrlStr.loadAsyncImage(ticketImageView)
-        
-        let url = URL(string: "http://34.22.96.154:8080\(ticketBookModel.imageURL)")!
-        ticketImageView.load(url: url)
-        
+
+        //let url = URL(string: "http://34.22.96.154:8080\(ticketBookModel.imageURL)")!
+        ticketImageView.loadImage(urlWithoutBaseURL: ticketBookModel.imageURL)        
         
         ticketTitleLabel.text = ticketBookModel.title
         emojiLabel.text = ticketBookModel.emoji

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */; };
+		080ACDC92C8CBF8A00C44DE7 /* BookmarkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC82C8CBF8A00C44DE7 /* BookmarkAPI.swift */; };
+		080ACDCB2C8CBFA400C44DE7 /* BookmarkListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */; };
+		080ACDCD2C8CC40300C44DE7 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCC2C8CC40300C44DE7 /* BookmarkViewModel.swift */; };
+		080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */; };
 		0813C4DF2C1AFE17004CD0B4 /* MyTicketBookDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */; };
 		0813C4E12C1AFEA7004CD0B4 /* MyTicketBookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */; };
 		0813C4E52C1B5A92004CD0B4 /* TicketBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */; };
@@ -117,10 +122,7 @@
 		386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386325632C11EFCE00F96D0A /* LogoutModal.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
 		3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F32BE43247003376F7 /* SceneDelegate.swift */; };
-		3874B5F62BE43247003376F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F52BE43247003376F7 /* ViewController.swift */; };
-		3874B5F92BE43247003376F7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3874B5F82BE43247003376F7 /* Base */; };
 		3874B5FB2BE43248003376F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3874B5FA2BE43248003376F7 /* Assets.xcassets */; };
-		3874B5FE2BE43248003376F7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3874B5FD2BE43248003376F7 /* Base */; };
 		3874B6082BE4328A003376F7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6072BE4328A003376F7 /* Color.swift */; };
 		3874B60A2BE43291003376F7 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6092BE43291003376F7 /* Font.swift */; };
 		3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B60D2BE432E0003376F7 /* TabBarVC.swift */; };
@@ -142,6 +144,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListVC.swift; sourceTree = "<group>"; };
+		080ACDC82C8CBF8A00C44DE7 /* BookmarkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAPI.swift; sourceTree = "<group>"; };
+		080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListDTO.swift; sourceTree = "<group>"; };
+		080ACDCC2C8CC40300C44DE7 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModel.swift; sourceTree = "<group>"; };
 		0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketBookDTO.swift; sourceTree = "<group>"; };
 		0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketBookAPI.swift; sourceTree = "<group>"; };
 		0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookViewModel.swift; sourceTree = "<group>"; };
@@ -253,10 +260,7 @@
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3874B5F12BE43247003376F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3874B5F32BE43247003376F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3874B5F52BE43247003376F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3874B5F82BE43247003376F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3874B5FA2BE43248003376F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3874B5FD2BE43248003376F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3874B5FF2BE43248003376F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3874B6072BE4328A003376F7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3874B6092BE43291003376F7 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -289,6 +293,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		080ACDC52C8C719900C44DE7 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */,
+				080ACDCC2C8CC40300C44DE7 /* BookmarkViewModel.swift */,
+				080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
 		0813C4E82C1B6364004CD0B4 /* TicketBooks */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +493,7 @@
 				08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */,
 				0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */,
 				3850C3372C1BC5ED00570424 /* FollowAPI.swift */,
+				080ACDC82C8CBF8A00C44DE7 /* BookmarkAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -502,6 +517,7 @@
 				0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */,
 				08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */,
 				0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */,
+				080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -663,10 +679,7 @@
 				3874B6062BE43265003376F7 /* Extension */,
 				3874B60B2BE432C5003376F7 /* CustomView */,
 				3874B60C2BE432CD003376F7 /* Scenes */,
-				3874B5F52BE43247003376F7 /* ViewController.swift */,
 				3874B5FA2BE43248003376F7 /* Assets.xcassets */,
-				3874B5F72BE43247003376F7 /* Main.storyboard */,
-				3874B5FC2BE43248003376F7 /* LaunchScreen.storyboard */,
 				3874B5FF2BE43248003376F7 /* Info.plist */,
 			);
 			path = ReCulture;
@@ -713,6 +726,7 @@
 		3874B60C2BE432CD003376F7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				080ACDC52C8C719900C44DE7 /* Bookmark */,
 				08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */,
 				08E0F5902C00271C000A046D /* AddRecord */,
 				3874B6142BE43346003376F7 /* Auth */,
@@ -857,8 +871,6 @@
 			files = (
 				3874B5FB2BE43248003376F7 /* Assets.xcassets in Resources */,
 				08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */,
-				3874B5FE2BE43248003376F7 /* Base in Resources */,
-				3874B5F92BE43247003376F7 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,9 +882,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */,
+				080ACDCB2C8CBFA400C44DE7 /* BookmarkListDTO.swift in Sources */,
 				08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */,
 				0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */,
-				3874B5F62BE43247003376F7 /* ViewController.swift in Sources */,
 				0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */,
 				0833EF762BE4C0730024FB2C /* CalendarDateCell.swift in Sources */,
 				0813C4F22C1BA437004CD0B4 /* TicketCustomizingViewModel.swift in Sources */,
@@ -894,6 +906,7 @@
 				384315EF2C1B31D100D379F3 /* MypageViewModel.swift in Sources */,
 				384315E02C1AB44300D379F3 /* RecordViewModel.swift in Sources */,
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
+				080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */,
 				3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */,
 				089EDAD72C13473200D74C5F /* HomeModel.swift in Sources */,
 				384315EB2C1B1AEB00D379F3 /* SearchAPI.swift in Sources */,
@@ -933,6 +946,7 @@
 				081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */,
 				384315DE2C1AB43C00D379F3 /* RecordModel.swift in Sources */,
 				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
+				080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				384315DC2C1AB2E800D379F3 /* RecordAPI.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
@@ -965,6 +979,7 @@
 				08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */,
 				0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */,
 				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
+				080ACDCD2C8CC40300C44DE7 /* BookmarkViewModel.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				0856A6212C099B45001198E1 /* PhotoService.swift in Sources */,
 				08D1F5D32C0D71B300F1AB49 /* HTTPMethods.swift in Sources */,
@@ -981,6 +996,7 @@
 				08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
 				08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */,
+				080ACDC92C8CBF8A00C44DE7 /* BookmarkAPI.swift in Sources */,
 				08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */,
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
 				08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */,
@@ -1001,25 +1017,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		3874B5F72BE43247003376F7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3874B5F82BE43247003376F7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3874B5FC2BE43248003376F7 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3874B5FD2BE43248003376F7 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3874B6002BE43248003376F7 /* Debug */ = {
@@ -1148,7 +1145,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RW3T7BP2JK;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";
@@ -1178,7 +1175,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RW3T7BP2JK;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";

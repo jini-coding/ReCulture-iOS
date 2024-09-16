@@ -272,8 +272,10 @@ class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        let imageUrlStr = "http://34.27.50.30:8080\(viewModel.getProfileImage())"
+        let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(characterImageView)
+        
+        characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
 //        DispatchQueue.global().async { [weak self] in
 //            if let data = try? Data(contentsOf: imageUrl!) {
 //                if let image = UIImage(data: data) {
