@@ -389,7 +389,10 @@ class RecordDetailVC: UIViewController {
     }
     
     @objc func editRecord() {
-        //수정
+        let editRecordVC = EditRecordVC()
+        editRecordVC.modalPresentationStyle = .fullScreen
+        editRecordVC.modalTransitionStyle = .coverVertical
+        self.present(editRecordVC, animated: true)
     }
     
     @objc func deleteRecord() {
