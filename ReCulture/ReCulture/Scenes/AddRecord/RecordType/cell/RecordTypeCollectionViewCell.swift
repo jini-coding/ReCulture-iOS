@@ -7,14 +7,14 @@
 
 import UIKit
 
-class RecordTypeCollectionViewCell: UICollectionViewCell {
+final class RecordTypeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     static let identifier = "RecordTypeCollectionViewCell"
     
     override var isSelected: Bool {
-        didSet{
+        didSet {
             if isSelected {
                 contentView.layer.borderColor = UIColor.rcMain.cgColor
                 contentView.layer.borderWidth = 2
@@ -59,7 +59,7 @@ class RecordTypeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Layout
     
-    private func setLabel(){
+    private func setLabel() {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(label)
@@ -73,7 +73,7 @@ class RecordTypeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    func configure(_ type: String){
+    func configure(_ type: String) {
         label.text = type
         label.sizeToFit()
     }
