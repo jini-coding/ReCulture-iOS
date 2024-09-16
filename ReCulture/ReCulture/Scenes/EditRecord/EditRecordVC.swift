@@ -400,7 +400,7 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         else { return UICollectionViewCell() }
         print((collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize)
         // TODO: configure!!
-        
+        cell.delegate = self
         return cell
     }
     
@@ -431,5 +431,13 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
             pageControl.currentPage = Int(centerOffsetX)
         }
+    }
+}
+
+// MARK: - Extension: EdtiPhotoCollectionViewDeleteDelegate
+
+extension EditRecordVC: EdtiPhotoCollectionViewDeleteDelegate {
+    func deletePhoto() {
+        print("edit record vc에서 받음")
     }
 }

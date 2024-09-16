@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol EdtiPhotoCollectionViewDeleteDelegate: AnyObject {
+    func deletePhoto()
+}
+
 final class EditPhotoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     static let identifier = "EditPhotoCollectionViewCell"
+    
+    weak var delegate: EdtiPhotoCollectionViewDeleteDelegate?
     
     // MARK: - Views
     
@@ -78,6 +84,7 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     
     @objc private func deleteButtonDidTap() {
         print("이미지 삭제 버튼 선택됨")
+        delegate?.deletePhoto()
     }
     
     // MARK: - Functions
