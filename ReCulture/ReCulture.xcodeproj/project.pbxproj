@@ -89,6 +89,8 @@
 		08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */; };
 		08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */; };
 		08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */; };
+		08DA12092C9847A900FDE7D8 /* EditRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */; };
+		08DA120F2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */; };
 		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
 		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5882C0013F7000A046D /* RecordTypeVC.swift */; };
@@ -231,6 +233,8 @@
 		08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
 		08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTestVC.swift; sourceTree = "<group>"; };
 		08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserProfileVC.swift; sourceTree = "<group>"; };
+		08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordVC.swift; sourceTree = "<group>"; };
+		08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
 		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5882C0013F7000A046D /* RecordTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeVC.swift; sourceTree = "<group>"; };
@@ -577,6 +581,23 @@
 			path = NetworkingTest;
 			sourceTree = "<group>";
 		};
+		08DA12072C98479C00FDE7D8 /* EditRecord */ = {
+			isa = PBXGroup;
+			children = (
+				08DA120D2C98957F00FDE7D8 /* cell */,
+				08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */,
+			);
+			path = EditRecord;
+			sourceTree = "<group>";
+		};
+		08DA120D2C98957F00FDE7D8 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		08E0F5852BFFB7DE000A046D /* cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,6 +786,7 @@
 		3874B60C2BE432CD003376F7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				08DA12072C98479C00FDE7D8 /* EditRecord */,
 				080ACDC52C8C719900C44DE7 /* Bookmark */,
 				08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */,
 				08E0F5902C00271C000A046D /* AddRecord */,
@@ -921,6 +943,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */,
+				08DA120F2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift in Sources */,
 				080ACDCB2C8CBFA400C44DE7 /* BookmarkListDTO.swift in Sources */,
 				08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */,
 				0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */,
@@ -1001,6 +1024,7 @@
 				088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */,
 				3850C32F2C1B60D700570424 /* UserProfileDTO.swift in Sources */,
 				384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */,
+				08DA12092C9847A900FDE7D8 /* EditRecordVC.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				089EDAE12C13871C00D74C5F /* ErrorDTO.swift in Sources */,
@@ -1189,7 +1213,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7AS2J3XH7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";

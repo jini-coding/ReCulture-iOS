@@ -784,7 +784,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B26CC239-EDFF-496C-815A-CE5DA13B0207"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReCulture/App/SceneDelegate.swift"
@@ -940,7 +940,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B5C07D42-CD93-41FC-B268-14C79AAAAB51"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReCulture/Scenes/Home/HomeViewModel.swift"
@@ -995,6 +995,21 @@
                   startingLineNumber = "115"
                   endingLineNumber = "115"
                   offsetFromSymbolStart = "2012">
+               </Location>
+               <Location
+                  uuid = "B5C07D42-CD93-41FC-B268-14C79AAAAB51 - cff9258b31c12c37"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;ReCulture.CalendarRecordDetail&gt;, ReCulture.NetworkError&gt;) -&gt; () in ReCulture.HomeViewModel.getMyCalendar(year: Swift.String, month: Swift.String, fromCurrentVC: __C.UIViewController) -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/Home/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "1716">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1480,6 +1495,21 @@
                   endingLineNumber = "59"
                   offsetFromSymbolStart = "32">
                </Location>
+               <Location
+                  uuid = "F4E07EDB-549A-4CFB-BF1C-2E13E81F018E - fa0a5457c9e93bf7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.viewDidLoad() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "32">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1528,6 +1558,21 @@
                   endingLineNumber = "174"
                   offsetFromSymbolStart = "108">
                </Location>
+               <Location
+                  uuid = "B4281812-09A4-4F30-99F8-B0711F8263B9 - 840df34fab1645d8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.collectionView(_: __C.UICollectionView, numberOfItemsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "44">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1543,8 +1588,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "199"
             endingLineNumber = "199"
-            landmarkName = "RecordTypeVC"
-            landmarkType = "21">
+            landmarkName = "collectionView(_:layout:sizeForItemAt:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "AA34886B-DB4C-4B4A-B20B-9CE0489CAFF4 - 32307c12b2802ef8"
@@ -1575,6 +1620,21 @@
                   startingLineNumber = "199"
                   endingLineNumber = "199"
                   offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "AA34886B-DB4C-4B4A-B20B-9CE0489CAFF4 - 32307c12b2802e26"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.collectionView(_: __C.UICollectionView, layout: __C.UICollectionViewLayout, sizeForItemAt: Foundation.IndexPath) -&gt; __C.CGSize"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "264">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1622,6 +1682,21 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "179"
                   endingLineNumber = "179"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "14930C7E-4DE5-41E1-A3C4-652947EEDEC6 - ff3932cc7a6e2dc9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "180"
+                  endingLineNumber = "180"
                   offsetFromSymbolStart = "128">
                </Location>
             </Locations>
@@ -1720,6 +1795,21 @@
                   endingLineNumber = "203"
                   offsetFromSymbolStart = "456">
                </Location>
+               <Location
+                  uuid = "68F83C9F-85CF-4113-BE3F-7A4867249362 - 32307c12b2802e47"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.RecordTypeVC.collectionView(_: __C.UICollectionView, layout: __C.UICollectionViewLayout, sizeForItemAt: Foundation.IndexPath) -&gt; __C.CGSize"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "672">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1727,7 +1817,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F8754046-86F5-4AED-B202-48935F418A02"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReCulture/CustomView/HeaderView.swift"
@@ -1766,6 +1856,21 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
                   endingLineNumber = "66"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "F8754046-86F5-4AED-B202-48935F418A02 - 4c7e275364952eaa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HeaderView.setBackButton() -&gt; ()"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/HeaderView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
                   offsetFromSymbolStart = "68">
                </Location>
             </Locations>
@@ -1861,6 +1966,66 @@
                   endingLineNumber = "14"
                   offsetFromSymbolStart = "160">
                </Location>
+               <Location
+                  uuid = "0DFDFC2B-8A65-4B38-AECF-B376DD2B22CD - fc3b9d01681e0f9f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of ReCulture.HeaderView.init(title: Swift.String, withCloseButton: Swift.Bool) -&gt; ReCulture.HeaderView"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/HeaderView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "0DFDFC2B-8A65-4B38-AECF-B376DD2B22CD - a58e8dfa2ed9d998"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 1 of ReCulture.HeaderView.init(title: Swift.String, withCloseButton: Swift.Bool) -&gt; ReCulture.HeaderView"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/HeaderView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "0DFDFC2B-8A65-4B38-AECF-B376DD2B22CD - 43b7ebdea4ede07a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HeaderView.__allocating_init(title: Swift.String, withCloseButton: Swift.Bool) -&gt; ReCulture.HeaderView"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/HeaderView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "0DFDFC2B-8A65-4B38-AECF-B376DD2B22CD - b1f537aa37809f14"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReCulture.HeaderView.init(title: Swift.String, withCloseButton: Swift.Bool) -&gt; ReCulture.HeaderView"
+                  moduleName = "ReCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/suyeon/ReCulture-iOS/ReCulture/ReCulture/CustomView/HeaderView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "132">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1868,7 +2033,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "933A235C-1DDB-4FD2-A07B-828B1BD0E1F9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReCulture/Scenes/AddRecord/RecordType/RecordTypeVC.swift"
@@ -1910,6 +2075,22 @@
                   offsetFromSymbolStart = "344">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2EE25C8B-C8F1-43BD-ACB3-A5AD2037E5C0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReCulture/Scenes/EditRecord/EditRecordVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
+            landmarkName = "EditRecordVC"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
