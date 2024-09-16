@@ -12,14 +12,14 @@ class RecordTypeVC: UIViewController {
     // MARK: - Properties
     
     static var previousSelectedTabbarIndex = 0
-    private let recordTypeList:[RecordType] = [.movie, .musical, .play, .sports, .concert, .drama, .book, .exhibition, .etc]
+    private let recordTypeList: [RecordType] = [.movie, .musical, .play, .sports, .concert, .drama, .book, .exhibition, .etc]
     private let minimumLineSpacing:CGFloat = 8
     private let minimumInteritemSpacing:CGFloat = 8
     private var selectedType: RecordType?
     
     // MARK: - Views
     
-    private let headerView = HeaderView()
+    private let headerView = HeaderView(title: "기록 추가", withCloseButton: false)
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -33,11 +33,9 @@ class RecordTypeVC: UIViewController {
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = minimumLineSpacing
         flowLayout.minimumInteritemSpacing = minimumInteritemSpacing
-        
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        view.dataSource = self
-        view.delegate = self
-        view.register(RecordTypeCollectionViewCell.self, forCellWithReuseIdentifier: RecordTypeCollectionViewCell.identifier)
+        view.contentInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+
         return view
     }()
     
@@ -57,24 +55,31 @@ class RecordTypeVC: UIViewController {
     
     // MARK: - Lifecycle
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        tabBarController?.tabBar.isHidden = true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.hidesBottomBarWhenPushed = true
         tabBarController?.tabBar.isHidden = true
         modalPresentationStyle = .fullScreen
         
         setHeaderView()
-        //setupNavigation()
         setWhatDidYouDoLabel()
         setCollectionView()
         setNextButton()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print(typeCollectionView.bounds)
+
+        typeCollectionView.dataSource = self
+        typeCollectionView.delegate = self
+        typeCollectionView.register(RecordTypeCollectionViewCell.self,
+                      forCellWithReuseIdentifier: RecordTypeCollectionViewCell.identifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,14 +98,10 @@ class RecordTypeVC: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
-    }
-    
-    private func setupNavigation(){
-        self.navigationController?.navigationBar.tintColor = .black
-        self.navigationItem.titleView = titleLabel
     }
     
     private func setWhatDidYouDoLabel(){
@@ -120,9 +121,8 @@ class RecordTypeVC: UIViewController {
         view.addSubview(typeCollectionView)
         
         NSLayoutConstraint.activate([
-            typeCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
-            typeCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -14),
-//            typeCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -50),
+            typeCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            typeCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             typeCollectionView.topAnchor.constraint(equalTo: whatDidYouDoLabel.bottomAnchor, constant: 50),
         ])
     }
@@ -135,7 +135,7 @@ class RecordTypeVC: UIViewController {
         NSLayoutConstraint.activate([
             nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            nextButton.topAnchor.constraint(equalTo: typeCollectionView.bottomAnchor, constant: 50),
+            nextButton.topAnchor.constraint(equalTo: typeCollectionView.bottomAnchor, constant: 40),
             nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
@@ -151,10 +151,17 @@ class RecordTypeVC: UIViewController {
     @objc private func goBack() {
         print("이전 탭으로 이동")
         print(tabBarController?.selectedIndex)
-        //self.dismiss(animated: true, completion: nil)
         
-        initializeViews()
-        tabBarController?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
+        let alertController = UIAlertController(title: "정말 기록 추가를 그만하시겠어요?",
+                                                message: "작성된 내용은 저장되지 않습니다.",
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "나가기", style: .destructive, handler: { [weak self] action in
+            self?.initializeViews()
+            self?.tabBarController?.selectedIndex = RecordTypeVC.previousSelectedTabbarIndex
+        }))
+        
+        self.present(alertController, animated: true)
     }
     
     // MARK: - Functions
@@ -169,8 +176,10 @@ class RecordTypeVC: UIViewController {
 // MARK: - Extension: UICollectionView
 
 extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recordTypeList.count
+        print("numberOfItemsInSection: \(recordTypeList.count)")
+        return 9
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -185,12 +194,23 @@ extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         selectedType = recordTypeList[indexPath.item]
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumLineSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumInteritemSpacing
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell else {
-                                return .zero
-                            }
+        print("size for item at: \(indexPath)")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell
+        else { return .zero }
         cell.configure(recordTypeList[indexPath.item].rawValue)
-
+//        let label = UILabel()
+//        label.font = .rcFont18M()
+//        label.text = "뮤지컬"
+        
         let cellFrame = cell.getLabelFrame()
         let cellHeight = cellFrame.height + 30
         let cellWidth = CGFloat(collectionView.frame.width - 14 * 2)
