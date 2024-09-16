@@ -39,7 +39,7 @@ class HeaderView: UIView {
     
     // MARK: - Initialization
     
-    init(_ title: String = "기록 추가", _ withCloseButton: Bool = false) {
+    init(title: String = "기록 추가", withCloseButton: Bool = false) {
         super.init(frame: .zero)
         
         titleLabel.text = title
