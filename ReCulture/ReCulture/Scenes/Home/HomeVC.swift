@@ -96,7 +96,7 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("앱 최초 실행 값: \(isFirstLaunch)")
         let userId = UserDefaults.standard.integer(forKey: "userId")
@@ -122,8 +122,6 @@ class HomeVC: UIViewController {
         setMonthlyRecordLabel()
         setCalendarView()
         
-//        levelProgressView.setProgress(0.78)
-        
         setCalendarMonthTo(calendarView.currentDateComponents.month!)
         
         scrollView.updateContentSize()
@@ -132,15 +130,6 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         viewModel.getMyProfile(fromCurrentVC: self)
         setupNavigation()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: -7), for: .default)
-//        let backButtonImage = UIImage(named: "btn_arrow_big")?.withRenderingMode(.alwaysOriginal)
-//        backButtonImage?.resizeImage(size: CGSize(width: 36, height: 36))
-//        UINavigationBar.appearance().backIndicatorImage = backButtonImage
-//        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
-//        UINavigationBar.appearance().backgroundColor = .white
     }
     
     // MARK: - Layouts
@@ -154,7 +143,6 @@ class HomeVC: UIViewController {
       
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-//        self.navigationController?.navigationBar.backgroundColor = .rcMain
     }
     
     private func setScrollView(){
@@ -332,14 +320,5 @@ class HomeVC: UIViewController {
         viewModel.myCalendarDataListDidSet = { [weak self] in
             self?.calendarView.setRecordDataList(self!.viewModel.getMyCalendarDataList())
         }
-        
-//        viewModel.myCalendarModelDidSet = { [weak self] in
-//            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
-//        }
-//        
-//        // 캘린더 각 날짜의 디테일을 보여줄 떄 사용될 데이터
-//        viewModel.myCalendarDetailModelListDidSet = { [weak self] in
-//            self?.calendarView.myCalendarDetailModels = (self?.viewModel.getMyCalendarDetailModels()) ?? []
-//        }
     }
 }

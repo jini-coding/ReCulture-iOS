@@ -126,7 +126,6 @@ class CalendarDetailModal: UIViewController {
 
 // MARK: - Extension: UICollectionView
 
-// TODO: 데이터 불러오는거에 맞게 수정
 extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -144,12 +143,10 @@ extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
         let cell = collectionView.cellForItem(at: indexPath) as! CalendarDetailCell
         print(cell.recordId)
         let dataForThisCell = recordDetailDataList[indexPath.item]
         
-        // TODO: 지금 열린 이 모달 내리기
         if let homeVC = self.homeVC {
             homeVC.dismiss(animated: true) {
                 // 상세 페이지로 이동

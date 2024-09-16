@@ -26,7 +26,6 @@ class CustomCalendarView: UIView {
     // MARK: - Properties
     
     weak var parentVC: HomeVC?
-//    var myCalendarDetailModels: [MyCalendarDetailModel] = []
     
     private let minimumInterItemSpacing:CGFloat = 8
     private let minimumLineSpacing:CGFloat = 20
@@ -39,8 +38,6 @@ class CustomCalendarView: UIView {
     private var days: [String] = []
     private let weeks = ["일", "월", "화", "수", "목", "금", "토"]
     
-//    private var recordCountList: [Int] = []
-
     private var recordDataList: [MyCalendarData] = []
     private var recordDataListIsSet = false {
         didSet {
@@ -97,8 +94,6 @@ class CustomCalendarView: UIView {
         super.init(frame: frame)
         
         initCalendar()
-//        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: parentVC!)
-//        initRecordCountList()
         
         self.backgroundColor = .white
         self.clipsToBounds = true
@@ -322,7 +317,7 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension CustomCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
+
         let mainBoundWidth: CGFloat = collectionView.frame.width
         let cellSize : CGFloat = (mainBoundWidth/* - 32 - 54 */- minimumInterItemSpacing * 6) / 7
         return CGSize(width: cellSize, height: cellSize)
