@@ -57,7 +57,7 @@ class NewUserProfileVC: UIViewController {
     
     // MARK: - Views
     
-    private let customHeaderView = HeaderView("프로필 설정", true)
+    private let customHeaderView = HeaderView(title: "프로필 설정", withCloseButton: true)
     
     private let titleLabel: UILabel = {
         let label = UILabel()
