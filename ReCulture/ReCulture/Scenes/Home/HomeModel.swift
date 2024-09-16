@@ -17,7 +17,17 @@ struct MyProfileModel {
     var interest: String?
 }
 
-struct MyCalendarModel {
+struct MyCalendarData {
+    let year: Int
+    let month: Int
     let day: Int
-    let count: Int
+    var count: Int
+    var records: [MyCalendarRecordDetailModel]
+}
+
+struct MyCalendarRecordDetailModel {
+    let recordId: Int
+    let title: String
+    let categoryId: Int
+    let photoURL: String
 }

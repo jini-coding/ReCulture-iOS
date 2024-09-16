@@ -26,6 +26,7 @@ class CustomCalendarView: UIView {
     // MARK: - Properties
     
     weak var parentVC: HomeVC?
+    
     private let minimumInterItemSpacing:CGFloat = 8
     private let minimumLineSpacing:CGFloat = 20
     private let now = Date()
@@ -37,11 +38,10 @@ class CustomCalendarView: UIView {
     private var days: [String] = []
     private let weeks = ["일", "월", "화", "수", "목", "금", "토"]
     
-    private var recordCountList: [Int] = []
-
-    private var recordCountListIsSet = false {
-        didSet{
-            print("recordCountList didset!")
+    private var recordDataList: [MyCalendarData] = []
+    private var recordDataListIsSet = false {
+        didSet {
+            print("=== recordDataListIsSet didset! ===")
             DispatchQueue.main.async {
                 self.calendarCollectionView.reloadData()
             }
@@ -88,20 +88,12 @@ class CustomCalendarView: UIView {
         return view
     }()
     
-    private let dummyView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         initCalendar()
-//        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: parentVC!)
-        initRecordCountList()
         
         self.backgroundColor = .white
         self.clipsToBounds = true
@@ -120,7 +112,7 @@ class CustomCalendarView: UIView {
     
     // MARK: - Layout
     
-    private func setYearAndMonthLabel(){
+    private func setYearAndMonthLabel() {
         yearAndMonthLabel.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(yearAndMonthLabel)
@@ -131,7 +123,7 @@ class CustomCalendarView: UIView {
         ])
     }
     
-    private func setChevronButtons(){
+    private func setChevronButtons() {
         previousButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -150,7 +142,7 @@ class CustomCalendarView: UIView {
         ])
     }
     
-    private func setCalendarCollectionView(){
+    private func setCalendarCollectionView() {
         calendarCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(calendarCollectionView)
@@ -165,7 +157,7 @@ class CustomCalendarView: UIView {
     
     // MARK: - Actions
     
-    @objc func prevButtonTapped(){
+    @objc func prevButtonTapped() {
         currentDateComponents.month = currentDateComponents.month! - 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
@@ -176,7 +168,7 @@ class CustomCalendarView: UIView {
         //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
-    @objc func nextButtonTapped(){
+    @objc func nextButtonTapped() {
         currentDateComponents.month = currentDateComponents.month! + 1
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
@@ -187,11 +179,11 @@ class CustomCalendarView: UIView {
     
     // MARK: - Helpers
     
-    private func initCalendarCollectionView(){
+    private func initCalendarCollectionView() {
         calendarCollectionView.register(CalendarDateCell.self, forCellWithReuseIdentifier: CalendarDateCell.identifier)
     }
     
-    private func initCalendar(){
+    private func initCalendar() {
         dateFormatter.dateFormat = "yyyy.MM"  // 달력 위에서 보여줄 년, 월 포맷 설정
         currentDateComponents.year = calendar.component(.year, from: now)  // 현재의 년도 리턴
         currentDateComponents.month = calendar.component(.month, from: now)  // 현재의 월 리턴
@@ -199,7 +191,7 @@ class CustomCalendarView: UIView {
         calculateCalendar()
     }
     
-    private func calculateCalendar(){
+    private func calculateCalendar() {
         print("== current date components ==")
         print(currentDateComponents)
         print(currentDateComponents.day)
@@ -232,26 +224,28 @@ class CustomCalendarView: UIView {
         calendarCollectionView.layoutIfNeeded()
     }
     
-    func setRecordCountList(_ dict: [Int: Int]?) {
-        recordCountList.removeAll()
-        initRecordCountList()
-        print(recordCountList)
-        if let dict = dict {
-            dict.keys.forEach { key in
-                recordCountList[key] = dict[key]!
-            }
-        }
-        recordCountListIsSet = true
+    func setRecordDataList(_ data: [MyCalendarData]) {
+        recordDataList = data
+//        recordCountList.removeAll()
+//        initRecordCountList()
+//        print(recordCountList)
+//        if let dict = dict {
+//            dict.keys.forEach { key in
+//                recordCountList[key] = dict[key]!
+//            }
+//        }
+        recordDataListIsSet = true
     }
     
-    private func initRecordCountList() {
-        for i in 1...50 {
-            recordCountList.append(0)
-        }
-    }
+//    private func initRecordCountList() {
+//        for i in 1...50 {
+//            recordCountList.append(0)
+//        }
+//    }
 }
 
 // MARK: - Extension; CollectionView
+
 extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
@@ -271,22 +265,59 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.prepareForReuse()
         
-        let row = indexPath.row
-
         switch indexPath.section {
         case 0:
             cell.configure(section: 0, dateOrDay: weeks[indexPath.row])  // 요일 세팅
         default:
-            cell.configure(section: 1, dateOrDay: days[row], recordCount: recordCountList[Int(days[row]) ?? 0])  // 일
+            let day = days[indexPath.item]
+            // 캘린더 아이템이 세팅된 경우
+            if recordDataList.count != 0 && day != "" {
+                print(recordDataList)
+//                if day == "" {
+//                    cell.configure(section: 1,
+//                                   dateOrDay: day,
+//                                   recordCount: 0)
+//                }
+//                else {
+                    cell.configure(section: 1,
+                                   dateOrDay: day,
+                                   recordCount: recordDataList[Int(day)! - 1].count)
+//                }
+            }
+            // 세팅 전인 경우
+            else {
+                cell.configure(section: 1,
+                               dateOrDay: day,
+                               recordCount: 0)
+            }
+            
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            return
+        default:
+            let selectedDay = days[indexPath.item - 1]
+            if selectedDay != "" {
+                let vc = CalendarDetailModal()
+                vc.modalTransitionStyle = .crossDissolve
+                vc.modalPresentationStyle = .overFullScreen
+                if let parentVC = self.parentVC {
+                    vc.configure(recordDataList[Int(selectedDay)!], from: parentVC)
+                    parentVC.present(vc, animated: true)
+                }
+            }
+        }
     }
 }
 
 extension CustomCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //let mainBoundWidth: CGFloat = UIScreen.main.bounds.size.width
+
         let mainBoundWidth: CGFloat = collectionView.frame.width
         let cellSize : CGFloat = (mainBoundWidth/* - 32 - 54 */- minimumInterItemSpacing * 6) / 7
         return CGSize(width: cellSize, height: cellSize)

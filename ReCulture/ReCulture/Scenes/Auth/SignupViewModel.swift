@@ -26,8 +26,9 @@ class SignupViewModel {
                 print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
                 print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
                 
-                UserDefaults.standard.set(responseDTO.id, forKey: "userId")
-                UserDefaults.standard.synchronize()
+//                UserDefaults.standard.set(responseDTO.id, forKey: "userId")
+//                UserDefaults.standard.synchronize()
+                UserDefaultsManager.shared.setData(value: responseDTO.id, key: .userId)
                 
                 (fromCurrentVC as? SignUpVC)?.signupSuccess = true
             case .failure(let error):
