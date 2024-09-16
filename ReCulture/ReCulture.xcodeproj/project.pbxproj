@@ -35,6 +35,7 @@
 		08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08369CEE2C23066C005725C8 /* UIImageView+.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
 		083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */; };
+		084528B42C75B5F6006B85B1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084528B32C75B5F6006B85B1 /* Server.swift */; };
 		0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E53E2C0319F500B6A4D6 /* RecordType.swift */; };
 		0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */; };
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
@@ -70,10 +71,12 @@
 		08A304472C122E550014F24B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304462C122E550014F24B /* LoginViewModel.swift */; };
 		08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304492C1230A00014F24B /* KeychainManager.swift */; };
 		08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A3044B2C1230C70014F24B /* TokenStateManager.swift */; };
+		08A8325C2C7A013800FE4D82 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB15BE2C163C5F008ED4AE /* ImageFile.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
+		08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
@@ -94,6 +97,8 @@
 		08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */; };
 		08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */; };
 		08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */; };
+		08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */; };
+		08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */; };
 		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
 		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
 		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
@@ -172,6 +177,7 @@
 		08369CEE2C23066C005725C8 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressView.swift; sourceTree = "<group>"; };
+		084528B32C75B5F6006B85B1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		0845E53E2C0319F500B6A4D6 /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
 		0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
@@ -207,10 +213,12 @@
 		08A304462C122E550014F24B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		08A304492C1230A00014F24B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		08A3044B2C1230C70014F24B /* TokenStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStateManager.swift; sourceTree = "<group>"; };
+		08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08BB15BE2C163C5F008ED4AE /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCell.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -231,6 +239,8 @@
 		08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailVC.swift; sourceTree = "<group>"; };
 		08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarDTO.swift; sourceTree = "<group>"; };
 		08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarAPI.swift; sourceTree = "<group>"; };
+		08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailModal.swift; sourceTree = "<group>"; };
 		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
 		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
 		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
@@ -301,6 +311,13 @@
 				080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */,
 			);
 			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		080BE9A72C9371FC00AE77A5 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		0813C4E82C1B6364004CD0B4 /* TicketBooks */ = {
@@ -386,6 +403,7 @@
 		0855833C2C62603900BD8A6B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */,
 				08A304492C1230A00014F24B /* KeychainManager.swift */,
 				08A3044B2C1230C70014F24B /* TokenStateManager.swift */,
 				0855833E2C62607E00BD8A6B /* ImageSaver.swift */,
@@ -466,6 +484,23 @@
 			path = TicketBookDetail;
 			sourceTree = "<group>";
 		};
+		08CC1A0A2C590D6D00EC99BA /* CalendarDetail */ = {
+			isa = PBXGroup;
+			children = (
+				08CC1A0B2C590D7B00EC99BA /* cell */,
+				08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */,
+			);
+			path = CalendarDetail;
+			sourceTree = "<group>";
+		};
+		08CC1A0B2C590D7B00EC99BA /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		08D1F5C82C0D6F9E00F1AB49 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +564,7 @@
 				08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */,
 				08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */,
 				08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */,
+				084528B32C75B5F6006B85B1 /* Server.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -599,6 +635,7 @@
 		08E695162BE4A5DE0055AC48 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				08CC1A0A2C590D6D00EC99BA /* CalendarDetail */,
 				0833EF732BE4BA810024FB2C /* Calendar */,
 				08D0CF342BF71284005CBECA /* LabelWithPadding.swift */,
 				083FBCC92BF8A4710054D010 /* ToolTipView.swift */,
@@ -659,6 +696,7 @@
 			children = (
 				3874B5F02BE43247003376F7 /* ReCulture */,
 				3874B5EF2BE43247003376F7 /* Products */,
+				080BE9A72C9371FC00AE77A5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -707,6 +745,7 @@
 				0866DBD32C0BA57600FBBDB5 /* String+.swift */,
 				089EDACC2C12E2F400D74C5F /* Codable+.swift */,
 				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
+				08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -899,6 +938,7 @@
 				08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */,
 				089EDAD52C1344EA00D74C5F /* MyProfileAPI.swift in Sources */,
 				089EDAD32C13449100D74C5F /* MyProfileDTO.swift in Sources */,
+				08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
@@ -906,11 +946,13 @@
 				384315EF2C1B31D100D379F3 /* MypageViewModel.swift in Sources */,
 				384315E02C1AB44300D379F3 /* RecordViewModel.swift in Sources */,
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
+				08A8325C2C7A013800FE4D82 /* UserDefaultsManager.swift in Sources */,
 				080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */,
 				3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */,
 				089EDAD72C13473200D74C5F /* HomeModel.swift in Sources */,
 				384315EB2C1B1AEB00D379F3 /* SearchAPI.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
+				084528B42C75B5F6006B85B1 /* Server.swift in Sources */,
 				08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
@@ -948,6 +990,7 @@
 				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
 				080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */,
 				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
+				08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */,
 				384315DC2C1AB2E800D379F3 /* RecordAPI.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
 				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
@@ -988,6 +1031,7 @@
 				089EDACD2C12E2F400D74C5F /* Codable+.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
+				08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */,
 				389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */,
 				08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */,
 				08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */,

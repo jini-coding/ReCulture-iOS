@@ -96,7 +96,7 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("앱 최초 실행 값: \(isFirstLaunch)")
         let userId = UserDefaults.standard.integer(forKey: "userId")
@@ -104,7 +104,6 @@ class HomeVC: UIViewController {
         print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
         print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
-        
         
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
@@ -123,8 +122,6 @@ class HomeVC: UIViewController {
         setMonthlyRecordLabel()
         setCalendarView()
         
-//        levelProgressView.setProgress(0.78)
-        
         setCalendarMonthTo(calendarView.currentDateComponents.month!)
         
         scrollView.updateContentSize()
@@ -132,15 +129,14 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.getMyProfile(fromCurrentVC: self)
+        setupNavigation()
     }
     
     // MARK: - Layouts
     
     private func setupNavigation(){
-        //setLevelAttributes()
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = .rcMain
@@ -272,19 +268,7 @@ class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
-        imageUrlStr.loadAsyncImage(characterImageView)
-        
         characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: imageUrl!) {
-//                if let image = UIImage(data: data) {
-////                    DispatchQueue.main.async {
-//                        self?.characterImageView.image = image
-////                    }
-//                }
-//            }
-//        }
     }
     
     private func setLevelAttributes() {
@@ -333,29 +317,8 @@ class HomeVC: UIViewController {
             }
         }
         
-        viewModel.myCalendarModelDidSet = { [weak self] in
-            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
+        viewModel.myCalendarDataListDidSet = { [weak self] in
+            self?.calendarView.setRecordDataList(self!.viewModel.getMyCalendarDataList())
         }
-    }
-}
-
-extension UIScrollView {
-    func updateContentSize() {
-        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
-        
-        // 계산된 크기로 컨텐츠 사이즈 설정
-        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
-    }
-    
-    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-        var totalRect: CGRect = .zero
-        
-        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
-        for subView in view.subviews {
-            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
-        }
-        
-        // 최종 계산 영역의 크기를 반환
-        return totalRect.union(view.frame)
     }
 }

@@ -21,6 +21,8 @@ class NewUserProfileViewModel {
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 UserDefaults.standard.set(responseDTO.nickname, forKey: "nickname")
                 UserDefaults.standard.synchronize()
+                UserDefaultsManager.shared.setData(value: requestDTO.nickname, key: .nickname)
+                
                 (fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
             case .failure(let error):
                 let networkAlertController = self.networkErrorAlert(error)
