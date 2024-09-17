@@ -102,6 +102,7 @@
 		08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */; };
 		08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */; };
 		08F44A702C99A49100C717C4 /* RecordPlaceholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F44A6F2C99A49100C717C4 /* RecordPlaceholders.swift */; };
+		08F44A722C99B77300C717C4 /* EditVCAddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F44A712C99B77300C717C4 /* EditVCAddPhotoCell.swift */; };
 		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
 		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
 		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
@@ -247,6 +248,7 @@
 		08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailModal.swift; sourceTree = "<group>"; };
 		08F44A6F2C99A49100C717C4 /* RecordPlaceholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPlaceholders.swift; sourceTree = "<group>"; };
+		08F44A712C99B77300C717C4 /* EditVCAddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVCAddPhotoCell.swift; sourceTree = "<group>"; };
 		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
 		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
 		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */,
+				08F44A712C99B77300C717C4 /* EditVCAddPhotoCell.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				3850C32F2C1B60D700570424 /* UserProfileDTO.swift in Sources */,
 				384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */,
 				08DA12092C9847A900FDE7D8 /* EditRecordVC.swift in Sources */,
+				08F44A722C99B77300C717C4 /* EditVCAddPhotoCell.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				089EDAE12C13871C00D74C5F /* ErrorDTO.swift in Sources */,
