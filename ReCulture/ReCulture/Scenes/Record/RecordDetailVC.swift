@@ -389,9 +389,9 @@ class RecordDetailVC: UIViewController {
     }
     
     @objc func editRecord() {
-        let editRecordVC = EditRecordVC()
+        let editRecordVC = EditRecordVC(recordModel: viewModel.getRecordDetail()!)
         editRecordVC.modalPresentationStyle = .fullScreen
-        editRecordVC.modalTransitionStyle = .coverVertical
+        editRecordVC.modalTransitionStyle = .crossDissolve
         self.present(editRecordVC, animated: true)
     }
     
