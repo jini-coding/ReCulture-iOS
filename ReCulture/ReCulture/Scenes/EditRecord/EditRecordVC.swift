@@ -7,13 +7,21 @@
 
 import UIKit
 
+protocol EditRecordDelegate: AnyObject {
+    func doneEditingRecordVC()
+}
+
 final class EditRecordVC: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: EditRecordDelegate?
+    
+    private var recordModel: RecordModel
+    
     private var selectedCategory: RecordType = .book
     
-    var menuItems: [UIAction] {
+    private var menuItems: [UIAction] {
         var array: [UIAction] = []
         RecordType.getAllRecordTypes().forEach { type in
             array.append(UIAction(
@@ -147,6 +155,8 @@ final class EditRecordVC: UIViewController {
         view.decelerationRate = .fast
         view.register(EditPhotoCollectionViewCell.self,
                       forCellWithReuseIdentifier: EditPhotoCollectionViewCell.identifier)
+        view.register(EditVCAddPhotoCell.self,
+                      forCellWithReuseIdentifier: EditVCAddPhotoCell.identifier)
         return view
     }()
     
@@ -169,10 +179,24 @@ final class EditRecordVC: UIViewController {
     
     // MARK: - Lifecycle
     
+    init(recordModel: RecordModel) {
+        self.recordModel = recordModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("view did load, recordModel: \(recordModel)")
+        
         view.backgroundColor = .white
+        
+        addKeyboardObserver()
         
         setupCustomHeaderView()
         setupScrollView()
@@ -184,7 +208,13 @@ final class EditRecordVC: UIViewController {
         setupPageControl()
         setupDetailContainerView()
         
-        setPageControlCount(3)
+        configureWithData()
+        
+        //setPageControlCount(3)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeKeyBoardObserver()
     }
     
     // MARK: - Layouts
@@ -239,7 +269,7 @@ final class EditRecordVC: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
         ])
         
-//        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped)))
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped)))
     }
     
     private func setupContentView() {
@@ -349,8 +379,47 @@ final class EditRecordVC: UIViewController {
     
     // MARK: - Actions
     
+    // 키보드가 나타났다는 알림을 받으면 실행할 메서드
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
+        guard let userInfo = notification.userInfo as NSDictionary?,
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else { return }
+        
+        /// 키보드의 높이
+        let keyboardHeight = keyboardFrame.size.height
+        scrollView.contentInset.bottom = keyboardHeight
+            
+        UIView.animate(withDuration: 0.3,
+                       animations: { self.view.layoutIfNeeded() },
+                       completion: nil)
+    }
+
+    // 키보드 숨겨질 때 -> 원래 상태로
+    @objc private func keyboardWillHide(_ notification: NSNotification) {
+        let animationDuration = notification.userInfo![ UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
+        
+        scrollView.contentInset.bottom = .zero
+                
+        UIView.animate(withDuration: animationDuration) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func scrollViewTapped() {
+        scrollView.endEditing(true)
+    }
+    
     @objc private func exitButtonDidTap() {
         print("수정 그만하기")
+        let alertContoller = UIAlertController(title: "정말 기록 수정을 그만하시겠어요?", message: "변경된 사항은 저장되지 않습니다.", preferredStyle: .alert)
+        alertContoller.addAction(UIAlertAction(title: "취소", style: .cancel) { _ in
+            print("기록 수정 계속 하기")
+        })
+        alertContoller.addAction(UIAlertAction(title: "그만하기", style: .destructive) { _ in
+            print("기록 수정 그만하기")
+            self.dismiss(animated: true)
+        })
+        present(alertContoller, animated: true)
     }
     
     @objc private func doneButtonDidTap() {
@@ -370,8 +439,47 @@ final class EditRecordVC: UIViewController {
         return formatter.string(from: date)
     }
     
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    private func removeKeyBoardObserver() {
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+    }
+    
     private func setPageControlCount(_ pages: Int) {
         pageControl.numberOfPages = pages
+    }
+    
+    private func configureWithData() {
+        titleTextField.text = recordModel.culture.title
+        
+        if let date = recordModel.culture.date.toDate() {
+            datePicker.date = date
+        }
+        
+        if let categoryType = RecordType(categoryId: recordModel.culture.categoryId) {
+            categoryRangeMenuBtn.configuration?.attributedTitle = AttributedString(categoryType.rawValue, attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont.rcFont16M(),
+                NSAttributedString.Key.foregroundColor: UIColor.black])
+            )
+        }
+        
+        // 이미지 & page control
+        print("image 개수: \(recordModel.photoDocs.count)")
+        pageControl.numberOfPages = recordModel.photoDocs.count
+        DispatchQueue.main.async { [weak self] in
+            self?.photoCollectionView.reloadData()
+        }
     }
 }
 
@@ -392,16 +500,34 @@ extension EditRecordVC: UITextFieldDelegate {
 extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        print("===edit record===")
+        let count = recordModel.photoDocs.count
+        print("cell 개수: \(count)")
+        return count == 5 ? count : count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPhotoCollectionViewCell.identifier, for: indexPath) as? EditPhotoCollectionViewCell
-        else { return UICollectionViewCell() }
-        print((collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize)
-        // TODO: configure!!
-        cell.delegate = self
-        return cell
+        let count = recordModel.photoDocs.count
+        
+        print("=== cell for item at ===")
+        print("indexPath: \(indexPath)")
+        
+        if count != 5 && indexPath.item == count {
+            print("-- edit vc add photo cell 보여줌 --")
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditVCAddPhotoCell.identifier, for: indexPath) as? EditVCAddPhotoCell
+            else { return UICollectionViewCell() }
+            return cell
+        }
+        else {
+            print("-- EditPhotoCollectionViewCell 보여줌 --")
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPhotoCollectionViewCell.identifier, for: indexPath) as? EditPhotoCollectionViewCell
+            else { return UICollectionViewCell() }
+            //        print((collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize)
+            
+            cell.delegate = self
+            cell.configure(with: recordModel.photoDocs[indexPath.item].url, thisCellIndexPath: indexPath)
+            return cell
+        }
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -428,8 +554,16 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         if scrollView == photoCollectionView {
             let frameWidth = scrollView.frame.size.width
             let centerOffsetX = (scrollView.contentOffset.x + (frameWidth / 2)) / frameWidth
-
-            pageControl.currentPage = Int(centerOffsetX)
+            let index = Int(centerOffsetX)
+            
+            let count = recordModel.photoDocs.count
+            
+            // 새로운 사진을 추가하는 셀에 대해서는 움직이지 않도록
+            if index != count {
+                print("=== page control ===")
+                print("moving to \(Int(centerOffsetX))")
+                pageControl.currentPage = index
+            }
         }
     }
 }

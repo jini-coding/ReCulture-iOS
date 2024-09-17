@@ -19,12 +19,13 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: EdtiPhotoCollectionViewDeleteDelegate?
     
+    private var indexPath: IndexPath?
+    
     // MARK: - Views
     
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .rcGray300
         view.image = UIImage(named: "TicketImage")
         view.clipsToBounds = true
         return view
@@ -42,7 +43,6 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .rcLightPurple
         contentView.layer.cornerRadius = 8
         contentView.clipsToBounds = true
         
@@ -89,7 +89,8 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    func configure(with imageURL: String) {
-        
+    func configure(with imageURL: String, thisCellIndexPath: IndexPath) {
+        indexPath = thisCellIndexPath
+        imageView.loadImage(urlWithoutBaseURL: imageURL)
     }
 }

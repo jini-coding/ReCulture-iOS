@@ -391,7 +391,8 @@ class RecordDetailVC: UIViewController {
     @objc func editRecord() {
         let editRecordVC = EditRecordVC(recordModel: viewModel.getRecordDetail()!)
         editRecordVC.modalPresentationStyle = .fullScreen
-        editRecordVC.modalTransitionStyle = .crossDissolve
+        editRecordVC.modalTransitionStyle = .coverVertical
+        editRecordVC.delegate = self
         self.present(editRecordVC, animated: true)
     }
     
@@ -526,3 +527,13 @@ class RecordDetailVC: UIViewController {
 // MARK: - Extension: UIGestureRecognizer
 
 extension RecordDetailVC: UIGestureRecognizerDelegate {}
+
+// MARK: - Extension: EditRecordDelegate (수정 페이지에서 delegate - 수정 취소 혹은 완료)
+
+extension RecordDetailVC: EditRecordDelegate {
+    
+    func doneEditingRecordVC() {
+        print("=== record Detail VC ===")
+        print("수정 완료~")
+    }
+}
