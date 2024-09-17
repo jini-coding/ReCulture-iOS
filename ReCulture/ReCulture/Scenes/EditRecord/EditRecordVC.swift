@@ -269,7 +269,9 @@ final class EditRecordVC: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
         ])
         
-        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped))
+        tapGesture.cancelsTouchesInView = false
+        scrollView.addGestureRecognizer(tapGesture)
     }
     
     private func setupContentView() {
@@ -530,12 +532,17 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         }
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = collectionView.frame.width - CGFloat(32)
-//        let height = collectionView.frame.height
-//        print("size: \(width), \(height)")
-//        return CGSize(width: width, height: height)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("=== did select item at ===")
+        let count = recordModel.photoDocs.count
+        
+        if count != 5 && indexPath.item == count {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditVCAddPhotoCell.identifier, for: indexPath) as? EditVCAddPhotoCell
+            else { return }
+            print("cell is EditVCAddPhotoCell: \(cell)")
+        }
+        print("cell is NOT EditVCAddPhotoCell")
+    }
     
     // collectionview는 전체 화면 너비를 기준으로 페이징하기 때문에, section inset에 대해 적용되도록 하는 코드
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

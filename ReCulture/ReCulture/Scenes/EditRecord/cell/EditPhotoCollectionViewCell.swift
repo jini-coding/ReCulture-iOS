@@ -28,6 +28,7 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
         view.contentMode = .scaleAspectFit
         view.image = UIImage(named: "TicketImage")
         view.clipsToBounds = true
+        view.isUserInteractionEnabled = false
         return view
     }()
     
