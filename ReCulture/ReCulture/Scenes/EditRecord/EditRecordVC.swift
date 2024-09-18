@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 protocol EditRecordDelegate: AnyObject {
     func doneEditingRecordVC()
@@ -36,6 +37,31 @@ final class EditRecordVC: UIViewController {
         }
         return array
     }
+    
+    private var phPickerConfig: PHPickerConfiguration = {
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.selectionLimit = 0
+        config.filter = .images
+        return config
+    }()
+    
+    private lazy var phPicker = PHPickerViewController(configuration: phPickerConfig)
+    
+    /// Identifier와 PHPickerResult로 만든 Dictionary (이미지 데이터를 저장하기 위해 만들어 줌)
+    private var selections = [String : PHPickerResult]()
+    
+    /// 선택한 사진의 순서에 맞게 Identifier들을 배열로 저장해줄 겁니다.
+    /// selections은 딕셔너리이기 때문에 순서가 없습니다. 그래서 따로 식별자를 담을 배열 생성
+    private var selectedAssetIdentifiers = [String]()
+    
+    /// 갤러리를 통해 새로 선택한 이미지들
+    private var newlySelectedPhotos: [PHPickerResult] = []
+    
+    /// 실제 collectionview에서 보여주는 사진들 리스트
+    private var images: [Any] = []
+    
+    /// 갤러리를 통해 새로 선택한 이미지들
+    private var imageFiles: [ImageFile] = []
     
     // MARK: - Views
     
@@ -141,8 +167,6 @@ final class EditRecordVC: UIViewController {
         
         let width = UIScreen.main.bounds.width - 32
         let height = width * 5 / 4
-        print(width)
-        print(height)
         flowLayout.itemSize = CGSize(width: width, height: height)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -181,6 +205,7 @@ final class EditRecordVC: UIViewController {
     
     init(recordModel: RecordModel) {
         self.recordModel = recordModel
+        self.images = recordModel.photoDocs
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -193,8 +218,11 @@ final class EditRecordVC: UIViewController {
         super.viewDidLoad()
         
         print("view did load, recordModel: \(recordModel)")
+        print("images: \(images)")
         
         view.backgroundColor = .white
+        
+        phPicker.delegate = self
         
         addKeyboardObserver()
         
@@ -209,8 +237,7 @@ final class EditRecordVC: UIViewController {
         setupDetailContainerView()
         
         configureWithData()
-        
-        //setPageControlCount(3)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -482,6 +509,22 @@ final class EditRecordVC: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.photoCollectionView.reloadData()
         }
+        
+        // 앞서 넘어온 데이터 중 이미지를 image file로 변경해서 imageFile로 변환하여 imageFiles에 저장
+        for photoDoc in recordModel.photoDocs {
+            if let url = URL(string: "http://34.64.120.187:8080\(photoDoc.url)") {
+                DispatchQueue.global().async { [weak self] in
+                    if let data = try? Data(contentsOf: url) {
+                        let originalFileName = String(photoDoc.url.split(separator: "/").last!)
+                        let fileName = originalFileName.split(separator: ".").first!
+                        
+                        self?.imageFiles.append(ImageFile(filename: String(fileName),
+                                                         data: data,
+                                                         type: "jpeg"))
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -503,13 +546,13 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("===edit record===")
-        let count = recordModel.photoDocs.count
+        let count = images.count
         print("cell 개수: \(count)")
         return count == 5 ? count : count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let count = recordModel.photoDocs.count
+        let count = images.count
         
         print("=== cell for item at ===")
         print("indexPath: \(indexPath)")
@@ -527,27 +570,47 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             //        print((collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize)
             
             cell.delegate = self
-            cell.configure(with: recordModel.photoDocs[indexPath.item].url, thisCellIndexPath: indexPath)
+            
+            print("image: \(images[indexPath.item])")
+            print("===============")
+            print("image: \(images.last)")
+            
+            let thisIsPhotoDoc = (images[indexPath.item] is RecordModel.PhotoDoc)
+            
+            if let photoDoc = images[indexPath.item] as? RecordModel.PhotoDoc {
+                print("this is actual photo")
+                cell.configureWithURL(with: photoDoc.url, thisCellIndexPath: indexPath)
+            }
+            else if let uiImage = images[indexPath.item] as? UIImage {
+                print("this is not actual photo")
+                cell.configureWithImage(image: uiImage, thisCellIndexPath: indexPath)
+            }
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("=== did select item at ===")
-        let count = recordModel.photoDocs.count
+//        let count = recordModel.photoDocs.count
+        let count = images.count
         
         if count != 5 && indexPath.item == count {
+            print("imageFiles: \(imageFiles)")
+            self.present(phPicker, animated: true, completion: nil)
+            
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditVCAddPhotoCell.identifier, for: indexPath) as? EditVCAddPhotoCell
             else { return }
             print("cell is EditVCAddPhotoCell: \(cell)")
         }
-        print("cell is NOT EditVCAddPhotoCell")
+        else {
+            print("cell is NOT EditVCAddPhotoCell")
+        }
     }
     
     // collectionview는 전체 화면 너비를 기준으로 페이징하기 때문에, section inset에 대해 적용되도록 하는 코드
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print("=== scroll view will end dragging ===")
-        print("targetContentOffset: \(targetContentOffset.pointee)")
+//        print("=== scroll view will end dragging ===")
+//        print("targetContentOffset: \(targetContentOffset.pointee)")
         guard let layout = photoCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         else { return }
         
@@ -563,12 +626,10 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             let centerOffsetX = (scrollView.contentOffset.x + (frameWidth / 2)) / frameWidth
             let index = Int(centerOffsetX)
             
-            let count = recordModel.photoDocs.count
+            let count = images.count
             
             // 새로운 사진을 추가하는 셀에 대해서는 움직이지 않도록
             if index != count {
-                print("=== page control ===")
-                print("moving to \(Int(centerOffsetX))")
                 pageControl.currentPage = index
             }
         }
@@ -580,5 +641,63 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 extension EditRecordVC: EdtiPhotoCollectionViewDeleteDelegate {
     func deletePhoto() {
         print("edit record vc에서 받음")
+    }
+}
+
+// MARK: - Extension: PHPickerViewControllerDelegate
+
+extension EditRecordVC: PHPickerViewControllerDelegate {
+
+    /// 이미지 수행 끝났을 때
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        // cancel 눌렀을 때
+        if results.isEmpty {
+            picker.dismiss(animated: true)
+            return
+        }
+        
+        newlySelectedPhotos.removeAll()
+        imageFiles.removeAll()
+        images.removeAll {
+            $0 is UIImage
+        }
+        print("선택된 사진의 개수: \(results.count)")
+        
+        // 현 상태에서 새로 등록 가능한 사진 개수
+        let maxPhotoSelection = 5 - images.count
+        
+        for i in 0 ..< results.count {
+            if i >= maxPhotoSelection {
+                break
+            }
+            
+            if results[i].itemProvider.canLoadObject(ofClass: UIImage.self) {
+                results[i].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    let image = image as! UIImage
+                    let compressionedImage: Data? = image.jpegData(compressionQuality: 0.2)!
+                    
+                    DispatchQueue.main.async {
+                        self.images.append(image)
+                        self.setPageControlCount(self.images.count)
+                        
+                        // 컬렉션 뷰에서 위치를 0번째 사진으로 이동시키기
+                        self.pageControl.currentPage = 0
+                        self.photoCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
+                                                              at: .centeredHorizontally,
+                                                              animated: true)
+                        self.photoCollectionView.reloadData()
+                    }
+                    
+                    if let fileName = results[i].itemProvider.suggestedName {
+                        self.imageFiles.append(ImageFile(filename: fileName,
+                                                         data: compressionedImage!,
+                                                         type: "jpeg"))
+                        print("선택된 이미지 파일 이름: \(fileName)")
+                    }
+                }
+            }
+        }
+        
+        picker.dismiss(animated: true)
     }
 }

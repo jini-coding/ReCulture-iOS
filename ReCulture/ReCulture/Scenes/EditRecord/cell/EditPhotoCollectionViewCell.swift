@@ -26,7 +26,7 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "TicketImage")
+//        view.image = UIImage(named: "TicketImage")
         view.clipsToBounds = true
         view.isUserInteractionEnabled = false
         return view
@@ -90,8 +90,20 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    func configure(with imageURL: String, thisCellIndexPath: IndexPath) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = UIImage()
+    }
+    
+    /// image url로 데이터 세팅
+    func configureWithURL(with imageURL: String, thisCellIndexPath: IndexPath) {
         indexPath = thisCellIndexPath
         imageView.loadImage(urlWithoutBaseURL: imageURL)
+    }
+    
+    /// ui image로 데이터 세팅
+    func configureWithImage(image: UIImage, thisCellIndexPath: IndexPath) {
+        indexPath = thisCellIndexPath
+        imageView.image = image
     }
 }
