@@ -85,7 +85,7 @@ extension ServableAPI {
         if let images = imageFiles {
             for image in images {
               body.append(boundaryPrefix.data(using: .utf8)!)
-              body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(image.filename).png\"\r\n".data(using: .utf8)!)
+              body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(image.filename).jpeg\"\r\n".data(using: .utf8)!)
               body.append("Content-Type: image/\(image.type)\r\n\r\n".data(using: .utf8)!)
               body.append(image.data)
               body.append("\r\n".data(using: .utf8)!)
