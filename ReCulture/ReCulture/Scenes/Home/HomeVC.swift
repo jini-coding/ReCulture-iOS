@@ -289,7 +289,7 @@ final class HomeVC: UIViewController {
         
         let percentLeftToNextLevel = 100 - Int((Float(viewModel.getExp()) / Float(totalScoreForThisLevel)) * 100)
         
-        let text = "\(nextLevelName)가 되기까지 \(percentLeftToNextLevel)% 남았어요! 💪"
+        let text = (nextLevelName == .End) ? "✨ 탐험을 모두 마쳤어요! ✨" : "\(nextLevelName)가 되기까지 \(percentLeftToNextLevel)% 남았어요! 💪"
     
         tilNextLevelLabel.text = text
     }
