@@ -149,7 +149,6 @@
 		389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */; };
 		389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */; };
 		38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E662BF5D0CE00A03D56 /* CALayer.swift */; };
-		38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -297,7 +296,6 @@
 		389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalVC.swift; sourceTree = "<group>"; };
 		389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		38D97E662BF5D0CE00A03D56 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
-		38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -636,7 +634,6 @@
 				08E0F5922C002785000A046D /* RecordDetail */,
 				08E0F58A2C0017AF000A046D /* Views */,
 				08E0F5912C002762000A046D /* RecordType */,
-				38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */,
 			);
 			path = AddRecord;
 			sourceTree = "<group>";
@@ -1009,7 +1006,6 @@
 				0813C4DF2C1AFE17004CD0B4 /* MyTicketBookDTO.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
-				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
 				0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */,
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
