@@ -59,6 +59,8 @@ class CalendarDetailCell: UICollectionViewCell {
         label.font = .rcFont12M()
         label.textColor = .rcMain
         label.backgroundColor = .rcGrayBg
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 7
         return label
     }()
     
@@ -152,10 +154,8 @@ class CalendarDetailCell: UICollectionViewCell {
     func configure(recordId: Int, photoURL: String, title: String, categoryId: Int) {
         print("=== calendar detail cell ===")
         print(photoURL)
-        if let url = URL(string: "\(Server.baseURL)/\(photoURL)") {
-            recordImageView.load(url: url)
-        }
-//        "http://34.64.120.187:8080/\(photoURL)".loadAsyncImage(recordImageView)
+        recordImageView.loadImage(urlWithoutBaseURL: photoURL)
+
         self.recordId = recordId
         
         titleLabel.text = title
