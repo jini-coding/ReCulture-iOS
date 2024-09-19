@@ -42,7 +42,18 @@ final class RecordPlaceholders {
                 ["함께한 사람들", "누구와 했나요?"]]
     ]
     
-    static func getPlaceholdersByRecordType(type: RecordType) -> [[String]] {
+    /// 해당 카테고리 종류의 기록에 들어가야 하는 내용 종류를 리턴합니다. (ex. 공연명, 공연장 등)
+    static func getTitlesByRecordType(_ type: RecordType) -> [String] {
+        if let placeholders = placeholderDict[type] {
+            return placeholders.map { $0[0] }
+        }
+        else {
+            return []
+        }
+    }
+    
+    /// 해당 카테고리 종류의 기록에 해당하는 내용 종류와 placholder를 모두 리턴합니다.
+    static func getTitlesAndPlaceholdersByRecordType(_ type: RecordType) -> [[String]] {
         if let placeholders = placeholderDict[type] {
             return placeholders
         }
