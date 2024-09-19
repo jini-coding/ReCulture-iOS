@@ -19,10 +19,12 @@ final class EditRecordVC: UIViewController {
     weak var delegate: EditRecordDelegate?
     
     private var recordModel: RecordModel
+    private var recordType: RecordType
     
     private var selectedCategory: RecordType = .book
+    private var disclosure: DisclosureType = .Public
     
-    private var menuItems: [UIAction] {
+    private var categoryItems: [UIAction] {
         var array: [UIAction] = []
         RecordType.getAllRecordTypes().forEach { type in
             array.append(UIAction(
@@ -62,6 +64,24 @@ final class EditRecordVC: UIViewController {
     
     /// 갤러리를 통해 새로 선택한 이미지들
     private var imageFiles: [ImageFile] = []
+    
+    private var isFourTextFieldsView = false
+    
+    private var disclosureItems: [UIAction] {
+        var array: [UIAction] = []
+        ["공개", "팔로워", "비공개"].forEach { type in
+            array.append(UIAction(
+                title: type,
+                handler: { _ in
+                    self.disclosure = DisclosureType.getDisclosureTypeByKorean(type)
+                    self.recordRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
+                    self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                        NSAttributedString.Key.foregroundColor: UIColor.black]))
+                }
+            ))
+        }
+        return array
+    }
     
     // MARK: - Views
     
@@ -193,18 +213,71 @@ final class EditRecordVC: UIViewController {
         return pageControl
     }()
     
-    private let detailContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .rcGrayBg
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 16
+    private lazy var fourTextFieldsView = EditFourTextFieldsView()
+    private lazy var fiveTextFieldsView = EditFiveTextFieldsView()
+    
+    private let emojiStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 4
         return view
+    }()
+    
+    private let emojiLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이모지 총평"
+        label.font = .rcFont14M()
+        label.textColor = .rcGray400
+        return label
+    }()
+    
+    private let emojiTextField: CustomTextField = {
+        let textField = CustomTextField()
+//        textField.placeholder = "이모지로 감상을 표현해주세요"
+        //textField.addTarget(self, action: #selector(emojiTextFieldDidChange), for: .editingChanged)
+        return textField
+    }()
+    
+    private let recordRangeStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 4
+        return view
+    }()
+    
+    private let recordRangeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "공개여부"
+        label.font = .rcFont14M()
+        label.textColor = .rcGray400
+        return label
+    }()
+    
+    private let recordRangeMenuBtn: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .rcGrayBg
+        config.attributedTitle = "공개여부"
+        config.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                                                                 NSAttributedString.Key.foregroundColor: UIColor.black]))
+        config.image = UIImage.chevronDown
+        config.imagePlacement = .trailing
+        config.imagePadding = 10
+        config.titleAlignment = .leading
+        config.background.cornerRadius = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 12)
+        
+        button.contentHorizontalAlignment = .leading
+        button.configuration = config
+        return button
     }()
     
     // MARK: - Lifecycle
     
     init(recordModel: RecordModel) {
         self.recordModel = recordModel
+        self.recordType = RecordType(categoryId: recordModel.culture.categoryId) ?? .movie
         self.images = recordModel.photoDocs
         
         super.init(nibName: nil, bundle: nil)
@@ -234,7 +307,17 @@ final class EditRecordVC: UIViewController {
         setupCategoryRangeMenuBtn()
         setupPhotoCollectionView()
         setupPageControl()
-        setupDetailContainerView()
+        
+        // 영화, 뮤지컬, 연극, 드라마, 전시회, 기타이면 4칸짜리 뷰를 넣어야 함
+        switch RecordType(categoryId: recordModel.culture.categoryId) {
+        case .movie, .musical, .play, .drama, .exhibition, .etc:
+            isFourTextFieldsView = true
+        default: 
+            isFourTextFieldsView = false
+        }
+        setupDetailView()
+        setupEmojiStackView()
+        setupRecordRangeStackView()
         
         configureWithData()
 
@@ -363,7 +446,7 @@ final class EditRecordVC: UIViewController {
             categoryRangeMenuBtn.heightAnchor.constraint(equalToConstant: 44),
         ])
         
-        let menu = UIMenu(children: menuItems)
+        let menu = UIMenu(children: categoryItems)
         categoryRangeMenuBtn.menu = menu
         categoryRangeMenuBtn.showsMenuAsPrimaryAction = true
     }
@@ -392,18 +475,102 @@ final class EditRecordVC: UIViewController {
         ])
     }
     
-    private func setupDetailContainerView() {
-        detailContainerView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupDetailView() {
+        if isFourTextFieldsView {
+            let placeholderList = RecordPlaceholders.getTitlesByRecordType(recordType)
+            print("=== setup detail view ===")
+            print("placeholder: \(placeholderList)")
+            
+            fourTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
+            
+            contentView.addSubview(fourTextFieldsView)
+            
+            NSLayoutConstraint.activate([
+                fourTextFieldsView.leadingAnchor.constraint(equalTo: categoryRangeMenuBtn.leadingAnchor),
+                fourTextFieldsView.trailingAnchor.constraint(equalTo: categoryRangeMenuBtn.trailingAnchor),
+                fourTextFieldsView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 25),
+            ])
+            
+//            fourTextFieldsView.configure(placeholderList, withData: [recordModel.culture.detail1,
+//                                                                     recordModel.culture.detail2,
+//                                                                     recordModel.culture.detail3,
+//                                                                     recordModel.culture.review])
+        }
+        else {
+            let placeholderList = RecordPlaceholders.getTitlesByRecordType(recordType)
+            
+            fiveTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
+            
+            contentView.addSubview(fiveTextFieldsView)
+            
+            NSLayoutConstraint.activate([
+                fiveTextFieldsView.leadingAnchor.constraint(equalTo: categoryRangeMenuBtn.leadingAnchor),
+                fiveTextFieldsView.trailingAnchor.constraint(equalTo: categoryRangeMenuBtn.trailingAnchor),
+                fiveTextFieldsView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 28),
+            ])
+            
+//            fiveTextFieldsView.configure(placeholderList, withData: [recordModel.culture.detail1,
+//                                                                     recordModel.culture.detail2,
+//                                                                     recordModel.culture.detail3,
+//                                                                     recordModel.culture.review])
+        }
+    }
+    
+    private func setupEmojiStackView() {
+        emojiStackView.translatesAutoresizingMaskIntoConstraints = false
+        emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+        emojiTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(detailContainerView)
+        contentView.addSubview(emojiStackView)
+        
+        emojiStackView.addArrangedSubview(emojiLabel)
+        emojiStackView.addArrangedSubview(emojiTextField)
+        
+        if(isFourTextFieldsView) {
+            NSLayoutConstraint.activate([
+                emojiStackView.leadingAnchor.constraint(equalTo: fourTextFieldsView.leadingAnchor),
+                emojiStackView.trailingAnchor.constraint(equalTo: fourTextFieldsView.trailingAnchor),
+                emojiStackView.topAnchor.constraint(equalTo: fourTextFieldsView.bottomAnchor, constant: 28),
+            ])
+        }
+        else {
+            NSLayoutConstraint.activate([
+                emojiStackView.leadingAnchor.constraint(equalTo: fiveTextFieldsView.leadingAnchor),
+                emojiStackView.trailingAnchor.constraint(equalTo: fiveTextFieldsView.trailingAnchor),
+                emojiStackView.topAnchor.constraint(equalTo: fiveTextFieldsView.bottomAnchor, constant: 28),
+            ])
+        }
         
         NSLayoutConstraint.activate([
-            detailContainerView.leadingAnchor.constraint(equalTo: categoryRangeMenuBtn.leadingAnchor),
-            detailContainerView.trailingAnchor.constraint(equalTo: categoryRangeMenuBtn.trailingAnchor),
-            detailContainerView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 30),
-            detailContainerView.heightAnchor.constraint(equalToConstant: 30),
-            detailContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
+            emojiTextField.heightAnchor.constraint(equalToConstant: 52)
         ])
+    }
+    
+    private func setupRecordRangeStackView() {
+        recordRangeStackView.translatesAutoresizingMaskIntoConstraints = false
+        recordRangeLabel.translatesAutoresizingMaskIntoConstraints = false
+        recordRangeMenuBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(recordRangeStackView)
+        
+        recordRangeStackView.addArrangedSubview(recordRangeLabel)
+        recordRangeStackView.addArrangedSubview(recordRangeMenuBtn)
+        
+        NSLayoutConstraint.activate([
+            recordRangeStackView.leadingAnchor.constraint(equalTo: emojiStackView.leadingAnchor),
+            recordRangeStackView.trailingAnchor.constraint(equalTo: emojiStackView.trailingAnchor),
+            recordRangeStackView.topAnchor.constraint(equalTo: emojiStackView.bottomAnchor, constant: 28),
+            recordRangeStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+        ])
+        
+        NSLayoutConstraint.activate([
+            recordRangeMenuBtn.heightAnchor.constraint(equalToConstant: 52),
+            recordRangeMenuBtn.widthAnchor.constraint(equalTo: recordRangeStackView.widthAnchor)
+        ])
+        
+        let menu = UIMenu(children: disclosureItems)
+        recordRangeMenuBtn.menu = menu
+        recordRangeMenuBtn.showsMenuAsPrimaryAction = true
     }
     
     // MARK: - Actions
@@ -524,6 +691,32 @@ final class EditRecordVC: UIViewController {
                     }
                 }
             }
+        }
+        
+        // 기록 상세 후기 뷰 만들기
+        if isFourTextFieldsView {
+            fourTextFieldsView.configure(RecordPlaceholders.getTitlesByRecordType(recordType),
+                                         withData: [recordModel.culture.detail1,
+                                                    recordModel.culture.detail2,
+                                                    recordModel.culture.detail3,
+                                                    recordModel.culture.review])
+        }
+        else {
+            fiveTextFieldsView.configure(RecordPlaceholders.getTitlesByRecordType(recordType),
+                                         withData: [recordModel.culture.detail1,
+                                                    recordModel.culture.detail2,
+                                                    recordModel.culture.detail3,
+                                                    recordModel.culture.detail4,
+                                                    recordModel.culture.review])
+        }
+        
+        emojiTextField.text = recordModel.culture.emoji
+        
+        if let disclosureType = DisclosureType(rawValue: recordModel.culture.disclosure) {
+            recordRangeMenuBtn.configuration?.attributedTitle = AttributedString(disclosureType.getKorean(), attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont.rcFont16M(),
+                NSAttributedString.Key.foregroundColor: UIColor.black])
+            )
         }
     }
 }
