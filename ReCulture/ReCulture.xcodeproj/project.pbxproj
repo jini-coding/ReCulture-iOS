@@ -72,6 +72,8 @@
 		08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304492C1230A00014F24B /* KeychainManager.swift */; };
 		08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A3044B2C1230C70014F24B /* TokenStateManager.swift */; };
 		08A8325C2C7A013800FE4D82 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */; };
+		08A9F9E72C9CA650005EC850 /* EditFourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */; };
+		08A9F9E92C9CA66C005EC850 /* EditFiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB15BE2C163C5F008ED4AE /* ImageFile.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
@@ -217,6 +219,8 @@
 		08A304492C1230A00014F24B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		08A3044B2C1230C70014F24B /* TokenStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStateManager.swift; sourceTree = "<group>"; };
 		08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFourTextFieldsView.swift; sourceTree = "<group>"; };
+		08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFiveTextFieldsView.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08BB15BE2C163C5F008ED4AE /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 			children = (
 				08DA120D2C98957F00FDE7D8 /* cell */,
 				08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */,
+				08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */,
+				08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */,
 			);
 			path = EditRecord;
 			sourceTree = "<group>";
@@ -1001,6 +1007,7 @@
 				0813C4EE2C1B88CA004CD0B4 /* NewTicketAPI.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */,
+				08A9F9E92C9CA66C005EC850 /* EditFiveTextFieldsView.swift in Sources */,
 				384315CA2C14D1C600D379F3 /* CustomizingThreeVC.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				0813C4DF2C1AFE17004CD0B4 /* MyTicketBookDTO.swift in Sources */,
@@ -1011,6 +1018,7 @@
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
 				089EDAE32C138BBA00D74C5F /* LoadingIndicator.swift in Sources */,
 				081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */,
+				08A9F9E72C9CA650005EC850 /* EditFourTextFieldsView.swift in Sources */,
 				384315DE2C1AB43C00D379F3 /* RecordModel.swift in Sources */,
 				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
 				080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */,
