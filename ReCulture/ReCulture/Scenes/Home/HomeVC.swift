@@ -7,24 +7,13 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+final class HomeVC: UIViewController {
     
     // MARK: - Properties
-    
-    private var lastContentOffset: CGFloat = 0.0
     
     let viewModel = HomeViewModel()
     
     // MARK: - Views
-    
-    private let logoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "LOGO"
-        label.font = .rcFont16M()
-        label.textColor = .white
-        label.textAlignment = .left
-        return label
-    }()
     
     private let logoImageView: UIImageView = {
         let view = UIImageView()
@@ -54,17 +43,16 @@ class HomeVC: UIViewController {
         label.textColor = .white
         return label
     }()
+    
     private let characterImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.layer.cornerRadius = 145/2
-        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
     private let tilNextLevelLabel: UILabel = {
         let label = UILabel()
-        label.text = "[다음 레벨]까지 22% 남았어요!💪"
+//        label.text = "[다음 레벨]가 되기까지 22% 남았어요!💪"
         label.font = UIFont.rcFont14B()
         return label
     }()
@@ -79,7 +67,7 @@ class HomeVC: UIViewController {
     
     private let monthlyRecordLabel: UILabel = {
         let label = UILabel()
-        label.text = "5월 기록 한 눈에 보기"
+//        label.text = "5월 기록 한 눈에 보기"
         label.font = UIFont.rcFont20B()
         return label
     }()
@@ -107,8 +95,7 @@ class HomeVC: UIViewController {
         
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
-        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
-        
+        viewModel.getMyCalendar(yearAndMonthFormatted: getTodaysYearAndMonth(), fromCurrentVC: self)
         setupNavigation()
         
         // set up layout
@@ -204,7 +191,7 @@ class HomeVC: UIViewController {
         userLevelInfoView.addSubview(tilNextLevelLabel)
         
         NSLayoutConstraint.activate([
-            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
+            tilNextLevelLabel.centerXAnchor.constraint(equalTo: userLevelInfoView.centerXAnchor),
             tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36)
         ])
     }
@@ -268,7 +255,13 @@ class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+//        characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+        switch viewModel.getLevelNum() {
+        case 1: characterImageView.image = UIImage.character1
+        case 2: characterImageView.image = UIImage.character2
+        case 3: characterImageView.image = UIImage.character3
+        default: characterImageView.image = UIImage.character4
+        }
     }
     
     private func setLevelAttributes() {
@@ -284,26 +277,39 @@ class HomeVC: UIViewController {
     
     private func setLevelProgress() {
         let currentExp = viewModel.getExp()
-        let currentLevelName = viewModel.getLevelName()
-        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType(rawValue: currentLevelName)!)
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType.getLevelTypeByLevelNum(viewModel.getLevelNum()))
 
         levelProgressView.setProgress(Float(currentExp) / Float(totalScoreForThisLevel))
     }
     
     private func setTilNextLevelValues() {
-        let currentLevelType = LevelType(rawValue: viewModel.getLevelName())!
+        let currentLevelType = LevelType.getLevelTypeByLevelNum(viewModel.getLevelNum())
         let nextLevelName = LevelType.getNextLevelOf(currentLevelType)
         let totalScoreForThisLevel = LevelType.getTotalScoreOf(currentLevelType)
         
         let percentLeftToNextLevel = 100 - Int((Float(viewModel.getExp()) / Float(totalScoreForThisLevel)) * 100)
         
-        let text = "\(nextLevelName)까지 \(percentLeftToNextLevel)% 남았어요! 💪"
+        let text = (nextLevelName == .End) ? "✨ 탐험을 모두 마쳤어요! ✨" : "\(nextLevelName)가 되기까지 \(percentLeftToNextLevel)% 남았어요! 💪"
     
         tilNextLevelLabel.text = text
     }
     
     func setCalendarMonthTo(_ month: Int){
         monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
+    }
+    
+    /// 2024-09 와 같은형식으로 날짜 리턴
+    private func getTodaysYearAndMonth() -> String {
+        let now = Date()
+        let dateFormatter: DateFormatter = {
+            let df = DateFormatter()
+            df.locale = Locale(identifier: "ko_KR")
+            df.timeZone = TimeZone(abbreviation: "KST")
+            df.dateFormat = "yyyy-MM"
+            return df
+        }()
+        let currentYearAndMonth = dateFormatter.string(from: now)
+        return currentYearAndMonth
     }
     
     private func bind(){

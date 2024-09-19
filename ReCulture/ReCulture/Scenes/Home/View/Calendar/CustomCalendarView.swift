@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCollectionView: UICollectionView {
+final class CustomCollectionView: UICollectionView {
     override public func layoutSubviews() {
         super.layoutSubviews()
         if bounds.size != intrinsicContentSize {
@@ -21,7 +21,7 @@ class CustomCollectionView: UICollectionView {
     }
 }
 
-class CustomCalendarView: UIView {
+final class CustomCalendarView: UIView {
     
     // MARK: - Properties
     
@@ -53,7 +53,7 @@ class CustomCalendarView: UIView {
     private let yearAndMonthLabel: UILabel = {
         let label = UILabel()
         label.font = .rcFont18M()
-        label.text = "2024.04"
+        label.text = "2024.09"
         return label
     }()
     
@@ -163,8 +163,8 @@ class CustomCalendarView: UIView {
         self.calendarCollectionView.reloadData()
         
         let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
-        let splitted = yearDotMonthString.split(separator: ".")
-        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
+        let yearDashMonthString = yearDotMonthString.replacingOccurrences(of: ".", with: "-")
+        parentVC?.viewModel.getMyCalendar(yearAndMonthFormatted: yearDashMonthString, fromCurrentVC: parentVC!)
         //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
@@ -173,8 +173,8 @@ class CustomCalendarView: UIView {
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
         let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
-        let splitted = yearDotMonthString.split(separator: ".")
-        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
+        let yearDashMonthString = yearDotMonthString.replacingOccurrences(of: ".", with: "-")
+        parentVC?.viewModel.getMyCalendar(yearAndMonthFormatted: yearDashMonthString, fromCurrentVC: parentVC!)
     }
     
     // MARK: - Helpers
@@ -272,7 +272,7 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
             let day = days[indexPath.item]
             // 캘린더 아이템이 세팅된 경우
             if recordDataList.count != 0 && day != "" {
-                print(recordDataList)
+//                print(recordDataList)
 //                if day == "" {
 //                    cell.configure(section: 1,
 //                                   dateOrDay: day,

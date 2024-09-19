@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToolTipView: UIView {
+final class ToolTipView: UIView {
     
     // MARK: - Views
     

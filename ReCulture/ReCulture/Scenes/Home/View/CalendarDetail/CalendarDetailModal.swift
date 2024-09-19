@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarDetailModal: UIViewController {
+final class CalendarDetailModal: UIViewController {
     
     // MARK: - Properties
     
@@ -30,7 +30,7 @@ class CalendarDetailModal: UIViewController {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "2024.07.25"
+//        label.text = "2024.07.25"
         label.font = .rcFont18B()
         label.textColor = .rcGray800
         return label
