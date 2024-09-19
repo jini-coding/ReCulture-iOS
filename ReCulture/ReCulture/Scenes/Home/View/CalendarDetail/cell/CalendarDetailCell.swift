@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarDetailCell: UICollectionViewCell {
+final class CalendarDetailCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -46,7 +46,7 @@ class CalendarDetailCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "민경아 록시를 드디어 보다!"
+//        label.text = "민경아 록시를 드디어 보다!"
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         label.font = .rcFont16M()
@@ -55,10 +55,12 @@ class CalendarDetailCell: UICollectionViewCell {
     
     private let categoryLabel: LabelWithPadding = {
         let label = LabelWithPadding(top: 4, left: 5, bottom: 4, right: 5)
-        label.text = "뮤지컬"
+//        label.text = "뮤지컬"
         label.font = .rcFont12M()
         label.textColor = .rcMain
         label.backgroundColor = .rcGrayBg
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 7
         return label
     }()
     
@@ -150,12 +152,8 @@ class CalendarDetailCell: UICollectionViewCell {
     // MARK: - Functions
     
     func configure(recordId: Int, photoURL: String, title: String, categoryId: Int) {
-        print("=== calendar detail cell ===")
-        print(photoURL)
-        if let url = URL(string: "\(Server.baseURL)/\(photoURL)") {
-            recordImageView.load(url: url)
-        }
-//        "http://34.64.120.187:8080/\(photoURL)".loadAsyncImage(recordImageView)
+        recordImageView.loadImage(urlWithoutBaseURL: photoURL)
+
         self.recordId = recordId
         
         titleLabel.text = title
