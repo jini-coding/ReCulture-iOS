@@ -11,20 +11,9 @@ final class HomeVC: UIViewController {
     
     // MARK: - Properties
     
-    private var lastContentOffset: CGFloat = 0.0
-    
     let viewModel = HomeViewModel()
     
     // MARK: - Views
-    
-    private let logoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "LOGO"
-        label.font = .rcFont16M()
-        label.textColor = .white
-        label.textAlignment = .left
-        return label
-    }()
     
     private let logoImageView: UIImageView = {
         let view = UIImageView()
@@ -54,6 +43,7 @@ final class HomeVC: UIViewController {
         label.textColor = .white
         return label
     }()
+    
     private let characterImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill

@@ -152,8 +152,6 @@ final class CalendarDetailCell: UICollectionViewCell {
     // MARK: - Functions
     
     func configure(recordId: Int, photoURL: String, title: String, categoryId: Int) {
-        print("=== calendar detail cell ===")
-        print(photoURL)
         recordImageView.loadImage(urlWithoutBaseURL: photoURL)
 
         self.recordId = recordId
