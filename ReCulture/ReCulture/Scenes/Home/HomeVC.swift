@@ -273,20 +273,19 @@ final class HomeVC: UIViewController {
     
     private func setLevelProgress() {
         let currentExp = viewModel.getExp()
-        let currentLevelName = viewModel.getLevelName()
-        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType(rawValue: currentLevelName)!)
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType.getLevelTypeByLevelNum(viewModel.getLevelNum()))
 
         levelProgressView.setProgress(Float(currentExp) / Float(totalScoreForThisLevel))
     }
     
     private func setTilNextLevelValues() {
-        let currentLevelType = LevelType(rawValue: viewModel.getLevelName())!
+        let currentLevelType = LevelType.getLevelTypeByLevelNum(viewModel.getLevelNum())
         let nextLevelName = LevelType.getNextLevelOf(currentLevelType)
         let totalScoreForThisLevel = LevelType.getTotalScoreOf(currentLevelType)
         
         let percentLeftToNextLevel = 100 - Int((Float(viewModel.getExp()) / Float(totalScoreForThisLevel)) * 100)
         
-        let text = "\(nextLevelName)까지 \(percentLeftToNextLevel)% 남았어요! 💪"
+        let text = "\(nextLevelName)가 되기까지 \(percentLeftToNextLevel)% 남았어요! 💪"
     
         tilNextLevelLabel.text = text
     }
