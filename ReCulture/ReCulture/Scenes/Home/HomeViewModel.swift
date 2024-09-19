@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewModel {
+final class HomeViewModel {
     
     // MARK: - Properties
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarDetailCell: UICollectionViewCell {
+final class CalendarDetailCell: UICollectionViewCell {
     
     // MARK: - Properties
     

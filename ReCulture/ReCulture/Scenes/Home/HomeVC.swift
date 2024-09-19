@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+final class HomeVC: UIViewController {
     
     // MARK: - Properties
     

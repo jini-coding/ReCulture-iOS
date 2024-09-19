@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarDetailModal: UIViewController {
+final class CalendarDetailModal: UIViewController {
     
     // MARK: - Properties
     

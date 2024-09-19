@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LevelProgressView: UIView {
+final class LevelProgressView: UIView {
     
     // MARK: - Properties
     

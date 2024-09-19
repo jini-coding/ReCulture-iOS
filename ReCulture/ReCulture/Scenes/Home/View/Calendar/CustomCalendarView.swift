@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCollectionView: UICollectionView {
+final class CustomCollectionView: UICollectionView {
     override public func layoutSubviews() {
         super.layoutSubviews()
         if bounds.size != intrinsicContentSize {
