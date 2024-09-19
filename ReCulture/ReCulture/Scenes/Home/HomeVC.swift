@@ -46,15 +46,13 @@ final class HomeVC: UIViewController {
     
     private let characterImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.layer.cornerRadius = 145/2
-        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
     private let tilNextLevelLabel: UILabel = {
         let label = UILabel()
-        label.text = "[다음 레벨]까지 22% 남았어요!💪"
+//        label.text = "[다음 레벨]가 되기까지 22% 남았어요!💪"
         label.font = UIFont.rcFont14B()
         return label
     }()
@@ -257,7 +255,13 @@ final class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func setCharacterImage(){
-        characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+//        characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+        switch viewModel.getLevelNum() {
+        case 1: characterImageView.image = UIImage.character1
+        case 2: characterImageView.image = UIImage.character2
+        case 3: characterImageView.image = UIImage.character3
+        default: characterImageView.image = UIImage.character4
+        }
     }
     
     private func setLevelAttributes() {
