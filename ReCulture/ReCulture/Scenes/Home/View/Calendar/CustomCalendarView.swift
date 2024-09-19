@@ -21,7 +21,7 @@ final class CustomCollectionView: UICollectionView {
     }
 }
 
-class CustomCalendarView: UIView {
+final class CustomCalendarView: UIView {
     
     // MARK: - Properties
     
