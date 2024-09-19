@@ -67,7 +67,7 @@ final class HomeVC: UIViewController {
     
     private let monthlyRecordLabel: UILabel = {
         let label = UILabel()
-        label.text = "5월 기록 한 눈에 보기"
+//        label.text = "5월 기록 한 눈에 보기"
         label.font = UIFont.rcFont20B()
         return label
     }()

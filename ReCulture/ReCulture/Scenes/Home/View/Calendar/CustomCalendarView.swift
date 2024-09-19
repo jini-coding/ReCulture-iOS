@@ -53,7 +53,7 @@ final class CustomCalendarView: UIView {
     private let yearAndMonthLabel: UILabel = {
         let label = UILabel()
         label.font = .rcFont18M()
-        label.text = "2024.04"
+        label.text = "2024.09"
         return label
     }()
     
