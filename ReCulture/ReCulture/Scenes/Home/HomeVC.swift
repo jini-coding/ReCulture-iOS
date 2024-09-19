@@ -191,7 +191,7 @@ final class HomeVC: UIViewController {
         userLevelInfoView.addSubview(tilNextLevelLabel)
         
         NSLayoutConstraint.activate([
-            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
+            tilNextLevelLabel.centerXAnchor.constraint(equalTo: userLevelInfoView.centerXAnchor),
             tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36)
         ])
     }
