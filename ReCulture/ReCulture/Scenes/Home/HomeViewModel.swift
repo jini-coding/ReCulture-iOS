@@ -95,14 +95,18 @@ class HomeViewModel {
     
     // MARK: - Functions; Calendar
     
-    func getMyCalendar(year: String, month: String, fromCurrentVC: UIViewController){
+    func getMyCalendar(yearAndMonthFormatted: String, fromCurrentVC: UIViewController) {
+        let strList = yearAndMonthFormatted.split(separator: "-")  // [0]은 2024, [1]은 9(달)
+        let year = String(strList[0])
+        let month = String(strList[1])
+        
         NetworkManager.shared.getMyCalendar(year: year, month: month) { result in
             print("=== home view model ===")
             print("month: \(month)")
             switch result {
             case .success(let dto):
                 self.calendarDTO = dto
-                self.countSameDayRecordsAndSetData(year: Int(year) ?? 2024, month: Int(month) ?? 8)
+                self.countSameDayRecordsAndSetData(year: Int(year) ?? 2024, month: Int(month) ?? 9)
 //                self.convertToMyCalendarDetailModels()
             case .failure(let error):
                 print(error)

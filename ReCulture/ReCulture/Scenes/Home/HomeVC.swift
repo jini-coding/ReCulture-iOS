@@ -107,8 +107,7 @@ class HomeVC: UIViewController {
         
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
-        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
-        
+        viewModel.getMyCalendar(yearAndMonthFormatted: getTodaysYearAndMonth(), fromCurrentVC: self)
         setupNavigation()
         
         // set up layout
@@ -304,6 +303,20 @@ class HomeVC: UIViewController {
     
     func setCalendarMonthTo(_ month: Int){
         monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
+    }
+    
+    /// 2024-09 와 같은형식으로 날짜 리턴
+    private func getTodaysYearAndMonth() -> String {
+        let now = Date()
+        let dateFormatter: DateFormatter = {
+            let df = DateFormatter()
+            df.locale = Locale(identifier: "ko_KR")
+            df.timeZone = TimeZone(abbreviation: "KST")
+            df.dateFormat = "yyyy-MM"
+            return df
+        }()
+        let currentYearAndMonth = dateFormatter.string(from: now)
+        return currentYearAndMonth
     }
     
     private func bind(){

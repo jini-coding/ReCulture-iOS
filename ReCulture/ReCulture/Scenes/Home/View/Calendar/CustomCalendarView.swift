@@ -163,8 +163,8 @@ class CustomCalendarView: UIView {
         self.calendarCollectionView.reloadData()
         
         let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
-        let splitted = yearDotMonthString.split(separator: ".")
-        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
+        let yearDashMonthString = yearDotMonthString.replacingOccurrences(of: ".", with: "-")
+        parentVC?.viewModel.getMyCalendar(yearAndMonthFormatted: yearDashMonthString, fromCurrentVC: parentVC!)
         //parentVC?.setCalendarMonthTo(currentDateComponents.month!)
     }
     
@@ -173,8 +173,8 @@ class CustomCalendarView: UIView {
         self.calculateCalendar()
         self.calendarCollectionView.reloadData()
         let yearDotMonthString = dateFormatter.string(from: calendar.date(from: currentDateComponents)!)
-        let splitted = yearDotMonthString.split(separator: ".")
-        parentVC?.viewModel.getMyCalendar(year: String(splitted[0]), month: String(splitted[1]), fromCurrentVC: parentVC!)
+        let yearDashMonthString = yearDotMonthString.replacingOccurrences(of: ".", with: "-")
+        parentVC?.viewModel.getMyCalendar(yearAndMonthFormatted: yearDashMonthString, fromCurrentVC: parentVC!)
     }
     
     // MARK: - Helpers
@@ -272,7 +272,7 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
             let day = days[indexPath.item]
             // 캘린더 아이템이 세팅된 경우
             if recordDataList.count != 0 && day != "" {
-                print(recordDataList)
+//                print(recordDataList)
 //                if day == "" {
 //                    cell.configure(section: 1,
 //                                   dateOrDay: day,
