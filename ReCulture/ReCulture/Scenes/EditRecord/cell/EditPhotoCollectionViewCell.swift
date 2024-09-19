@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EdtiPhotoCollectionViewDeleteDelegate: AnyObject {
-    func deletePhoto()
+    func deletePhoto(at indexPath: IndexPath)
 }
 
 final class EditPhotoCollectionViewCell: UICollectionViewCell {
@@ -26,7 +26,6 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-//        view.image = UIImage(named: "TicketImage")
         view.clipsToBounds = true
         view.isUserInteractionEnabled = false
         return view
@@ -85,7 +84,12 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     
     @objc private func deleteButtonDidTap() {
         print("이미지 삭제 버튼 선택됨")
-        delegate?.deletePhoto()
+        if let indexPath = self.indexPath {
+            delegate?.deletePhoto(at: indexPath)
+        }
+        else {
+            print("Failed to get cell's indexPath.")
+        }
     }
     
     // MARK: - Functions

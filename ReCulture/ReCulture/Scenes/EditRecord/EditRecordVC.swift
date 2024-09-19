@@ -609,8 +609,6 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     // collectionview는 전체 화면 너비를 기준으로 페이징하기 때문에, section inset에 대해 적용되도록 하는 코드
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        print("=== scroll view will end dragging ===")
-//        print("targetContentOffset: \(targetContentOffset.pointee)")
         guard let layout = photoCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         else { return }
         
@@ -639,8 +637,13 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 // MARK: - Extension: EdtiPhotoCollectionViewDeleteDelegate
 
 extension EditRecordVC: EdtiPhotoCollectionViewDeleteDelegate {
-    func deletePhoto() {
-        print("edit record vc에서 받음")
+    func deletePhoto(at indexPath: IndexPath) {
+        print("edit record vc에서 받음, indexPath: \(indexPath)")
+        print("section 0 items: \(photoCollectionView.numberOfItems(inSection: 0))")
+        images.remove(at: indexPath.item)
+        pageControl.numberOfPages = images.count
+        photoCollectionView.deleteItems(at: [indexPath])
+        print("deleted, section 0 items: \(photoCollectionView.numberOfItems(inSection: 0))")
     }
 }
 
