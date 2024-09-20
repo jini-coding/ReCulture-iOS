@@ -87,7 +87,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<NewUserProfileResponseDTO, NetworkError>) -> Void
     ){
-        let newUserProfileAPI = NewUserProfileAPI(requestDTO: newUserProfileRequestDTO.toDictionary!, profileImage: profileImage)
+        let newUserProfileAPI = NewUserProfileAPI(requestDTO: newUserProfileRequestDTO.toDictionary, profileImage: profileImage)
         networkService.request(newUserProfileAPI) { result in
             switch result {
             case .success(let DTO):
@@ -105,7 +105,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<AddRecordResponseDTO, NetworkError>) -> Void
     ){
-        let addRecordAPI = AddRecordAPI(requestDTO: addRecordRequestDTO.toDictionary!, photos: photos)
+        let addRecordAPI = AddRecordAPI(requestDTO: addRecordRequestDTO.toDictionary, photos: photos)
         networkService.request(addRecordAPI) { result in
             switch result {
             case .success(let DTO):
@@ -208,7 +208,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<TicketResponseDTO, NetworkError>) -> Void
     ){
-        let newTicketAPI = NewTicketAPI(requestDTO: newTicketRequestDTO.toDictionary!, photos: photos)
+        let newTicketAPI = NewTicketAPI(requestDTO: newTicketRequestDTO.toDictionary, photos: photos)
         networkService.request(newTicketAPI) { result in
             switch result {
             case .success(let DTO):
@@ -330,6 +330,26 @@ final class NetworkManager {
             switch result {
             case .success(let DTO):
                 completion(.success(RecordResponseDTO.convertRecordDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 내 기록을 수정하는 함수입니다.
+    func editMyRecord(recordId: Int,
+                      editRecordRequestDTO: AddRecordRequestDTO,
+                      photos: [ImageFile],
+                      _ networkService: NetworkServable = NetworkService(),
+                      completion: @escaping (Result<AddRecordResponseDTO, NetworkError>) -> Void
+    ) {
+        let api = EditRecordAPI(recordId: recordId,
+                                    requestDTO: editRecordRequestDTO.toDictionary,
+                                    photos: photos)
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
             case .failure(let error):
                 completion(.failure(error))
             }
