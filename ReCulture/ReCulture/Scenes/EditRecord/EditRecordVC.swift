@@ -18,6 +18,15 @@ final class EditRecordVC: UIViewController {
     
     weak var delegate: EditRecordDelegate?
     
+    var editRecordSuccess = false {
+        didSet {
+            print("=== edit record success didset ===")
+            self.dismiss(animated: true)
+            delegate?.doneEditingRecordVC()
+        }
+    }
+    private let viewModel = EditRecordViewModel()
+    
     private var recordModel: RecordModel
     private var recordType: RecordType
     
@@ -110,7 +119,8 @@ final class EditRecordVC: UIViewController {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
         button.setTitleColor(.rcMain, for: .normal)
-        button.setTitleColor(.rcGray200, for: .disabled)
+        button.setTitleColor(.rcLightPurple, for: .highlighted)
+        button.setTitleColor(.rcGray200, for: .selected)
         button.titleLabel?.font = .rcFont16B()
         button.addTarget(self, action: #selector(doneButtonDidTap), for: .touchUpInside)
         return button
@@ -620,6 +630,7 @@ final class EditRecordVC: UIViewController {
     
     @objc private func doneButtonDidTap() {
         print("기록 수정 완료")
+        editRecordSuccess = true
     }
     
     @objc private func datePickerValueDidChange(_ sender: UIDatePicker) {
