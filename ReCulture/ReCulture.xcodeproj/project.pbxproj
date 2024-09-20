@@ -75,6 +75,7 @@
 		08A9F9E72C9CA650005EC850 /* EditFourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */; };
 		08A9F9E92C9CA66C005EC850 /* EditFiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */; };
 		08B5A7372C9DFFA900B14AE2 /* EditRecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A7362C9DFFA900B14AE2 /* EditRecordAPI.swift */; };
+		08B5A7392C9E01BD00B14AE2 /* EditRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A7382C9E01BD00B14AE2 /* EditRecordViewModel.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB15BE2C163C5F008ED4AE /* ImageFile.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
@@ -223,6 +224,7 @@
 		08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFourTextFieldsView.swift; sourceTree = "<group>"; };
 		08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFiveTextFieldsView.swift; sourceTree = "<group>"; };
 		08B5A7362C9DFFA900B14AE2 /* EditRecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordAPI.swift; sourceTree = "<group>"; };
+		08B5A7382C9E01BD00B14AE2 /* EditRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordViewModel.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08BB15BE2C163C5F008ED4AE /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 				08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */,
 				08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */,
 				08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */,
+				08B5A7382C9E01BD00B14AE2 /* EditRecordViewModel.swift */,
 			);
 			path = EditRecord;
 			sourceTree = "<group>";
@@ -1071,6 +1074,7 @@
 				089EDACD2C12E2F400D74C5F /* Codable+.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
+				08B5A7392C9E01BD00B14AE2 /* EditRecordViewModel.swift in Sources */,
 				08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */,
 				389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */,
 				08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */,
