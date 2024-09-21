@@ -93,7 +93,6 @@
 		08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */; };
 		08DA12092C9847A900FDE7D8 /* EditRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */; };
 		08DA120F2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */; };
-		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
 		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5882C0013F7000A046D /* RecordTypeVC.swift */; };
 		08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58B2C0017BA000A046D /* NextButton.swift */; };
@@ -239,7 +238,6 @@
 		08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserProfileVC.swift; sourceTree = "<group>"; };
 		08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordVC.swift; sourceTree = "<group>"; };
 		08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
 		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5882C0013F7000A046D /* RecordTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeVC.swift; sourceTree = "<group>"; };
 		08E0F58B2C0017BA000A046D /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -388,7 +386,6 @@
 			children = (
 				0813C4E82C1B6364004CD0B4 /* TicketBooks */,
 				08E0F5852BFFB7DE000A046D /* cell */,
-				08E0F5812BFF9CE6000A046D /* TicketImage.png */,
 				08B856452BF1D9260034E86D /* TicketBookDetail */,
 				384315C42C14D1A000D379F3 /* TicketCustomizingPage */,
 				384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */,
@@ -929,7 +926,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3874B5FB2BE43248003376F7 /* Assets.xcassets in Resources */,
-				08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
