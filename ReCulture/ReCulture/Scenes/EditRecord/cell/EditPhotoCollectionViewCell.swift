@@ -100,9 +100,7 @@ final class EditPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     /// image url로 데이터 세팅
-    func configureWithURL(with imageURL: String,
-                          thisCellIndexPath: IndexPath,
-                          _ completion: @escaping (UIImage) -> Void) {
+    func configureWithURL(with imageURL: String, thisCellIndexPath: IndexPath) {
         indexPath = thisCellIndexPath
         imageView.loadImage(urlWithoutBaseURL: imageURL)
     }

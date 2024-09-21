@@ -71,15 +71,9 @@ final class EditRecordVC: UIViewController {
     
     private lazy var phPicker = PHPickerViewController(configuration: phPickerConfig)
     
-    /// 갤러리를 통해 새로 선택한 이미지들
-    private var newlySelectedPhotos: [PHPickerResult] = []
-    
     /// 실제 collectionview에서 보여주는 사진들 리스트
     /// 서버에서 받아온 사진일 경우 PhotoDoc, 갤러리에서 새로 선택한 사진일 경우 ImageWithName
     private var images: [Any] = []
-    
-    /// 기록 수정 요청을 보낼 때를 위한 ImageFile 리스트
-    private var imageFiles: [ImageFile] = []
     
     private var isFourTextFieldsView = false
     
@@ -250,8 +244,6 @@ final class EditRecordVC: UIViewController {
     
     private let emojiTextField: CustomTextField = {
         let textField = CustomTextField()
-//        textField.placeholder = "이모지로 감상을 표현해주세요"
-        //textField.addTarget(self, action: #selector(emojiTextFieldDidChange), for: .editingChanged)
         return textField
     }()
     
@@ -296,8 +288,7 @@ final class EditRecordVC: UIViewController {
         self.recordModel = recordModel
         self.recordType = RecordType(categoryId: recordModel.culture.categoryId) ?? .movie
         self.images = recordModel.photoDocs.map { photoDoc in
-            (PhotoDocWithImage(culturePostId: photoDoc.culturePostId, 
-                               url: photoDoc.url))
+            (PhotoDocWithImage(culturePostId: photoDoc.culturePostId, url: photoDoc.url))
         }
         
         super.init(nibName: nil, bundle: nil)
@@ -440,7 +431,7 @@ final class EditRecordVC: UIViewController {
     private func setupDatePickerAndTextField() {
         dateTextField.inputView = datePicker
         // TODO: 나중에 밖으로 빼야 함
-        dateTextField.text = dateFormatToString(date: Date())
+//        dateTextField.text = dateFormatToString(date: Date())
         
         dateTextField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -497,10 +488,6 @@ final class EditRecordVC: UIViewController {
     
     private func setupDetailView() {
         if isFourTextFieldsView {
-//            let placeholderList = RecordPlaceholders.getTitlesByRecordType(recordType)
-//            print("=== setup detail view ===")
-//            print("placeholder: \(placeholderList)")
-            
             fourTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
             
             contentView.addSubview(fourTextFieldsView)
@@ -614,13 +601,11 @@ final class EditRecordVC: UIViewController {
     }
     
     @objc private func exitButtonDidTap() {
-        print("수정 그만하기")
-        let alertContoller = UIAlertController(title: "정말 기록 수정을 그만하시겠어요?", message: "변경된 사항은 저장되지 않습니다.", preferredStyle: .alert)
-        alertContoller.addAction(UIAlertAction(title: "취소", style: .cancel) { _ in
-            print("기록 수정 계속 하기")
-        })
+        let alertContoller = UIAlertController(title: "정말 기록 수정을 그만하시겠어요?", 
+                                               message: "변경된 사항은 저장되지 않습니다.",
+                                               preferredStyle: .alert)
+        alertContoller.addAction(UIAlertAction(title: "취소", style: .cancel))
         alertContoller.addAction(UIAlertAction(title: "그만하기", style: .destructive) { _ in
-            print("기록 수정 그만하기")
             self.dismiss(animated: true)
         })
         present(alertContoller, animated: true)
@@ -656,13 +641,10 @@ final class EditRecordVC: UIViewController {
                                         type: "jpeg"))
             }
             else if let photoDoc = images[i] as? PhotoDocWithImage {
-                print("\nThis is PhotoDoc: \(photoDoc)")
                 let originalFileName = String(photoDoc.url.split(separator: "/").last!)
                 let fileName = originalFileName.split(separator: ".").first ?? "IMG_1"
-                print("file name: \(fileName)")
                 
                 if let cell = photoCollectionView.cellForItem(at: [0, i]) as? EditPhotoCollectionViewCell {
-                    print("cell!")
                     imageFile.append(ImageFile(filename: String(fileName),
                                                data: cell.getImage().jpegData(compressionQuality: 1) ?? Data(),
                                                type: "jpeg"))
@@ -726,28 +708,12 @@ final class EditRecordVC: UIViewController {
             )
         }
         
-        // 이미지 & page control
+        // 초기 이미지 & page control
         print("image 개수: \(recordModel.photoDocs.count)")
         pageControl.numberOfPages = recordModel.photoDocs.count
         DispatchQueue.main.async { [weak self] in
             self?.photoCollectionView.reloadData()
         }
-        
-//        // 앞서 넘어온 데이터 중 이미지를 image file로 변경해서 imageFile로 변환하여 imageFiles에 저장
-//        for photoDoc in recordModel.photoDocs {
-//            if let url = URL(string: "http://34.64.120.187:8080\(photoDoc.url)") {
-//                DispatchQueue.global().async { [weak self] in
-//                    if let data = try? Data(contentsOf: url) {
-//                        let originalFileName = String(photoDoc.url.split(separator: "/").last!)
-//                        let fileName = originalFileName.split(separator: ".").first!
-//                        
-//                        self?.imageFiles.append(ImageFile(filename: String(fileName),
-//                                                         data: data,
-//                                                         type: "jpeg"))
-//                    }
-//                }
-//            }
-//        }
         
         // 기록 상세 후기 뷰 만들기
         if isFourTextFieldsView {
@@ -794,9 +760,7 @@ extension EditRecordVC: UITextFieldDelegate {
 extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("===edit record===")
         let count = images.count
-        print("cell 개수: \(count)")
         return count == 5 ? count : count + 1
     }
     
@@ -831,25 +795,10 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
                 }
                 else {
                     print("photodoc has no image: \(photoDoc)")
-                    cell.configureWithURL(with: photoDoc.url, thisCellIndexPath: indexPath) { image in
-                        photoDoc.image = image
-                        print("cell configure handler")
-                    }
+                    cell.configureWithURL(with: photoDoc.url, thisCellIndexPath: indexPath)
                 }
-//                print("this is actual photo:\(photoDoc)")
-//                if photoDoc.image != UIImage() {
-//                    print("photodoc image is NOT UIImage()")
-//                    cell.configureWithImage(image: photoDoc.image, thisCellIndexPath: indexPath)
-//                }
-//                else {
-//                    print("photodoc image is real image")
-//                    let image = photoDoc.url.loadImage()
-//                    photoDoc.image = image
-//                    cell.configureWithImage(image: image, thisCellIndexPath: indexPath)
-//                }
             }
             else if let image = images[indexPath.item] as? ImageWithName {
-                print("this is not actual photo")
                 cell.configureWithImage(image: image.image, thisCellIndexPath: indexPath)
             }
             return cell
@@ -858,11 +807,9 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("=== did select item at ===")
-//        let count = recordModel.photoDocs.count
         let count = images.count
         
         if count != 5 && indexPath.item == count {
-//            print("imageFiles: \(imageFiles)")
             self.present(phPicker, animated: true, completion: nil)
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditVCAddPhotoCell.identifier, for: indexPath) as? EditVCAddPhotoCell
@@ -926,12 +873,10 @@ extension EditRecordVC: PHPickerViewControllerDelegate {
             return
         }
         
-        newlySelectedPhotos.removeAll()
-//        imageFiles.removeAll()
         images.removeAll {
             $0 is ImageWithName
         }
-        print("선택된 사진의 개수: \(results.count)")
+        print("갤러리에서 선택된 사진의 개수: \(results.count)")
         
         // 현 상태에서 새로 등록 가능한 사진 개수
         let maxPhotoSelection = 5 - images.count
@@ -957,13 +902,6 @@ extension EditRecordVC: PHPickerViewControllerDelegate {
                                                               animated: true)
                         self.photoCollectionView.reloadData()
                     }
-                    
-//                    if let fileName = results[i].itemProvider.suggestedName {
-//                        self.imageFiles.append(ImageFile(filename: fileName,
-//                                                         data: compressionedImage!,
-//                                                         type: "jpeg"))
-//                        print("선택된 이미지 파일 이름: \(fileName)")
-//                    }
                 }
             }
         }

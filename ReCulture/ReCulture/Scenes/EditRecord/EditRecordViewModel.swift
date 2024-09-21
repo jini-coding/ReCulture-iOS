@@ -15,7 +15,6 @@ final class EditRecordViewModel {
                     requestDTO: AddRecordRequestDTO,
                     photos: [ImageFile],
                     fromCurrentVC: UIViewController) {
-        print("view model, editRecord")
         NetworkManager.shared.editMyRecord(recordId: recordId,
                                            editRecordRequestDTO: requestDTO,
                                            photos: photos) { result in
