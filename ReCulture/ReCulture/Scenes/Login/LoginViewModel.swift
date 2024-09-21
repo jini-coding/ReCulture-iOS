@@ -13,6 +13,8 @@ class LoginViewModel {
         
     func postUserLogin(requestDTO: LoginRequestDTO, fromCurrentVC: UIViewController){
         NetworkManager.shared.postUserLogin(loginRequestDTO: requestDTO) { result in
+            LoadingIndicator.hideLoading()
+            
             switch result {
             case .success(let responseDTO):
                 print("로그인 성공! 응답값은 아래")

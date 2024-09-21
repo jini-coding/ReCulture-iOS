@@ -299,7 +299,6 @@ class LoginVC: UIViewController {
     }
     
     private func moveToHomeVC(_ loginSuccess: Bool) {
-        LoadingIndicator.hideLoading()
         if loginSuccess {
             let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
             print("앱 최초 실행 값: \(isFirstLaunch)")
