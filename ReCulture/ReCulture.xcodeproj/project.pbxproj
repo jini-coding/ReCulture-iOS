@@ -140,7 +140,6 @@
 		3874B6082BE4328A003376F7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6072BE4328A003376F7 /* Color.swift */; };
 		3874B60A2BE43291003376F7 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6092BE43291003376F7 /* Font.swift */; };
 		3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B60D2BE432E0003376F7 /* TabBarVC.swift */; };
-		3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6152BE4334F003376F7 /* AuthVC.swift */; };
 		3874B6182BE43363003376F7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6172BE43363003376F7 /* LoginVC.swift */; };
 		3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6192BE4336B003376F7 /* HomeVC.swift */; };
 		3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61B2BE43373003376F7 /* SearchVC.swift */; };
@@ -292,7 +291,6 @@
 		3874B6072BE4328A003376F7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3874B6092BE43291003376F7 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		3874B60D2BE432E0003376F7 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
-		3874B6152BE4334F003376F7 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		3874B6172BE43363003376F7 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3874B6192BE4336B003376F7 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3874B61B2BE43373003376F7 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -881,7 +879,6 @@
 		3874B6142BE43346003376F7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				3874B6152BE4334F003376F7 /* AuthVC.swift */,
 				0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */,
 				08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */,
 				089EDACA2C12E1D600D74C5F /* NewUserProfileViewModel.swift */,
@@ -1032,7 +1029,6 @@
 				384315DE2C1AB43C00D379F3 /* RecordModel.swift in Sources */,
 				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
 				080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */,
-				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */,
 				384315DC2C1AB2E800D379F3 /* RecordAPI.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
