@@ -8,7 +8,7 @@
 import Foundation
 
 struct EditRecordAPI: ServableAPI {
-    typealias Response = AddRecordResponseDTO
+    typealias Response = EditRecordResponseDTO
     
     let recordId: Int
     
@@ -16,7 +16,7 @@ struct EditRecordAPI: ServableAPI {
     let photos: [ImageFile]
     let boundary = UUID().uuidString
     
-    var method: HTTPMethod { .post }
+    var method: HTTPMethod { .put }
     var path: String { "/culture/\(recordId)" }
     var headers: [String : String]? { [
         "Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)",

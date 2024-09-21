@@ -341,7 +341,7 @@ final class NetworkManager {
                       editRecordRequestDTO: AddRecordRequestDTO,
                       photos: [ImageFile],
                       _ networkService: NetworkServable = NetworkService(),
-                      completion: @escaping (Result<AddRecordResponseDTO, NetworkError>) -> Void
+                      completion: @escaping (Result<EditRecordResponseDTO, NetworkError>) -> Void
     ) {
         let api = EditRecordAPI(recordId: recordId,
                                     requestDTO: editRecordRequestDTO.toDictionary,
