@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NextButton: UIButton {
+final class NextButton: UIButton {
     
     // MARK: - Properties
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignupViewModel {
+final class SignupViewModel {
     
     // MARK: - Functions
         

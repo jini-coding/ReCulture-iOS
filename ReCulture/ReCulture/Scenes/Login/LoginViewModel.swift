@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewModel {
+final class LoginViewModel {
     
     // MARK: - Functions
         

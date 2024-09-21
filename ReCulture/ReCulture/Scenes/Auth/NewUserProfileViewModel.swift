@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewUserProfileViewModel {
+final class NewUserProfileViewModel {
     
     // MARK: - Functions
         

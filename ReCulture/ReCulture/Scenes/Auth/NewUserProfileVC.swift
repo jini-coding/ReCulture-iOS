@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-class NewUserProfileVC: UIViewController {
+final class NewUserProfileVC: UIViewController {
     
     // MARK: - Properties
     
