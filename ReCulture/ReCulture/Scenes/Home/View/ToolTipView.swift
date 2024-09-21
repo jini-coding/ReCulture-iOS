@@ -20,7 +20,7 @@ final class ToolTipView: UIView {
     
     // MARK: - Initialization
     
-    override init (frame: CGRect){
+    override init (frame: CGRect) {
         super.init(frame: .zero)
         
         self.backgroundColor = .rcMain

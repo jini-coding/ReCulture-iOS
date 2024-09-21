@@ -21,26 +21,6 @@ final class HomeViewModel {
     
     private var calendarDTO: [CalendarRecordDetail] = []
     
-//    private var myCalendarModelList: [Int: Int] = [:]
-//    private var myCalendarModelIsSet = false {
-//        didSet {
-//            if myCalendarModelIsSet{
-//                myCalendarModelDidSet?()
-//            }
-//        }
-//    }
-//    var myCalendarModelDidSet: (() -> Void)?
-//    
-//    private var myCalendarDetailModelList: [MyCalendarData] = []
-//    private var myCalendarDetailModelListIsSet = false {
-//        didSet {
-//            if myCalendarDetailModelListIsSet{
-//                myCalendarDetailModelListDidSet?()
-//            }
-//        }
-//    }
-//    var myCalendarDetailModelListDidSet: (() -> Void)?
-    
     private var myCalendarDataList: [MyCalendarData] = []
     private var myCalendarDataListIsSet = false {
         didSet {
@@ -53,7 +33,7 @@ final class HomeViewModel {
     
     // MARK: - Functions; Home Profile
     
-    func getMyProfile(fromCurrentVC: UIViewController){
+    func getMyProfile(fromCurrentVC: UIViewController) {
         NetworkManager.shared.getMyProfile() { result in
             switch result {
             case .success(let model):
@@ -107,7 +87,6 @@ final class HomeViewModel {
             case .success(let dto):
                 self.calendarDTO = dto
                 self.countSameDayRecordsAndSetData(year: Int(year) ?? 2024, month: Int(month) ?? 9)
-//                self.convertToMyCalendarDetailModels()
             case .failure(let error):
                 print(error)
                 let networkAlertController = self.networkErrorAlert(error)
@@ -119,19 +98,13 @@ final class HomeViewModel {
         }
     }
     
-//    func getCalendarModelList() -> [Int:Int] {
-//        return myCalendarModelList
-//    }
-    
     private func countSameDayRecordsAndSetData(year: Int, month: Int) {
         // 초기화 (기록의 개수는 모두 0으로 됨)
         myCalendarDataList.removeAll()
         for i in 1...31 {
             myCalendarDataList.append(MyCalendarData(year: year, month: month, day: i, count: 0, records: []))
         }
-        
-//        var tempDict: [Int:Int] = [:]
-        
+                
         // 같은 날짜의 기록 개수 세기
         for record in calendarDTO {
             // date: 2024-06-10T03:34:56.000Z
@@ -143,18 +116,6 @@ final class HomeViewModel {
                                                                           title: record.title,
                                                                           categoryId: record.categoryId,
                                                                           photoURL: record.photos[0].url))
-//            
-//            let key = Int(day)!
-//            
-//            // 해당 날짜가 이미 추가돼있으면
-//            if tempDict[key] != nil {
-//                tempDict[key] = tempDict[key]! + 1
-//            }
-//            else{
-//                tempDict[key] = 1
-//            }
-//            
-//            print(tempDict)
         }
         
         myCalendarDataListIsSet = true
@@ -164,18 +125,9 @@ final class HomeViewModel {
         return myCalendarDataList
     }
     
-//    private func convertToMyCalendarDetailModels() {
-//        calendarDTO.forEach { detailData in
-//            myCalendarDetailModelList.append(MyCalendarDetailModel(recordId: detailData.id,
-//                                                                   title: detailData.title,
-//                                                                   categoryId: detailData.categoryId,
-//                                                                   photoURL: detailData.photos[0].url))
-//        }
-//    }
-    
     // MARK: - Helpers
     
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)

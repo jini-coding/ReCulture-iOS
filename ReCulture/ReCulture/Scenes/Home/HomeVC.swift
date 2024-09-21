@@ -52,7 +52,6 @@ final class HomeVC: UIViewController {
     
     private let tilNextLevelLabel: UILabel = {
         let label = UILabel()
-//        label.text = "[다음 레벨]가 되기까지 22% 남았어요!💪"
         label.font = UIFont.rcFont14B()
         return label
     }()
@@ -67,7 +66,6 @@ final class HomeVC: UIViewController {
     
     private let monthlyRecordLabel: UILabel = {
         let label = UILabel()
-//        label.text = "5월 기록 한 눈에 보기"
         label.font = UIFont.rcFont20B()
         return label
     }()
@@ -121,7 +119,7 @@ final class HomeVC: UIViewController {
     
     // MARK: - Layouts
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
         let appearance = UINavigationBarAppearance()
@@ -132,7 +130,7 @@ final class HomeVC: UIViewController {
         self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
-    private func setScrollView(){
+    private func setScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -145,7 +143,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setContentView(){
+    private func setContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(contentView)
@@ -159,7 +157,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setUserLevelInfoView(){
+    private func setUserLevelInfoView() {
         userLevelInfoView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(userLevelInfoView)
@@ -172,7 +170,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setCharacterImageView(){
+    private func setCharacterImageView() {
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         
         userLevelInfoView.addSubview(characterImageView)
@@ -185,7 +183,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setTilNextLevelLabel(){
+    private func setTilNextLevelLabel() {
         tilNextLevelLabel.translatesAutoresizingMaskIntoConstraints = false
         
         userLevelInfoView.addSubview(tilNextLevelLabel)
@@ -196,7 +194,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setLevelProgressView(){
+    private func setLevelProgressView() {
         levelProgressView.translatesAutoresizingMaskIntoConstraints = false
         
         userLevelInfoView.addSubview(levelProgressView)
@@ -209,7 +207,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setCalendarContainerView(){
+    private func setCalendarContainerView() {
         calendarContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(calendarContainerView)
@@ -226,7 +224,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setMonthlyRecordLabel(){
+    private func setMonthlyRecordLabel() {
         monthlyRecordLabel.translatesAutoresizingMaskIntoConstraints = false
         
         calendarContainerView.addSubview(monthlyRecordLabel)
@@ -237,7 +235,7 @@ final class HomeVC: UIViewController {
         ])
     }
     
-    private func setCalendarView(){
+    private func setCalendarView() {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         
         calendarContainerView.addSubview(calendarView)
@@ -254,8 +252,7 @@ final class HomeVC: UIViewController {
     
     // MARK: - Functions
     
-    private func setCharacterImage(){
-//        characterImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+    private func setCharacterImage() {
         switch viewModel.getLevelNum() {
         case 1: characterImageView.image = UIImage.character1
         case 2: characterImageView.image = UIImage.character2
@@ -294,7 +291,7 @@ final class HomeVC: UIViewController {
         tilNextLevelLabel.text = text
     }
     
-    func setCalendarMonthTo(_ month: Int){
+    func setCalendarMonthTo(_ month: Int) {
         monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
     }
     
@@ -312,7 +309,7 @@ final class HomeVC: UIViewController {
         return currentYearAndMonth
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.myProfileModelDidChange = { [weak self] in
             
             DispatchQueue.main.async {
