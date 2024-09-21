@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookmarkListVC: UIViewController {
+final class BookmarkListVC: UIViewController {
     
     // MARK: - Properties
     
@@ -97,7 +97,7 @@ class BookmarkListVC: UIViewController {
     
     // MARK: - Functions
     
-    private func filterRecordsBy(_ type: RecordType){
+    private func filterRecordsBy(_ type: RecordType) {
         filteredRecords.removeAll()
         
         if type != .all {
@@ -115,7 +115,6 @@ class BookmarkListVC: UIViewController {
     
     private func bind() {
         viewModel.bookmarkListDidChange = { [weak self] in
-            print("==== bind() ====")
             DispatchQueue.main.async {
                 self?.recordTableView.reloadData()
             }
@@ -158,9 +157,7 @@ extension BookmarkListVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         else { return .zero }
         
         cell.configure(tag: RecordType.allTypesWithAll[indexPath.item].rawValue)
-        // ✅ sizeToFit() : 텍스트에 맞게 사이즈가 조절
 
-        // ✅ cellWidth = 글자수에 맞는 UILabel 의 width + 24(여백)
         let cellFrame = cell.getLabelFrame()
         let cellWidth = cellFrame.width + 24
         let cellHeight = cellFrame.height + 12
@@ -191,11 +188,9 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
         // 전체로 필터링하는 경우
         if selectedCategory == .all {
             bookmarkData = viewModel.getBookmarkAt(indexPath.row)
-            //cell.configure(viewModel.getMyTicketBookDetailAt(indexPath.item))
         }
         // 그외의 경우
         else {
-            //cell.configure(filteredTickets[indexPath.item])
             bookmarkData = filteredRecords[indexPath.row]
         }
                 
@@ -203,6 +198,9 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.creatorLabel.text = bookmarkData?.postOwnerNickname ?? "unknown"
         cell.titleLabel.text = bookmarkData?.title ?? "unknown"
+        if let profileImage = bookmarkData?.postOwnerProfileImage {
+            cell.profileImageView.loadImage(urlWithoutBaseURL: profileImage)
+        }
 
         if let date = bookmarkData?.date.toDate() {
             cell.createDateLabel.text = date.toString()

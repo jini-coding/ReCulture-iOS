@@ -72,7 +72,8 @@ extension BookmarkListDTO {
         return BookmarkModel(postId: DTO.postId,
                              title: DTO.post.title,
                              postOwnerId: DTO.post.authorId,
-                             postOwnerNickname: DTO.post.author.profile.nickname,
+                             postOwnerNickname: DTO.post.author.profile.nickname, 
+                             postOwnerProfileImage: DTO.post.author.profile.profilePhoto,
                              date: DTO.post.date,
                              categoryType: RecordType(categoryId: DTO.post.categoryId) ?? .movie,
                              firstImageURL: DTO.post.photos[0].url)
