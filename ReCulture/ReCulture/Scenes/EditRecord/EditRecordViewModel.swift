@@ -15,13 +15,14 @@ final class EditRecordViewModel {
                     requestDTO: AddRecordRequestDTO,
                     photos: [ImageFile],
                     fromCurrentVC: UIViewController) {
+        print("view model, editRecord")
         NetworkManager.shared.editMyRecord(recordId: recordId,
                                            editRecordRequestDTO: requestDTO,
                                            photos: photos) { result in
             switch result {
             case .success(let responseDTO):
                 print("=== EditRecordViewModel ===")
-                print("== POST 요청 성공! ==")
+                print("== PUT 요청 성공! ==")
                 print(responseDTO)
                 (fromCurrentVC as? EditRecordVC)?.editRecordSuccess = true
             case .failure(let error):

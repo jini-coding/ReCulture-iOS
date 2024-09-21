@@ -12,6 +12,17 @@ protocol EditRecordDelegate: AnyObject {
     func doneEditingRecordVC()
 }
 
+struct ImageWithName {
+    let image: UIImage
+    let imageName: String
+}
+
+struct PhotoDocWithImage {
+    let culturePostId: Int
+    let url: String
+    var image: UIImage?
+}
+
 final class EditRecordVC: UIViewController {
     
     // MARK: - Properties
@@ -21,7 +32,9 @@ final class EditRecordVC: UIViewController {
     var editRecordSuccess = false {
         didSet {
             print("=== edit record success didset ===")
-            self.dismiss(animated: true)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true)
+            }
             delegate?.doneEditingRecordVC()
         }
     }
@@ -31,7 +44,7 @@ final class EditRecordVC: UIViewController {
     private var recordType: RecordType
     
     private var selectedCategory: RecordType = .book
-    private var disclosure: DisclosureType = .Public
+    private var selectedDisclosure: DisclosureType = .Public
     
     private var categoryItems: [UIAction] {
         var array: [UIAction] = []
@@ -39,7 +52,7 @@ final class EditRecordVC: UIViewController {
             array.append(UIAction(
                 title: type,
                 handler: { _ in
-                    self.selectedCategory = RecordType(rawValue: type) ?? .book
+                    self.recordType = RecordType(rawValue: type) ?? .book
                     self.categoryRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
                     self.categoryRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
                         NSAttributedString.Key.foregroundColor: UIColor.black]))
@@ -58,20 +71,14 @@ final class EditRecordVC: UIViewController {
     
     private lazy var phPicker = PHPickerViewController(configuration: phPickerConfig)
     
-    /// Identifier와 PHPickerResult로 만든 Dictionary (이미지 데이터를 저장하기 위해 만들어 줌)
-    private var selections = [String : PHPickerResult]()
-    
-    /// 선택한 사진의 순서에 맞게 Identifier들을 배열로 저장해줄 겁니다.
-    /// selections은 딕셔너리이기 때문에 순서가 없습니다. 그래서 따로 식별자를 담을 배열 생성
-    private var selectedAssetIdentifiers = [String]()
-    
     /// 갤러리를 통해 새로 선택한 이미지들
     private var newlySelectedPhotos: [PHPickerResult] = []
     
     /// 실제 collectionview에서 보여주는 사진들 리스트
+    /// 서버에서 받아온 사진일 경우 PhotoDoc, 갤러리에서 새로 선택한 사진일 경우 ImageWithName
     private var images: [Any] = []
     
-    /// 갤러리를 통해 새로 선택한 이미지들
+    /// 기록 수정 요청을 보낼 때를 위한 ImageFile 리스트
     private var imageFiles: [ImageFile] = []
     
     private var isFourTextFieldsView = false
@@ -82,7 +89,7 @@ final class EditRecordVC: UIViewController {
             array.append(UIAction(
                 title: type,
                 handler: { _ in
-                    self.disclosure = DisclosureType.getDisclosureTypeByKorean(type)
+                    self.selectedDisclosure = DisclosureType.getDisclosureTypeByKorean(type)
                     self.recordRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
                     self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
                         NSAttributedString.Key.foregroundColor: UIColor.black]))
@@ -288,7 +295,10 @@ final class EditRecordVC: UIViewController {
     init(recordModel: RecordModel) {
         self.recordModel = recordModel
         self.recordType = RecordType(categoryId: recordModel.culture.categoryId) ?? .movie
-        self.images = recordModel.photoDocs
+        self.images = recordModel.photoDocs.map { photoDoc in
+            (PhotoDocWithImage(culturePostId: photoDoc.culturePostId, 
+                               url: photoDoc.url))
+        }
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -487,9 +497,9 @@ final class EditRecordVC: UIViewController {
     
     private func setupDetailView() {
         if isFourTextFieldsView {
-            let placeholderList = RecordPlaceholders.getTitlesByRecordType(recordType)
-            print("=== setup detail view ===")
-            print("placeholder: \(placeholderList)")
+//            let placeholderList = RecordPlaceholders.getTitlesByRecordType(recordType)
+//            print("=== setup detail view ===")
+//            print("placeholder: \(placeholderList)")
             
             fourTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
             
@@ -500,15 +510,8 @@ final class EditRecordVC: UIViewController {
                 fourTextFieldsView.trailingAnchor.constraint(equalTo: categoryRangeMenuBtn.trailingAnchor),
                 fourTextFieldsView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 25),
             ])
-            
-//            fourTextFieldsView.configure(placeholderList, withData: [recordModel.culture.detail1,
-//                                                                     recordModel.culture.detail2,
-//                                                                     recordModel.culture.detail3,
-//                                                                     recordModel.culture.review])
         }
         else {
-            let placeholderList = RecordPlaceholders.getTitlesByRecordType(recordType)
-            
             fiveTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
             
             contentView.addSubview(fiveTextFieldsView)
@@ -518,11 +521,6 @@ final class EditRecordVC: UIViewController {
                 fiveTextFieldsView.trailingAnchor.constraint(equalTo: categoryRangeMenuBtn.trailingAnchor),
                 fiveTextFieldsView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 28),
             ])
-            
-//            fiveTextFieldsView.configure(placeholderList, withData: [recordModel.culture.detail1,
-//                                                                     recordModel.culture.detail2,
-//                                                                     recordModel.culture.detail3,
-//                                                                     recordModel.culture.review])
         }
     }
     
@@ -536,7 +534,7 @@ final class EditRecordVC: UIViewController {
         emojiStackView.addArrangedSubview(emojiLabel)
         emojiStackView.addArrangedSubview(emojiTextField)
         
-        if(isFourTextFieldsView) {
+        if isFourTextFieldsView {
             NSLayoutConstraint.activate([
                 emojiStackView.leadingAnchor.constraint(equalTo: fourTextFieldsView.leadingAnchor),
                 emojiStackView.trailingAnchor.constraint(equalTo: fourTextFieldsView.trailingAnchor),
@@ -630,7 +628,54 @@ final class EditRecordVC: UIViewController {
     
     @objc private func doneButtonDidTap() {
         print("기록 수정 완료")
-        editRecordSuccess = true
+        
+        let detailsModel: DetailsModel = isFourTextFieldsView ? fourTextFieldsView.getDetails() : fiveTextFieldsView.getDetails()
+        let requestDTO = AddRecordRequestDTO(title: titleTextField.text ?? "",
+                                             emoji: emojiTextField.text ?? "",
+                                             date: ISO8601DateFormatter.string(from: datePicker.date,
+                                                                               timeZone: TimeZone(abbreviation: "KST")!,
+                                                                               formatOptions: [.withInternetDateTime]),
+                                             categoryId: String(RecordType.getCategoryIdOf(recordType)),
+                                             disclosure: selectedDisclosure.rawValue,
+                                             review: detailsModel.review,
+                                             detail1: detailsModel.detail1,
+                                             detail2: detailsModel.detail2,
+                                             detail3: detailsModel.detail3,
+                                             detail4: detailsModel.detail4
+        )
+        
+        print("requestDTO는 \(requestDTO)")
+        
+        var imageFile: [ImageFile] = []
+        
+        for i in 0 ..< images.count {
+            if let imageWithName = images[i] as? ImageWithName {
+                let compressionedImage: Data = imageWithName.image.jpegData(compressionQuality: 0.2) ?? Data()
+                imageFile.append(ImageFile(filename: imageWithName.imageName,
+                                        data: compressionedImage,
+                                        type: "jpeg"))
+            }
+            else if let photoDoc = images[i] as? PhotoDocWithImage {
+                print("\nThis is PhotoDoc: \(photoDoc)")
+                let originalFileName = String(photoDoc.url.split(separator: "/").last!)
+                let fileName = originalFileName.split(separator: ".").first ?? "IMG_1"
+                print("file name: \(fileName)")
+                
+                if let cell = photoCollectionView.cellForItem(at: [0, i]) as? EditPhotoCollectionViewCell {
+                    print("cell!")
+                    imageFile.append(ImageFile(filename: String(fileName),
+                                               data: cell.getImage().jpegData(compressionQuality: 1) ?? Data(),
+                                               type: "jpeg"))
+                }
+            }
+        }
+        
+        print("photos는 \(imageFile)")
+        
+        viewModel.editRecord(recordId: recordModel.culture.id,
+                             requestDTO: requestDTO,
+                             photos: imageFile,
+                             fromCurrentVC: self)
     }
     
     @objc private func datePickerValueDidChange(_ sender: UIDatePicker) {
@@ -688,21 +733,21 @@ final class EditRecordVC: UIViewController {
             self?.photoCollectionView.reloadData()
         }
         
-        // 앞서 넘어온 데이터 중 이미지를 image file로 변경해서 imageFile로 변환하여 imageFiles에 저장
-        for photoDoc in recordModel.photoDocs {
-            if let url = URL(string: "http://34.64.120.187:8080\(photoDoc.url)") {
-                DispatchQueue.global().async { [weak self] in
-                    if let data = try? Data(contentsOf: url) {
-                        let originalFileName = String(photoDoc.url.split(separator: "/").last!)
-                        let fileName = originalFileName.split(separator: ".").first!
-                        
-                        self?.imageFiles.append(ImageFile(filename: String(fileName),
-                                                         data: data,
-                                                         type: "jpeg"))
-                    }
-                }
-            }
-        }
+//        // 앞서 넘어온 데이터 중 이미지를 image file로 변경해서 imageFile로 변환하여 imageFiles에 저장
+//        for photoDoc in recordModel.photoDocs {
+//            if let url = URL(string: "http://34.64.120.187:8080\(photoDoc.url)") {
+//                DispatchQueue.global().async { [weak self] in
+//                    if let data = try? Data(contentsOf: url) {
+//                        let originalFileName = String(photoDoc.url.split(separator: "/").last!)
+//                        let fileName = originalFileName.split(separator: ".").first!
+//                        
+//                        self?.imageFiles.append(ImageFile(filename: String(fileName),
+//                                                         data: data,
+//                                                         type: "jpeg"))
+//                    }
+//                }
+//            }
+//        }
         
         // 기록 상세 후기 뷰 만들기
         if isFourTextFieldsView {
@@ -778,16 +823,34 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             print("image: \(images[indexPath.item])")
             print("===============")
             print("image: \(images.last)")
-            
-            let thisIsPhotoDoc = (images[indexPath.item] is RecordModel.PhotoDoc)
-            
-            if let photoDoc = images[indexPath.item] as? RecordModel.PhotoDoc {
-                print("this is actual photo")
-                cell.configureWithURL(with: photoDoc.url, thisCellIndexPath: indexPath)
+                        
+            if var photoDoc = images[indexPath.item] as? PhotoDocWithImage {
+                if let image = photoDoc.image {
+                    print("photodoc has image:\(image)")
+                    cell.configureWithImage(image: image, thisCellIndexPath: indexPath)
+                }
+                else {
+                    print("photodoc has no image: \(photoDoc)")
+                    cell.configureWithURL(with: photoDoc.url, thisCellIndexPath: indexPath) { image in
+                        photoDoc.image = image
+                        print("cell configure handler")
+                    }
+                }
+//                print("this is actual photo:\(photoDoc)")
+//                if photoDoc.image != UIImage() {
+//                    print("photodoc image is NOT UIImage()")
+//                    cell.configureWithImage(image: photoDoc.image, thisCellIndexPath: indexPath)
+//                }
+//                else {
+//                    print("photodoc image is real image")
+//                    let image = photoDoc.url.loadImage()
+//                    photoDoc.image = image
+//                    cell.configureWithImage(image: image, thisCellIndexPath: indexPath)
+//                }
             }
-            else if let uiImage = images[indexPath.item] as? UIImage {
+            else if let image = images[indexPath.item] as? ImageWithName {
                 print("this is not actual photo")
-                cell.configureWithImage(image: uiImage, thisCellIndexPath: indexPath)
+                cell.configureWithImage(image: image.image, thisCellIndexPath: indexPath)
             }
             return cell
         }
@@ -799,7 +862,7 @@ extension EditRecordVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let count = images.count
         
         if count != 5 && indexPath.item == count {
-            print("imageFiles: \(imageFiles)")
+//            print("imageFiles: \(imageFiles)")
             self.present(phPicker, animated: true, completion: nil)
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditVCAddPhotoCell.identifier, for: indexPath) as? EditVCAddPhotoCell
@@ -864,9 +927,9 @@ extension EditRecordVC: PHPickerViewControllerDelegate {
         }
         
         newlySelectedPhotos.removeAll()
-        imageFiles.removeAll()
+//        imageFiles.removeAll()
         images.removeAll {
-            $0 is UIImage
+            $0 is ImageWithName
         }
         print("선택된 사진의 개수: \(results.count)")
         
@@ -884,7 +947,7 @@ extension EditRecordVC: PHPickerViewControllerDelegate {
                     let compressionedImage: Data? = image.jpegData(compressionQuality: 0.2)!
                     
                     DispatchQueue.main.async {
-                        self.images.append(image)
+                        self.images.append(ImageWithName(image: image, imageName: results[i].itemProvider.suggestedName ?? "IMG_\(i)"))
                         self.setPageControlCount(self.images.count)
                         
                         // 컬렉션 뷰에서 위치를 0번째 사진으로 이동시키기
@@ -895,12 +958,12 @@ extension EditRecordVC: PHPickerViewControllerDelegate {
                         self.photoCollectionView.reloadData()
                     }
                     
-                    if let fileName = results[i].itemProvider.suggestedName {
-                        self.imageFiles.append(ImageFile(filename: fileName,
-                                                         data: compressionedImage!,
-                                                         type: "jpeg"))
-                        print("선택된 이미지 파일 이름: \(fileName)")
-                    }
+//                    if let fileName = results[i].itemProvider.suggestedName {
+//                        self.imageFiles.append(ImageFile(filename: fileName,
+//                                                         data: compressionedImage!,
+//                                                         type: "jpeg"))
+//                        print("선택된 이미지 파일 이름: \(fileName)")
+//                    }
                 }
             }
         }
