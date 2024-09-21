@@ -326,16 +326,6 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		0813C4E82C1B6364004CD0B4 /* TicketBooks */ = {
-			isa = PBXGroup;
-			children = (
-				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
-				0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */,
-				0813C4E62C1B5BFA004CD0B4 /* MyTicketBookModel.swift */,
-			);
-			path = TicketBooks;
-			sourceTree = "<group>";
-		};
 		0833EF732BE4BA810024FB2C /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,9 +374,11 @@
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
-				0813C4E82C1B6364004CD0B4 /* TicketBooks */,
-				08E0F5852BFFB7DE000A046D /* cell */,
 				08B856452BF1D9260034E86D /* TicketBookDetail */,
+				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
+				0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */,
+				0813C4E62C1B5BFA004CD0B4 /* MyTicketBookModel.swift */,
+				08E0F5852BFFB7DE000A046D /* cell */,
 				384315C42C14D1A000D379F3 /* TicketCustomizingPage */,
 				384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */,
 				08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */,

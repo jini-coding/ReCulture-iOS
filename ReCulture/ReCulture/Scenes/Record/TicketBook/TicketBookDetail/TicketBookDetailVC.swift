@@ -7,12 +7,11 @@
 
 import UIKit
 
-class TicketBookDetailVC: UIViewController {
+final class TicketBookDetailVC: UIViewController {
     
     // MARK: - Properties
     
     private var isFrontImage = true
-    
     private let ticketBookModel: MyTicketBookModel
     
     // MARK: - Views
@@ -58,15 +57,7 @@ class TicketBookDetailVC: UIViewController {
         control.currentPageIndicatorTintColor = .rcMain
         control.pageIndicatorTintColor = .rcGray000
         control.isUserInteractionEnabled = false
-//        control.addTarget(self, action: #selector(pageChanged), for: .touchUpInside)
         return control
-    }()
-    
-    private let tagStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.spacing = 8
-        return view
     }()
 
     private let detailContentView: UIView = {
@@ -111,46 +102,6 @@ class TicketBookDetailVC: UIViewController {
         return label
     }()
     
-    private let tag1: TagLabel = {
-        let label = TagLabel()
-        label.text = "콘서트"
-        label.font = .rcFont16M()
-        label.backgroundColor = .rcGray100
-        label.textColor = .rcMain
-        label.layer.cornerRadius = 7.5
-        label.clipsToBounds = true
-        return label
-    }()
-    
-    private let tag2: TagLabel = {
-        let label = TagLabel()
-        label.text = "데이식스"
-        label.font = .rcFont16M()
-        label.backgroundColor = .rcGray100
-        label.textColor = .rcMain
-        label.layer.cornerRadius = 7.5
-        label.clipsToBounds = true
-        return label
-    }()
-    
-    private let tag3: TagLabel = {
-        let label = TagLabel()
-        label.text = "Welcome to the Show"
-        label.font = .rcFont16M()
-        label.backgroundColor = .rcGray100
-        label.textColor = .rcMain
-        label.layer.cornerRadius = 7.5
-        label.clipsToBounds = true
-        return label
-    }()
-    
-    private let buttonStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.spacing = 8
-        return view
-    }()
-    
     private let saveButton: UIButton = {
         let button = UIButton()
         
@@ -164,35 +115,14 @@ class TicketBookDetailVC: UIViewController {
         config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
         
         button.configuration = config
-        button.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
         return button
     }()
     
-//    private let shareButton: UIButton = {
-//        let button = UIButton()
-//        
-//        var config = UIButton.Configuration.filled()
-//        var attributeTitle = AttributedString("공유")
-//        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.rcMain]))
-//        config.attributedTitle = attributeTitle
-//        config.background.cornerRadius = 10
-//        config.baseBackgroundColor = .white
-//        config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
-//
-//        button.layer.cornerRadius = 10
-//        button.layer.borderWidth = 1
-//        button.layer.masksToBounds = true
-//        button.layer.borderColor = UIColor.rcMain.cgColor
-//        button.configuration = config
-//        button.addTarget(self, action: #selector(shareButtonDidTap), for: .touchUpInside)
-//        
-//        return button
-//    }()
-    
     // MARK: - Lifecycle
     
-    init(model: MyTicketBookModel){
+    init(model: MyTicketBookModel) {
         self.ticketBookModel = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -216,29 +146,22 @@ class TicketBookDetailVC: UIViewController {
         setDetailContentView()
         setDetailStackView()
         setSaveButton()
-//        setTagStackView()
-//        setButtonStackView()
         
         configure()
     }
     
     // MARK: - Layout
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
-        
-//        let editButtonItem = UIBarButtonItem(customView: editButton)
-//        editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
 
         // left bar button을 추가하면 기존의 스와이프 pop 기능이 해제되므로 다시 세팅
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-
-//        self.navigationItem.rightBarButtonItem = editButtonItem
     }
     
-    private func setScrollView(){
+    private func setScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -251,7 +174,7 @@ class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setContentView(){
+    private func setContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(contentView)
@@ -266,7 +189,7 @@ class TicketBookDetailVC: UIViewController {
     }
     
     private func setTicketImageView() {
-        ticketImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewDidTap)))
+        ticketImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewTapped)))
         
         ticketImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -280,7 +203,7 @@ class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setPageControl(){
+    private func setPageControl() {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(pageControl)
@@ -292,7 +215,7 @@ class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setDetailContentView(){
+    private func setDetailContentView() {
         detailContentView.translatesAutoresizingMaskIntoConstraints = false
         
         ticketImageView.addSubview(detailContentView)
@@ -313,59 +236,13 @@ class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setDetailStackView(){
+    private func setDetailStackView() {
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         
         [emojiLabel, ticketTitleLabel, dateLabel, reviewLabel].forEach {
             detailStackView.addArrangedSubview($0)
         }
-        
-//        ticketImageView.addSubview(detailStackView)
-//        
-//        NSLayoutConstraint.activate([
-//            detailStackView.centerYAnchor.constraint(equalTo: ticketImageView.centerYAnchor),
-//            detailStackView.leadingAnchor.constraint(equalTo: ticketImageView.leadingAnchor, constant: 33),
-//            detailStackView.trailingAnchor.constraint(equalTo: ticketImageView.trailingAnchor, constant: -33),
-//        ])
     }
-    
-    private func setTagStackView(){
-        tagStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tag1.translatesAutoresizingMaskIntoConstraints = false
-        tag2.translatesAutoresizingMaskIntoConstraints = false
-        tag3.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(tagStackView)
-        
-        [tag1, tag2, tag3].forEach {
-            tagStackView.addArrangedSubview($0)
-        }
-        
-        NSLayoutConstraint.activate([
-            tagStackView.leadingAnchor.constraint(equalTo: ticketImageView.leadingAnchor),
-            tagStackView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 15)
-        ])
-    }
-    
-//    private func setButtonStackView(){
-//        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-//        saveButton.translatesAutoresizingMaskIntoConstraints = false
-//        shareButton.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        contentView.addSubview(buttonStackView)
-//        
-//        [saveButton, shareButton].forEach {
-//            buttonStackView.addArrangedSubview($0)
-//        }
-//        
-//        NSLayoutConstraint.activate([
-//            buttonStackView.topAnchor.constraint(equalTo: tagStackView.bottomAnchor, constant: 31),
-//            buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-//            buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-//            buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
-//        ])
-//    }
     
     private func setSaveButton() {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -382,15 +259,11 @@ class TicketBookDetailVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func goBack(){
+    @objc private func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc private func editButtonDidTap(){
-        print("티켓북 수정")
-    }
-    
-    @objc private func saveButtonDidTap(){
+    @objc private func saveButtonTapped() {
         print("== 티켓북 저장 ==")
         ImageSaver().saveAsImage(ticketImageView.transfromToImage()!, target: self) {
             let alertVC = UIAlertController(title: "티켓북 저장에 성공하였습니다!", message: nil, preferredStyle: .alert)
@@ -399,11 +272,7 @@ class TicketBookDetailVC: UIViewController {
         }
     }
     
-    @objc private func shareButtonDidTap(){
-        print("티켓북 공유")
-    }
-    
-    @objc private func imageViewDidTap(){
+    @objc private func imageViewTapped() {
         print("이미지 선택됨")
         if isFrontImage {
             isFrontImage = false
@@ -423,12 +292,8 @@ class TicketBookDetailVC: UIViewController {
     
     // MARK: - Functions
     
-    private func configure(){
+    private func configure() {
         print("==configuring ticket book detail==")
-//        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
-//        imageUrlStr.loadAsyncImage(ticketImageView)
-
-        //let url = URL(string: "http://34.22.96.154:8080\(ticketBookModel.imageURL)")!
         ticketImageView.loadImage(urlWithoutBaseURL: ticketBookModel.imageURL)        
         
         ticketTitleLabel.text = ticketBookModel.title
@@ -436,21 +301,8 @@ class TicketBookDetailVC: UIViewController {
         dateLabel.text = String(ticketBookModel.date.split(separator: "T")[0]).replacingOccurrences(of: "-", with: ".")
         reviewLabel.text = ticketBookModel.review
     }
-    
-//    private func loadImageData() {
-//        let url = URL(string: "http://34.22.96.154:8080\(self)")
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: url!) {
-//                if let image = UIImage(data: data) {
-//                    DispatchQueue.main.async {
-//                        self?.image = image
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 // MARK: - Extensions: UIGestureRecognizerDelegate
-extension TicketBookDetailVC: UIGestureRecognizerDelegate {
-}
+
+extension TicketBookDetailVC: UIGestureRecognizerDelegate { }
