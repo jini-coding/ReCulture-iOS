@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddPhotoCell: UICollectionViewCell {
+final class AddPhotoCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -32,13 +32,9 @@ class AddPhotoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func draw(_ rect: CGRect) {
-//        contentView.setDotLineWithCornerRadius(color: .rcGray300, radius: 12)
-//    }
-    
     // MARK: - Layout
     
-    private func setAddPhotoView(){
+    private func setAddPhotoView() {
         addPhotoView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(addPhotoView)
