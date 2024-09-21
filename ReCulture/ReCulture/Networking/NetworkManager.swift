@@ -14,22 +14,6 @@ final class NetworkManager {
     
     private init() {}
     
-    /// 앨범들을 조회하는 함수입니다.
-    func fetchNetworkingTest(
-        _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<TestDTO, NetworkError>) -> Void
-    ) {
-        let testAPI = TestAPI()
-        networkService.request(testAPI) { result in
-            switch result {
-            case .success(let DTO):
-                completion(.success(DTO))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
     /// 사용자 회원가입하는 함수
     func postUserRegister(
         signupRequestDTO: SignupRequestDTO,
