@@ -204,8 +204,9 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             //cell.profileImageView.image = UIImage(named: "profile_image_placeholder") // 프로필 이미지
             print(viewModel.getProfileImage())
-            let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
-            imageUrlStr.loadAsyncImage(cell.profileImageView)
+            if viewModel.getProfileImage() != "no_img" {
+                cell.profileImageView.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+            }
             
             //cell.profileImageView.backgroundColor = UIColor.rcMain
             cell.nameLabel.text = "\(viewModel.getNickname())님"
