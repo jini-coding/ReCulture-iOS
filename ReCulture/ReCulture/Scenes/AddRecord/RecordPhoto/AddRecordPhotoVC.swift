@@ -27,8 +27,6 @@ final class AddRecordPhotoVC: UIViewController {
     
     private lazy var phPicker = PHPickerViewController(configuration: phPickerConfig)
     
-    private let photoService = PhotoService()
-    
     private let minimumLineSpacing: CGFloat = 12
     private let minimumInteritemSpacing: CGFloat = 8
     
@@ -38,7 +36,6 @@ final class AddRecordPhotoVC: UIViewController {
                 DispatchQueue.main.async {
                     self.addPhotoButtonView.isHidden = true
                     self.addPhotoButtonView.isUserInteractionEnabled = false
-//                    self.photoCollectionView.reloadData()
                     self.uploadButton.isActive = true
                 }
             }
@@ -46,7 +43,6 @@ final class AddRecordPhotoVC: UIViewController {
                 DispatchQueue.main.async {
                     self.addPhotoButtonView.isHidden = false
                     self.addPhotoButtonView.isUserInteractionEnabled = true
-//                    self.photoCollectionView.reloadData()
                     self.uploadButton.isActive = false
                 }
             }
@@ -208,29 +204,6 @@ final class AddRecordPhotoVC: UIViewController {
     @objc private func openLibrary(_ gesture: UITapGestureRecognizer) {
         self.present(phPicker, animated: true, completion: nil)
     }
-    
-//    @objc private func openLibrary(){
-//        imagePicker.sourceType = .photoLibrary
-//        imagePicker.allowsEditing = true
-//        self.present(imagePicker, animated: true, completion: nil)
-//        
-        // 갤러리 접근 권한 먼저 확인
-//        photoService.requestPHPhotoLibraryAuth { isPermissionEnabled in
-//            if isPermissionEnabled {                
-//                self.photoService.getAccessibleImages(size: CGSize(width: 100, height: 100), contentMode: .aspectFill) { images in
-//                    images.forEach { image in
-//                        //print(image)
-//                        DispatchQueue.main.async {
-//                            self.imagePicker.sourceType = .photoLibrary
-//                            self.present(self.imagePicker, animated: true, completion: nil)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        imagePicker.sourceType = .photoLibrary
-//        self.present(imagePicker, animated: true, completion: nil)
-//    }
     
     @objc private func uploadButtonDidTap() {
         LoadingIndicator.showLoading()

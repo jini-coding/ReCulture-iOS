@@ -699,6 +699,7 @@ final class EditRecordVC: UIViewController {
         
         if let date = recordModel.culture.date.toDate() {
             datePicker.date = date
+            dateTextField.text = dateFormatToString(date: date)
         }
         
         if let categoryType = RecordType(categoryId: recordModel.culture.categoryId) {

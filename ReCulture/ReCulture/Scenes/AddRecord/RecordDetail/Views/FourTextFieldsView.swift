@@ -9,7 +9,7 @@ import UIKit
 
 /// 기록 중 영화, 뮤지컬, 연극, 드라마, 전시회, 기타를 위한 뷰입니다.
 
-class FourTextFieldsView: UIView {
+final class FourTextFieldsView: UIView {
     
     // MARK: - Properties
     
@@ -113,22 +113,13 @@ class FourTextFieldsView: UIView {
         setStackView4()
     }
     
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        
-//        setStackView1()
-//        setStackView2()
-//        setStackView3()
-//        setStackView4()
-//    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Layout
     
-    private func setStackView1(){
+    private func setStackView1() {
         stackView1.translatesAutoresizingMaskIntoConstraints = false
         label1.translatesAutoresizingMaskIntoConstraints = false
         textField1.translatesAutoresizingMaskIntoConstraints = false
@@ -149,7 +140,7 @@ class FourTextFieldsView: UIView {
         ])
     }
     
-    private func setStackView2(){
+    private func setStackView2() {
         stackView2.translatesAutoresizingMaskIntoConstraints = false
         label2.translatesAutoresizingMaskIntoConstraints = false
         textField2.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +161,7 @@ class FourTextFieldsView: UIView {
         ])
     }
     
-    private func setStackView3(){
+    private func setStackView3() {
         stackView3.translatesAutoresizingMaskIntoConstraints = false
         label3.translatesAutoresizingMaskIntoConstraints = false
         textField3.translatesAutoresizingMaskIntoConstraints = false
@@ -191,7 +182,7 @@ class FourTextFieldsView: UIView {
         ])
     }
     
-    private func setStackView4(){
+    private func setStackView4() {
         stackView4.translatesAutoresizingMaskIntoConstraints = false
         label4.translatesAutoresizingMaskIntoConstraints = false
         textView4.translatesAutoresizingMaskIntoConstraints = false
@@ -215,7 +206,7 @@ class FourTextFieldsView: UIView {
     
     // MARK: - Functions
     
-    func configure(_ placeholderInfoList: [[String]]){
+    func configure(_ placeholderInfoList: [[String]]) {
         print(placeholderInfoList)
         label1.text = placeholderInfoList[0][0]
         textField1.placeholder = placeholderInfoList[0][1]

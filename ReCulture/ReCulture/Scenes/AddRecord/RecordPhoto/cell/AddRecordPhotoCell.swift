@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddRecordPhotoCell: UICollectionViewCell {
+final class AddRecordPhotoCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -25,7 +25,7 @@ class AddRecordPhotoCell: UICollectionViewCell {
     private let removeButton: UIButton = {
         let button = UIButton()
         button.setImage(.closeIconWithBg, for: .normal)
-        button.addTarget(self, action: #selector(removeButtonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(removeButtonTappped), for: .touchUpInside)
         return button
     }()
     
@@ -47,7 +47,7 @@ class AddRecordPhotoCell: UICollectionViewCell {
     
     // MARK: - Layout
     
-    private func setImageView(){
+    private func setImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(imageView)
@@ -60,7 +60,7 @@ class AddRecordPhotoCell: UICollectionViewCell {
         ])
     }
     
-    private func setRemoveButton(){
+    private func setRemoveButton() {
         removeButton.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(removeButton)
@@ -74,14 +74,15 @@ class AddRecordPhotoCell: UICollectionViewCell {
     }
     
     // MARK: - Actions
-    @objc private func removeButtonDidTap(){
+    
+    @objc private func removeButtonTappped() {
         print("remove this photo")
         removeBtnCallBackMehtod?()
     }
     
     // MARK: - Functions
     
-    func configure(image: UIImage){
+    func configure(image: UIImage) {
         DispatchQueue.main.async { self.imageView.image = image }
     }
 }

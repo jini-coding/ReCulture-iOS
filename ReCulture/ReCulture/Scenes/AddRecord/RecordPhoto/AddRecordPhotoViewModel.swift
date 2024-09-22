@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddRecordPhotoViewModel {
+final class AddRecordPhotoViewModel {
     
     // MARK: - Functions
         
@@ -30,7 +30,7 @@ class AddRecordPhotoViewModel {
         }
     }
     
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다. 다시 시도해주세요", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)

@@ -46,7 +46,6 @@ final class CalendarDetailCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-//        label.text = "민경아 록시를 드디어 보다!"
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         label.font = .rcFont16M()
@@ -55,7 +54,6 @@ final class CalendarDetailCell: UICollectionViewCell {
     
     private let categoryLabel: LabelWithPadding = {
         let label = LabelWithPadding(top: 4, left: 5, bottom: 4, right: 5)
-//        label.text = "뮤지컬"
         label.font = .rcFont12M()
         label.textColor = .rcMain
         label.backgroundColor = .rcGrayBg

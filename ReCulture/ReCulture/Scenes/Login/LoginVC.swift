@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+final class LoginVC: UIViewController {
     
     // MARK: - Properties
     
@@ -92,7 +92,6 @@ class LoginVC: UIViewController {
         addKeyboardObserver()
         
         setupLogoImageView()
-        //setupWelcomeLabel()
         setEmailTextField()
         setPasswordTextField()
         setupLoginButton()
@@ -108,7 +107,7 @@ class LoginVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setupLogoImageView(){
+    private func setupLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(logoImageView)
@@ -122,7 +121,7 @@ class LoginVC: UIViewController {
         ])
     }
     
-    private func setupWelcomeLabel(){
+    private func setupWelcomeLabel() {
         welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(welcomeLabel)
@@ -133,7 +132,7 @@ class LoginVC: UIViewController {
         ])
     }
     
-    private func setEmailTextField(){
+    private func setEmailTextField() {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(emailTextField)
@@ -146,7 +145,7 @@ class LoginVC: UIViewController {
         ])
     }
     
-    private func setPasswordTextField(){
+    private func setPasswordTextField() {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(passwordTextField)
@@ -159,7 +158,7 @@ class LoginVC: UIViewController {
         ])
     }
     
-    private func setupLoginButton(){
+    private func setupLoginButton() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(loginButton)
@@ -209,7 +208,7 @@ class LoginVC: UIViewController {
         ])
     }
     
-    private func setupSignUpButton(){
+    private func setupSignUpButton() {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(signUpButton)
@@ -237,7 +236,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    @objc private func loginButtonDidTap(){
+    @objc private func loginButtonDidTap() {
         print("로그인 버튼 선택됨")
         let email = emailTextField.text
         let password = passwordTextField.text
@@ -256,12 +255,12 @@ class LoginVC: UIViewController {
         viewModel.postUserLogin(requestDTO: requestDTO, fromCurrentVC: self)
     }
     
-    @objc private func signUpButtonDidTap(){
+    @objc private func signUpButtonDidTap() {
         print("회원가입 선택됨")
         self.navigationController?.pushViewController(SignUpVC(), animated: true)
     }
     
-    @objc private func keyboardWillShow(_ notification: NSNotification){
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height / 2
@@ -269,7 +268,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    @objc private func keyboardWillHide(_ notification: NSNotification){
+    @objc private func keyboardWillHide(_ notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
@@ -299,7 +298,6 @@ class LoginVC: UIViewController {
     }
     
     private func moveToHomeVC(_ loginSuccess: Bool) {
-        LoadingIndicator.hideLoading()
         if loginSuccess {
             let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
             print("앱 최초 실행 값: \(isFirstLaunch)")

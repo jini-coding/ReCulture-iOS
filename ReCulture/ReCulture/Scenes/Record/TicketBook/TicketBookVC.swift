@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TicketBookVC: UIViewController {
+final class TicketBookVC: UIViewController {
     
     // MARK: - Properties
     
@@ -15,7 +15,6 @@ class TicketBookVC: UIViewController {
     private let tagMinimumInterItemSpacing: CGFloat = 8
     private let ticketMinimumLineSpacing: CGFloat = 16
     private let ticketMinimumInteritemSpacing: CGFloat = 16
-    //private let tagList = ["전체", "영화", "뮤지컬", "연극", "스포츠", "콘서트", "독서", "전시회", "드라마", "기타"]
     
     private let viewModel = TicketBookViewModel()
     private var filteredTickets: [MyTicketBookModel] = []  // 필터링한 티켓북을 담을 배열
@@ -69,7 +68,6 @@ class TicketBookVC: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        //viewModel.getMyTicketBook(fromCurrentVC: self)
         
         setupNavigation()
         
@@ -83,22 +81,11 @@ class TicketBookVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setupNavigation(){
-//        let appearance = UINavigationBarAppearance()
-//        appearance.titlePositionAdjustment = UIOffset(horizontal: -(view.frame.width/2), vertical: 0)
-//        appearance.configureWithTransparentBackground()  // 내비게이션 바의 선을 지우고 뷰컨트롤러의 배경색을 사용
-//
-//        self.navigationController?.navigationBar.standardAppearance = appearance
-//        self.navigationController?.navigationBar.compactAppearance = appearance
-//        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
+    private func setupNavigation() {
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
-//        self.navigationItem.title = "내 티켓북"
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.rcFont18B()]
         
-        
-        let addNewButtonItem = UIBarButtonItem(image: UIImage.addIcon, style: .done, target: self, action: #selector(addNewTicket))
+        let addNewButtonItem = UIBarButtonItem(image: UIImage.addIcon, style: .done, target: self, action: #selector(addNewButtonTapped))
 
         // left bar button을 추가하면 기존의 스와이프 pop 기능이 해제되므로 다시 세팅
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
@@ -107,7 +94,7 @@ class TicketBookVC: UIViewController {
         self.navigationItem.rightBarButtonItem = addNewButtonItem
     }
     
-    private func setTagCollectionView(){
+    private func setTagCollectionView() {
         tagCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tagCollectionView)
@@ -121,7 +108,7 @@ class TicketBookVC: UIViewController {
         ])
     }
     
-    private func setTicketCollectionView(){
+    private func setTicketCollectionView() {
         ticketCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(ticketCollectionView)
@@ -134,7 +121,7 @@ class TicketBookVC: UIViewController {
         ])
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.myTicketBookListDidChange = { [weak self] in
             DispatchQueue.main.async {
                 self?.ticketCollectionView.reloadData()
@@ -144,12 +131,11 @@ class TicketBookVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc func goBack(){
+    @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func addNewTicket(){
-        print("새 티켓북 추가")
+    @objc func addNewButtonTapped() {
         let vc = TicketCustomizingVC()
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
@@ -157,7 +143,7 @@ class TicketBookVC: UIViewController {
     
     // MARK: - Functions
     
-    private func filterTicketsBy(_ type: RecordType){
+    private func filterTicketsBy(_ type: RecordType) {
         filteredTickets.removeAll()
         
         if type != .all {
@@ -176,8 +162,7 @@ class TicketBookVC: UIViewController {
 
 // MARK: - Extension: UIGestureRecognizerDelegate
 
-extension TicketBookVC: UIGestureRecognizerDelegate {
-}
+extension TicketBookVC: UIGestureRecognizerDelegate { }
 
 // MARK: - Extension: CollectionView
 
@@ -268,9 +253,7 @@ extension TicketBookVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
                     }
             
             cell.configure(tag: RecordType.allTypesWithAll[indexPath.item].rawValue)
-            // ✅ sizeToFit() : 텍스트에 맞게 사이즈가 조절
 
-            // ✅ cellWidth = 글자수에 맞는 UILabel 의 width + 24(여백)
             let cellFrame = cell.getLabelFrame()
             let cellWidth = cellFrame.width + 24
             let cellHeight = cellFrame.height + 12

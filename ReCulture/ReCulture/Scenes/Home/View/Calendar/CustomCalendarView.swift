@@ -226,22 +226,8 @@ final class CustomCalendarView: UIView {
     
     func setRecordDataList(_ data: [MyCalendarData]) {
         recordDataList = data
-//        recordCountList.removeAll()
-//        initRecordCountList()
-//        print(recordCountList)
-//        if let dict = dict {
-//            dict.keys.forEach { key in
-//                recordCountList[key] = dict[key]!
-//            }
-//        }
         recordDataListIsSet = true
     }
-    
-//    private func initRecordCountList() {
-//        for i in 1...50 {
-//            recordCountList.append(0)
-//        }
-//    }
 }
 
 // MARK: - Extension; CollectionView
@@ -272,17 +258,9 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
             let day = days[indexPath.item]
             // 캘린더 아이템이 세팅된 경우
             if recordDataList.count != 0 && day != "" {
-//                print(recordDataList)
-//                if day == "" {
-//                    cell.configure(section: 1,
-//                                   dateOrDay: day,
-//                                   recordCount: 0)
-//                }
-//                else {
                     cell.configure(section: 1,
                                    dateOrDay: day,
                                    recordCount: recordDataList[Int(day)! - 1].count)
-//                }
             }
             // 세팅 전인 경우
             else {
@@ -290,7 +268,6 @@ extension CustomCalendarView: UICollectionViewDelegate, UICollectionViewDataSour
                                dateOrDay: day,
                                recordCount: 0)
             }
-            
         }
         
         return cell

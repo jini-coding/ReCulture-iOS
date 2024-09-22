@@ -49,7 +49,7 @@ final class CalendarDateCell: UICollectionViewCell {
     
     // MARK: - Layout
     
-    private func setDateLabel(){
+    private func setDateLabel() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(dateLabel)
@@ -62,7 +62,7 @@ final class CalendarDateCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    func configure(section: Int, dateOrDay: String, recordCount: Int = 0){
+    func configure(section: Int, dateOrDay: String, recordCount: Int = 0) {
         if section == 0 {
             dateLabel.font = .rcFont14M()
             dateLabel.textColor = UIColor.rcGray400
@@ -94,7 +94,7 @@ final class CalendarDateCell: UICollectionViewCell {
         self.dateLabel.text = dateOrDay
     }
     
-    private func setBgColor(_ color: UIColor){
+    private func setBgColor(_ color: UIColor) {
         self.contentView.layer.cornerRadius = self.frame.width / 2
         self.contentView.backgroundColor = color
         

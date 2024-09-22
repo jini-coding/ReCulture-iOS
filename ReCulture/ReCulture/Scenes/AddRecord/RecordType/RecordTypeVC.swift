@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecordTypeVC: UIViewController {
+final class RecordTypeVC: UIViewController {
     
     // MARK: - Properties
     
@@ -177,7 +177,8 @@ extension RecordTypeVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordTypeCollectionViewCell.identifier, for: indexPath) as? RecordTypeCollectionViewCell 
+        else { return UICollectionViewCell() }
         cell.configure(recordTypeList[indexPath.item].rawValue)
         return cell
     }

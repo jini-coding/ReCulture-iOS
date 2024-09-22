@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-class NewUserProfileVC: UIViewController {
+final class NewUserProfileVC: UIViewController {
     
     // MARK: - Properties
     
@@ -195,7 +195,6 @@ class NewUserProfileVC: UIViewController {
         
         view.backgroundColor = .white
         
-        //setupNavigation()
         setupCustomHeaderView()
         setupProfileImageView()
         setupAddProfileImageButton()
@@ -207,11 +206,6 @@ class NewUserProfileVC: UIViewController {
     }
     
     // MARK: - Layout
-    
-    private func setupNavigation() {
-        self.navigationItem.titleView = titleLabel
-        self.navigationController?.navigationBar.tintColor = .black
-    }
     
     private func setupCustomHeaderView() {
         customHeaderView.translatesAutoresizingMaskIntoConstraints = false
