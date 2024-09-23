@@ -7,24 +7,13 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+final class HomeVC: UIViewController {
     
     // MARK: - Properties
-    
-    private var lastContentOffset: CGFloat = 0.0
     
     let viewModel = HomeViewModel()
     
     // MARK: - Views
-    
-    private let logoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "LOGO"
-        label.font = .rcFont16M()
-        label.textColor = .white
-        label.textAlignment = .left
-        return label
-    }()
     
     private let logoImageView: UIImageView = {
         let view = UIImageView()
@@ -54,17 +43,15 @@ class HomeVC: UIViewController {
         label.textColor = .white
         return label
     }()
+    
     private let characterImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.layer.cornerRadius = 145/2
-        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
     private let tilNextLevelLabel: UILabel = {
         let label = UILabel()
-        label.text = "[다음 레벨]까지 22% 남았어요!💪"
         label.font = UIFont.rcFont14B()
         return label
     }()
@@ -79,7 +66,6 @@ class HomeVC: UIViewController {
     
     private let monthlyRecordLabel: UILabel = {
         let label = UILabel()
-        label.text = "5월 기록 한 눈에 보기"
         label.font = UIFont.rcFont20B()
         return label
     }()
@@ -96,7 +82,7 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("앱 최초 실행 값: \(isFirstLaunch)")
         let userId = UserDefaults.standard.integer(forKey: "userId")
@@ -105,11 +91,9 @@ class HomeVC: UIViewController {
         print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
         view.backgroundColor = .rcMain
         
-        
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
-        viewModel.getMyCalendar(year: "2024", month: "6", fromCurrentVC: self)
-        
+        viewModel.getMyCalendar(yearAndMonthFormatted: getTodaysYearAndMonth(), fromCurrentVC: self)
         setupNavigation()
         
         // set up layout
@@ -123,8 +107,6 @@ class HomeVC: UIViewController {
         setMonthlyRecordLabel()
         setCalendarView()
         
-//        levelProgressView.setProgress(0.78)
-        
         setCalendarMonthTo(calendarView.currentDateComponents.month!)
         
         scrollView.updateContentSize()
@@ -132,15 +114,14 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.getMyProfile(fromCurrentVC: self)
+        setupNavigation()
     }
     
     // MARK: - Layouts
     
-    private func setupNavigation(){
-        //setLevelAttributes()
-        
+    private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = .rcMain
@@ -149,7 +130,7 @@ class HomeVC: UIViewController {
         self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
-    private func setScrollView(){
+    private func setScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -162,7 +143,7 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setContentView(){
+    private func setContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(contentView)
@@ -176,7 +157,7 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setUserLevelInfoView(){
+    private func setUserLevelInfoView() {
         userLevelInfoView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(userLevelInfoView)
@@ -189,7 +170,7 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setCharacterImageView(){
+    private func setCharacterImageView() {
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         
         userLevelInfoView.addSubview(characterImageView)
@@ -202,18 +183,18 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setTilNextLevelLabel(){
+    private func setTilNextLevelLabel() {
         tilNextLevelLabel.translatesAutoresizingMaskIntoConstraints = false
         
         userLevelInfoView.addSubview(tilNextLevelLabel)
         
         NSLayoutConstraint.activate([
-            tilNextLevelLabel.leadingAnchor.constraint(equalTo: userLevelInfoView.leadingAnchor, constant: 30),
+            tilNextLevelLabel.centerXAnchor.constraint(equalTo: userLevelInfoView.centerXAnchor),
             tilNextLevelLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36)
         ])
     }
     
-    private func setLevelProgressView(){
+    private func setLevelProgressView() {
         levelProgressView.translatesAutoresizingMaskIntoConstraints = false
         
         userLevelInfoView.addSubview(levelProgressView)
@@ -226,7 +207,7 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setCalendarContainerView(){
+    private func setCalendarContainerView() {
         calendarContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(calendarContainerView)
@@ -243,7 +224,7 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setMonthlyRecordLabel(){
+    private func setMonthlyRecordLabel() {
         monthlyRecordLabel.translatesAutoresizingMaskIntoConstraints = false
         
         calendarContainerView.addSubview(monthlyRecordLabel)
@@ -254,7 +235,7 @@ class HomeVC: UIViewController {
         ])
     }
     
-    private func setCalendarView(){
+    private func setCalendarView() {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         
         calendarContainerView.addSubview(calendarView)
@@ -271,18 +252,13 @@ class HomeVC: UIViewController {
     
     // MARK: - Functions
     
-    private func setCharacterImage(){
-        let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
-        imageUrlStr.loadAsyncImage(characterImageView)
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: imageUrl!) {
-//                if let image = UIImage(data: data) {
-////                    DispatchQueue.main.async {
-//                        self?.characterImageView.image = image
-////                    }
-//                }
-//            }
-//        }
+    private func setCharacterImage() {
+        switch viewModel.getLevelNum() {
+        case 1: characterImageView.image = UIImage.character1
+        case 2: characterImageView.image = UIImage.character2
+        case 3: characterImageView.image = UIImage.character3
+        default: characterImageView.image = UIImage.character4
+        }
     }
     
     private func setLevelAttributes() {
@@ -298,29 +274,42 @@ class HomeVC: UIViewController {
     
     private func setLevelProgress() {
         let currentExp = viewModel.getExp()
-        let currentLevelName = viewModel.getLevelName()
-        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType(rawValue: currentLevelName)!)
+        let totalScoreForThisLevel = LevelType.getTotalScoreOf(LevelType.getLevelTypeByLevelNum(viewModel.getLevelNum()))
 
         levelProgressView.setProgress(Float(currentExp) / Float(totalScoreForThisLevel))
     }
     
     private func setTilNextLevelValues() {
-        let currentLevelType = LevelType(rawValue: viewModel.getLevelName())!
+        let currentLevelType = LevelType.getLevelTypeByLevelNum(viewModel.getLevelNum())
         let nextLevelName = LevelType.getNextLevelOf(currentLevelType)
         let totalScoreForThisLevel = LevelType.getTotalScoreOf(currentLevelType)
         
         let percentLeftToNextLevel = 100 - Int((Float(viewModel.getExp()) / Float(totalScoreForThisLevel)) * 100)
         
-        let text = "\(nextLevelName)까지 \(percentLeftToNextLevel)% 남았어요! 💪"
+        let text = (nextLevelName == .End) ? "✨ 탐험을 모두 마쳤어요! ✨" : "\(nextLevelName)가 되기까지 \(percentLeftToNextLevel)% 남았어요! 💪"
     
         tilNextLevelLabel.text = text
     }
     
-    func setCalendarMonthTo(_ month: Int){
+    func setCalendarMonthTo(_ month: Int) {
         monthlyRecordLabel.text = "\(month)월 기록 한 눈에 보기"
     }
     
-    private func bind(){
+    /// 2024-09 와 같은형식으로 날짜 리턴
+    private func getTodaysYearAndMonth() -> String {
+        let now = Date()
+        let dateFormatter: DateFormatter = {
+            let df = DateFormatter()
+            df.locale = Locale(identifier: "ko_KR")
+            df.timeZone = TimeZone(abbreviation: "KST")
+            df.dateFormat = "yyyy-MM"
+            return df
+        }()
+        let currentYearAndMonth = dateFormatter.string(from: now)
+        return currentYearAndMonth
+    }
+    
+    private func bind() {
         viewModel.myProfileModelDidChange = { [weak self] in
             
             DispatchQueue.main.async {
@@ -331,29 +320,8 @@ class HomeVC: UIViewController {
             }
         }
         
-        viewModel.myCalendarModelDidSet = { [weak self] in
-            self?.calendarView.setRecordCountList(self?.viewModel.getCalendarModelList())
+        viewModel.myCalendarDataListDidSet = { [weak self] in
+            self?.calendarView.setRecordDataList(self!.viewModel.getMyCalendarDataList())
         }
-    }
-}
-
-extension UIScrollView {
-    func updateContentSize() {
-        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
-        
-        // 계산된 크기로 컨텐츠 사이즈 설정
-        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
-    }
-    
-    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-        var totalRect: CGRect = .zero
-        
-        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
-        for subView in view.subviews {
-            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
-        }
-        
-        // 최종 계산 영역의 크기를 반환
-        return totalRect.union(view.frame)
     }
 }

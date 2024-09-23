@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToolTipView: UIView {
+final class ToolTipView: UIView {
     
     // MARK: - Views
     
@@ -20,7 +20,7 @@ class ToolTipView: UIView {
     
     // MARK: - Initialization
     
-    override init (frame: CGRect){
+    override init (frame: CGRect) {
         super.init(frame: .zero)
         
         self.backgroundColor = .rcMain

@@ -1,31 +1,32 @@
 //
-//  TicketBookViewModel.swift
+//  BookmarkViewModel.swift
 //  ReCulture
 //
-//  Created by Suyeon Hwang on 6/14/24.
+//  Created by Suyeon Hwang on 9/8/24.
 //
 
 import UIKit
 
-class TicketBookViewModel {
+final class BookmarkViewModel {
     
     // MARK: - Properties
     
-    private var myTicketBookList: [MyTicketBookModel] = [] {
+    private var bookmarkList: [BookmarkModel] = [] {
         didSet {
-            myTicketBookListDidChange?()
+            bookmarkListDidChange?()
         }
     }
       
-    var myTicketBookListDidChange: (() -> Void)?
+    var bookmarkListDidChange: (() -> Void)?
     
     // MARK: - Function
     
-    func getMyTicketBook(fromCurrentVC: UIViewController){
-        NetworkManager.shared.getMyTicketBook() { result in
+    func getBookmarkList(fromCurrentVC: UIViewController) {
+        NetworkManager.shared.getBookmarkList() { result in
             switch result {
             case .success(let models):
-                self.myTicketBookList = models
+                self.bookmarkList = models
+                print("===== 북마크 조회 =====")
                 print(models)
             case .failure(let error):
                 print(error)
@@ -38,17 +39,17 @@ class TicketBookViewModel {
         }
     }
     
-    func getMyTicketBookCount() -> Int {
-        return myTicketBookList.count
+    func getBookmarkCount() -> Int {
+        return bookmarkList.count
     }
     
-    func getMyTicketBookDetailAt(_ index: Int) -> MyTicketBookModel {
-        return myTicketBookList[index]
+    func getBookmarkAt(_ index: Int) -> BookmarkModel {
+        return bookmarkList[index]
     }
     
     // MARK: - Helpers
     
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)

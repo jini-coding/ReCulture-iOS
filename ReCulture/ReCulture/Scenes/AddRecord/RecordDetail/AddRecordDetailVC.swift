@@ -7,111 +7,40 @@
 
 import UIKit
 
-class AddRecordDetailVC: UIViewController {
+final class AddRecordDetailVC: UIViewController {
     
     // MARK: - Properties
     
     private let recordType: RecordType
     private var selectedDate = Date()
     private var isFourTextFieldsView = false
-    private var textFieldPlaceholders = [
-        [RecordType.movie: [["영화 이름", "어떤 영화인가요?"],
-                            ["출연진 및 감독", "출연진 및 감독을 적어주세요"],
-                            ["장르", "어떤 장르의 영화인가요?"],
-                            ["간단한 후기", "간단한 후기를 작성해주세요"]
-                           ]
-        ],
-        [RecordType.musical: [["작품명", "어떤 뮤지컬인가요?"],
-                              ["극장", "어디에서 보셨나요?"],
-                              ["캐스팅", "출연자를 작성해주세요"],
-                              ["간단한 후기", "간단한 후기를 작성해주세요"]
-                             ]
-        ],
-        [RecordType.play: [["작품명", "어떤 연극인가요?"],
-                           ["공연장", "어디에서 보셨나요?"],
-                           ["캐스팅", "출연자를 작성해주세요"],
-                           ["간단한 후기", "간단한 후기를 작성해주세요"]
-                          ]
-        ],
-        [RecordType.sports: [["스포츠 종류", "어떤 스포츠인가요?"],
-                             ["장소 및 상대팀", "어디에서, 누가 한 경기인가요?"],
-                             ["경기 결과", "경기 결과를 입력해주세요"],
-                             ["선발 라인업", "선발 라인업을 입력해주세요"],
-                             ["간단한 후기", "간단한 후기를 작성해주세요"]
-                            ]
-        ],
-        [RecordType.concert: [["공연명", "어떤 공연인가요?"],
-                              ["공연장", "어디에서 한 공연인가요?"],
-                              ["출연진/연주자", "출연진/연주자를 입력해주세요"],
-                              ["셋리스트/프로그램", "셋리스트/프로그램을 입력해주세요"],
-                              ["간단한 후기", "간단한 후기를 작성해주세요"]
-                             ]
-        ],
-        [RecordType.drama: [["제목", "어떤 드라마인가요?"],
-                            ["장르", "어떤 장르의 드라마인가요?"],
-                            ["출연진 및 감독/극본", "출연진, 감독, 극본을 입력해주세요"],
-                            ["간단한 후기", "간단한 후기를 작성해주세요"]
-                           ]
-        ],
-        [RecordType.book: [["책 이름", "어떤 책인가요?"],
-                           ["저자", "누구의 책인가요?"],
-                           ["독서 기간", "언제부터 언제까지 읽으셨나요?"],
-                           ["인상깊은 구절", "인상깊은 구절을 입력해주세요"],
-                           ["간단한 후기", "간단한 후기를 작성해주세요"]
-                          ]
-        ],
-        [RecordType.exhibition: [["주제", "어떤 전시회인가요?"],
-                                 ["장소", "어디에서 열렸나요?"],
-                                 ["인상깊은 전시물", "인상깊은 전시물을 입력해주세요"],
-                                 ["간단한 후기", "간단한 후기를 작성해주세요"]
-                                ]
-        ],
-        [RecordType.etc: [["내용", "무엇을 했나요?"],
-                          ["장소", "어디에서 했나요?"],
-                          ["함께한 사람들", "누구와 했나요?"],
-                          ["간단한 후기", "간단한 후기를 작성해주세요"]
-                         ]
-        ]
-    ]
     
-    private let publicOrPrivateList: [String] = ["공개", "비공개"]
     private var rangeIsSet: Bool = false
     private var disclosure: DisclosureType = .Private
     
     var menuItems: [UIAction] {
-        let isPublic = UIAction(
-            title: "공개",
-            handler: { _ in
-                print("공개")
-                self.recordRangeMenuBtn.configuration?.attributedTitle = "공개"
-                self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
-                    NSAttributedString.Key.foregroundColor: UIColor.black])
-                )
-                self.rangeIsSet = true
-                self.disclosure = .Public
-                self.validateInputField()
-            })
-
-        let isPrivate = UIAction(
-            title: "비공개",
-            handler: { _ in
-                print("비공개")
-                self.recordRangeMenuBtn.configuration?.attributedTitle = "비공개"
-                self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
-                    NSAttributedString.Key.foregroundColor: UIColor.black])
-                )
-                self.rangeIsSet = true
-                self.disclosure = .Private
-                self.validateInputField()
-            })
-        return [isPublic, isPrivate]
+        var array: [UIAction] = []
+        ["공개", "팔로워", "비공개"].forEach { type in
+            array.append(UIAction(
+                title: type,
+                handler: { _ in
+                    self.disclosure = DisclosureType.getDisclosureTypeByKorean(type)
+                    self.recordRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
+                    self.recordRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                        NSAttributedString.Key.foregroundColor: UIColor.black]))
+                    self.rangeIsSet = true
+                    self.validateInputField()
+                }
+            ))
+        }
+        return array
     }
     
     private var nextButtonBottomConstraint: NSLayoutConstraint?
     
     // MARK: - Views
     
-    private let headerView = HeaderView()
+    private let headerView = HeaderView(title: "기록 추가", withCloseButton: false)
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -293,12 +222,12 @@ class AddRecordDetailVC: UIViewController {
         addKeyboardObserver()
         
         setHeaderView()
-        //setupNavigation()
         setScrollView()
         setContentView()
         setWriteDetailLabel()
         setTitleStackView()
         setDateStackView()
+        
         // 영화, 뮤지컬, 연극, 드라마, 전시회, 기타이면 4칸짜리 뷰를 넣어야 함
         if (recordType == .movie
             || recordType == .musical
@@ -310,7 +239,7 @@ class AddRecordDetailVC: UIViewController {
             setFourTextFieldsView()
         }
         // 그 외에는 5칸짜리 뷰 필요
-        else{
+        else {
             isFourTextFieldsView = false
             setFiveTextFieldsView()
         }
@@ -332,7 +261,7 @@ class AddRecordDetailVC: UIViewController {
     
     // MARK: - Layout
     
-    private func setHeaderView(){
+    private func setHeaderView() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(headerView)
@@ -346,12 +275,12 @@ class AddRecordDetailVC: UIViewController {
         headerView.addBackButtonTarget(target: self, action: #selector(goBack), for: .touchUpInside)
     }
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
     }
     
-    private func setScrollView(){
+    private func setScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -366,7 +295,7 @@ class AddRecordDetailVC: UIViewController {
         scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped)))
     }
     
-    private func setContentView(){
+    private func setContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(contentView)
@@ -380,7 +309,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setWriteDetailLabel(){
+    private func setWriteDetailLabel() {
         writeDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(writeDetailLabel)
@@ -391,7 +320,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setTitleStackView(){
+    private func setTitleStackView() {
         recordTitleStackView.translatesAutoresizingMaskIntoConstraints = false
         recordTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         recordTitleTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -412,7 +341,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setDateStackView(){
+    private func setDateStackView() {
         dateTextField.inputView = datePicker
         dateTextField.text = dateFormatToString(date: Date())
         
@@ -436,12 +365,11 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setFourTextFieldsView(){
+    private func setFourTextFieldsView() {
         print("4칸짜리 세팅 중")
-        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) else { return }
-//        print(textFieldPlaceholders.)
-        let placeholderList = textFieldPlaceholders[index].map{ $0.1 }
-        //print(placeholderList.description)
+//        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) 
+//        else { return }
+//        let placeholderList = textFieldPlaceholders[index].map{ $0.1 }
         
         fourTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -453,14 +381,16 @@ class AddRecordDetailVC: UIViewController {
             fourTextFieldsView.topAnchor.constraint(equalTo: dateStackView.bottomAnchor, constant: 28),
         ])
         
-        fourTextFieldsView.configure(placeholderList[0])
+        fourTextFieldsView.configure(RecordPlaceholders.getTitlesAndPlaceholdersByRecordType(recordType))
         
     }
     
-    private func setFiveTextFieldsView(){
+    private func setFiveTextFieldsView() {
         print("5칸짜리 세팅 중")
-        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) else { return }
-        let placeholderList = textFieldPlaceholders[index].map{ $0.1 }
+//        guard let index = textFieldPlaceholders.firstIndex(where: { $0.keys.contains(recordType) }) 
+//        else { return }
+//        
+//        let placeholderList = textFieldPlaceholders[index].map{ $0.1 }
         
         fiveTextFieldsView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -472,10 +402,10 @@ class AddRecordDetailVC: UIViewController {
             fiveTextFieldsView.topAnchor.constraint(equalTo: dateStackView.bottomAnchor, constant: 28),
         ])
         
-        fiveTextFieldsView.configure(placeholderList[0])
+        fiveTextFieldsView.configure(RecordPlaceholders.getTitlesAndPlaceholdersByRecordType(recordType))
     }
     
-    private func setEmojiStackView(){
+    private func setEmojiStackView() {
         emojiStackView.translatesAutoresizingMaskIntoConstraints = false
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
         emojiTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -485,14 +415,14 @@ class AddRecordDetailVC: UIViewController {
         emojiStackView.addArrangedSubview(emojiLabel)
         emojiStackView.addArrangedSubview(emojiTextField)
         
-        if(isFourTextFieldsView){
+        if(isFourTextFieldsView) {
             NSLayoutConstraint.activate([
                 emojiStackView.leadingAnchor.constraint(equalTo: fourTextFieldsView.leadingAnchor),
                 emojiStackView.trailingAnchor.constraint(equalTo: fourTextFieldsView.trailingAnchor),
                 emojiStackView.topAnchor.constraint(equalTo: fourTextFieldsView.bottomAnchor, constant: 28),
             ])
         }
-        else{
+        else {
             NSLayoutConstraint.activate([
                 emojiStackView.leadingAnchor.constraint(equalTo: fiveTextFieldsView.leadingAnchor),
                 emojiStackView.trailingAnchor.constraint(equalTo: fiveTextFieldsView.trailingAnchor),
@@ -505,7 +435,7 @@ class AddRecordDetailVC: UIViewController {
         ])
     }
     
-    private func setRecordRangeStackView(){
+    private func setRecordRangeStackView() {
         recordRangeStackView.translatesAutoresizingMaskIntoConstraints = false
         recordRangeLabel.translatesAutoresizingMaskIntoConstraints = false
         recordRangeMenuBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -531,7 +461,7 @@ class AddRecordDetailVC: UIViewController {
         recordRangeMenuBtn.showsMenuAsPrimaryAction = true
     }
     
-    private func setNextButton(){
+    private func setNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(nextButton)
@@ -550,26 +480,26 @@ class AddRecordDetailVC: UIViewController {
         self.validateInputField()
     }
     
-    @objc private func datePickerValueDidChange(_ sender: UIDatePicker){
+    @objc private func datePickerValueDidChange(_ sender: UIDatePicker) {
         dateTextField.text = dateFormatToString(date: datePicker.date)
     }
     
-    @objc private func emojiTextFieldDidChange(_ textField: UITextField){
+    @objc private func emojiTextFieldDidChange(_ textField: UITextField) {
         self.validateInputField()
     }
     
     // 키보드가 나타났다는 알림을 받으면 실행할 메서드
-    @objc private func keyboardWillShow(_ notification: NSNotification){
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo as NSDictionary?,
-            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                return
-            }
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else { return }
+        
         /// 키보드의 높이
         let keyboardHeight = keyboardFrame.size.height
         scrollView.contentInset.bottom = keyboardHeight
             
         UIView.animate(withDuration: 0.3,
-                       animations: { self.view.layoutIfNeeded()},
+                       animations: { self.view.layoutIfNeeded() },
                        completion: nil)
     }
 
@@ -584,19 +514,14 @@ class AddRecordDetailVC: UIViewController {
         }
     }
     
-    @objc private func scrollViewTapped(){
+    @objc private func scrollViewTapped() {
         scrollView.endEditing(true)
     }
     
-    @objc private func nextButtonDidTap(){
+    @objc private func nextButtonDidTap() {
         print("다음으로")
-        var detailsModel: DetailsModel?
-        if isFourTextFieldsView {
-            detailsModel = fourTextFieldsView.getDetails()
-        }
-        else {
-            detailsModel = fiveTextFieldsView.getDetails()
-        }
+        let detailsModel = isFourTextFieldsView ? fourTextFieldsView.getDetails() : fiveTextFieldsView.getDetails()
+
         let addRecordPhotoVC = AddRecordPhotoVC(
             requestDTO: AddRecordRequestDTO(title: recordTitleTextField.text!,
                                             emoji: emojiTextField.text!,
@@ -605,11 +530,11 @@ class AddRecordDetailVC: UIViewController {
                                                                               formatOptions: [.withInternetDateTime]),
                                             categoryId: String(RecordType.getCategoryIdOf(recordType)),
                                             disclosure: disclosure.rawValue,
-                                            review: detailsModel!.review,
-                                            detail1: detailsModel!.detail1,
-                                            detail2: detailsModel!.detail2,
-                                            detail3: detailsModel!.detail3,
-                                            detail4: detailsModel!.detail4
+                                            review: detailsModel.review,
+                                            detail1: detailsModel.detail1,
+                                            detail2: detailsModel.detail2,
+                                            detail3: detailsModel.detail3,
+                                            detail4: detailsModel.detail4
                                             )
             )
         addRecordPhotoVC.modalPresentationStyle = .fullScreen
@@ -651,7 +576,6 @@ class AddRecordDetailVC: UIViewController {
     func validateInputField() {
         self.nextButton.isActive = !(self.recordTitleTextField.text?.isEmpty ?? true) && !(self.emojiTextField.text?.isEmpty ?? true) && rangeIsSet && (isFourTextFieldsView ? fourTextFieldsView.shortReviewIsSet : fiveTextFieldsView.shortReviewIsSet)
     }
-
 }
 
 // MARK: - Extensions; UITextField

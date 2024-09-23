@@ -7,17 +7,17 @@
 
 // 구간 별 총점
 let levelTypeDict: [String: Int] = [
-    "Freshman": 50,
-    "Sophomore": 100,
-    "Junior": 150,
-    "Senior": 0,
+    "초보 탐험가": 50,
+    "숙련된 모험가": 100,
+    "정복자": 150,
+    "전설의 탐험가": 0,
 ]
 
-enum LevelType : String {
-    case Freshman
-    case Sophomore
-    case Junior
-    case Senior
+enum LevelType: String {
+    case NoviceExplorer = "초보 탐험가"
+    case SkilledAdventurer = "숙련된 모험가"
+    case Conqueror = "정복자"
+    case LegendaryExplorer = "전설의 탐험가"
     case End
     
     static func getTotalScoreOf(_ level: LevelType) -> Int {
@@ -25,17 +25,28 @@ enum LevelType : String {
     }
     
     static func getNextLevelOf(_ level: LevelType) -> LevelType {
-        if level == .Freshman {
-            return .Sophomore
+        if level == .NoviceExplorer {
+            return .SkilledAdventurer
         }
-        else if level == .Sophomore {
-            return .Junior
+        else if level == .SkilledAdventurer {
+            return .Conqueror
         }
-        else if level == .Junior {
-            return .Senior
+        else if level == .Conqueror {
+            return .LegendaryExplorer
         }
         else {
             return .End
+        }
+    }
+    
+    /// 레벨 숫자를 통해 레벨타입을 가져오는 메소드
+    static func getLevelTypeByLevelNum(_ num: Int) -> LevelType {
+        switch num {
+        case 1: return .NoviceExplorer
+        case 2: return .SkilledAdventurer
+        case 3: return .Conqueror
+        case 4: return .LegendaryExplorer
+        default: return .End
         }
     }
 }

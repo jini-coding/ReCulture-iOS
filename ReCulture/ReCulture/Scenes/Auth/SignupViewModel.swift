@@ -7,16 +7,15 @@
 
 import UIKit
 
-class SignupViewModel {
+final class SignupViewModel {
     
     // MARK: - Functions
         
-    func postUserRegister(requestDTO: SignupRequestDTO, fromCurrentVC: UIViewController){
+    func postUserRegister(requestDTO: SignupRequestDTO, fromCurrentVC: UIViewController) {
         NetworkManager.shared.postUserRegister(signupRequestDTO : requestDTO) { result in
             switch result {
             case .success(let responseDTO):
-                print("회원가입 성공! 응답값은 아래")
-                print(responseDTO)
+                print("회원가입 성공! 응답값은: \(responseDTO)")
                 let accessToken = String(responseDTO.accessToken)
                 let refreshToken = String(responseDTO.refreshToken)
                 
@@ -26,8 +25,7 @@ class SignupViewModel {
                 print("access token: \(KeychainManager.shared.getToken(type: .accessToken))")
                 print("refresh token: \(KeychainManager.shared.getToken(type: .refreshToken))")
                 
-                UserDefaults.standard.set(responseDTO.id, forKey: "userId")
-                UserDefaults.standard.synchronize()
+                UserDefaultsManager.shared.setData(value: responseDTO.id, key: .userId)
                 
                 (fromCurrentVC as? SignUpVC)?.signupSuccess = true
             case .failure(let error):
@@ -41,8 +39,6 @@ class SignupViewModel {
                 default:
                     networkAlertController = self.networkErrorAlert(error)
                 }
-                
-                //let networkAlertController = self.networkErrorAlert(error)
 
                 DispatchQueue.main.async {
                     fromCurrentVC.present(networkAlertController, animated: true)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomTextField: UITextField {
+final class CustomTextField: UITextField {
     
     // MARK: - Initialization
     
@@ -19,10 +19,7 @@ class CustomTextField: UITextField {
         textColor = UIColor.black
         layer.cornerRadius = 8
         
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.rcFont16M()
-         ]
-        attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: placeholderAttributes)
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: [ .font: UIFont.rcFont16M() ])
         
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         leftViewMode = .always

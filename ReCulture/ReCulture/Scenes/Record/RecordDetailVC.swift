@@ -363,10 +363,37 @@ class RecordDetailVC: UIViewController {
         let moreBarButtonItem = UIBarButtonItem(customView: moreButton)
         self.navigationItem.rightBarButtonItem = moreBarButtonItem
         
+        /* 홈에서 상세를 보여줄 때 내비게이션 바 appearance가 home 그대로 적용되어 보라색으로 보이는 문제 해결 */
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowImage = UIImage()
+        
+        let backbutton = UIBarButtonItem(image: UIImage.btnArrowBig.withRenderingMode(.alwaysOriginal).resizeImage(size: CGSize(width: 36, height: 36)),
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(goBack))
+        backbutton.tintColor = .black
+        self.navigationItem.leftBarButtonItem = backbutton
+        
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func editRecord() {
-        //수정
+        let editRecordVC = EditRecordVC(recordModel: viewModel.getRecordDetail()!)
+        editRecordVC.modalPresentationStyle = .fullScreen
+        editRecordVC.modalTransitionStyle = .coverVertical
+        editRecordVC.delegate = self
+        self.present(editRecordVC, animated: true)
     }
     
     @objc func deleteRecord() {
@@ -516,5 +543,20 @@ class RecordDetailVC: UIViewController {
 //            ])
 //
 //            previousView = titleLabel
+    }
+}
+
+// MARK: - Extension: UIGestureRecognizer
+
+extension RecordDetailVC: UIGestureRecognizerDelegate {}
+
+// MARK: - Extension: EditRecordDelegate (수정 페이지에서 delegate - 수정 취소 혹은 완료)
+
+extension RecordDetailVC: EditRecordDelegate {
+    
+    func doneEditingRecordVC() {
+        print("=== record Detail VC ===")
+        print("수정 완료~")
+        viewModel.getRecordDetails(recordId: recordId)
     }
 }

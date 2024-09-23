@@ -7,11 +7,11 @@
 
 import UIKit
 
-class NewUserProfileViewModel {
+final class NewUserProfileViewModel {
     
     // MARK: - Functions
         
-    func postNewUserProfile(requestDTO: NewUserProfileRequestDTO, profileImage: [ImageFile], fromCurrentVC: UIViewController){
+    func postNewUserProfile(requestDTO: NewUserProfileRequestDTO, profileImage: [ImageFile], fromCurrentVC: UIViewController) {
         
         NetworkManager.shared.postNewUserProfile(newUserProfileRequestDTO: requestDTO,
                                                  profileImage: profileImage) { result in
@@ -19,7 +19,10 @@ class NewUserProfileViewModel {
             case .success(let responseDTO):
                 print(responseDTO)
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+                UserDefaults.standard.set(responseDTO.nickname, forKey: "nickname")
                 UserDefaults.standard.synchronize()
+                UserDefaultsManager.shared.setData(value: requestDTO.nickname, key: .nickname)
+                
                 (fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
             case .failure(let error):
                 let networkAlertController = self.networkErrorAlert(error)
@@ -32,7 +35,7 @@ class NewUserProfileViewModel {
         }
     }
     
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다. 다시 시도해주세요", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)

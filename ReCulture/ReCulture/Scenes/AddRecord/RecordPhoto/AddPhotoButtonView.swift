@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddPhotoButtonView: UIView {
+final class AddPhotoButtonView: UIView {
     
     // MARK: - Views
     
@@ -52,7 +52,7 @@ class AddPhotoButtonView: UIView {
     
     // MARK: - Layout
     
-    private func setAddImageView(){
+    private func setAddImageView() {
         addImageView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(addImageView)
@@ -65,7 +65,7 @@ class AddPhotoButtonView: UIView {
         ])
     }
     
-    private func setAddPhotoLabel(){
+    private func setAddPhotoLabel() {
         addPhotoLabel.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(addPhotoLabel)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpVC: UIViewController {
+final class SignUpVC: UIViewController {
     
     // MARK: - Properties
     
@@ -242,8 +242,7 @@ class SignUpVC: UIViewController {
     // MARK: - Actions
     
     @objc private func signUpButtonDidTap() {
-        print("최종 회원가입하기")
-        print("프로필 설정으로 이동")
+        print("최종 회원가입, 프로필 설정으로 이동")
         
         LoadingIndicator.showLoading()
         
@@ -253,7 +252,7 @@ class SignUpVC: UIViewController {
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if emailTextField.isEditing == true {
                 keyboardAnimate(keyboardRectangle: keyboardSize, textField: emailTextField)
             }
@@ -364,7 +363,6 @@ class SignUpVC: UIViewController {
                 if let loginVC = self.navigationController?.topViewController as? LoginVC {
                     loginVC.present(newUserProfileVC, animated: true)
                 }
-                //self.navigationController?.topViewController?.present(newUserProfileVC, animated: true)
             }
         }
     }

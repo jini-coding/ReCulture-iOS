@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LevelProgressView: UIView {
+final class LevelProgressView: UIView {
     
     // MARK: - Properties
     
@@ -45,7 +45,7 @@ class LevelProgressView: UIView {
     
     // MARK: - Layout
     
-    private func setupProgressBar(){
+    private func setupProgressBar() {
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(progressBar)
@@ -58,7 +58,7 @@ class LevelProgressView: UIView {
         ])
     }
     
-    private func setupToolTipView(){
+    private func setupToolTipView() {
         tooltipView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(tooltipView)
@@ -71,7 +71,7 @@ class LevelProgressView: UIView {
     
     // MARK: - Function
     
-    func setProgress(_ progress: Float){
+    func setProgress(_ progress: Float) {
         progressBar.progress = progress
         
         self.layoutIfNeeded()
