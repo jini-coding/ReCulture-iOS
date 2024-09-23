@@ -59,10 +59,6 @@ class RecordDetailVC: UIViewController {
         var comment: String
     }
     
-    let tempData = [
-        ContentDetail(version: "3회차", location: "디큐브 링크아트센터", casting: "최정원, 아이비, 민경아, 박건형, 최재림", comment: "시카고는 정말 볼 때마다 너무 재미있다... 이번에\n눈, 귀 둘 다 호강하고 왔지롱")
-    ]
-    
     let contentScrollView: UIScrollView = {
         let scrollview = UIScrollView()
         scrollview.showsVerticalScrollIndicator = false
@@ -149,6 +145,25 @@ class RecordDetailVC: UIViewController {
         return imageview
     }()
     
+    let imageScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    let imageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    
     let detailInfoView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.rcGray000
@@ -179,45 +194,35 @@ class RecordDetailVC: UIViewController {
                 guard let self = self else { return }
                 guard let model = self.viewModel.getRecordDetail() else { return }
                 
+                // Set the category based on the category ID
                 let category: String
                 switch model.culture.categoryId {
-                case 1:
-                    category = "영화"
-                case 2:
-                    category = "뮤지컬"
-                case 3:
-                    category = "연극"
-                case 4:
-                    category = "스포츠"
-                case 5:
-                    category = "콘서트"
-                case 6:
-                    category = "드라마"
-                case 7:
-                    category = "독서"
-                case 8:
-                    category = "전시회"
-                case 9:
-                    category = "기타"
-                default:
-                    category = "기타"
+                case 1: category = "영화"
+                case 2: category = "뮤지컬"
+                case 3: category = "연극"
+                case 4: category = "스포츠"
+                case 5: category = "콘서트"
+                case 6: category = "드라마"
+                case 7: category = "독서"
+                case 8: category = "전시회"
+                case 9: category = "기타"
+                default: category = "기타"
                 }
 
+                // Set the text details
                 self.titleLabel.text = model.culture.title
                 self.creatorLabel.text = "\(self.creator)"
                 self.createDateLabel.text = model.culture.date.toDate()?.toString()
                 self.categoryLabel.text = category
+                
+                // Load multiple images into the imageScrollView
                 self.contentImage = model.photoDocs.map { $0.url }
-
-                if let imageUrl = self.contentImage.first {
-                    let baseUrl = "http://34.64.120.187:8080"
-                    let imageUrlStr = "\(baseUrl)\(imageUrl)"
-                    imageUrlStr.loadAsyncImage(self.contentImageView)
-                }
-
+                self.loadImagesIntoStackView()  // This method handles loading multiple images
+                
+                // Set the textField placeholders and details
                 if let recordType = RecordType(categoryId: model.culture.categoryId) {
                     let placeholders = self.textFieldPlaceholders.first { $0.keys.contains(recordType) }?[recordType] ?? []
-
+                    
                     let details = [
                         model.culture.detail1,
                         model.culture.detail2,
@@ -225,7 +230,6 @@ class RecordDetailVC: UIViewController {
                         model.culture.detail4
                     ]
 
-                    print("Updating info view with placeholders: \(placeholders) and details: \(details)")
                     self.updateInfoView(with: placeholders, and: details)
                 } else {
                     print("Failed to get RecordType for categoryId: \(model.culture.categoryId)")
@@ -233,6 +237,7 @@ class RecordDetailVC: UIViewController {
             }
         }
     }
+
     
     private func updateInfoView(with titles: [[String]], and details: [String]) {
         var previousView: UIView?
@@ -397,10 +402,27 @@ class RecordDetailVC: UIViewController {
     }
     
     @objc func deleteRecord() {
-        self.viewModel.deleteRecord(postId: recordId)
-        print("\(recordId)번 기록 삭제 완료됨")
-        //이전 페이지로 이동
-        navigationController?.popViewController(animated: true)
+        let alertController = UIAlertController(title: "삭제하시겠습니까?", message: "삭제한 기록은 복구할 수 없어요", preferredStyle: .alert)
+             
+        let confirmAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.deleteRecord(postId: self.recordId)
+            print("\(self.recordId)번 기록 삭제 완료됨")
+                 
+            self.navigationController?.popViewController(animated: true)
+        }
+             
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true)
+             
+//        self.viewModel.deleteRecord(postId: recordId)
+//        print("\(recordId)번 기록 삭제 완료됨")
+//        //이전 페이지로 이동
+//        navigationController?.popViewController(animated: true)
     }
     
     func setupScrollView() {
@@ -463,21 +485,71 @@ class RecordDetailVC: UIViewController {
         
     }
     
+//    func setupImage() {
+//        if let imageUrl = contentImage.first {
+//            let baseUrl = "http://34.64.120.187:8080"
+//            let imageUrlStr = "\(baseUrl)\(imageUrl)"
+//            imageUrlStr.loadAsyncImage(contentImageView)
+//        }
+//        
+//        contentsView.addSubview(contentImageView)
+//        
+//        NSLayoutConstraint.activate([
+//            contentImageView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
+//            contentImageView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+//            contentImageView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
+//            contentImageView.heightAnchor.constraint(equalToConstant: 420)
+//        ])
+//    }
+    
     func setupImage() {
-        if let imageUrl = contentImage.first {
+        contentsView.addSubview(imageScrollView)
+        imageScrollView.addSubview(imageStackView)
+
+        NSLayoutConstraint.activate([
+            imageScrollView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
+            imageScrollView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 26),
+            imageScrollView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -26),
+            imageScrollView.heightAnchor.constraint(equalToConstant: 420),
+
+            imageStackView.topAnchor.constraint(equalTo: imageScrollView.topAnchor),
+            imageStackView.leadingAnchor.constraint(equalTo: imageScrollView.leadingAnchor),
+            imageStackView.trailingAnchor.constraint(equalTo: imageScrollView.trailingAnchor),
+            imageStackView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            imageStackView.heightAnchor.constraint(equalTo: imageScrollView.heightAnchor)
+        ])
+        
+        loadImagesIntoStackView()
+    }
+
+    
+    func loadImagesIntoStackView() {
+        for subview in imageStackView.arrangedSubviews {
+            subview.removeFromSuperview()
+        }
+
+        for imageUrlStr in contentImage {
             let baseUrl = "http://34.64.120.187:8080"
-            let imageUrlStr = "\(baseUrl)\(imageUrl)"
-            imageUrlStr.loadAsyncImage(contentImageView)
+            let imageUrl = "\(baseUrl)\(imageUrlStr)"
+            
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 8
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.backgroundColor = UIColor.lightGray
+            
+            imageUrl.loadAsyncImage(imageView)
+            
+            imageStackView.addArrangedSubview(imageView)
+            
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 320),
+                imageView.heightAnchor.constraint(equalToConstant: 420)
+            ])
         }
         
-        contentsView.addSubview(contentImageView)
-        
-        NSLayoutConstraint.activate([
-            contentImageView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
-            contentImageView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
-            contentImageView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
-            contentImageView.heightAnchor.constraint(equalToConstant: 420)
-        ])
+        imageScrollView.contentSize = CGSize(width: 320 * contentImage.count, height: 420)
     }
     
     //여기 미완...
@@ -486,7 +558,7 @@ class RecordDetailVC: UIViewController {
         contentsView.addSubview(detailInfoView)
         
         NSLayoutConstraint.activate([
-            detailInfoView.topAnchor.constraint(equalTo: contentImageView.bottomAnchor, constant: 20),
+            detailInfoView.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 20),
             detailInfoView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
             detailInfoView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
             detailInfoView.bottomAnchor.constraint(equalTo: contentsView.bottomAnchor, constant: -20)

@@ -128,28 +128,26 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
         cell.selectionStyle = .none
+        
         let model = viewModel.getRecord(at: indexPath.row)
         
+        // Set up the text labels
         cell.titleLabel.text = model.culture.title
-        
         cell.nameLabel.text = "\(myviewModel.getNickname())"
+        
         let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(cell.profileImageView)
         
-        //cell.idLabel.text = "@\(model.culture.authorId)"
         cell.createDateLabel.text = model.culture.date.toDate()?.toString()
         cell.commentLabel.text = model.culture.review
         
-        if let imageUrl = model.photoDocs.first {
-            print("기록 이미지:\(imageUrl)")
-            let baseUrl = "http://34.64.120.187:8080"
-            let imageUrlStr = "\(baseUrl)\(imageUrl.url)"
-            imageUrlStr.loadAsyncImage(cell.contentImageView)
-        }
+        // Configure the images using the new method
+        let imageUrls = model.photoDocs.map { "http://34.64.120.187:8080\($0.url)" }
+        cell.configureImages(imageUrls)
         
-
         return cell
     }
+
 
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return tempData.count
@@ -423,6 +421,34 @@ class RecordContentCell: UITableViewCell {
         return imageview
     }()
     
+    let imageScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .clear
+        return scrollView
+    }()
+    
+    let imageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    
+    let imageContentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.rcMain
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
@@ -441,8 +467,13 @@ class RecordContentCell: UITableViewCell {
         contentView.addSubview(createDateLabel)
         contentView.addSubview(commentLabel)
         //contentView.addSubview(categoryLabel)
-        contentView.addSubview(contentImageView)
+        //contentView.addSubview(contentImageView)
+        
+        contentView.addSubview(imageScrollView)
+        imageScrollView.addSubview(imageStackView)
 
+        imageScrollView.contentSize = CGSize(width: 940, height: 210)
+        
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -479,21 +510,46 @@ class RecordContentCell: UITableViewCell {
             commentLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
             commentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            contentImageView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor, constant: 16),
-            contentImageView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
-            contentImageView.heightAnchor.constraint(equalToConstant: 210),
-            contentImageView.widthAnchor.constraint(equalToConstant: 180),
-            
-            contentImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
-    }
+            imageScrollView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor, constant: 16),
+            imageScrollView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+            imageScrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            imageScrollView.heightAnchor.constraint(equalToConstant: 210),
+            imageScrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
 
-//    func bind(with model: RecordModel) {
-//        titleLabel.text = model.title
-//        nameLabel.text = "\(model.authorId)"
-//        createDateLabel.text = model.date
-//        commentLabel.text = model.review
-//        // 추가적인 바인딩 로직...
-//    }
+            imageStackView.topAnchor.constraint(equalTo: imageScrollView.topAnchor),
+            imageStackView.leadingAnchor.constraint(equalTo: imageScrollView.leadingAnchor),
+            imageStackView.trailingAnchor.constraint(equalTo: imageScrollView.trailingAnchor),
+            imageStackView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor)
+        ])
+            
+    }
+    
+    func configureImages(_ images: [String]) {
+        // Clear previous images
+        for subview in imageStackView.arrangedSubviews {
+            subview.removeFromSuperview()
+        }
+        
+        for imageUrlStr in images {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 8
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.backgroundColor = UIColor.blue // Temporary color to visualize the images
+
+            // Load image asynchronously
+            imageUrlStr.loadAsyncImage(imageView)
+
+            // Add the image view to the stack view
+            imageStackView.addArrangedSubview(imageView)
+
+            // Set size of each image view
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 180),
+                imageView.heightAnchor.constraint(equalToConstant: 210)
+            ])
+        }
+    }
     
 }
