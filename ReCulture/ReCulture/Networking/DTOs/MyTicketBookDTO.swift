@@ -32,7 +32,7 @@ extension MyTicketBookDTO {
             title: DTO.title,
             emoji: DTO.emoji,
             date: DTO.date, 
-            categoryType: RecordType(categoryId: DTO.categoryId)!,
+            categoryType: RecordType(categoryId: DTO.categoryId-1)!,
             review: DTO.review,
             imageURL: DTO.photos[0].url
         )

@@ -34,6 +34,6 @@ enum RecordType: String {
     
     init?(categoryId: Int) {
         guard categoryId >= 0, categoryId < RecordType.allTypes.count else { return nil }
-        self = RecordType.allTypes[categoryId - 1]
+        self = RecordType.allTypes[categoryId]
     }
 }

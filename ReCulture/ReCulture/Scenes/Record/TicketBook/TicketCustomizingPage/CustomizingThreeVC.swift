@@ -102,7 +102,7 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
     
     let emojiLabel: UILabel = {
         let label = UILabel()
-        label.text = "총평"
+        label.text = "이모지 총평"
         label.textColor = UIColor.rcGray400
         label.font = UIFont.rcFont14M()
         

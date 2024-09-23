@@ -10,3 +10,7 @@ struct LoginResponseDTO: Codable{
     let accessToken: String
     let refreshToken: String
 }
+
+struct LogoutResponseDTO: Codable {
+    let message: String
+}

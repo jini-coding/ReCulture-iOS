@@ -29,6 +29,10 @@ class TicketCustomizingVC: UIViewController {
     var pageViewController: UIPageViewController!
     var pages: [UIViewController] = []
     
+    var selectedFrame: Int?
+    var selectedUserImage: UIImage?
+    var selectedMaskedUserImage: UIImage?
+    
     let viewModel = TicketCustomizingViewModel()
     var postNewTicketSuccess = false
     
@@ -56,7 +60,16 @@ class TicketCustomizingVC: UIViewController {
     
     func setupPages() {
         //pages = [CustomizingSelectPhotoPage(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
-        pages = [CustomizingOneVC(), CustomizingTwoVC(), CustomizingThreeVC(), CustomizingFourVC()]
+        let customizingOneVC = CustomizingOneVC()
+        let customizingTwoVC = CustomizingTwoVC()
+        let customizingThreeVC = CustomizingThreeVC()
+        let customizingFourVC = CustomizingFourVC()
+
+        // Assign the parent controller reference
+        customizingOneVC.ticketCustomizingVC = self
+        customizingFourVC.ticketCustomizingVC = self
+        
+        pages = [customizingOneVC, customizingTwoVC, customizingThreeVC, customizingFourVC]
     }
     
     func setupNavigationBar() {
@@ -133,6 +146,15 @@ class TicketCustomizingVC: UIViewController {
         let nextPage = currentPage + 1
         var allFieldsFilled = true
         
+        if let customizingOneVC = pages[0] as? CustomizingOneVC {
+            selectedFrame = customizingOneVC.currentFrame
+            selectedUserImage = customizingOneVC.selectedImageView.image
+            selectedMaskedUserImage = customizingOneVC.ticketCustomizingVC?.selectedMaskedUserImage
+            print("Selected Frame: \(String(describing: selectedFrame))")
+            print("Selected Image: \(String(describing: selectedUserImage))")
+            print("Selected MaskingImage: \(String(describing: selectedMaskedUserImage))")
+        }
+        
         if currentPage == 0 && (pages[0] as! CustomizingOneVC).imageFiles.isEmpty {
             allFieldsFilled = false
             let alertController = UIAlertController(title: "사진을 선택해주세요!", message: nil, preferredStyle: .alert)
@@ -158,6 +180,11 @@ class TicketCustomizingVC: UIViewController {
         }
         
         if allFieldsFilled && nextPage < pages.count {
+            if let customizingFourVC = pages[3] as? CustomizingFourVC {
+                customizingFourVC.ticketCustomizingVC = self
+                customizingFourVC.applyImageData()  // 데이터 업데이트
+            }
+            
             pageViewController.setViewControllers([pages[nextPage]], direction: .forward, animated: true, completion: { completed in
                 if completed {
                     self.pageControl.currentPage = nextPage
