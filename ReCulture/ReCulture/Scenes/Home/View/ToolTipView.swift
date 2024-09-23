@@ -34,8 +34,6 @@ final class ToolTipView: UIView {
         
         self.layer.masksToBounds = false
         self.layer.cornerRadius = 9
-        
-//        setLabel()
     }
       
     required init?(coder: NSCoder) {
@@ -63,27 +61,26 @@ final class ToolTipView: UIView {
         self.label.text = text
     }
     
-    func drawTip(
-        tipStartX: CGFloat,
-        tipStartY: CGFloat,
-        tipWidth: CGFloat,
-        tipHeight: CGFloat) {
-            setLabel()
-            
-            let path = CGMutablePath()
+    func drawTip(tipStartX: CGFloat,
+                 tipStartY: CGFloat,
+                 tipWidth: CGFloat,
+                 tipHeight: CGFloat) {
+        setLabel()
+        
+        let path = CGMutablePath()
 
-            let tipWidthCenter = tipWidth / 2.0
-            let endXWidth = tipStartX + tipWidth
+        let tipWidthCenter = tipWidth / 2.0
+        let endXWidth = tipStartX + tipWidth
 
-            path.move(to: CGPoint(x: tipStartX, y: tipStartY))
-            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY-tipHeight))
-            path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
-            path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
+        path.move(to: CGPoint(x: tipStartX, y: tipStartY))
+        path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY-tipHeight))
+        path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
+        path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
 
-            shape.path = path
-            shape.fillColor = UIColor.rcMain.cgColor
-            
-            levelProgressView?.layer.insertSublayer(shape, at: 0)
+        shape.path = path
+        shape.fillColor = UIColor.rcMain.cgColor
+        
+        levelProgressView?.layer.insertSublayer(shape, at: 0)
     }
     
     func removeToolTipView() {

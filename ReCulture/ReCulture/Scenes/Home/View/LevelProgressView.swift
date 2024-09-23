@@ -99,29 +99,5 @@ final class LevelProgressView: UIView {
         tooltipView.tooltipViewTrailingConstraint = tooltipView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.width * CGFloat((1-progress)) + tooltipView.frame.width / 2)
         tooltipView.tooltipViewTrailingConstraint?.isActive = true
 //        tooltipView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.width * CGFloat((1-progress)) + tooltipView.frame.width / 2).isActive = true
-        
     }
-    
-//    func drawTip(
-//        tipStartX: CGFloat,
-//        tipStartY: CGFloat,
-//        tipWidth: CGFloat,
-//        tipHeight: CGFloat) {
-//
-//            let path = CGMutablePath()
-//
-//            let tipWidthCenter = tipWidth / 2.0
-//            let endXWidth = tipStartX + tipWidth
-//
-//            path.move(to: CGPoint(x: tipStartX, y: tipStartY))
-//            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY-tipHeight))
-//            path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
-//            path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
-//
-//            let shape = CAShapeLayer()
-//            shape.path = path
-//            shape.fillColor = UIColor.rcMain.cgColor
-//            
-//            self.layer.insertSublayer(shape, at: 0)
-//    }
 }
