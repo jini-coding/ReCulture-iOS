@@ -117,17 +117,48 @@ final class NetworkManager {
     }
     
     /// 공개된 모든 기록 조회하는 함수
+//    func getAllRecords(
+//        _ networkService: NetworkServable = NetworkService(),
+//        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
+//    ) {
+//        let recordAPI = allRecordAPI()
+//        networkService.request(recordAPI) { result in
+//            switch result {
+//            case .success(let DTOs):
+//                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
+//                print(models)
+//                completion(.success(models))
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+//    func getAllRecords(
+//        _ networkService: NetworkServable = NetworkService(),
+//        completion: @escaping (Result<([SearchModel], SearchResponseDTO.Pagination), NetworkError>) -> Void
+//    ) {
+//        let recordAPI = allRecordAPI()
+//        networkService.request(recordAPI) { (result: Result<SearchResponseDTO, NetworkError>) in  // Expect a single SearchResponseDTO
+//            switch result {
+//            case .success(let responseDTO):  // Now we're expecting a single response, not an array
+//                let models = SearchResponseDTO.convertSearchRecordDTOsToModels(DTOs: responseDTO.data)  // Access the 'data' array
+//                let pagination = responseDTO.pagination  // Access the pagination data
+//                print(models)
+//                completion(.success((models, pagination)))  // Return both models and pagination
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
     func getAllRecords(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
+        completion: @escaping (Result<SearchResponseDTO, NetworkError>) -> Void
     ) {
         let recordAPI = allRecordAPI()
         networkService.request(recordAPI) { result in
             switch result {
-            case .success(let DTOs):
-                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
-                print(models)
-                completion(.success(models))
+            case .success(let responseDTO):
+                completion(.success(responseDTO))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -272,14 +303,13 @@ final class NetworkManager {
     
     func getMyFollowers(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[FollowModel], NetworkError>) -> Void
+        completion: @escaping (Result<[FollowerDTO], NetworkError>) -> Void
     ) {
         let followAPI = FollowerAPI()
         networkService.request(followAPI) { result in
             switch result {
-            case .success(let DTOs):
-                let models = FollowDTO.convertFollowDTOsToModels(DTOs: DTOs)
-                completion(.success(models))
+            case .success(let followersDTOs):
+                completion(.success(followersDTOs))  // Return the DTOs
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -289,19 +319,72 @@ final class NetworkManager {
     
     func getMyFollowings(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[FollowModel], NetworkError>) -> Void
+        completion: @escaping (Result<[FollowingDTO], NetworkError>) -> Void
     ) {
         let followAPI = FollowingAPI()
         networkService.request(followAPI) { result in
             switch result {
+            case .success(let followingsDTOs):
+                completion(.success(followingsDTOs))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    // 수락or거절 대기 중인 요청 정보 불러오기
+    func getPendingRequest(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FollowStateModel], NetworkError>) -> Void
+    ) {
+        let pendingAPI = pendingAPI()
+        networkService.request(pendingAPI) { result in
+            switch result {
             case .success(let DTOs):
-                let models = FollowDTO.convertFollowDTOsToModels(DTOs: DTOs)
+                let models = FollowStateDTO.convertFollowStateDTOsToModels(DTOs: DTOs)
                 completion(.success(models))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
+    
+    // 팔로우 요청 수락
+    func acceptRequest(requestId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<FollowStateModel, NetworkError>) -> Void
+    ) {
+        let acceptAPI = acceptAPI(id: requestId)
+        networkService.request(acceptAPI) { result in
+            switch result {
+            case .success(let DTO):
+                let models = FollowStateDTO.convertFollowStateDTOToModel(DTO: DTO)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    // 팔로우 요청 거절
+    func rejectRequest(requestId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<FollowStateModel, NetworkError>) -> Void
+    ) {
+        let denyAPI = denyAPI(id: requestId)
+        networkService.request(denyAPI) { result in
+            switch result {
+            case .success(let DTO):
+                let models = FollowStateDTO.convertFollowStateDTOToModel(DTO: DTO)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    
     
     /// 기록 삭제하기
     func deleteRecord(postId: Int,

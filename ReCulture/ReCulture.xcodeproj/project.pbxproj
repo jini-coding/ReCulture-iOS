@@ -245,6 +245,7 @@
 		3850C3342C1B960800570424 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		3850C3372C1BC5ED00570424 /* FollowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAPI.swift; sourceTree = "<group>"; };
 		3850C3392C1BC66000570424 /* FollowDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
+		38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Cafe24Shiningstar-v2.0.otf"; path = "../../../../../Downloads/Cafe24Shiningstar-v2.0/Cafe24Shiningstar-v2.0.otf"; sourceTree = "<group>"; };
 		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		386325632C11EFCE00F96D0A /* LogoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModal.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -685,6 +686,7 @@
 				0866DBD32C0BA57600FBBDB5 /* String+.swift */,
 				089EDACC2C12E2F400D74C5F /* Codable+.swift */,
 				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
+				38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1117,9 +1119,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RW3T7BP2JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "이미지를 앨범에 저장하려면 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1132,7 +1135,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.smwu.ReCulture11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smwu.ReCulture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1147,9 +1150,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RW3T7BP2JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "이미지를 앨범에 저장하려면 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

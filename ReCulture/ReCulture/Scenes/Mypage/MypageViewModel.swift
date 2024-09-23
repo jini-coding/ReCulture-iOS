@@ -16,21 +16,42 @@ class MypageViewModel {
         }
     }
     
-    var followers: [FollowModel] = [] {
+    private var userProfileModels: [Int: UserProfileModel] = [:] {
+        didSet {
+            userProfileModelsDidChange?()
+        }
+    }
+    
+    var followers: [FollowerModel] = [] {
         didSet {
             followersDidChange?()
         }
     }
     
-    var followings: [FollowModel] = [] {
+    var followings: [FollowingModel] = [] {
         didSet {
             followingsDidChange?()
         }
     }
     
+    var pendings: [FollowStateModel] = [] {
+        didSet {
+            pendingsDidChange?()
+        }
+    }
+    
+    private var requestState: FollowStateModel? {
+        didSet {
+            requestStateDidChange?()
+        }
+    }
+    
+    var userProfileModelsDidChange: (() -> Void)?
     var myPageModelDidChange: (() -> Void)?
     var followersDidChange: (() -> Void)?
     var followingsDidChange: (() -> Void)?
+    var pendingsDidChange: (() -> Void)?
+    var requestStateDidChange: (() -> Void)?
     
     // MARK: - Functions
     
@@ -77,8 +98,10 @@ class MypageViewModel {
     func getFollowers() {
         NetworkManager.shared.getMyFollowers { [weak self] result in
             switch result {
-            case .success(let followers):
-                self?.followers = followers
+            case .success(let followersDTOs):
+                // Convert DTOs to Models
+                let followersModels = FollowerDTO.convertFollowerDTOsToModels(DTOs: followersDTOs)
+                self?.followers = followersModels  // Assign the converted models
             case .failure(let error):
                 print(error)
             }
@@ -88,13 +111,67 @@ class MypageViewModel {
     func getFollowings() {
         NetworkManager.shared.getMyFollowings { [weak self] result in
             switch result {
-            case .success(let followings):
-                self?.followings = followings
+            case .success(let followingsDTOs):
+                // Convert DTOs to Models
+                let followingsModels = FollowingDTO.convertFollowingDTOsToModels(DTOs: followingsDTOs)
+                self?.followings = followingsModels  // Assign the converted models
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    func getPendingRequest() {
+        NetworkManager.shared.getPendingRequest { [weak self] result in
+            switch result {
+            case .success(let pendings):
+                self?.pendings = pendings
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func getUserProfile(userId: Int, completion: @escaping (UserProfileModel?) -> Void) {
+        NetworkManager.shared.getUserProfile(userId: userId) { result in
+            switch result {
+            case .success(let model):
+                self.userProfileModels[userId] = model
+                completion(model)
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+                completion(nil)
+            }
+        }
+    }
+    
+    func acceptRequest(requestId: Int) {
+        NetworkManager.shared.acceptRequest(requestId: requestId) { result in
+            switch result {
+            case .success(let model):
+                self.requestState = model
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+            }
+        }
+    }
+    
+    func rejectRequest(requestId: Int) {
+        NetworkManager.shared.rejectRequest(requestId: requestId) { result in
+            switch result {
+            case .success(let model):
+                self.requestState = model
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+            }
+        }
+    }
+    
+    
+    
     
     func getNickname() -> String {
         return myProfileModel.nickname ?? ""
@@ -114,6 +191,10 @@ class MypageViewModel {
     
     func getInterest() -> String {
         return myProfileModel.interest ?? ""
+    }
+    
+    func getUserProfileModel(for userId: Int) -> UserProfileModel? {
+        return userProfileModels[userId]
     }
     
     

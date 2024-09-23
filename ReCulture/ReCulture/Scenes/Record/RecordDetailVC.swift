@@ -370,10 +370,32 @@ class RecordDetailVC: UIViewController {
     }
     
     @objc func deleteRecord() {
-        self.viewModel.deleteRecord(postId: recordId)
-        print("\(recordId)번 기록 삭제 완료됨")
-        //이전 페이지로 이동
-        navigationController?.popViewController(animated: true)
+        let alertController = UIAlertController(title: "삭제하시겠습니까?", message: "삭제한 기록은 복구할 수 없어요", preferredStyle: .alert)
+        
+        // Confirm action (deletes the record)
+        let confirmAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.deleteRecord(postId: self.recordId)
+            print("\(self.recordId)번 기록 삭제 완료됨")
+            
+            // Navigate to the previous page
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        // Cancel action (dismisses the alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        // Add the actions to the alert controller
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+
+        // Present the alert
+        self.present(alertController, animated: true)
+        
+//        self.viewModel.deleteRecord(postId: recordId)
+//        print("\(recordId)번 기록 삭제 완료됨")
+//        //이전 페이지로 이동
+//        navigationController?.popViewController(animated: true)
     }
     
     func setupScrollView() {

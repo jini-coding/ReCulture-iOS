@@ -17,7 +17,7 @@ struct myRecordAPI: ServableAPI {
 }
 
 struct allRecordAPI: ServableAPI {
-    typealias Response = [RecordResponseDTO]
+    typealias Response = SearchResponseDTO
         
     var method: HTTPMethod { .get }
     var path: String { "/culture" }
