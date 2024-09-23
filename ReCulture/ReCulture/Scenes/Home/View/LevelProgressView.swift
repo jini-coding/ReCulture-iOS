@@ -35,6 +35,8 @@ final class LevelProgressView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        tooltipView.levelProgressView = self
+        
         setupProgressBar()
         setupToolTipView()
     }
@@ -72,12 +74,19 @@ final class LevelProgressView: UIView {
     // MARK: - Function
     
     func setProgress(_ progress: Float) {
+        tooltipView.removeToolTipView()
+        tooltipView.removeFromSuperview()
+        setupToolTipView()
+        
+        tooltipView.tooltipViewTrailingConstraint?.isActive = false
+        
         progressBar.progress = progress
         
         self.layoutIfNeeded()
         print("self.frame.width: \(self.frame.width)")
+        print("progressBar.frame.height: \(progressBar.frame.height)")
         // tool tip의 tip의 위치, 크기 세팅, 그리기
-        drawTip(tipStartX: self.frame.width * CGFloat(progress) - 8 / 2,
+        tooltipView.drawTip(tipStartX: self.frame.width * CGFloat(progress) - 8 / 2,
                             tipStartY: progressBar.frame.height + 8,
                             tipWidth: 8,
                             tipHeight: 7)
@@ -87,30 +96,32 @@ final class LevelProgressView: UIView {
         tooltipView.layoutIfNeeded()
         print("tooltipView.frame.width: \(tooltipView.frame.width)")
         print("tooltipView.frame.x: \(tooltipView.frame.origin.x)")
-        tooltipView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.width * CGFloat((1-progress)) + tooltipView.frame.width / 2).isActive = true
+        tooltipView.tooltipViewTrailingConstraint = tooltipView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.width * CGFloat((1-progress)) + tooltipView.frame.width / 2)
+        tooltipView.tooltipViewTrailingConstraint?.isActive = true
+//        tooltipView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.width * CGFloat((1-progress)) + tooltipView.frame.width / 2).isActive = true
         
     }
     
-    func drawTip(
-        tipStartX: CGFloat,
-        tipStartY: CGFloat,
-        tipWidth: CGFloat,
-        tipHeight: CGFloat) {
-
-            let path = CGMutablePath()
-
-            let tipWidthCenter = tipWidth / 2.0
-            let endXWidth = tipStartX + tipWidth
-
-            path.move(to: CGPoint(x: tipStartX, y: tipStartY))
-            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY-tipHeight))
-            path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
-            path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
-
-            let shape = CAShapeLayer()
-            shape.path = path
-            shape.fillColor = UIColor.rcMain.cgColor
-            
-            self.layer.insertSublayer(shape, at: 0)
-    }
+//    func drawTip(
+//        tipStartX: CGFloat,
+//        tipStartY: CGFloat,
+//        tipWidth: CGFloat,
+//        tipHeight: CGFloat) {
+//
+//            let path = CGMutablePath()
+//
+//            let tipWidthCenter = tipWidth / 2.0
+//            let endXWidth = tipStartX + tipWidth
+//
+//            path.move(to: CGPoint(x: tipStartX, y: tipStartY))
+//            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY-tipHeight))
+//            path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
+//            path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
+//
+//            let shape = CAShapeLayer()
+//            shape.path = path
+//            shape.fillColor = UIColor.rcMain.cgColor
+//            
+//            self.layer.insertSublayer(shape, at: 0)
+//    }
 }

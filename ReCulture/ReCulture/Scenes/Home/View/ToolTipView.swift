@@ -9,6 +9,11 @@ import UIKit
 
 final class ToolTipView: UIView {
     
+    // MARK: - Properties
+    
+    var levelProgressView: LevelProgressView?
+    var tooltipViewTrailingConstraint: NSLayoutConstraint?
+    
     // MARK: - Views
     
     private let label: UILabel = {
@@ -18,18 +23,19 @@ final class ToolTipView: UIView {
         return label
     }()
     
+    private var shape = CAShapeLayer()
+    
     // MARK: - Initialization
     
-    override init (frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
-        
+                
         self.backgroundColor = .rcMain
         
         self.layer.masksToBounds = false
         self.layer.cornerRadius = 9
         
-        setLabel()
-        
+//        setLabel()
     }
       
     required init?(coder: NSCoder) {
@@ -55,5 +61,33 @@ final class ToolTipView: UIView {
     
     func configure(text: String) {
         self.label.text = text
+    }
+    
+    func drawTip(
+        tipStartX: CGFloat,
+        tipStartY: CGFloat,
+        tipWidth: CGFloat,
+        tipHeight: CGFloat) {
+            setLabel()
+            
+            let path = CGMutablePath()
+
+            let tipWidthCenter = tipWidth / 2.0
+            let endXWidth = tipStartX + tipWidth
+
+            path.move(to: CGPoint(x: tipStartX, y: tipStartY))
+            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY-tipHeight))
+            path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
+            path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
+
+            shape.path = path
+            shape.fillColor = UIColor.rcMain.cgColor
+            
+            levelProgressView?.layer.insertSublayer(shape, at: 0)
+    }
+    
+    func removeToolTipView() {
+        label.removeFromSuperview()
+        shape.removeFromSuperlayer()
     }
 }
