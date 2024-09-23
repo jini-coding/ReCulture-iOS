@@ -21,6 +21,11 @@ extension UIFont {
         return modifiedFont
     }
     
+    static func rcFont36B() -> UIFont {
+        let font = UIFont(name: "AppleSDGothicNeo-Bold", size: 36) ?? UIFont.systemFont(ofSize: 36, weight: .bold)
+        return applyLetterSpacing(to: font, withSpacing: -2)
+    }
+    
     static func rcFont26B() -> UIFont {
         let font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26) ?? UIFont.systemFont(ofSize: 26, weight: .bold)
         return applyLetterSpacing(to: font, withSpacing: -2)
@@ -33,6 +38,11 @@ extension UIFont {
     
     static func rcFont21SB() -> UIFont {
         let font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 21) ?? UIFont.systemFont(ofSize: 21, weight: .light)
+        return applyLetterSpacing(to: font, withSpacing: -2)
+    }
+    
+    static func rcFont14SB() -> UIFont {
+        let font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .light)
         return applyLetterSpacing(to: font, withSpacing: -2)
     }
     

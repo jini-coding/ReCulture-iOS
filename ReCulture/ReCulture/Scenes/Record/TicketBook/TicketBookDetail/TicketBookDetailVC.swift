@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TicketBookDetailVC: UIViewController {
+class TicketBookDetailVC: UIViewController {
     
     // MARK: - Properties
     
@@ -57,7 +57,15 @@ final class TicketBookDetailVC: UIViewController {
         control.currentPageIndicatorTintColor = .rcMain
         control.pageIndicatorTintColor = .rcGray000
         control.isUserInteractionEnabled = false
+//        control.addTarget(self, action: #selector(pageChanged), for: .touchUpInside)
         return control
+    }()
+    
+    private let tagStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 8
+        return view
     }()
 
     private let detailContentView: UIView = {
@@ -74,6 +82,18 @@ final class TicketBookDetailVC: UIViewController {
         return view
     }()
     
+    private let lineView1: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "ticketLine")
+        return view
+    }()
+    
+    private let lineView2: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "ticketLine")
+        return view
+    }()
+    
     private let ticketTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .rcFont20B()
@@ -83,7 +103,8 @@ final class TicketBookDetailVC: UIViewController {
     
     private let emojiLabel: UILabel = {
         let label = UILabel()
-        label.font = .rcFont20B()
+        label.font = .rcFont36B()
+        label.text = "emoji"
         return label
     }()
     
@@ -91,15 +112,30 @@ final class TicketBookDetailVC: UIViewController {
         let label = UILabel()
         label.textColor = .rcGray400
         label.text = "date"
-        label.font = .rcFont14R()
+        label.font = .rcFont16B()
         return label
     }()
     
     private let reviewLabel: UILabel = {
         let label = UILabel()
-        label.font = .rcFont16M()
+        label.font = .rcFont14SB()
         label.numberOfLines = 0
         return label
+    }()
+    
+    private let barcodeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "barcode")
+        return imageView
+    }()
+
+    private let buttonStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 8
+        return view
     }()
     
     private let saveButton: UIButton = {
@@ -115,14 +151,14 @@ final class TicketBookDetailVC: UIViewController {
         config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
         
         button.configuration = config
-        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         
         return button
     }()
     
     // MARK: - Lifecycle
     
-    init(model: MyTicketBookModel) {
+    init(model: MyTicketBookModel){
         self.ticketBookModel = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -144,24 +180,31 @@ final class TicketBookDetailVC: UIViewController {
         setTicketImageView()
         setPageControl()
         setDetailContentView()
-        setDetailStackView()
+        //setDetailStackView()
         setSaveButton()
+//        setTagStackView()
+//        setButtonStackView()
         
         configure()
     }
     
     // MARK: - Layout
     
-    private func setupNavigation() {
+    private func setupNavigation(){
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationItem.titleView = titleLabel
+        
+//        let editButtonItem = UIBarButtonItem(customView: editButton)
+//        editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
 
         // left bar button을 추가하면 기존의 스와이프 pop 기능이 해제되므로 다시 세팅
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+//        self.navigationItem.rightBarButtonItem = editButtonItem
     }
     
-    private func setScrollView() {
+    private func setScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -174,7 +217,7 @@ final class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setContentView() {
+    private func setContentView(){
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(contentView)
@@ -189,21 +232,22 @@ final class TicketBookDetailVC: UIViewController {
     }
     
     private func setTicketImageView() {
-        ticketImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewTapped)))
+        ticketImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewDidTap)))
         
         ticketImageView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(ticketImageView)
         
         NSLayoutConstraint.activate([
-            ticketImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-            ticketImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            ticketImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            ticketImageView.heightAnchor.constraint(equalTo: ticketImageView.widthAnchor, multiplier: 26/17)
+            ticketImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            ticketImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            ticketImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            ticketImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            ticketImageView.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
     
-    private func setPageControl() {
+    private func setPageControl(){
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(pageControl)
@@ -215,12 +259,32 @@ final class TicketBookDetailVC: UIViewController {
         ])
     }
     
-    private func setDetailContentView() {
+    private func setDetailContentView(){
         detailContentView.translatesAutoresizingMaskIntoConstraints = false
         
         ticketImageView.addSubview(detailContentView)
+        //detailContentView.addSubview(detailStackView)
         
-        detailContentView.addSubview(detailStackView)
+        detailContentView.isHidden = true
+        
+        detailContentView.addSubview(emojiLabel)
+        detailContentView.addSubview(ticketTitleLabel)
+        detailContentView.addSubview(dateLabel)
+        detailContentView.addSubview(reviewLabel)
+        detailContentView.addSubview(barcodeImageView)
+        
+        emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+        ticketTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        reviewLabel.translatesAutoresizingMaskIntoConstraints = false
+        barcodeImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+        lineView1.translatesAutoresizingMaskIntoConstraints = false
+        lineView2.translatesAutoresizingMaskIntoConstraints = false
+        detailContentView.addSubview(lineView1)
+        detailContentView.addSubview(lineView2)
         
         NSLayoutConstraint.activate([
             detailContentView.topAnchor.constraint(equalTo: ticketImageView.topAnchor),
@@ -230,19 +294,61 @@ final class TicketBookDetailVC: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            detailStackView.centerYAnchor.constraint(equalTo: detailContentView.centerYAnchor),
-            detailStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 33),
-            detailStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -33),
+            lineView1.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 26),
+            lineView1.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -26),
+            lineView1.topAnchor.constraint(equalTo: detailContentView.topAnchor, constant: 65),
+            lineView1.heightAnchor.constraint(equalToConstant: 2),
+
+            // Ticket Title Label
+            ticketTitleLabel.topAnchor.constraint(equalTo: lineView1.bottomAnchor, constant: 26),
+            ticketTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 28),
+            ticketTitleLabel.heightAnchor.constraint(equalToConstant: 24),
+            
+            lineView2.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 26),
+            lineView2.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -26),
+            lineView2.topAnchor.constraint(equalTo: ticketTitleLabel.bottomAnchor, constant: 26),
+            lineView2.heightAnchor.constraint(equalToConstant: 2),
+            
+            // Date Label
+            dateLabel.topAnchor.constraint(equalTo: lineView2.bottomAnchor, constant: 14),
+            dateLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -28),
+            dateLabel.heightAnchor.constraint(equalToConstant: 22),
+            
+            // Review Label
+            reviewLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 14),
+            reviewLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 26),
+            reviewLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -26),
+            
+            emojiLabel.bottomAnchor.constraint(equalTo: barcodeImageView.topAnchor, constant: -14),
+            emojiLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -22),
+            emojiLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            // Barcode Image View
+            barcodeImageView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 20),
+            barcodeImageView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -20),
+            barcodeImageView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: -65),
+            barcodeImageView.heightAnchor.constraint(equalToConstant: 72)
         ])
     }
     
-    private func setDetailStackView() {
-        detailStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        [emojiLabel, ticketTitleLabel, dateLabel, reviewLabel].forEach {
-            detailStackView.addArrangedSubview($0)
-        }
-    }
+//    private func setButtonStackView(){
+//        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+//        saveButton.translatesAutoresizingMaskIntoConstraints = false
+//        shareButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        contentView.addSubview(buttonStackView)
+//
+//        [saveButton, shareButton].forEach {
+//            buttonStackView.addArrangedSubview($0)
+//        }
+//
+//        NSLayoutConstraint.activate([
+//            buttonStackView.topAnchor.constraint(equalTo: tagStackView.bottomAnchor, constant: 31),
+//            buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+//            buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+//            buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+//        ])
+//    }
     
     private func setSaveButton() {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -259,11 +365,15 @@ final class TicketBookDetailVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func goBack() {
+    @objc private func goBack(){
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc private func saveButtonTapped() {
+    @objc private func editButtonDidTap(){
+        print("티켓북 수정")
+    }
+    
+    @objc private func saveButtonDidTap(){
         print("== 티켓북 저장 ==")
         ImageSaver().saveAsImage(ticketImageView.transfromToImage()!, target: self) {
             let alertVC = UIAlertController(title: "티켓북 저장에 성공하였습니다!", message: nil, preferredStyle: .alert)
@@ -272,19 +382,23 @@ final class TicketBookDetailVC: UIViewController {
         }
     }
     
-    @objc private func imageViewTapped() {
+    @objc private func shareButtonDidTap(){
+        print("티켓북 공유")
+    }
+    
+    @objc private func imageViewDidTap(){
         print("이미지 선택됨")
         if isFrontImage {
             isFrontImage = false
+            detailContentView.isHidden = false
             detailContentView.backgroundColor = .rcWhiteBg
-            detailStackView.isHidden = false
             pageControl.currentPage = 1
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
         else {
             isFrontImage = true
             detailContentView.backgroundColor = .clear
-            detailStackView.isHidden = true
+            detailContentView.isHidden = true
             pageControl.currentPage = 0
             UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
@@ -292,17 +406,37 @@ final class TicketBookDetailVC: UIViewController {
     
     // MARK: - Functions
     
-    private func configure() {
+    private func configure(){
         print("==configuring ticket book detail==")
-        ticketImageView.loadImage(urlWithoutBaseURL: ticketBookModel.imageURL)        
+//        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
+//        imageUrlStr.loadAsyncImage(ticketImageView)
+        
+        let url = URL(string: "http://34.64.120.187:8080\(ticketBookModel.imageURL)")!
+        ticketImageView.load(url: url)
+        
         
         ticketTitleLabel.text = ticketBookModel.title
         emojiLabel.text = ticketBookModel.emoji
         dateLabel.text = String(ticketBookModel.date.split(separator: "T")[0]).replacingOccurrences(of: "-", with: ".")
         reviewLabel.text = ticketBookModel.review
+        
+        print("\(ticketBookModel.title)")
     }
+    
+//    private func loadImageData() {
+//        let url = URL(string: "http://34.22.96.154:8080\(self)")
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: url!) {
+//                if let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self?.image = image
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 // MARK: - Extensions: UIGestureRecognizerDelegate
-
-extension TicketBookDetailVC: UIGestureRecognizerDelegate { }
+extension TicketBookDetailVC: UIGestureRecognizerDelegate {
+}
