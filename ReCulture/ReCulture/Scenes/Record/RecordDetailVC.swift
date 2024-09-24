@@ -209,18 +209,15 @@ class RecordDetailVC: UIViewController {
                 default: category = "기타"
                 }
 
-                // Set the text details
                 self.titleLabel.text = model.culture.title
                 self.creatorLabel.text = "\(self.creator)"
                 self.createDateLabel.text = model.culture.date.toDate()?.toString()
                 self.categoryLabel.text = category
                 
-                // Load multiple images into the imageScrollView
                 self.contentImage = model.photoDocs.map { $0.url }
-                self.loadImagesIntoStackView()  // This method handles loading multiple images
+                self.loadImagesIntoStackView()
                 
-                // Set the textField placeholders and details
-                if let recordType = RecordType(categoryId: model.culture.categoryId) {
+                if let recordType = RecordType(categoryId: model.culture.categoryId-1) {
                     let placeholders = self.textFieldPlaceholders.first { $0.keys.contains(recordType) }?[recordType] ?? []
                     
                     let details = [

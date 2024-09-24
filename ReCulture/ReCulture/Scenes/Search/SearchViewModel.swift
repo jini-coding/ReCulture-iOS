@@ -10,9 +10,9 @@ import UIKit
 class SearchViewModel {
     // MARK: - Properties
         
-    private var allRecordModel: [RecordModel] = [] {
+    private var allSearchModels: [SearchModel] = [] {
         didSet {
-            allRecordModelDidChange?()
+            allSearchModelsDidChange?()
         }
     }
     
@@ -22,32 +22,53 @@ class SearchViewModel {
         }
     }
     
-    private var allRecords: [RecordModel] = []
-    
-    var allRecordModelDidChange: (() -> Void)?
+    private var allRecords: [SearchModel] = []
+    private var pagination: SearchResponseDTO.Pagination?
+
+    var allSearchModelsDidChange: (() -> Void)?
     var userProfileModelsDidChange: (() -> Void)?
     
     // MARK: - Functions
     
-    func getAllRecords(fromCurrentVC: UIViewController){
-        NetworkManager.shared.getAllRecords() { result in
+//    func getAllRecords(fromCurrentVC: UIViewController) {
+//        NetworkManager.shared.getAllRecords() { result in
+//            switch result {
+//            case .success(let (models, pagination)):
+//                self.allRecords = models
+//                self.allSearchModels = models
+//                self.pagination = pagination
+//                print("-- all search view model --")
+//                print(models)
+//                print("Pagination info: \(pagination)")
+//            case .failure(let error):
+//                print("-- all search view model --")
+//                print(error)
+//                let networkAlertController = self.networkErrorAlert(error)
+//
+//                DispatchQueue.main.async {
+//                    fromCurrentVC.present(networkAlertController, animated: true)
+//                }
+//            }
+//        }
+//    }
+    func getAllRecords(fromCurrentVC: UIViewController) {
+        // Use default values of 1 for `currentPage` and 10 for `pageSize` if they are nil
+        let currentPage = pagination?.currentPage ?? 1
+        let pageSize = pagination?.pageSize ?? 10
+        
+        NetworkManager.shared.getAllRecords(page: currentPage, pageSize: pageSize) { result in
             switch result {
-            case .success(let models):
-                self.allRecords = models
-                self.allRecordModel = models
-                print("-- all record view model --")
-                print(models)
+            case .success(let responseDTO):
+                let models = self.convertToSearchModels(DTOs: responseDTO.data)
+                self.allRecords.append(contentsOf: models) // Append new results for multiple pages
+                self.pagination = responseDTO.pagination
+                self.allSearchModels = self.allRecords // Update the main array
             case .failure(let error):
-                print("-- all record view model --")
-                print(error)
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async {
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                print("Error:", error)
             }
         }
     }
+
     
     func getUserProfile(userId: Int, completion: @escaping (UserProfileModel?) -> Void) {
         NetworkManager.shared.getUserProfile(userId: userId) { result in
@@ -56,19 +77,45 @@ class SearchViewModel {
                 self.userProfileModels[userId] = model
                 completion(model)
             case .failure(let error):
-                print("-- record detail view model --")
+                print("-- search view model --")
                 print(error)
                 completion(nil)
             }
         }
     }
     
-    func recordCount() -> Int {
-        return allRecordModel.count
+    private func convertToSearchModels(DTOs: [SearchResponseDTO.SearchRecordDTO]) -> [SearchModel] {
+        return DTOs.map { dto in
+            SearchModel(
+                id: dto.id,
+                title: dto.title,
+                emoji: dto.emoji,
+                date: dto.date,
+                categoryId: dto.categoryId,
+                authorId: dto.authorId,
+                disclosure: dto.disclosure,
+                review: dto.review,
+                detail1: dto.detail1,
+                detail2: dto.detail2,
+                detail3: dto.detail3,
+                detail4: dto.detail4,
+                photos: dto.photos?.map { photoDTO in
+                    SearchModel.PhotoModel(
+                        id: photoDTO.id,
+                        url: photoDTO.url,
+                        culturePostId: photoDTO.culturePostId
+                    )
+                } ?? []
+            )
+        }
     }
     
-    func getRecord(at index: Int) -> RecordModel {
-        return allRecordModel[index]
+    func recordCount() -> Int {
+        return allSearchModels.count
+    }
+    
+    func getRecord(at index: Int) -> SearchModel {
+        return allSearchModels[index]
     }
     
     func getUserProfileModel(for userId: Int) -> UserProfileModel? {
@@ -77,15 +124,22 @@ class SearchViewModel {
 
     func filterRecords(by category: String) {
         if category == "전체" {
-            // 전체 카테고리인 경우 모든 레코드를 표시
-            allRecordModel = allRecords
+            allSearchModels = allRecords
         } else {
-            // 특정 카테고리에 해당하는 레코드만 필터링
             let categoryId = categoryId(from: category)
-            allRecordModel = allRecords.filter { (record: RecordModel) -> Bool in
-                return record.culture.categoryId == categoryId
+            allSearchModels = allRecords.filter { (record: SearchModel) -> Bool in
+                return record.categoryId == categoryId
             }
         }
+    }
+    
+    func canLoadMorePages() -> Bool {
+        guard let pagination = pagination else { return false }
+        return pagination.currentPage < pagination.totalPages
+    }
+    
+    var currentPage: Int? {
+        return pagination?.currentPage
     }
 
     private func categoryId(from category: String) -> Int {
@@ -103,14 +157,10 @@ class SearchViewModel {
         }
     }
     
-    
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)
-        
         return alertController
     }
 }
-
-

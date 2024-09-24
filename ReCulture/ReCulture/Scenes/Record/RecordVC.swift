@@ -344,7 +344,7 @@ class RecordContentCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = UIColor.lightGray
         imageView.layer.cornerRadius = 14
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -536,15 +536,12 @@ class RecordContentCell: UITableViewCell {
             imageView.clipsToBounds = true
             imageView.layer.cornerRadius = 8
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.backgroundColor = UIColor.blue // Temporary color to visualize the images
+            imageView.backgroundColor = UIColor.lightGray
 
-            // Load image asynchronously
             imageUrlStr.loadAsyncImage(imageView)
 
-            // Add the image view to the stack view
             imageStackView.addArrangedSubview(imageView)
 
-            // Set size of each image view
             NSLayoutConstraint.activate([
                 imageView.widthAnchor.constraint(equalToConstant: 180),
                 imageView.heightAnchor.constraint(equalToConstant: 210)
