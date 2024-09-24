@@ -151,6 +151,24 @@ class SearchRecordDetailVC: UIViewController {
         return imageview
     }()
     
+    let imageScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    let imageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     let detailInfoView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.rcGray000
@@ -209,7 +227,9 @@ class SearchRecordDetailVC: UIViewController {
                 self.creatorLabel.text = "\(self.creator)"
                 self.createDateLabel.text = model.culture.date.toDate()?.toString() 
                 self.categoryLabel.text = category
+                
                 self.contentImage = model.photoDocs.map { $0.url }
+                self.loadImagesIntoStackView()
 
                 if let imageUrl = self.contentImage.first {
                     let baseUrl = "http://34.64.120.187:8080"
@@ -420,21 +440,54 @@ class SearchRecordDetailVC: UIViewController {
     
     
     func setupImage() {
-        if let imageUrl = contentImage.first {
+        contentsView.addSubview(imageScrollView)
+        imageScrollView.addSubview(imageStackView)
+
+        NSLayoutConstraint.activate([
+            imageScrollView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
+            imageScrollView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 26),
+            imageScrollView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -26),
+            imageScrollView.heightAnchor.constraint(equalToConstant: 420),
+
+            imageStackView.topAnchor.constraint(equalTo: imageScrollView.topAnchor),
+            imageStackView.leadingAnchor.constraint(equalTo: imageScrollView.leadingAnchor),
+            imageStackView.trailingAnchor.constraint(equalTo: imageScrollView.trailingAnchor),
+            imageStackView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            imageStackView.heightAnchor.constraint(equalTo: imageScrollView.heightAnchor)
+        ])
+        
+        loadImagesIntoStackView()
+    }
+    
+    func loadImagesIntoStackView() {
+        for subview in imageStackView.arrangedSubviews {
+            subview.removeFromSuperview()
+        }
+
+        for imageUrlStr in contentImage {
             let baseUrl = "http://34.64.120.187:8080"
-            let imageUrlStr = "\(baseUrl)\(imageUrl)"
-            imageUrlStr.loadAsyncImage(contentImageView)
+            let imageUrl = "\(baseUrl)\(imageUrlStr)"
+            
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 8
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.backgroundColor = UIColor.lightGray
+            
+            imageUrl.loadAsyncImage(imageView)
+            
+            imageStackView.addArrangedSubview(imageView)
+            
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 320),
+                imageView.heightAnchor.constraint(equalToConstant: 420)
+            ])
         }
         
-        contentsView.addSubview(contentImageView)
-        
-        NSLayoutConstraint.activate([
-            contentImageView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
-            contentImageView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
-            contentImageView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
-            contentImageView.heightAnchor.constraint(equalToConstant: 420)
-        ])
+        imageScrollView.contentSize = CGSize(width: 320 * contentImage.count, height: 420)
     }
+
     
     //여기 미완...
     func setupInfoView() {
@@ -442,7 +495,7 @@ class SearchRecordDetailVC: UIViewController {
         contentsView.addSubview(detailInfoView)
         
         NSLayoutConstraint.activate([
-            detailInfoView.topAnchor.constraint(equalTo: contentImageView.bottomAnchor, constant: 20),
+            detailInfoView.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 20),
             detailInfoView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
             detailInfoView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
             detailInfoView.bottomAnchor.constraint(equalTo: contentsView.bottomAnchor, constant: -20)
