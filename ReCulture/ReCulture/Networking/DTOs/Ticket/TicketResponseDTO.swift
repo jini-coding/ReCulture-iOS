@@ -21,6 +21,7 @@ struct TicketResponseDetail: Codable {
     let authorId: Int
     let disclosure: String
     let review: String
+    let frameId: Int
 }
 
 struct TicketPhotoDoc: Codable {

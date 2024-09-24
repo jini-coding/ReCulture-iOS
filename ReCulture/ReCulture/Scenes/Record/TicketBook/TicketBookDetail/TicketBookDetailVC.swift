@@ -44,7 +44,6 @@ class TicketBookDetailVC: UIViewController {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.isUserInteractionEnabled = true
-        view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.isOpaque = true
         return view
@@ -187,6 +186,13 @@ class TicketBookDetailVC: UIViewController {
         
         configure()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        applyImageMask(frameID: ticketBookModel.frame)
+    }
+    
     
     // MARK: - Layout
     
@@ -386,23 +392,45 @@ class TicketBookDetailVC: UIViewController {
         print("티켓북 공유")
     }
     
-    @objc private func imageViewDidTap(){
+    @objc private func imageViewDidTap() {
         print("이미지 선택됨")
+
+        var flipTransform = CATransform3DIdentity
+        flipTransform.m34 = -1.0 / 500.0
+
         if isFrontImage {
             isFrontImage = false
+            detailContentView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0, 1, 0)
             detailContentView.isHidden = false
+            
             detailContentView.backgroundColor = .rcWhiteBg
             pageControl.currentPage = 1
-            UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
-        }
-        else {
+
+            flipTransform = CATransform3DRotate(flipTransform, CGFloat.pi, 0, 1, 0)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.ticketImageView.layer.transform = flipTransform
+            }, completion: { _ in
+                //
+            })
+
+        } else {
             isFrontImage = true
+            detailContentView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0, 1, 0)
             detailContentView.backgroundColor = .clear
             detailContentView.isHidden = true
             pageControl.currentPage = 0
-            UIView.transition(with: ticketImageView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+
+            flipTransform = CATransform3DRotate(flipTransform, 0, 0, 1, 0)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.ticketImageView.layer.transform = flipTransform
+            }, completion: { _ in
+                //
+            })
         }
     }
+
+
+
     
     // MARK: - Functions
     
@@ -411,18 +439,30 @@ class TicketBookDetailVC: UIViewController {
 //        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
 //        imageUrlStr.loadAsyncImage(ticketImageView)
         
-        let url = URL(string: "http://34.64.120.187:8080\(ticketBookModel.imageURL)")!
-        ticketImageView.load(url: url)
-        
+        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
+        imageUrlStr.loadAsyncImage(ticketImageView)
+        //applyImageMask(frameID: ticketBookModel.frame)
         
         ticketTitleLabel.text = ticketBookModel.title
         emojiLabel.text = ticketBookModel.emoji
         dateLabel.text = String(ticketBookModel.date.split(separator: "T")[0]).replacingOccurrences(of: "-", with: ".")
         reviewLabel.text = ticketBookModel.review
         
+        
         print("\(ticketBookModel.title)")
     }
     
+    private func applyImageMask(frameID: Int) {
+        // Assuming the mask images are named "frame1", "frame2", etc. based on the frameID
+        guard let maskImage = UIImage(named: "frame\(frameID)")?.cgImage else { return }
+
+        let maskLayer = CALayer()
+        maskLayer.contents = maskImage
+        maskLayer.frame = ticketImageView.bounds
+
+        ticketImageView.layer.mask = maskLayer
+        ticketImageView.layer.masksToBounds = true
+    }
 //    private func loadImageData() {
 //        let url = URL(string: "http://34.22.96.154:8080\(self)")
 //        DispatchQueue.global().async { [weak self] in

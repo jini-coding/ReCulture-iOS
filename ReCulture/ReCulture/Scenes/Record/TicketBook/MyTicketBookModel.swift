@@ -14,5 +14,6 @@ struct MyTicketBookModel {
     let date: String
     let categoryType: RecordType
     let review: String
+    let frame: Int
     let imageURL: String
 }

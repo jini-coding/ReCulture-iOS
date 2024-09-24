@@ -239,19 +239,20 @@ class TicketCustomizingVC: UIViewController {
                                               formatOptions: [.withInternetDateTime]),
             categoryId: (pages[1] as! CustomizingTwoVC).selectedCategoryId!,
             disclosure: "PUBLIC",
-            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!)
+            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!,
+            frameId: (pages[0] as! CustomizingOneVC).currentFrame)
         
         print("티켓북 아래와 같이 만들 예정")
         print(requestDTO)
         
-        LoadingIndicator.showLoading()
+        //LoadingIndicator.showLoading()
         
         viewModel.postNewTicket(
             requestDTO: requestDTO,
             photos: (pages[0] as! CustomizingOneVC).imageFiles,
             fromCurrentVC: self
         ){
-            LoadingIndicator.hideLoading()
+            //LoadingIndicator.hideLoading()
             
             if (self.postNewTicketSuccess){
                 print("postNewTicketSuccess:\(self.postNewTicketSuccess)")
