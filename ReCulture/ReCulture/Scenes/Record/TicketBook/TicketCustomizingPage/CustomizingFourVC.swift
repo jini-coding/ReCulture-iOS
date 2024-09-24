@@ -119,7 +119,7 @@ class CustomizingFourVC: UIViewController {
     func setupGuide() {
         guideLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(guideLabel)
-
+      
         NSLayoutConstraint.activate([
             guideLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
             guideLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -183,6 +183,9 @@ class CustomizingFourVC: UIViewController {
             detailContentView.bottomAnchor.constraint(equalTo: ticketImageView.bottomAnchor),
         ])
         
+        selectedImageView.translatesAutoresizingMaskIntoConstraints = false
+        ticketFrameImage.addSubview(selectedImageView)
+
         NSLayoutConstraint.activate([
             lineView1.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 26),
             lineView1.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -26),
@@ -254,5 +257,4 @@ class CustomizingFourVC: UIViewController {
         ticketImageView.layer.mask = maskLayer
         ticketImageView.layer.masksToBounds = true
     }
-
 }

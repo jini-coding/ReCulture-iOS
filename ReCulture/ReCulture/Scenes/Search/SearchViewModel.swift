@@ -52,7 +52,6 @@ class SearchViewModel {
 //        }
 //    }
     func getAllRecords(fromCurrentVC: UIViewController) {
-        // Use default values of 1 for `currentPage` and 10 for `pageSize` if they are nil
         let currentPage = pagination?.currentPage ?? 1
         let pageSize = pagination?.pageSize ?? 10
         
@@ -60,9 +59,9 @@ class SearchViewModel {
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToSearchModels(DTOs: responseDTO.data)
-                self.allRecords.append(contentsOf: models) // Append new results for multiple pages
+                self.allRecords.append(contentsOf: models) 
                 self.pagination = responseDTO.pagination
-                self.allSearchModels = self.allRecords // Update the main array
+                self.allSearchModels = self.allRecords 
             case .failure(let error):
                 print("Error:", error)
             }

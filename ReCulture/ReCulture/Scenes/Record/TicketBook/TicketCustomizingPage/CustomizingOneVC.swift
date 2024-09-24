@@ -276,7 +276,6 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
 //    func captureMaskedImage() -> UIImage? {
 //        // 캡처할 이미지의 크기를 280x480으로 설정
 //        let captureSize = CGSize(width: 280, height: 480)
-//
 //        // UIGraphicsImageRenderer를 사용해 280x480 사이즈로 렌더러를 설정
 //        let renderer = UIGraphicsImageRenderer(size: captureSize)
 //
