@@ -21,6 +21,7 @@ struct allRecordAPI: ServableAPI {
     
     let page: Int
     let pageSize: Int
+
         
     var method: HTTPMethod { .get }
     //var path: String { "/culture?page=\(page)&pageSize=\(pageSize)" }

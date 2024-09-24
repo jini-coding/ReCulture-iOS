@@ -179,7 +179,8 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         case "로그아웃":
             print("로그아웃 선택됨")
-            presentLogoutModal()
+            logout()
+            //presentLogoutModal()
             
         case "계정 탈퇴":
             print("계정 탈퇴 선택됨")
@@ -235,23 +236,47 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ])
     }
     
-    func presentLogoutModal() {
-        guard let tabBarController = tabBarController else { return }
+//    func presentLogoutModal() {
+//        guard let tabBarController = tabBarController else { return }
+//        
+//        // Add the overlay view to the tab bar controller's view
+//        tabBarController.view.addSubview(overlayView)
+//        
+//        NSLayoutConstraint.activate([
+//            overlayView.topAnchor.constraint(equalTo: tabBarController.view.topAnchor),
+//            overlayView.leadingAnchor.constraint(equalTo: tabBarController.view.leadingAnchor),
+//            overlayView.trailingAnchor.constraint(equalTo: tabBarController.view.trailingAnchor),
+//            overlayView.bottomAnchor.constraint(equalTo: tabBarController.view.bottomAnchor)
+//        ])
+//        
+//        let vc = LogoutModal() // 로그아웃 완료 팝업 띄우기
+//        vc.modalPresentationStyle = .overFullScreen
+//        vc.delegate = self
+//        present(vc, animated: true, completion: nil)
+//    }
+    
+    @objc func logout() {
+        let alertController = UIAlertController(
+            title: "로그아웃하시겠습니까?", message: nil,preferredStyle: .alert)
         
-        // Add the overlay view to the tab bar controller's view
-        tabBarController.view.addSubview(overlayView)
+        let confirmAction = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            //performLogout()
+            print("로그아웃 완료됨")
+            
+            self.navigationController?.popToRootViewController(animated: true)
+        }
         
-        NSLayoutConstraint.activate([
-            overlayView.topAnchor.constraint(equalTo: tabBarController.view.topAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: tabBarController.view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: tabBarController.view.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: tabBarController.view.bottomAnchor)
-        ])
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true)
+    }
+    
+    func performLogout() {
         
-        let vc = LogoutModal() // 로그아웃 완료 팝업 띄우기
-        vc.modalPresentationStyle = .overFullScreen
-        vc.delegate = self
-        present(vc, animated: true, completion: nil)
     }
 }
 

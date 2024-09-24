@@ -5,7 +5,6 @@
 //  Created by Jini on 6/13/24.
 //
 
-
 struct SearchResponseDTO: Codable {
     let data: [SearchRecordDTO]
     let pagination: Pagination
@@ -59,14 +58,14 @@ extension SearchResponseDTO {
             detail2: DTO.detail2,
             detail3: DTO.detail3,
             detail4: DTO.detail4,
-            // Map photos array to PhotoModel array, provide an empty array if DTO.photos is nil
+            
             photos: DTO.photos?.map { photoDTO in
                 SearchModel.PhotoModel(
                     id: photoDTO.id,
                     url: photoDTO.url,
                     culturePostId: photoDTO.culturePostId
                 )
-            } ?? [] // Use an empty array if DTO.photos is nil
+            } ?? []
         )
     }
 

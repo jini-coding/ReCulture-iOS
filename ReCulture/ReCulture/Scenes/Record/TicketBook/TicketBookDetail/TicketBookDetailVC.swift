@@ -12,6 +12,7 @@ class TicketBookDetailVC: UIViewController {
     // MARK: - Properties
     
     private var isFrontImage = true
+    
     private let ticketBookModel: MyTicketBookModel
     
     // MARK: - Views
@@ -155,6 +156,27 @@ class TicketBookDetailVC: UIViewController {
         return button
     }()
     
+//    private let shareButton: UIButton = {
+//        let button = UIButton()
+//        
+//        var config = UIButton.Configuration.filled()
+//        var attributeTitle = AttributedString("공유")
+//        attributeTitle.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont18M(), NSAttributedString.Key.foregroundColor: UIColor.rcMain]))
+//        config.attributedTitle = attributeTitle
+//        config.background.cornerRadius = 10
+//        config.baseBackgroundColor = .white
+//        config.contentInsets = .init(top: 15, leading: 10, bottom: 15, trailing: 10)
+//
+//        button.layer.cornerRadius = 10
+//        button.layer.borderWidth = 1
+//        button.layer.masksToBounds = true
+//        button.layer.borderColor = UIColor.rcMain.cgColor
+//        button.configuration = config
+//        button.addTarget(self, action: #selector(shareButtonDidTap), for: .touchUpInside)
+//        
+//        return button
+//    }()
+    
     // MARK: - Lifecycle
     
     init(model: MyTicketBookModel){
@@ -285,8 +307,6 @@ class TicketBookDetailVC: UIViewController {
         reviewLabel.translatesAutoresizingMaskIntoConstraints = false
         barcodeImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
         lineView1.translatesAutoresizingMaskIntoConstraints = false
         lineView2.translatesAutoresizingMaskIntoConstraints = false
         detailContentView.addSubview(lineView1)
@@ -400,6 +420,7 @@ class TicketBookDetailVC: UIViewController {
 
         if isFrontImage {
             isFrontImage = false
+          
             detailContentView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0, 1, 0)
             detailContentView.isHidden = false
             
@@ -415,6 +436,7 @@ class TicketBookDetailVC: UIViewController {
 
         } else {
             isFrontImage = true
+          
             detailContentView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0, 1, 0)
             detailContentView.backgroundColor = .clear
             detailContentView.isHidden = true
@@ -448,12 +470,10 @@ class TicketBookDetailVC: UIViewController {
         dateLabel.text = String(ticketBookModel.date.split(separator: "T")[0]).replacingOccurrences(of: "-", with: ".")
         reviewLabel.text = ticketBookModel.review
         
-        
         print("\(ticketBookModel.title)")
     }
     
     private func applyImageMask(frameID: Int) {
-        // Assuming the mask images are named "frame1", "frame2", etc. based on the frameID
         guard let maskImage = UIImage(named: "frame\(frameID)")?.cgImage else { return }
 
         let maskLayer = CALayer()
