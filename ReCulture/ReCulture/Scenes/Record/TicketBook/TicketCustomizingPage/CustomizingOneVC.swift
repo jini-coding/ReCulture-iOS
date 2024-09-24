@@ -103,6 +103,12 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
         setPhPicker()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Reapply the mask after layout to ensure correct bounds
+        applyImageMask()
+    }
+    
     // MARK: - Setup Methods
     
     func setupGuide() {
@@ -186,7 +192,7 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
         
 //        // Create and configure CustomizingFourVC
 //        let customizingFourVC = CustomizingFourVC()
-//        
+//
 //        selectedFrame = currentFrame
 //        selectedUserImage = selectedImageView.image
         
@@ -242,7 +248,6 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
         }
         
         if let selectedImage = selectedImageView.image {
-            // Update the parent (TicketCustomizingVC) with the selected image
             ticketCustomizingVC?.selectedUserImage = selectedImage
         }
         picker.dismiss(animated: true)
@@ -271,7 +276,6 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
 //    func captureMaskedImage() -> UIImage? {
 //        // 캡처할 이미지의 크기를 280x480으로 설정
 //        let captureSize = CGSize(width: 280, height: 480)
-//        
 //        // UIGraphicsImageRenderer를 사용해 280x480 사이즈로 렌더러를 설정
 //        let renderer = UIGraphicsImageRenderer(size: captureSize)
 //
@@ -280,11 +284,11 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
 //            // 배경을 투명하게 설정
 //            context.cgContext.setFillColor(UIColor.clear.cgColor)
 //            context.cgContext.fill(CGRect(origin: .zero, size: captureSize))
-//            
+//
 //            // ticketFrameImage의 레이어를 캡처
 //            ticketFrameImage.layer.render(in: context.cgContext)
 //        }
-//        
+//
 //        return capturedImage
 //    }
 //}

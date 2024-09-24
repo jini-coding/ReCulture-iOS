@@ -217,7 +217,7 @@ class SearchRecordDetailVC: UIViewController {
                     imageUrlStr.loadAsyncImage(self.contentImageView)
                 }
 
-                if let recordType = RecordType(categoryId: model.culture.categoryId) {
+                if let recordType = RecordType(categoryId: model.culture.categoryId-1) {
                     let placeholders = self.textFieldPlaceholders.first { $0.keys.contains(recordType) }?[recordType] ?? []
 
                     let details = [

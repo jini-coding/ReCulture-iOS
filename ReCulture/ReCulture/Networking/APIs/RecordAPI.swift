@@ -18,10 +18,20 @@ struct myRecordAPI: ServableAPI {
 
 struct allRecordAPI: ServableAPI {
     typealias Response = SearchResponseDTO
+    
+    let page: Int
+    let pageSize: Int
+
         
     var method: HTTPMethod { .get }
+    //var path: String { "/culture?page=\(page)&pageSize=\(pageSize)" }
     var path: String { "/culture" }
-    var parameters: [String: String] { return [:] }
+    var parameters: [String: String] {
+        return [
+            "page": "\(page)",
+            "pageSize": "\(pageSize)"
+        ]
+    }
     var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
 }
 

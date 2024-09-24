@@ -52,17 +52,22 @@ class SearchViewModel {
 //        }
 //    }
     func getAllRecords(fromCurrentVC: UIViewController) {
-        NetworkManager.shared.getAllRecords() { result in
+        let currentPage = pagination?.currentPage ?? 1
+        let pageSize = pagination?.pageSize ?? 10
+        
+        NetworkManager.shared.getAllRecords(page: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToSearchModels(DTOs: responseDTO.data)
+                self.allRecords.append(contentsOf: models) 
                 self.pagination = responseDTO.pagination
-                self.allSearchModels = models
+                self.allSearchModels = self.allRecords 
             case .failure(let error):
                 print("Error:", error)
             }
         }
     }
+
     
     func getUserProfile(userId: Int, completion: @escaping (UserProfileModel?) -> Void) {
         NetworkManager.shared.getUserProfile(userId: userId) { result in
@@ -93,9 +98,13 @@ class SearchViewModel {
                 detail2: dto.detail2,
                 detail3: dto.detail3,
                 detail4: dto.detail4,
-                photos: dto.photos.map { photoDTO in
-                    SearchModel.PhotoModel(id: photoDTO.id, url: photoDTO.url, culturePostId: photoDTO.culturePostId)
-                }
+                photos: dto.photos?.map { photoDTO in
+                    SearchModel.PhotoModel(
+                        id: photoDTO.id,
+                        url: photoDTO.url,
+                        culturePostId: photoDTO.culturePostId
+                    )
+                } ?? []
             )
         }
     }

@@ -116,54 +116,35 @@ final class NetworkManager {
         }
     }
     
-    /// 공개된 모든 기록 조회하는 함수
-//    func getAllRecords(
-//        _ networkService: NetworkServable = NetworkService(),
-//        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
-//    ) {
-//        let recordAPI = allRecordAPI()
-//        networkService.request(recordAPI) { result in
+//    /// 공개된 모든 기록 조회하는 함수
+//    func getAllRecords(page: Int, pageSize: Int, 
+//                       _ networkService: NetworkServable = NetworkService(),
+//                       completion: @escaping (Result<SearchResponseDTO, Error>) -> Void) {
+//        let api = allRecordAPI(page: page, pageSize: pageSize)
+//        networkService.request(api) { result in
 //            switch result {
-//            case .success(let DTOs):
-//                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
-//                print(models)
-//                completion(.success(models))
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-//    func getAllRecords(
-//        _ networkService: NetworkServable = NetworkService(),
-//        completion: @escaping (Result<([SearchModel], SearchResponseDTO.Pagination), NetworkError>) -> Void
-//    ) {
-//        let recordAPI = allRecordAPI()
-//        networkService.request(recordAPI) { (result: Result<SearchResponseDTO, NetworkError>) in  // Expect a single SearchResponseDTO
-//            switch result {
-//            case .success(let responseDTO):  // Now we're expecting a single response, not an array
-//                let models = SearchResponseDTO.convertSearchRecordDTOsToModels(DTOs: responseDTO.data)  // Access the 'data' array
-//                let pagination = responseDTO.pagination  // Access the pagination data
-//                print(models)
-//                completion(.success((models, pagination)))  // Return both models and pagination
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
+//            case .success(let responseDTO):
+//                completion(.success(responseDTO))
+
     func getAllRecords(
+        page: Int,
+        pageSize: Int,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<SearchResponseDTO, NetworkError>) -> Void
     ) {
-        let recordAPI = allRecordAPI()
+        let recordAPI = allRecordAPI(page: page, pageSize: pageSize)
         networkService.request(recordAPI) { result in
             switch result {
             case .success(let responseDTO):
+                print("Success: \(responseDTO)")
                 completion(.success(responseDTO))
             case .failure(let error):
+                print("Decoding error: \(error)")
                 completion(.failure(error))
             }
         }
     }
+
     
     /// 내 기록 조회하는 함수
     func getMyRecords(

@@ -16,6 +16,7 @@ struct MyTicketBookDTO: Codable {
     let authorId: Int
     let createdAt: String
     let updatedAt: String
+    let frameId: Int
     let photos: [Photo]
 }
 
@@ -34,6 +35,7 @@ extension MyTicketBookDTO {
             date: DTO.date, 
             categoryType: RecordType(categoryId: DTO.categoryId-1)!,
             review: DTO.review,
+            frame: DTO.frameId,
             imageURL: DTO.photos[0].url
         )
     }
