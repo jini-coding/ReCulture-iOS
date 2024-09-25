@@ -315,9 +315,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "665"
-            endingLineNumber = "665"
-            landmarkName = "validateInputField()"
-            landmarkType = "7">
+            endingLineNumber = "665">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
