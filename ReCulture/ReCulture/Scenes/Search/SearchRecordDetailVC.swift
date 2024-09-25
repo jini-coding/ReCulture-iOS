@@ -19,7 +19,19 @@ class SearchRecordDetailVC: UIViewController {
     var category: String = ""
     var contentImage: [String] = []
     
-    var isBookmarked: Bool = false
+    var isBookmarked: Bool = false {
+        didSet {
+            let newBookmarkIcon = isBookmarked ? "bookmark.fill" : "bookmark"
+            let newTintColor = UIColor.black
+            
+            if let bookmarkButton = self.navigationItem.rightBarButtonItem {
+                bookmarkButton.image = UIImage(systemName: newBookmarkIcon)
+                bookmarkButton.tintColor = newTintColor
+            }
+            
+            print(isBookmarked ? "북마크 설정됨" : "북마크가 해제됨")
+        }
+    }
     
     let textFieldPlaceholders: [[RecordType: [[String]]]] = [
         [.movie: [["영화 이름", "어떤 영화인가요?"],
@@ -253,38 +265,29 @@ class SearchRecordDetailVC: UIViewController {
                 } else {
                     print("Failed to get RecordType for categoryId: \(model.culture.categoryId)")
                 }
+                
+                self.isBookmarked = model.culture.isBookmarked
             }
         }
         
         bookmarkViewModel.bookmarkModelDidChange = { [weak self] in
-            DispatchQueue.main.async {
-                self?.updateBookmarkButton()
+            guard let model = self?.bookmarkViewModel.getBookmarkModel() else { return }
+            
+            if model.success {
+                print("-- bookmark post succeeded")
+                DispatchQueue.main.async {
+                    self?.isBookmarked.toggle()
+                }
             }
-        }
-    }
-    
-    private func updateBookmarkButton() {
-        guard let model = bookmarkViewModel.getBookmarkModel() else { return }
-        
-        if model.success {
-            isBookmarked.toggle()
-            
-            let newBookmarkIcon = isBookmarked ? "bookmark.fill" : "bookmark"
-            let newTintColor = UIColor.black
-            
-            if let bookmarkButton = self.navigationItem.rightBarButtonItem {
-                bookmarkButton.image = UIImage(systemName: newBookmarkIcon)
-                bookmarkButton.tintColor = newTintColor
+            else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "북마크에 실패하였습니다.",
+                                                  message: "다시 시도해주세요.",
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: .default))
+                    self?.present(alert, animated: true)
+                }
             }
-            
-            print(isBookmarked ? "북마크 설정됨" : "북마크가 해제됨")
-        }
-        else {
-            let alert = UIAlertController(title: "북마크에 실패하였습니다.",
-                                          message: "다시 시도해주세요.",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: .default))
-            self.present(alert, animated: true)
         }
     }
     
@@ -396,7 +399,8 @@ class SearchRecordDetailVC: UIViewController {
         self.navigationItem.rightBarButtonItem = bookmarkButton
     }
 
-    @objc func didTapBookmark() {
+    @objc func didTapBookmark(_ sender: UIBarButtonItem) {
+        print("북마크 버튼 눌림")
         bookmarkViewModel.postBookmarkToggle(recordId: recordId)
     }
     
