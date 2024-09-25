@@ -10,6 +10,7 @@ import UIKit
 class SearchRecordDetailVC: UIViewController {
     
     private let viewModel = RecordViewModel()
+    private let bookmarkViewModel = BookmarkViewModel()
     
     var recordId: Int = 0
     var titleText: String = ""
@@ -237,7 +238,7 @@ class SearchRecordDetailVC: UIViewController {
                     imageUrlStr.loadAsyncImage(self.contentImageView)
                 }
 
-                if let recordType = RecordType(categoryId: model.culture.categoryId-1) {
+                if let recordType = RecordType(categoryId: model.culture.categoryId) {
                     let placeholders = self.textFieldPlaceholders.first { $0.keys.contains(recordType) }?[recordType] ?? []
 
                     let details = [
@@ -253,6 +254,37 @@ class SearchRecordDetailVC: UIViewController {
                     print("Failed to get RecordType for categoryId: \(model.culture.categoryId)")
                 }
             }
+        }
+        
+        bookmarkViewModel.bookmarkModelDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateBookmarkButton()
+            }
+        }
+    }
+    
+    private func updateBookmarkButton() {
+        guard let model = bookmarkViewModel.getBookmarkModel() else { return }
+        
+        if model.success {
+            isBookmarked.toggle()
+            
+            let newBookmarkIcon = isBookmarked ? "bookmark.fill" : "bookmark"
+            let newTintColor = UIColor.black
+            
+            if let bookmarkButton = self.navigationItem.rightBarButtonItem {
+                bookmarkButton.image = UIImage(systemName: newBookmarkIcon)
+                bookmarkButton.tintColor = newTintColor
+            }
+            
+            print(isBookmarked ? "북마크 설정됨" : "북마크가 해제됨")
+        }
+        else {
+            let alert = UIAlertController(title: "북마크에 실패하였습니다.",
+                                          message: "다시 시도해주세요.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(alert, animated: true)
         }
     }
     
@@ -365,17 +397,7 @@ class SearchRecordDetailVC: UIViewController {
     }
 
     @objc func didTapBookmark() {
-        isBookmarked.toggle()
-        
-        let newBookmarkIcon = isBookmarked ? "bookmark.fill" : "bookmark"
-        let newTintColor = UIColor.black
-        
-        if let bookmarkButton = self.navigationItem.rightBarButtonItem {
-            bookmarkButton.image = UIImage(systemName: newBookmarkIcon)
-            bookmarkButton.tintColor = newTintColor
-        }
-        
-        print(isBookmarked ? "북마크 설정됨" : "북마크가 해제됨")
+        bookmarkViewModel.postBookmarkToggle(recordId: recordId)
     }
     
     func setupScrollView() {

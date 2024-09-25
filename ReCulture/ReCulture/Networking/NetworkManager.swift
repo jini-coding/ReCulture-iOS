@@ -351,9 +351,9 @@ final class NetworkManager {
     /// 사용자의 북마크 기록들 리스트를 조회하는 함수입니다.
         func getBookmarkList(
             _ networkService: NetworkServable = NetworkService(),
-            completion: @escaping (Result<[BookmarkModel], NetworkError>) -> Void
+            completion: @escaping (Result<[BookmarkListModel], NetworkError>) -> Void
         ){
-            let api = BookmarkAPI()
+            let api = BookmarkListAPI()
             networkService.request(api) { result in
                 switch result {
                 case .success(let DTOs):
@@ -395,6 +395,21 @@ final class NetworkManager {
             switch result {
             case .success(let DTO):
                 completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 다른 사용자들의 기록을 북마크하는 함수입니다.
+    func bookmarkRecord(recordId: Int,
+                        _ networkService: NetworkServable = NetworkService(),
+                        completion: @escaping (Result<BookmarkModel, NetworkError>) -> Void) {
+        let api = BookmarkAPI(recordId: recordId)
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(BookmarkDTO.convertBookmarkDTOToModel(DTO: DTO)))
             case .failure(let error):
                 completion(.failure(error))
             }
