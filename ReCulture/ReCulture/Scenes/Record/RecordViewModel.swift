@@ -22,6 +22,9 @@ class RecordViewModel {
         }
     }
     
+    private var allRecords: [RecordModel] = []  // Holds all records fetched from the server
+    private var filteredRecords: [RecordModel] = []
+    
     var myRecordModelDidChange: (() -> Void)?
     
     // MARK: - Functions
@@ -30,6 +33,7 @@ class RecordViewModel {
         NetworkManager.shared.getMyRecords() { result in
             switch result {
             case .success(let models):
+                self.allRecords = models // 모든 레코드를 allRecords에 저장
                 self.myRecordModel = models
                 print("-- my record view model --")
                 print(models)
@@ -78,6 +82,34 @@ class RecordViewModel {
                 print("-- record detail view model --")
                 print(error)
             }
+        }
+    }
+    
+    func filterRecords(by category: String) {
+        if category == "전체" {
+            // 전체 카테고리인 경우 모든 레코드를 표시
+            myRecordModel = allRecords
+        } else {
+            // 특정 카테고리에 해당하는 레코드만 필터링
+            let categoryId = categoryId(from: category)
+            myRecordModel = allRecords.filter { (record: RecordModel) -> Bool in
+                return record.culture.categoryId == categoryId
+            }
+        }
+    }
+    
+    private func categoryId(from category: String) -> Int {
+        switch category {
+        case "영화": return 1
+        case "뮤지컬": return 2
+        case "연극": return 3
+        case "스포츠": return 4
+        case "콘서트": return 5
+        case "드라마": return 6
+        case "독서": return 7
+        case "전시회": return 8
+        case "기타": return 9
+        default: return 0
         }
     }
     

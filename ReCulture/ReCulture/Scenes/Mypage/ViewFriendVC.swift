@@ -173,7 +173,7 @@ class ViewFriendVC: UIViewController, UIPageViewControllerDelegate, UIPageViewCo
 class FollowerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let viewModel = MypageViewModel()
-    var followers: [Follower] = []
+    var followers: [FollowerModel] = []
     
     struct Friend {
         var profileImage: String
@@ -238,14 +238,16 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = viewModel.followers[indexPath.row]
+        let data = viewModel.followers[indexPath.row]  // Get the follower data
          
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
         cell.selectionStyle = .none
-        cell.nameLabel.text = "\(data.followerID)"
-        cell.idLabel.text = data.follower.email
         
-        // 설정에 따라 팔로우 버튼 업데이트
+        // Populate the cell with follower data
+        cell.nameLabel.text = "\(data.follower.id)"  // You can use data like name if available
+        cell.idLabel.text = data.follower.email
+
+        // Configure the follow button (this logic can be modified based on your use case)
         cell.followButton.setTitle("팔로우", for: .normal)
         cell.followButton.backgroundColor = UIColor.rcMain
         cell.followButton.setTitleColor(UIColor.white, for: .normal)
@@ -319,7 +321,7 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
 
 class FollowingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let viewModel = MypageViewModel()
-    var followings: [Following] = []
+    var followings: [FollowingModel] = []
     
     struct Friend {
         var profileImage: String
@@ -329,14 +331,6 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         var following: Bool
         var follow: Bool
     }
-    
-    let friendData = [
-        Friend(profileImage: "temp_img2", name: "수연", id: "@soohyun", follower: false, following: true, follow: false),
-        Friend(profileImage: "temp_img", name: "수연", id: "@musicsoosoo", follower: true, following: true, follow: true),
-        Friend(profileImage: "temp_img2", name: "수연", id: "@sooyeon1234", follower: false, following: true, follow: false),
-        Friend(profileImage: "temp_img", name: "수연", id: "@happysoo", follower: false, following: true, follow: false),
-        Friend(profileImage: "temp_img2", name: "수연", id: "@iulovesuyeon", follower: true, following: true, follow: true)
-    ]
     
     let followingTableView: UITableView = {
         let tableview = UITableView()

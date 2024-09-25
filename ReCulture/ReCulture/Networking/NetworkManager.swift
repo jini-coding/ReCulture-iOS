@@ -14,6 +14,22 @@ final class NetworkManager {
     
     private init() {}
     
+    /// 앨범들을 조회하는 함수입니다.
+    func fetchNetworkingTest(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<TestDTO, NetworkError>) -> Void
+    ) {
+        let testAPI = TestAPI()
+        networkService.request(testAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     /// 사용자 회원가입하는 함수
     func postUserRegister(
         signupRequestDTO: SignupRequestDTO,
@@ -63,7 +79,7 @@ final class NetworkManager {
             }
         }
     }
-    
+
     /// 사용자 새로운 프로필 설정하는 함수
     func postNewUserProfile(
         newUserProfileRequestDTO: NewUserProfileRequestDTO,
@@ -71,7 +87,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<NewUserProfileResponseDTO, NetworkError>) -> Void
     ){
-        let newUserProfileAPI = NewUserProfileAPI(requestDTO: newUserProfileRequestDTO.toDictionary, profileImage: profileImage)
+        let newUserProfileAPI = NewUserProfileAPI(requestDTO: newUserProfileRequestDTO.toDictionary!, profileImage: profileImage)
         networkService.request(newUserProfileAPI) { result in
             switch result {
             case .success(let DTO):
@@ -89,7 +105,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<AddRecordResponseDTO, NetworkError>) -> Void
     ){
-        let addRecordAPI = AddRecordAPI(requestDTO: addRecordRequestDTO.toDictionary, photos: photos)
+        let addRecordAPI = AddRecordAPI(requestDTO: addRecordRequestDTO.toDictionary!, photos: photos)
         networkService.request(addRecordAPI) { result in
             switch result {
             case .success(let DTO):
@@ -100,23 +116,35 @@ final class NetworkManager {
         }
     }
     
-    /// 공개된 모든 기록 조회하는 함수
+//    /// 공개된 모든 기록 조회하는 함수
+//    func getAllRecords(page: Int, pageSize: Int, 
+//                       _ networkService: NetworkServable = NetworkService(),
+//                       completion: @escaping (Result<SearchResponseDTO, Error>) -> Void) {
+//        let api = allRecordAPI(page: page, pageSize: pageSize)
+//        networkService.request(api) { result in
+//            switch result {
+//            case .success(let responseDTO):
+//                completion(.success(responseDTO))
+
     func getAllRecords(
+        page: Int,
+        pageSize: Int,
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
+        completion: @escaping (Result<SearchResponseDTO, NetworkError>) -> Void
     ) {
-        let recordAPI = allRecordAPI()
+        let recordAPI = allRecordAPI(page: page, pageSize: pageSize)
         networkService.request(recordAPI) { result in
             switch result {
-            case .success(let DTOs):
-                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
-                print(models)
-                completion(.success(models))
+            case .success(let responseDTO):
+                print("Success: \(responseDTO)")
+                completion(.success(responseDTO))
             case .failure(let error):
+                print("Decoding error: \(error)")
                 completion(.failure(error))
             }
         }
     }
+
     
     /// 내 기록 조회하는 함수
     func getMyRecords(
@@ -150,8 +178,8 @@ final class NetworkManager {
             }
         }
     }
-    
-    
+  
+  
     func getMyCalendar(
         year: String,
         month: String,
@@ -192,7 +220,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<TicketResponseDTO, NetworkError>) -> Void
     ){
-        let newTicketAPI = NewTicketAPI(requestDTO: newTicketRequestDTO.toDictionary, photos: photos)
+        let newTicketAPI = NewTicketAPI(requestDTO: newTicketRequestDTO.toDictionary!, photos: photos)
         networkService.request(newTicketAPI) { result in
             switch result {
             case .success(let DTO):
@@ -202,11 +230,11 @@ final class NetworkManager {
             }
         }
     }
-    
+
     /// 특정 기록 상세보기
     func getRecordDetails(recordId: Int,
-                          _ networkService: NetworkServable = NetworkService(),
-                          completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
     ) {
         let recordAPI = recordDetailAPI(id: recordId)
         networkService.request(recordAPI) { result in
@@ -221,8 +249,8 @@ final class NetworkManager {
     
     /// 특정 유저 프로필 정보 불러오기
     func getUserProfile(userId: Int,
-                        _ networkService: NetworkServable = NetworkService(),
-                        completion: @escaping (Result<UserProfileModel, NetworkError>) -> Void
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<UserProfileModel, NetworkError>) -> Void
     ){
         let userProfileAPI = UserProfileAPI(id: userId)
         networkService.request(userProfileAPI) { result in
@@ -256,14 +284,13 @@ final class NetworkManager {
     
     func getMyFollowers(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[FollowModel], NetworkError>) -> Void
+        completion: @escaping (Result<[FollowerDTO], NetworkError>) -> Void
     ) {
         let followAPI = FollowerAPI()
         networkService.request(followAPI) { result in
             switch result {
-            case .success(let DTOs):
-                let models = FollowDTO.convertFollowDTOsToModels(DTOs: DTOs)
-                completion(.success(models))
+            case .success(let followersDTOs):
+                completion(.success(followersDTOs))  // Return the DTOs
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -273,13 +300,29 @@ final class NetworkManager {
     
     func getMyFollowings(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[FollowModel], NetworkError>) -> Void
+        completion: @escaping (Result<[FollowingDTO], NetworkError>) -> Void
     ) {
         let followAPI = FollowingAPI()
         networkService.request(followAPI) { result in
             switch result {
+            case .success(let followingsDTOs):
+                completion(.success(followingsDTOs))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    // 수락or거절 대기 중인 요청 정보 불러오기
+    func getPendingRequest(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FollowStateModel], NetworkError>) -> Void
+    ) {
+        let pendingAPI = pendingAPI()
+        networkService.request(pendingAPI) { result in
+            switch result {
             case .success(let DTOs):
-                let models = FollowDTO.convertFollowDTOsToModels(DTOs: DTOs)
+                let models = FollowStateDTO.convertFollowStateDTOsToModels(DTOs: DTOs)
                 completion(.success(models))
             case .failure(let error):
                 completion(.failure(error))
@@ -287,53 +330,53 @@ final class NetworkManager {
         }
     }
     
-    /// 사용자의 북마크 기록들 리스트를 조회하는 함수입니다.
-    func getBookmarkList(
+    // 팔로우 요청 수락
+    func acceptRequest(requestId: Int,
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[BookmarkModel], NetworkError>) -> Void
-    ){
-        let api = BookmarkAPI()
-        networkService.request(api) { result in
+        completion: @escaping (Result<FollowStateModel, NetworkError>) -> Void
+    ) {
+        let acceptAPI = acceptAPI(id: requestId)
+        networkService.request(acceptAPI) { result in
             switch result {
-            case .success(let DTOs):
-                let models = BookmarkListDTO.convertBookmarkListDTOsToModels(DTOs: DTOs.data)
+            case .success(let DTO):
+                let models = FollowStateDTO.convertFollowStateDTOToModel(DTO: DTO)
                 completion(.success(models))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
+    
+    // 팔로우 요청 거절
+    func rejectRequest(requestId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<FollowStateModel, NetworkError>) -> Void
+    ) {
+        let denyAPI = denyAPI(id: requestId)
+        networkService.request(denyAPI) { result in
+            switch result {
+            case .success(let DTO):
+                let models = FollowStateDTO.convertFollowStateDTOToModel(DTO: DTO)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    
     
     /// 기록 삭제하기
     func deleteRecord(postId: Int,
-                      _ networkService: NetworkServable = NetworkService(),
-                      completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
     ){
         let recordAPI = deleteRecordAPI(id: postId)
         networkService.request(recordAPI) { result in
             switch result {
             case .success(let DTO):
                 completion(.success(RecordResponseDTO.convertRecordDTOToModel(DTO: DTO)))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    /// 내 기록을 수정하는 함수입니다.
-    func editMyRecord(recordId: Int,
-                      editRecordRequestDTO: AddRecordRequestDTO,
-                      photos: [ImageFile],
-                      _ networkService: NetworkServable = NetworkService(),
-                      completion: @escaping (Result<EditRecordResponseDTO, NetworkError>) -> Void
-    ) {
-        let api = EditRecordAPI(recordId: recordId,
-                                    requestDTO: editRecordRequestDTO.toDictionary,
-                                    photos: photos)
-        networkService.request(api) { result in
-            switch result {
-            case .success(let DTO):
-                completion(.success(DTO))
             case .failure(let error):
                 completion(.failure(error))
             }

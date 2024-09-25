@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */; };
-		080ACDC92C8CBF8A00C44DE7 /* BookmarkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC82C8CBF8A00C44DE7 /* BookmarkAPI.swift */; };
-		080ACDCB2C8CBFA400C44DE7 /* BookmarkListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */; };
-		080ACDCD2C8CC40300C44DE7 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCC2C8CC40300C44DE7 /* BookmarkViewModel.swift */; };
-		080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */; };
 		0813C4DF2C1AFE17004CD0B4 /* MyTicketBookDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */; };
 		0813C4E12C1AFEA7004CD0B4 /* MyTicketBookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */; };
 		0813C4E52C1B5A92004CD0B4 /* TicketBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */; };
@@ -24,7 +19,6 @@
 		081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */; };
 		081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9D2C102A54008573AF /* SignupAPI.swift */; };
 		081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */; };
-		081F8D012C9F3777006D8D0B /* EditRecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F8D002C9F3777006D8D0B /* EditRecordResponseDTO.swift */; };
 		0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */; };
 		0830AE6E2C19D047005B61B0 /* DisclosureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6D2C19D047005B61B0 /* DisclosureType.swift */; };
 		0830AE702C19D291005B61B0 /* AddRecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */; };
@@ -36,7 +30,6 @@
 		08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08369CEE2C23066C005725C8 /* UIImageView+.swift */; };
 		083FBCCA2BF8A4710054D010 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCC92BF8A4710054D010 /* ToolTipView.swift */; };
 		083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */; };
-		084528B42C75B5F6006B85B1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084528B32C75B5F6006B85B1 /* Server.swift */; };
 		0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E53E2C0319F500B6A4D6 /* RecordType.swift */; };
 		0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */; };
 		0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */; };
@@ -73,27 +66,23 @@
 		08A304472C122E550014F24B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304462C122E550014F24B /* LoginViewModel.swift */; };
 		08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A304492C1230A00014F24B /* KeychainManager.swift */; };
 		08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A3044B2C1230C70014F24B /* TokenStateManager.swift */; };
-		08A8325C2C7A013800FE4D82 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */; };
-		08A9F9E72C9CA650005EC850 /* EditFourTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */; };
-		08A9F9E92C9CA66C005EC850 /* EditFiveTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */; };
-		08B5A7372C9DFFA900B14AE2 /* EditRecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A7362C9DFFA900B14AE2 /* EditRecordAPI.swift */; };
-		08B5A7392C9E01BD00B14AE2 /* EditRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A7382C9E01BD00B14AE2 /* EditRecordViewModel.swift */; };
 		08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */; };
 		08BB15BF2C163C5F008ED4AE /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB15BE2C163C5F008ED4AE /* ImageFile.swift */; };
 		08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */; };
 		08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C72DA92C06EECA00999350 /* HeaderView.swift */; };
-		08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */; };
 		08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF342BF71284005CBECA /* LabelWithPadding.swift */; };
 		08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */; };
 		08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF382BF716AC005CBECA /* UIView+.swift */; };
 		08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5C92C0D6FAC00F1AB49 /* NetworkManager.swift */; };
+		08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */; };
+		08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */; };
 		08D1F5D32C0D71B300F1AB49 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D22C0D71B300F1AB49 /* HTTPMethods.swift */; };
 		08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */; };
 		08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */; };
 		08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */; };
+		08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */; };
 		08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */; };
-		08DA12092C9847A900FDE7D8 /* EditRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */; };
-		08DA120F2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */; };
+		08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E0F5812BFF9CE6000A046D /* TicketImage.png */; };
 		08E0F5842BFFB7D2000A046D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */; };
 		08E0F5892C0013F7000A046D /* RecordTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5882C0013F7000A046D /* RecordTypeVC.swift */; };
 		08E0F58C2C0017BA000A046D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F58B2C0017BA000A046D /* NextButton.swift */; };
@@ -101,10 +90,6 @@
 		08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */; };
 		08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */; };
 		08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */; };
-		08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */; };
-		08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */; };
-		08F44A702C99A49100C717C4 /* RecordPlaceholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F44A6F2C99A49100C717C4 /* RecordPlaceholders.swift */; };
-		08F44A722C99B77300C717C4 /* EditVCAddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F44A712C99B77300C717C4 /* EditVCAddPhotoCell.swift */; };
 		384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */; };
 		384315C32C14D17600D379F3 /* TicketCustomizingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */; };
 		384315C62C14D1B700D379F3 /* CustomizingOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */; };
@@ -137,6 +122,7 @@
 		3874B6082BE4328A003376F7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6072BE4328A003376F7 /* Color.swift */; };
 		3874B60A2BE43291003376F7 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6092BE43291003376F7 /* Font.swift */; };
 		3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B60D2BE432E0003376F7 /* TabBarVC.swift */; };
+		3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6152BE4334F003376F7 /* AuthVC.swift */; };
 		3874B6182BE43363003376F7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6172BE43363003376F7 /* LoginVC.swift */; };
 		3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B6192BE4336B003376F7 /* HomeVC.swift */; };
 		3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B61B2BE43373003376F7 /* SearchVC.swift */; };
@@ -150,14 +136,10 @@
 		389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */; };
 		389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */; };
 		38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E662BF5D0CE00A03D56 /* CALayer.swift */; };
+		38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListVC.swift; sourceTree = "<group>"; };
-		080ACDC82C8CBF8A00C44DE7 /* BookmarkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAPI.swift; sourceTree = "<group>"; };
-		080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListDTO.swift; sourceTree = "<group>"; };
-		080ACDCC2C8CC40300C44DE7 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
-		080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModel.swift; sourceTree = "<group>"; };
 		0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketBookDTO.swift; sourceTree = "<group>"; };
 		0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketBookAPI.swift; sourceTree = "<group>"; };
 		0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookViewModel.swift; sourceTree = "<group>"; };
@@ -170,7 +152,6 @@
 		081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequestDTO.swift; sourceTree = "<group>"; };
 		081EDA9D2C102A54008573AF /* SignupAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPI.swift; sourceTree = "<group>"; };
 		081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponseDTO.swift; sourceTree = "<group>"; };
-		081F8D002C9F3777006D8D0B /* EditRecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordResponseDTO.swift; sourceTree = "<group>"; };
 		0830AE6B2C19C93E005B61B0 /* AddRecordRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordRequestDTO.swift; sourceTree = "<group>"; };
 		0830AE6D2C19D047005B61B0 /* DisclosureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureType.swift; sourceTree = "<group>"; };
 		0830AE6F2C19D291005B61B0 /* AddRecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordAPI.swift; sourceTree = "<group>"; };
@@ -182,7 +163,6 @@
 		08369CEE2C23066C005725C8 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		083FBCC92BF8A4710054D010 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		083FBCCB2BF8AF8D0054D010 /* LevelProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgressView.swift; sourceTree = "<group>"; };
-		084528B32C75B5F6006B85B1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		0845E53E2C0319F500B6A4D6 /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
 		0845E5412C031F9E00B6A4D6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
@@ -219,27 +199,23 @@
 		08A304462C122E550014F24B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		08A304492C1230A00014F24B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		08A3044B2C1230C70014F24B /* TokenStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStateManager.swift; sourceTree = "<group>"; };
-		08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFourTextFieldsView.swift; sourceTree = "<group>"; };
-		08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFiveTextFieldsView.swift; sourceTree = "<group>"; };
-		08B5A7362C9DFFA900B14AE2 /* EditRecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordAPI.swift; sourceTree = "<group>"; };
-		08B5A7382C9E01BD00B14AE2 /* EditRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordViewModel.swift; sourceTree = "<group>"; };
 		08B856462BF1D9370034E86D /* TicketBookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDetailVC.swift; sourceTree = "<group>"; };
 		08BB15BE2C163C5F008ED4AE /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		08C72DA92C06EECA00999350 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCell.swift; sourceTree = "<group>"; };
 		08D0CF342BF71284005CBECA /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		08D0CF362BF715E0005CBECA /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		08D0CF382BF716AC005CBECA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		08D1F5C92C0D6FAC00F1AB49 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPI.swift; sourceTree = "<group>"; };
+		08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDTO.swift; sourceTree = "<group>"; };
 		08D1F5D22C0D71B300F1AB49 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
+		08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTestVC.swift; sourceTree = "<group>"; };
 		08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserProfileVC.swift; sourceTree = "<group>"; };
-		08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordVC.swift; sourceTree = "<group>"; };
-		08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		08E0F5812BFF9CE6000A046D /* TicketImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketImage.png; sourceTree = "<group>"; };
 		08E0F5832BFFB7D2000A046D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		08E0F5882C0013F7000A046D /* RecordTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeVC.swift; sourceTree = "<group>"; };
 		08E0F58B2C0017BA000A046D /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -247,10 +223,6 @@
 		08E0F5932C0027A1000A046D /* AddRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordDetailVC.swift; sourceTree = "<group>"; };
 		08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarDTO.swift; sourceTree = "<group>"; };
 		08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarAPI.swift; sourceTree = "<group>"; };
-		08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
-		08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailModal.swift; sourceTree = "<group>"; };
-		08F44A6F2C99A49100C717C4 /* RecordPlaceholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPlaceholders.swift; sourceTree = "<group>"; };
-		08F44A712C99B77300C717C4 /* EditVCAddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVCAddPhotoCell.swift; sourceTree = "<group>"; };
 		384315C02C14D12100D379F3 /* CompleteCustomizingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCustomizingModal.swift; sourceTree = "<group>"; };
 		384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCustomizingVC.swift; sourceTree = "<group>"; };
 		384315C52C14D1B700D379F3 /* CustomizingOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingOneVC.swift; sourceTree = "<group>"; };
@@ -275,6 +247,7 @@
 		3850C3342C1B960800570424 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		3850C3372C1BC5ED00570424 /* FollowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAPI.swift; sourceTree = "<group>"; };
 		3850C3392C1BC66000570424 /* FollowDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
+		38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Cafe24Shiningstar-v2.0.otf"; path = "../../../../../Downloads/Cafe24Shiningstar-v2.0/Cafe24Shiningstar-v2.0.otf"; sourceTree = "<group>"; };
 		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		386325632C11EFCE00F96D0A /* LogoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModal.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,6 +258,7 @@
 		3874B6072BE4328A003376F7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3874B6092BE43291003376F7 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		3874B60D2BE432E0003376F7 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		3874B6152BE4334F003376F7 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		3874B6172BE43363003376F7 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3874B6192BE4336B003376F7 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3874B61B2BE43373003376F7 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -298,6 +272,7 @@
 		389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalVC.swift; sourceTree = "<group>"; };
 		389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		38D97E662BF5D0CE00A03D56 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,21 +286,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080ACDC52C8C719900C44DE7 /* Bookmark */ = {
+		0813C4E82C1B6364004CD0B4 /* TicketBooks */ = {
 			isa = PBXGroup;
 			children = (
-				080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */,
-				080ACDCC2C8CC40300C44DE7 /* BookmarkViewModel.swift */,
-				080ACDCE2C8CC45500C44DE7 /* BookmarkModel.swift */,
+				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
+				0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */,
+				0813C4E62C1B5BFA004CD0B4 /* MyTicketBookModel.swift */,
 			);
-			path = Bookmark;
-			sourceTree = "<group>";
-		};
-		080BE9A72C9371FC00AE77A5 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
+			path = TicketBooks;
 			sourceTree = "<group>";
 		};
 		0833EF732BE4BA810024FB2C /* Calendar */ = {
@@ -376,11 +344,10 @@
 		0851FD212BEDEB2A002B17E4 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
-				08B856452BF1D9260034E86D /* TicketBookDetail */,
-				0851FD222BEDEB35002B17E4 /* TicketBookVC.swift */,
-				0813C4E42C1B5A92004CD0B4 /* TicketBookViewModel.swift */,
-				0813C4E62C1B5BFA004CD0B4 /* MyTicketBookModel.swift */,
+				0813C4E82C1B6364004CD0B4 /* TicketBooks */,
 				08E0F5852BFFB7DE000A046D /* cell */,
+				08E0F5812BFF9CE6000A046D /* TicketImage.png */,
+				08B856452BF1D9260034E86D /* TicketBookDetail */,
 				384315C42C14D1A000D379F3 /* TicketCustomizingPage */,
 				384315C22C14D17600D379F3 /* TicketCustomizingVC.swift */,
 				08C4600C2BFA70BF00DE0BBB /* TagLabel.swift */,
@@ -402,8 +369,6 @@
 		0855833C2C62603900BD8A6B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				08F44A6F2C99A49100C717C4 /* RecordPlaceholders.swift */,
-				08A8325B2C7A013800FE4D82 /* UserDefaultsManager.swift */,
 				08A304492C1230A00014F24B /* KeychainManager.swift */,
 				08A3044B2C1230C70014F24B /* TokenStateManager.swift */,
 				0855833E2C62607E00BD8A6B /* ImageSaver.swift */,
@@ -484,23 +449,6 @@
 			path = TicketBookDetail;
 			sourceTree = "<group>";
 		};
-		08CC1A0A2C590D6D00EC99BA /* CalendarDetail */ = {
-			isa = PBXGroup;
-			children = (
-				08CC1A0B2C590D7B00EC99BA /* cell */,
-				08EEBE8D2C527F760098A7C8 /* CalendarDetailModal.swift */,
-			);
-			path = CalendarDetail;
-			sourceTree = "<group>";
-		};
-		08CC1A0B2C590D7B00EC99BA /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				08CC1A0C2C590D8D00EC99BA /* CalendarDetailCell.swift */,
-			);
-			path = cell;
-			sourceTree = "<group>";
-		};
 		08D1F5C82C0D6F9E00F1AB49 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				08369CED2C22FF94005725C8 /* TicketBook */,
+				08D1F5CE2C0D6FEA00F1AB49 /* TestAPI.swift */,
 				081EDA9D2C102A54008573AF /* SignupAPI.swift */,
 				08A304442C122D860014F24B /* LoginAPI.swift */,
 				089EDAD42C1344EA00D74C5F /* MyProfileAPI.swift */,
@@ -527,8 +476,6 @@
 				08E7CC3F2C1A1B88001A233A /* MyCalendarAPI.swift */,
 				0813C4E02C1AFEA7004CD0B4 /* MyTicketBookAPI.swift */,
 				3850C3372C1BC5ED00570424 /* FollowAPI.swift */,
-				080ACDC82C8CBF8A00C44DE7 /* BookmarkAPI.swift */,
-				08B5A7362C9DFFA900B14AE2 /* EditRecordAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -542,6 +489,7 @@
 				384315D62C1AB28D00D379F3 /* Record */,
 				089EDAC32C12CBE500D74C5F /* NewUserProfile */,
 				08A3043F2C122C070014F24B /* Login */,
+				08D1F5D02C0D6FEF00F1AB49 /* TestDTO.swift */,
 				081EDA9B2C1029FA008573AF /* SignupRequestDTO.swift */,
 				081EDA9F2C102A77008573AF /* SignupResponseDTO.swift */,
 				089EDAD22C13449100D74C5F /* MyProfileDTO.swift */,
@@ -551,8 +499,6 @@
 				0830AE712C19D2BB005B61B0 /* AddRecordResponseDTO.swift */,
 				08E7CC3D2C1A198D001A233A /* MyCalendarDTO.swift */,
 				0813C4DE2C1AFE17004CD0B4 /* MyTicketBookDTO.swift */,
-				080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */,
-				081F8D002C9F3777006D8D0B /* EditRecordResponseDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -564,30 +510,16 @@
 				08D1F5D42C0D71CF00F1AB49 /* NetworkError.swift */,
 				08D1F5D62C0D71F100F1AB49 /* NetworkService.swift */,
 				08D1F5D82C0D72AA00F1AB49 /* ServableAPI.swift */,
-				084528B32C75B5F6006B85B1 /* Server.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
 		};
-		08DA12072C98479C00FDE7D8 /* EditRecord */ = {
+		08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */ = {
 			isa = PBXGroup;
 			children = (
-				08DA120D2C98957F00FDE7D8 /* cell */,
-				08DA12082C9847A900FDE7D8 /* EditRecordVC.swift */,
-				08A9F9E62C9CA650005EC850 /* EditFourTextFieldsView.swift */,
-				08A9F9E82C9CA66C005EC850 /* EditFiveTextFieldsView.swift */,
-				08B5A7382C9E01BD00B14AE2 /* EditRecordViewModel.swift */,
+				08D1F5DB2C0D73A700F1AB49 /* NetworkingTestVC.swift */,
 			);
-			path = EditRecord;
-			sourceTree = "<group>";
-		};
-		08DA120D2C98957F00FDE7D8 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				08DA120E2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift */,
-				08F44A712C99B77300C717C4 /* EditVCAddPhotoCell.swift */,
-			);
-			path = cell;
+			path = NetworkingTest;
 			sourceTree = "<group>";
 		};
 		08E0F5852BFFB7DE000A046D /* cell */ = {
@@ -622,6 +554,7 @@
 				08E0F5922C002785000A046D /* RecordDetail */,
 				08E0F58A2C0017AF000A046D /* Views */,
 				08E0F5912C002762000A046D /* RecordType */,
+				38D97E682BF5D0E300A03D56 /* AddRecordVC.swift */,
 			);
 			path = AddRecord;
 			sourceTree = "<group>";
@@ -647,7 +580,6 @@
 		08E695162BE4A5DE0055AC48 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				08CC1A0A2C590D6D00EC99BA /* CalendarDetail */,
 				0833EF732BE4BA810024FB2C /* Calendar */,
 				08D0CF342BF71284005CBECA /* LabelWithPadding.swift */,
 				083FBCC92BF8A4710054D010 /* ToolTipView.swift */,
@@ -708,7 +640,6 @@
 			children = (
 				3874B5F02BE43247003376F7 /* ReCulture */,
 				3874B5EF2BE43247003376F7 /* Products */,
-				080BE9A72C9371FC00AE77A5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -759,6 +690,7 @@
 				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
 				08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */,
 				085F5D5F2CA33B2F005AA282 /* Date+.swift */,
+				38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -778,8 +710,7 @@
 		3874B60C2BE432CD003376F7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				08DA12072C98479C00FDE7D8 /* EditRecord */,
-				080ACDC52C8C719900C44DE7 /* Bookmark */,
+				08D1F5DA2C0D739B00F1AB49 /* NetworkingTest */,
 				08E0F5902C00271C000A046D /* AddRecord */,
 				3874B6142BE43346003376F7 /* Auth */,
 				3874B6132BE4333F003376F7 /* Login */,
@@ -854,6 +785,7 @@
 		3874B6142BE43346003376F7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				3874B6152BE4334F003376F7 /* AuthVC.swift */,
 				0866DBD12C0B8BCF00FBBDB5 /* SignUpVC.swift */,
 				08D1F5DD2C0D7F3F00F1AB49 /* NewUserProfileVC.swift */,
 				089EDACA2C12E1D600D74C5F /* NewUserProfileViewModel.swift */,
@@ -921,6 +853,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3874B5FB2BE43248003376F7 /* Assets.xcassets in Resources */,
+				08E0F5822BFF9CE6000A046D /* TicketImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,8 +865,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0830AE6C2C19C93E005B61B0 /* AddRecordRequestDTO.swift in Sources */,
-				08DA120F2C98959300FDE7D8 /* EditPhotoCollectionViewCell.swift in Sources */,
-				080ACDCB2C8CBFA400C44DE7 /* BookmarkListDTO.swift in Sources */,
 				08D1F5D72C0D71F100F1AB49 /* NetworkService.swift in Sources */,
 				0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */,
 				0851FD252BEDFDC4002B17E4 /* TicketBookCollectionViewCell.swift in Sources */,
@@ -943,13 +874,13 @@
 				0866DBD02C0B455800FBBDB5 /* CustomButton.swift in Sources */,
 				3874B6082BE4328A003376F7 /* Color.swift in Sources */,
 				3850C3352C1B960800570424 /* UserProfileModel.swift in Sources */,
+				08D1F5DC2C0D73A700F1AB49 /* NetworkingTestVC.swift in Sources */,
 				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */,
 				386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */,
 				08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */,
 				089EDAD52C1344EA00D74C5F /* MyProfileAPI.swift in Sources */,
 				089EDAD32C13449100D74C5F /* MyProfileDTO.swift in Sources */,
-				08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
@@ -957,13 +888,10 @@
 				384315EF2C1B31D100D379F3 /* MypageViewModel.swift in Sources */,
 				384315E02C1AB44300D379F3 /* RecordViewModel.swift in Sources */,
 				0866DBD42C0BA57600FBBDB5 /* String+.swift in Sources */,
-				08A8325C2C7A013800FE4D82 /* UserDefaultsManager.swift in Sources */,
-				080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */,
 				3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */,
 				089EDAD72C13473200D74C5F /* HomeModel.swift in Sources */,
 				384315EB2C1B1AEB00D379F3 /* SearchAPI.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
-				084528B42C75B5F6006B85B1 /* Server.swift in Sources */,
 				08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
 				081EDA9C2C1029FA008573AF /* SignupRequestDTO.swift in Sources */,
@@ -976,7 +904,6 @@
 				08854E842C045208009E6AA6 /* FourTextFieldsView.swift in Sources */,
 				0851FD232BEDEB35002B17E4 /* TicketBookVC.swift in Sources */,
 				384315C82C14D1BF00D379F3 /* CustomizingTwoVC.swift in Sources */,
-				08B5A7372C9DFFA900B14AE2 /* EditRecordAPI.swift in Sources */,
 				08D0CF392BF716AC005CBECA /* UIView+.swift in Sources */,
 				083FBCCC2BF8AF8D0054D010 /* LevelProgressView.swift in Sources */,
 				089EDAC72C12CBFF00D74C5F /* NewUserProfileResponseDTO.swift in Sources */,
@@ -987,22 +914,20 @@
 				0813C4EE2C1B88CA004CD0B4 /* NewTicketAPI.swift in Sources */,
 				0845E53F2C0319F500B6A4D6 /* RecordType.swift in Sources */,
 				08D1F5D92C0D72AA00F1AB49 /* ServableAPI.swift in Sources */,
-				08A9F9E92C9CA66C005EC850 /* EditFiveTextFieldsView.swift in Sources */,
 				384315CA2C14D1C600D379F3 /* CustomizingThreeVC.swift in Sources */,
 				3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */,
 				0813C4DF2C1AFE17004CD0B4 /* MyTicketBookDTO.swift in Sources */,
 				3874B61C2BE43373003376F7 /* SearchVC.swift in Sources */,
 				08D0CF352BF71284005CBECA /* LabelWithPadding.swift in Sources */,
+				38D97E692BF5D0E300A03D56 /* AddRecordVC.swift in Sources */,
 				0830AE782C19E810005B61B0 /* AddRecordPhotoViewModel.swift in Sources */,
 				385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */,
 				08D1F5CA2C0D6FAC00F1AB49 /* NetworkManager.swift in Sources */,
 				089EDAE32C138BBA00D74C5F /* LoadingIndicator.swift in Sources */,
 				081EDAA02C102A77008573AF /* SignupResponseDTO.swift in Sources */,
-				08A9F9E72C9CA650005EC850 /* EditFourTextFieldsView.swift in Sources */,
 				384315DE2C1AB43C00D379F3 /* RecordModel.swift in Sources */,
 				0830AE762C19E142005B61B0 /* DetailsModel.swift in Sources */,
-				080ACDCF2C8CC45500C44DE7 /* BookmarkModel.swift in Sources */,
-				08EEBE8C2C527ECA0098A7C8 /* UIScrollView+.swift in Sources */,
+				3874B6162BE4334F003376F7 /* AuthVC.swift in Sources */,
 				384315DC2C1AB2E800D379F3 /* RecordAPI.swift in Sources */,
 				089EDADF2C137D8F00D74C5F /* SignupViewModel.swift in Sources */,
 				08D1F5DE2C0D7F3F00F1AB49 /* NewUserProfileVC.swift in Sources */,
@@ -1015,8 +940,6 @@
 				085F5D602CA33B2F005AA282 /* Date+.swift in Sources */,
 				3850C32F2C1B60D700570424 /* UserProfileDTO.swift in Sources */,
 				384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */,
-				08DA12092C9847A900FDE7D8 /* EditRecordVC.swift in Sources */,
-				08F44A722C99B77300C717C4 /* EditVCAddPhotoCell.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
 				3874B60E2BE432E0003376F7 /* TabBarVC.swift in Sources */,
 				089EDAE12C13871C00D74C5F /* ErrorDTO.swift in Sources */,
@@ -1035,20 +958,17 @@
 				08D1F5D52C0D71CF00F1AB49 /* NetworkError.swift in Sources */,
 				081EDA9E2C102A54008573AF /* SignupAPI.swift in Sources */,
 				0813C4EC2C1B8817004CD0B4 /* TicketResponseDTO.swift in Sources */,
+				08D1F5CF2C0D6FEA00F1AB49 /* TestAPI.swift in Sources */,
 				0830AE722C19D2BB005B61B0 /* AddRecordResponseDTO.swift in Sources */,
 				0875CA6A2C0A07BC00F55B9E /* AddPhotoButtonView.swift in Sources */,
-				080ACDCD2C8CC40300C44DE7 /* BookmarkViewModel.swift in Sources */,
 				38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */,
 				0856A6212C099B45001198E1 /* PhotoService.swift in Sources */,
 				08D1F5D32C0D71B300F1AB49 /* HTTPMethods.swift in Sources */,
 				089EDACB2C12E1D600D74C5F /* NewUserProfileViewModel.swift in Sources */,
-				081F8D012C9F3777006D8D0B /* EditRecordResponseDTO.swift in Sources */,
 				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
 				089EDACD2C12E2F400D74C5F /* Codable+.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
-				08B5A7392C9E01BD00B14AE2 /* EditRecordViewModel.swift in Sources */,
-				08EEBE8E2C527F760098A7C8 /* CalendarDetailModal.swift in Sources */,
 				389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */,
 				08E0F58F2C001C8D000A046D /* RecordTypeCollectionViewCell.swift in Sources */,
 				08C4600D2BFA70BF00DE0BBB /* TagLabel.swift in Sources */,
@@ -1057,9 +977,9 @@
 				08E0F5942C0027A1000A046D /* AddRecordDetailVC.swift in Sources */,
 				3874B5F42BE43247003376F7 /* SceneDelegate.swift in Sources */,
 				08E7CC3E2C1A198D001A233A /* MyCalendarDTO.swift in Sources */,
-				080ACDC92C8CBF8A00C44DE7 /* BookmarkAPI.swift in Sources */,
 				08A304412C122C160014F24B /* LoginRequestDTO.swift in Sources */,
 				389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */,
+				08D1F5D12C0D6FEF00F1AB49 /* TestDTO.swift in Sources */,
 				089EDAC92C12D6D200D74C5F /* NewUserProfileAPI.swift in Sources */,
 				3874B61E2BE4337C003376F7 /* RecordVC.swift in Sources */,
 				384315C12C14D12100D379F3 /* CompleteCustomizingModal.swift in Sources */,
@@ -1205,9 +1125,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = RW3T7BP2JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "이미지를 앨범에 저장하려면 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1220,7 +1141,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.smwu.ReCulture11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smwu.ReCulture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1235,9 +1156,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RW3T7BP2JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "이미지를 앨범에 저장하려면 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

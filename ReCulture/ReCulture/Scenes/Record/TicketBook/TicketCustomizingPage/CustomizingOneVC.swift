@@ -12,6 +12,8 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
     
     // MARK: - Properties
     
+    weak var ticketCustomizingVC: TicketCustomizingVC?
+    
     private var phPickerConfig: PHPickerConfiguration = {
         var config = PHPickerConfiguration()
         config.selectionLimit = 1
@@ -22,13 +24,14 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
     private lazy var phPicker = PHPickerViewController(configuration: phPickerConfig)
     
     var imageFiles: [ImageFile] = []
+    var imageName: String?
+    var currentFrame: Int = 1 // Track the selected frame, default to frame1
     
     // MARK: - Views
     
     let guideLabel: UILabel = {
         let label = UILabel()
-        label.text = "티켓 배경을 골라주세요"
-        //label.text = "티켓 틀을 골라주세요"
+        label.text = "티켓 프레임을 골라주세요"
         label.font = UIFont.rcFont24B()
         label.numberOfLines = 0
         return label
@@ -38,8 +41,8 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFit
         imageview.clipsToBounds = true
-        imageview.image = UIImage(named: "frame1") // 프레임 이미지를 설정
-        imageview.isUserInteractionEnabled = true // 터치 가능하도록 설정
+        imageview.image = UIImage(named: "frame1") // Default to frame1
+        imageview.isUserInteractionEnabled = true // Enable user interaction
         return imageview
     }()
     
@@ -62,9 +65,27 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
     let selectedImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.alpha = 1 // 투명도 조정
-        view.clipsToBounds = true // 이미지를 프레임 안에 맞춤
+        view.alpha = 1.0 // Adjust transparency
+        view.clipsToBounds = true // Clip image to frame
         return view
+    }()
+    
+    // Frame selection buttons
+    let frameButtons: [UIButton] = {
+        let titles = ["프레임1", "프레임2", "프레임3"]
+        return titles.enumerated().map { index, title in
+            let button = UIButton(type: .system)
+            button.setTitle(title, for: .normal)
+            button.backgroundColor = UIColor.rcGray000
+            button.setTitleColor(UIColor.rcMain, for: .normal)
+            button.layer.cornerRadius = 8
+            button.tag = index + 1 // 틀 태그
+            button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+                    
+            
+            button.addTarget(self, action: #selector(frameButtonTapped(_:)), for: .touchUpInside)
+            return button
+        }
     }()
     
     // MARK: - Lifecycle
@@ -73,10 +94,19 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
+        ticketCustomizingVC = self.parent as? TicketCustomizingVC
+        
         setupGuide()
         setupImage()
         setupPhotoSelectButton()
+        setupFrameButtons() // Setup the frame switching buttons
         setPhPicker()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Reapply the mask after layout to ensure correct bounds
+        applyImageMask()
     }
     
     // MARK: - Setup Methods
@@ -101,7 +131,7 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
             ticketFrameImage.widthAnchor.constraint(equalToConstant: 280)
         ])
         
-        // 선택된 이미지 뷰를 티켓 프레임 위에 추가
+        // Add selected image view on top of the ticket frame
         selectedImageView.translatesAutoresizingMaskIntoConstraints = false
         ticketFrameImage.addSubview(selectedImageView)
         NSLayoutConstraint.activate([
@@ -123,12 +153,55 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
         ])
     }
     
+    func setupFrameButtons() {
+        // Stack view to hold frame buttons
+        let buttonStackView = UIStackView(arrangedSubviews: frameButtons)
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .equalSpacing
+        buttonStackView.alignment = .center
+        buttonStackView.spacing = 16
+        
+        view.addSubview(buttonStackView)
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonStackView.topAnchor.constraint(equalTo: ticketFrameImage.bottomAnchor, constant: 8),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 26),
+            buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    
     // MARK: - Actions
     
     @objc private func photoSelectButtonDidTap() {
         print("버튼 선택")
         self.present(phPicker, animated: true, completion: nil)
     }
+    
+    @objc private func frameButtonTapped(_ sender: UIButton) {
+        // Update the current frame based on which button is pressed
+        currentFrame = sender.tag
+        print("Selected frame: \(currentFrame)")
+        
+        let frameImageName = "frame\(currentFrame)"
+        ticketFrameImage.image = UIImage(named: frameImageName)
+        
+        if selectedImageView.image != nil {
+            applyImageMask()
+        }
+        
+//        // Create and configure CustomizingFourVC
+//        let customizingFourVC = CustomizingFourVC()
+//
+//        selectedFrame = currentFrame
+//        selectedUserImage = selectedImageView.image
+        
+        ticketCustomizingVC?.selectedFrame = currentFrame
+        
+        print("Passing frame: frame\(currentFrame)")
+        print("Passing user image: \(String(describing: selectedImageView.image))")
+    }
+
     
     // MARK: - PHPickerViewControllerDelegate
     
@@ -137,7 +210,7 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        // 선택을 취소했을 때
+        // Handle the case where selection is cancelled
         if results.isEmpty {
             picker.dismiss(animated: true)
             return
@@ -153,37 +226,70 @@ class CustomizingOneVC: UIViewController, PHPickerViewControllerDelegate {
                     
                     DispatchQueue.main.async {
                         self.selectedImageView.image = image
-                        self.applyImageMask() // 마스킹 적용
-                        
+                        self.applyImageMask() // Apply masking after selecting the image
                     }
                     
                     if let fileName = result.itemProvider.suggestedName {
+                        self.imageName = fileName
                         self.imageFiles.append(ImageFile(filename: fileName, data: image.pngData()!, type: "png"))
                         print("선택된 이미지 파일 이름: \(fileName)")
                     }
+                    
+                    // 마스킹 후 이미지를 캡처하여 저장
+//                    DispatchQueue.main.async {
+//                        if let maskedImage = self.captureMaskedImage() {
+//                            // 마스킹된 이미지를 저장하거나 사용
+//                            UIImageWriteToSavedPhotosAlbum(maskedImage, nil, nil, nil)
+//                            print("마스킹된 이미지가 저장되었습니다.")
+//                        }
+//                    }
                 }
             }
         }
         
+        if let selectedImage = selectedImageView.image {
+            ticketCustomizingVC?.selectedUserImage = selectedImage
+        }
         picker.dismiss(animated: true)
     }
     
     // MARK: - 티켓 모양 마스킹 적용 함수
     
     func applyImageMask() {
-        guard let maskImage = UIImage(named: "frame1")?.cgImage else { return }
+        // Mask the image based on the current frame
+        guard let maskImage = UIImage(named: "frame\(currentFrame)")?.cgImage else { return }
 
         let maskLayer = CALayer()
         maskLayer.contents = maskImage
-        maskLayer.frame = ticketFrameImage.bounds // 이미지 프레임과 동일하게 맞춤
+        maskLayer.frame = ticketFrameImage.bounds // Adjust the mask to fit the ticket frame
 
-        // 선택된 이미지에 마스크 적용
+        // Apply the mask to the selected image view
         selectedImageView.layer.mask = maskLayer
-        
-        // ticketFrameImage의 이미지만 제거
-        ticketFrameImage.image = nil
+        //selectedImageView.layer.masksToBounds = true
     }
 
 
 
 }
+
+//extension CustomizingOneVC {
+//    func captureMaskedImage() -> UIImage? {
+//        // 캡처할 이미지의 크기를 280x480으로 설정
+//        let captureSize = CGSize(width: 280, height: 480)
+//        // UIGraphicsImageRenderer를 사용해 280x480 사이즈로 렌더러를 설정
+//        let renderer = UIGraphicsImageRenderer(size: captureSize)
+//
+//        // 이미지 캡처 시작
+//        let capturedImage = renderer.image { context in
+//            // 배경을 투명하게 설정
+//            context.cgContext.setFillColor(UIColor.clear.cgColor)
+//            context.cgContext.fill(CGRect(origin: .zero, size: captureSize))
+//
+//            // ticketFrameImage의 레이어를 캡처
+//            ticketFrameImage.layer.render(in: context.cgContext)
+//        }
+//
+//        return capturedImage
+//    }
+//}
+
