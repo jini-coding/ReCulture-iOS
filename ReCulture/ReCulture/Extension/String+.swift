@@ -28,18 +28,25 @@ extension String {
     
     /// URLSession을 통해 비동기로 웹 상 이미지 불러오기
     func loadAsyncImage(_ imageView: UIImageView) {
-        URLSession.shared.dataTask(with: URL(string: self)!) { data, response, error in
+        // Safely unwrap the URL
+        guard let url = URL(string: self) else {
+            print("Invalid URL: \(self)")
+            return
+        }
+        
+        // Proceed with the network request
+        URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data,
                   response != nil,
                   error == nil else { return }
+            
             DispatchQueue.main.async {
-//                print(data)
-//                print(response)
-//                print(error)
+                // Safely unwrap image data to UIImage
                 imageView.image = UIImage(data: data) ?? UIImage()
             }
         }.resume()
     }
+
 }
 
 

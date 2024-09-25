@@ -108,14 +108,19 @@ final class HomeViewModel {
         // 같은 날짜의 기록 개수 세기
         for record in calendarDTO {
             // date: 2024-06-10T03:34:56.000Z
-            let date = String(record.date.split(separator: "T")[0])  // 2024-06-10
-            let day = String(date.split(separator: "-")[2])  // 10 -> 현재 필요한 값!!
-            
-            myCalendarDataList[Int(day)! - 1].count += 1
-            myCalendarDataList[Int(day)! - 1].records.append(MyCalendarRecordDetailModel(recordId: record.id,
-                                                                          title: record.title,
-                                                                          categoryId: record.categoryId,
-                                                                          photoURL: record.photos[0].url))
+            let recordDate = record.date.toDate()
+            print(recordDate)
+            if let formattedDate = recordDate?.toDashedString() {
+                print(">> \(formattedDate)")
+                let date = String(formattedDate.split(separator: "T")[0])  // 2024-06-10
+                let day = String(date.split(separator: "-")[2])  // 10 -> 현재 필요한 값!!
+                
+                myCalendarDataList[Int(day)! - 1].count += 1
+                myCalendarDataList[Int(day)! - 1].records.append(MyCalendarRecordDetailModel(recordId: record.id,
+                                                                                             title: record.title,
+                                                                                             categoryId: record.categoryId,
+                                                                                             photoURL: record.photos[0].url))
+            }
         }
         
         myCalendarDataListIsSet = true

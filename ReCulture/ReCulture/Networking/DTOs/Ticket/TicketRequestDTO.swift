@@ -12,4 +12,5 @@ struct TicketRequestDTO: Codable {
     let categoryId: Int
     let disclosure: String
     let review: String
+    let frameId: Int
 }

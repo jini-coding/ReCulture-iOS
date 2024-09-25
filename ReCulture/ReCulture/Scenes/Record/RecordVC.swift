@@ -25,13 +25,6 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var selectedCategory: String = "전체"
     
-    let tempData = [
-        RecordContent(title: "오늘은 시카고를 봐서 너무 행복한 하루", name: "수현", id: "@soohyun", createdAt: "4시간 전", category: "뮤지컬", profileImage: "temp1", comment: "시카고는 정말 볼 때마다 너무 재미있다... 이번에 눈, 귀 둘 다 호강하고 왔지롱", contentImages: ["temp_img"]),
-        RecordContent(title: "애니메이션 러버라면 타카하타 이사오전 필수", name: "애니러버", id: "@anilover", createdAt: "12시간 전", category: "전시회", profileImage: "temp2", comment: "시카고는 정말 볼 때마다 너무 재미있다... 이번에 눈, 귀 둘 다 호강하고 왔찌롱", contentImages: ["temp_img2"]),
-        RecordContent(title: "아이유 콘서트는 매번 가야겠다", name: "해삐", id: "@happygirl", createdAt: "3일 전", category: "콘서트", profileImage: "temp3", comment: "랄라", contentImages: ["temp_img2"]),
-        RecordContent(title: "오늘은 시카고를 봐서 너무 행복한 하루", name: "LOVE", id: "@lovelove", createdAt: "2024.04.20", category: "뮤지컬", profileImage: "temp4", comment: "랄라", contentImages: ["temp_img"])
-    ]
-    
     //image는 가로스크롤 추가 예정
     
     let biglabel: UILabel = {
@@ -101,7 +94,8 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         contentTableView.delegate = self
         contentTableView.dataSource = self
         
-        
+        contentTableView.rowHeight = UITableView.automaticDimension
+        contentTableView.estimatedRowHeight = 390
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,39 +128,37 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
         cell.selectionStyle = .none
+        
         let model = viewModel.getRecord(at: indexPath.row)
         
+        // Set up the text labels
         cell.titleLabel.text = model.culture.title
-        
         cell.nameLabel.text = "\(myviewModel.getNickname())"
+        
         let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(cell.profileImageView)
         
-        cell.idLabel.text = "@\(model.culture.authorId)"
         cell.createDateLabel.text = model.culture.date.toDate()?.toString()
         cell.commentLabel.text = model.culture.review
         
-        if let imageUrl = model.photoDocs.first {
-            print("기록 이미지:\(imageUrl)")
-            let baseUrl = "http://34.64.120.187:8080"
-            let imageUrlStr = "\(baseUrl)\(imageUrl.url)"
-            imageUrlStr.loadAsyncImage(cell.contentImageView)
-        }
+        // Configure the images using the new method
+        let imageUrls = model.photoDocs.map { "http://34.64.120.187:8080\($0.url)" }
+        cell.configureImages(imageUrls)
         
-
         return cell
     }
+
 
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return tempData.count
 //    }
-//    
+//
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let data = tempData[indexPath.row]
-//         
+//
 //        let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
 //        cell.selectionStyle = .none
-//        
+//
 //        cell.profileImageView.image = UIImage(named: data.profileImage)
 //        cell.titleLabel.text = data.title
 //        cell.nameLabel.text = data.name
@@ -178,13 +170,13 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        if let contentImage = data.contentImages.first {
 //            cell.contentImageView.image = UIImage(named: contentImage)
 //        }
-//        
+//
 //        return cell
 //    }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 390
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 390
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = viewModel.getRecord(at: indexPath.row)
@@ -328,7 +320,8 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.selectedCategory = selectedCategory
             updateCategoryButtonAppearance()
             print("\(selectedCategory) 버튼 선택됨")
-            // Perform actions based on selected category...
+            viewModel.filterRecords(by: selectedCategory)
+                        // Perform actions based on selected category...
         }
     }
 
@@ -351,7 +344,7 @@ class RecordContentCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = UIColor.lightGray
         imageView.layer.cornerRadius = 14
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -372,15 +365,6 @@ class RecordContentCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.rcFont14B()
         label.textColor = UIColor.rcGray800
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
-    let idLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.rcFont12M()
-        label.textColor = UIColor.rcGray500
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -437,6 +421,34 @@ class RecordContentCell: UITableViewCell {
         return imageview
     }()
     
+    let imageScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .clear
+        return scrollView
+    }()
+    
+    let imageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    
+    let imageContentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.rcMain
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
@@ -451,12 +463,17 @@ class RecordContentCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(nameLabel)
         contentView.addSubview(separateLineImageView)
-        contentView.addSubview(idLabel)
+        //contentView.addSubview(idLabel)
         contentView.addSubview(createDateLabel)
         contentView.addSubview(commentLabel)
         //contentView.addSubview(categoryLabel)
-        contentView.addSubview(contentImageView)
+        //contentView.addSubview(contentImageView)
+        
+        contentView.addSubview(imageScrollView)
+        imageScrollView.addSubview(imageStackView)
 
+        imageScrollView.contentSize = CGSize(width: 940, height: 210)
+        
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -473,15 +490,19 @@ class RecordContentCell: UITableViewCell {
             separateLineImageView.widthAnchor.constraint(equalToConstant: 1),
             
             //idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
-            idLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
-            idLabel.heightAnchor.constraint(equalToConstant: 15),
+//            idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
+//            idLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
+//            idLabel.heightAnchor.constraint(equalToConstant: 15),
             
-            createDateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            createDateLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+            createDateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
+            createDateLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
             createDateLabel.heightAnchor.constraint(equalToConstant: 15),
             
-            titleLabel.topAnchor.constraint(equalTo: createDateLabel.bottomAnchor, constant: 12),
+//            createDateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+//            createDateLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            createDateLabel.heightAnchor.constraint(equalToConstant: 15),
+            
+            titleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
@@ -489,19 +510,43 @@ class RecordContentCell: UITableViewCell {
             commentLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
             commentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            contentImageView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor, constant: 16),
-            contentImageView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
-            contentImageView.heightAnchor.constraint(equalToConstant: 210),
-            contentImageView.widthAnchor.constraint(equalToConstant: 180)
-        ])
-    }
+            imageScrollView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor, constant: 16),
+            imageScrollView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+            imageScrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            imageScrollView.heightAnchor.constraint(equalToConstant: 210),
+            imageScrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
 
-//    func bind(with model: RecordModel) {
-//        titleLabel.text = model.title
-//        nameLabel.text = "\(model.authorId)"
-//        createDateLabel.text = model.date
-//        commentLabel.text = model.review
-//        // 추가적인 바인딩 로직...
-//    }
+            imageStackView.topAnchor.constraint(equalTo: imageScrollView.topAnchor),
+            imageStackView.leadingAnchor.constraint(equalTo: imageScrollView.leadingAnchor),
+            imageStackView.trailingAnchor.constraint(equalTo: imageScrollView.trailingAnchor),
+            imageStackView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor)
+        ])
+            
+    }
+    
+    func configureImages(_ images: [String]) {
+        // Clear previous images
+        for subview in imageStackView.arrangedSubviews {
+            subview.removeFromSuperview()
+        }
+        
+        for imageUrlStr in images {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 8
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.backgroundColor = UIColor.lightGray
+
+            imageUrlStr.loadAsyncImage(imageView)
+
+            imageStackView.addArrangedSubview(imageView)
+
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 180),
+                imageView.heightAnchor.constraint(equalToConstant: 210)
+            ])
+        }
+    }
     
 }

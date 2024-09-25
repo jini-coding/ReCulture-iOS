@@ -134,8 +134,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if let userProfile = viewModel.getUserProfileModel(for: authorId!) {
                 cell.creatorLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-                    let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
+                    let baseUrl = "http://34.64.120.187:8080"
+                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
                     imageUrlStr.loadAsyncImage(cell.profileImageView)
+                } else {
+                    print("Profile image URL is nil")
                 }
             } else {
                 // Fetch user profile if not loaded yet
@@ -143,8 +146,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     DispatchQueue.main.async {
                         cell.creatorLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-                            let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
+                            let baseUrl = "http://34.64.120.187:8080"
+                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
                             imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        } else {
+                            print("Profile image URL is nil")
                         }
                     }
                 }
@@ -183,37 +189,18 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             cell.categoryLabel.text = category
             
-        if let firstPhotoDoc = model.photos?.first {
+            if let firstPhotoDoc = model.photos?.first, let photoUrl = firstPhotoDoc.url {
                 let baseUrl = "http://34.64.120.187:8080"
-                let imageUrlStr = "\(baseUrl)\(firstPhotoDoc.url)"
+                let imageUrlStr = "\(baseUrl)\(photoUrl)"
                 imageUrlStr.loadAsyncImage(cell.contentImageView)
+            } else {
+                print("Photo URL is nil")
             }
+
             
             return cell
-        }
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return tempData.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let data = tempData[indexPath.row]
-//         
-//        let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as! SearchContentCell
-//        cell.selectionStyle = .none
-//         // Assuming you have images added in assets
-//        cell.profileImageView.image = UIImage(named: data.profileImage)
-//        cell.titleLabel.text = data.title
-//        cell.creatorLabel.text = data.creator
-//        cell.createDateLabel.text = data.createdAt
-//        cell.categoryLabel.text = data.category
-//         // Assuming the first image for contentImages
-//        if let contentImage = data.contentImages.first {
-//            cell.contentImageView.image = UIImage(named: contentImage)
-//        }
-//        
-//        return cell
-//    }
+     }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
@@ -221,19 +208,29 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = viewModel.getRecord(at: indexPath.row)
-        let authorId = model.authorId!
+        let authorId = model.authorId ?? 1
         
         let userProfile = viewModel.getUserProfileModel(for: authorId)
         let vc = SearchRecordDetailVC()
 
-        vc.recordId = model.id!
-        vc.titleText = model.title!
+//        vc.recordId = model.id!
+//        vc.titleText = model.title!
+        if let recordId = model.id {
+            vc.recordId = recordId
+        } else {
+            print("Record ID is nil")
+        }
+
+        if let titleText = model.title {
+            vc.titleText = titleText
+        } else {
+            print("Title is nil")
+        }
         vc.creator = userProfile?.nickname ?? "Unknown"
         vc.createdAt = model.date?.toDate()?.toString() ?? model.date!
         
-        // Safely unwrap the 'photos' array and map 'url' strings
         if let photos = model.photos {
-            vc.contentImage = photos.compactMap { $0.url }  // compactMap will remove any nil values
+            vc.contentImage = photos.compactMap { $0.url }
         } else {
             vc.contentImage = []
         }
@@ -356,7 +353,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         var previousButton: UIButton?
 
         for category in categories {
-            // Create button
             let button = UIButton(type: .system)
             button.setTitle(category, for: .normal)
             button.backgroundColor = category == selectedCategory ? UIColor.rcMain : UIColor.rcGray000
@@ -365,10 +361,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             button.clipsToBounds = true
             button.translatesAutoresizingMaskIntoConstraints = false
 
-            // Add button to scrollView
             categoryScrollView.addSubview(button)
 
-            // Set button constraints
             NSLayoutConstraint.activate([
                 button.centerYAnchor.constraint(equalTo: categoryView.centerYAnchor),
                 button.widthAnchor.constraint(equalToConstant: 65),
@@ -391,7 +385,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
 
-        // Set content size of scrollView based on buttons
         if let lastButton = previousButton {
             NSLayoutConstraint.activate([
                 lastButton.trailingAnchor.constraint(equalTo: categoryScrollView.trailingAnchor, constant: -16)
@@ -408,7 +401,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
 
     func updateCategoryButtonAppearance() {
-        // Iterate through scrollView's subviews to update buttons
         for case let button as UIButton in categoryScrollView.subviews {
             if let category = button.currentTitle {
                 button.backgroundColor = category == selectedCategory ? UIColor.rcMain : UIColor.rcGray000
@@ -552,4 +544,3 @@ class SearchContentCell: UITableViewCell {
     
     
 }
-

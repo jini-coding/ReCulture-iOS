@@ -43,16 +43,13 @@ extension SearchModel {
             detail2: dto.detail2,
             detail3: dto.detail3,
             detail4: dto.detail4,
-            photos: dto.photos.map { photoDTO in
-                PhotoModel(
+            photos: dto.photos?.map { photoDTO in
+                SearchModel.PhotoModel(
                     id: photoDTO.id,
                     url: photoDTO.url,
                     culturePostId: photoDTO.culturePostId
                 )
-            }
+            } ?? []
         )
     }
 }
-
-
-

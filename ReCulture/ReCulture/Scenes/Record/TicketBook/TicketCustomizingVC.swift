@@ -33,6 +33,11 @@ class TicketCustomizingVC: UIViewController {
     var selectedUserImage: UIImage?
     var selectedMaskedUserImage: UIImage?
     
+    var titleText: String?
+    var dateText: String?
+    var commentText: String?
+    var emojiText: String?
+
     let viewModel = TicketCustomizingViewModel()
     var postNewTicketSuccess = false
     
@@ -155,6 +160,17 @@ class TicketCustomizingVC: UIViewController {
             print("Selected MaskingImage: \(String(describing: selectedMaskedUserImage))")
         }
         
+        if let customizingThreeVC = pages[2] as? CustomizingThreeVC {
+            titleText = customizingThreeVC.titleTextfield.text
+            dateText = customizingThreeVC.dateTextfield.text
+            emojiText = customizingThreeVC.emojiTextfield.text
+            commentText = customizingThreeVC.commentTextView.text
+            print("titleText: \(String(describing: titleText))")
+            print("dateText: \(String(describing: dateText))")
+            print("emojiText: \(String(describing: emojiText))")
+            print("commentText: \(String(describing: commentText))")
+        }
+
         if currentPage == 0 && (pages[0] as! CustomizingOneVC).imageFiles.isEmpty {
             allFieldsFilled = false
             let alertController = UIAlertController(title: "사진을 선택해주세요!", message: nil, preferredStyle: .alert)
@@ -182,7 +198,7 @@ class TicketCustomizingVC: UIViewController {
         if allFieldsFilled && nextPage < pages.count {
             if let customizingFourVC = pages[3] as? CustomizingFourVC {
                 customizingFourVC.ticketCustomizingVC = self
-                customizingFourVC.applyImageData()  // 데이터 업데이트
+                //customizingFourVC.applyImageData()  // 데이터 업데이트
             }
             
             pageViewController.setViewControllers([pages[nextPage]], direction: .forward, animated: true, completion: { completed in
@@ -220,22 +236,23 @@ class TicketCustomizingVC: UIViewController {
             emoji: (pages[2] as! CustomizingThreeVC).emojiTextfield.text!,
             date: ISO8601DateFormatter.string(from: (pages[2] as! CustomizingThreeVC).datePicker.date,
                                               timeZone: TimeZone(abbreviation: "KST")!,
-                                              formatOptions: [.withInternetDateTime]), 
+                                              formatOptions: [.withInternetDateTime]),
             categoryId: (pages[1] as! CustomizingTwoVC).selectedCategoryId!,
             disclosure: "PUBLIC",
-            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!)
+            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!,
+            frameId: (pages[0] as! CustomizingOneVC).currentFrame)
         
         print("티켓북 아래와 같이 만들 예정")
         print(requestDTO)
         
-        LoadingIndicator.showLoading()
+        //LoadingIndicator.showLoading()
         
         viewModel.postNewTicket(
             requestDTO: requestDTO,
             photos: (pages[0] as! CustomizingOneVC).imageFiles,
             fromCurrentVC: self
         ){
-            LoadingIndicator.hideLoading()
+            //LoadingIndicator.hideLoading()
             
             if (self.postNewTicketSuccess){
                 print("postNewTicketSuccess:\(self.postNewTicketSuccess)")
@@ -272,6 +289,13 @@ class TicketCustomizingVC: UIViewController {
     func popVC(){
         overlayView.removeFromSuperview()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func updateCustomizingData(title: String?, date: String?, comment: String?, emoji: String?) {
+        self.titleText = title
+        self.dateText = date
+        self.commentText = comment
+        self.emojiText = emoji
     }
 }
 

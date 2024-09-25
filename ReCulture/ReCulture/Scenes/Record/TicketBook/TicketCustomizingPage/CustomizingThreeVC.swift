@@ -7,7 +7,9 @@
 
 import UIKit
 
-class CustomizingThreeVC: UIViewController, UITextViewDelegate {
+class CustomizingThreeVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
+    
+    weak var ticketCustomizingVC: TicketCustomizingVC?
         
     let guideLabel: UILabel = {
         let label = UILabel()
@@ -130,7 +132,14 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
+        ticketCustomizingVC = self.parent as? TicketCustomizingVC
+        
         addKeyboardObserver()
+        
+        titleTextfield.delegate = self
+        dateTextfield.delegate = self
+        commentTextView.delegate = self
+        emojiTextfield.delegate = self
         
         setupGuide()
         setupInputTitle()
@@ -267,6 +276,20 @@ class CustomizingThreeVC: UIViewController, UITextViewDelegate {
             textView.text = placeholder
             textView.textColor = UIColor.rcGray300
         }
+        updateTicketCustomizingVC()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateTicketCustomizingVC()
+    }
+    
+    func updateTicketCustomizingVC() {
+        ticketCustomizingVC?.updateCustomizingData(
+            title: titleTextfield.text,
+            date: dateTextfield.text,
+            comment: commentTextView.text == placeholder ? nil : commentTextView.text,
+            emoji: emojiTextfield.text
+        )
     }
     
     @objc private func datePickerValueDidChange(_ sender: UIDatePicker){

@@ -107,8 +107,8 @@
             filePath = "ReCulture/Scenes/Home/View/LevelProgressView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "setProgress(_:)"
             landmarkType = "7">
             <Locations>
@@ -315,9 +315,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "665"
-            endingLineNumber = "665"
-            landmarkName = "validateInputField()"
-            landmarkType = "7">
+            endingLineNumber = "665">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -822,9 +820,9 @@
             filePath = "ReCulture/Scenes/Home/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "setLevelAttributes()"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "setLevelProgress()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -948,7 +946,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
             endingLineNumber = "115"
-            landmarkName = "getMyCalendar(year:month:fromCurrentVC:)"
+            landmarkName = "countSameDayRecordsAndSetData(year:month:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -2164,7 +2162,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "547"
             endingLineNumber = "547"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkName = "setupRecordRangeStackView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2180,7 +2178,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "554"
             endingLineNumber = "554"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkName = "setupRecordRangeStackView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
