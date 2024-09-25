@@ -37,6 +37,7 @@
 		0855833F2C62607E00BD8A6B /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855833E2C62607E00BD8A6B /* ImageSaver.swift */; };
 		0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */; };
 		0856A6212C099B45001198E1 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0856A6202C099B45001198E1 /* PhotoService.swift */; };
+		085F5D602CA33B2F005AA282 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085F5D5F2CA33B2F005AA282 /* Date+.swift */; };
 		0866DBC92C0B01D300FBBDB5 /* AddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */; };
 		0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */; };
 		0866DBD02C0B455800FBBDB5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */; };
@@ -169,6 +170,7 @@
 		0855833E2C62607E00BD8A6B /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		0856A61D2C098F18001198E1 /* AddRecordPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPhotoVC.swift; sourceTree = "<group>"; };
 		0856A6202C099B45001198E1 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		085F5D5F2CA33B2F005AA282 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		0866DBC82C0B01D300FBBDB5 /* AddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCell.swift; sourceTree = "<group>"; };
 		0866DBCA2C0B299200FBBDB5 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		0866DBCF2C0B455800FBBDB5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -686,6 +688,8 @@
 				0866DBD32C0BA57600FBBDB5 /* String+.swift */,
 				089EDACC2C12E2F400D74C5F /* Codable+.swift */,
 				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
+				08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */,
+				085F5D5F2CA33B2F005AA282 /* Date+.swift */,
 				38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */,
 			);
 			path = Extension;
@@ -932,6 +936,8 @@
 				08A304452C122D860014F24B /* LoginAPI.swift in Sources */,
 				08C72DAA2C06EECA00999350 /* HeaderView.swift in Sources */,
 				088D5C162C05B4F500C574C4 /* FiveTextFieldsView.swift in Sources */,
+				08F44A702C99A49100C717C4 /* RecordPlaceholders.swift in Sources */,
+				085F5D602CA33B2F005AA282 /* Date+.swift in Sources */,
 				3850C32F2C1B60D700570424 /* UserProfileDTO.swift in Sources */,
 				384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */,
 				389F8A682BF72461004593B5 /* FriendRequestVC.swift in Sources */,
