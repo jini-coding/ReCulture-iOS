@@ -34,6 +34,7 @@ struct RecordModel {
         let detail2: String
         let detail3: String
         let detail4: String
+        let isBookmarked: Bool
     }
     
     struct PhotoDoc {

@@ -23,6 +23,9 @@ struct RecordResponseDTO: Codable {
     
     let photos: [PhotoDoc]
     
+    let Bookmark: [BookmarkIdData]
+    let isBookmarked: Bool
+    
     struct PhotoDoc: Codable {
         let id: Int
         let url: String
@@ -45,7 +48,8 @@ extension RecordResponseDTO {
                 detail1: DTO.detail1,
                 detail2: DTO.detail2,
                 detail3: DTO.detail3,
-                detail4: DTO.detail4
+                detail4: DTO.detail4, 
+                isBookmarked: DTO.isBookmarked
             ),
             photoDocs: DTO.photos.map { photoDoc in
                 RecordModel.PhotoDoc(
