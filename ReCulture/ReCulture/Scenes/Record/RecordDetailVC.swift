@@ -217,7 +217,7 @@ class RecordDetailVC: UIViewController {
                 self.contentImage = model.photoDocs.map { $0.url }
                 self.loadImagesIntoStackView()
                 
-                if let recordType = RecordType(categoryId: model.culture.categoryId-1) {
+                if let recordType = RecordType(categoryId: model.culture.categoryId) {
                     let placeholders = self.textFieldPlaceholders.first { $0.keys.contains(recordType) }?[recordType] ?? []
                     
                     let details = [
