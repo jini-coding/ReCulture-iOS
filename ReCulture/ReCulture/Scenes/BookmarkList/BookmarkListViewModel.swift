@@ -1,5 +1,5 @@
 //
-//  BookmarkViewModel.swift
+//  BookmarkListViewModel.swift
 //  ReCulture
 //
 //  Created by Suyeon Hwang on 9/8/24.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class BookmarkViewModel {
+final class BookmarkListViewModel {
     
     // MARK: - Properties
     
-    private var bookmarkList: [BookmarkModel] = [] {
+    private var bookmarkList: [BookmarkListModel] = [] {
         didSet {
             bookmarkListDidChange?()
         }
@@ -43,7 +43,7 @@ final class BookmarkViewModel {
         return bookmarkList.count
     }
     
-    func getBookmarkAt(_ index: Int) -> BookmarkModel {
+    func getBookmarkAt(_ index: Int) -> BookmarkListModel {
         return bookmarkList[index]
     }
     

@@ -13,10 +13,10 @@ final class BookmarkListVC: UIViewController {
     
     private let tagMinimumLineSpacing: CGFloat = 0
     private let tagMinimumInterItemSpacing: CGFloat = 8
-    private let viewModel = BookmarkViewModel()
+    private let viewModel = BookmarkListViewModel()
     private var isAllTagSelected = true  // 태그 필터링 초기화 - 전체로
     private var selectedCategory: RecordType = .all
-    private var filteredRecords: [BookmarkModel] = []  // 필터링한 기록들을 담을 배열
+    private var filteredRecords: [BookmarkListModel] = []  // 필터링한 기록들을 담을 배열
     
     // MARK: - Views
     
@@ -183,7 +183,7 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchContentCell.cellId, for: indexPath) as? SearchContentCell else { return UITableViewCell() }
         cell.selectionStyle = .none
 
-        var bookmarkData: BookmarkModel?
+        var bookmarkData: BookmarkListModel?
         
         // 전체로 필터링하는 경우
         if selectedCategory == .all {
@@ -223,7 +223,7 @@ extension BookmarkListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row)번째 기록 선택됨")
-        var bookmarkData: BookmarkModel?
+        var bookmarkData: BookmarkListModel?
         
         // 전체로 필터링된 경우
         if selectedCategory == .all {
