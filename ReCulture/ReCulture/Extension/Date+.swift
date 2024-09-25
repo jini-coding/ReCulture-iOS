@@ -21,4 +21,10 @@ extension Date {
 
         return calendar.date(from: components)
     }
+    
+    func toDashedString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: self)
+    }
 }
