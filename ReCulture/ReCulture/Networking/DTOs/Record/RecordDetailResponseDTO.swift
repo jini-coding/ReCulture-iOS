@@ -18,8 +18,8 @@ struct RecordDetailResponseDTO: Codable {
     let review: String
     let detail1: String
     let detail2: String
-    let detail3: String
-    let detail4: String
+    let detail3: String?
+    let detail4: String?
     let authorId: Int
     let createdAt: String
     let updatedAt: String
@@ -50,8 +50,8 @@ extension RecordDetailResponseDTO {
                 review: DTO.review,
                 detail1: DTO.detail1,
                 detail2: DTO.detail2,
-                detail3: DTO.detail3,
-                detail4: DTO.detail4,
+                detail3: DTO.detail3 ?? "",
+                detail4: DTO.detail4 ?? "",
                 isBookmarked: DTO.isBookmarked
             ),
             photoDocs: DTO.photos.map { photoDoc in
