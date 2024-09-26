@@ -133,13 +133,13 @@ final class NetworkManager {
     /// 내 기록 조회하는 함수
     func getMyRecords(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[RecordModel], NetworkError>) -> Void
+        completion: @escaping (Result<[AllRecordsModel], NetworkError>) -> Void
     ) {
         let recordAPI = myRecordAPI()
         networkService.request(recordAPI) { result in
             switch result {
             case .success(let DTOs):
-                let models = RecordResponseDTO.convertRecordDTOsToModels(DTOs: DTOs)
+                let models = AllRecordResponseDTO.convertRecordDTOsToMyRecordsModels(DTOs: DTOs)
                 completion(.success(models))
             case .failure(let error):
                 completion(.failure(error))
@@ -224,7 +224,7 @@ final class NetworkManager {
         networkService.request(recordAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(RecordResponseDTO.convertRecordDTOToModel(DTO: DTO)))
+                completion(.success(RecordDetailResponseDTO.convertRecordDTOToModel(DTO: DTO)))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -368,13 +368,13 @@ final class NetworkManager {
     /// 기록 삭제하기
     func deleteRecord(postId: Int,
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<RecordModel, NetworkError>) -> Void
+        completion: @escaping (Result<AllRecordsModel, NetworkError>) -> Void
     ){
         let recordAPI = deleteRecordAPI(id: postId)
         networkService.request(recordAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(RecordResponseDTO.convertRecordDTOToModel(DTO: DTO)))
+                completion(.success(AllRecordResponseDTO.convertRecordDTOToMyRecordsModel(DTO: DTO)))
             case .failure(let error):
                 completion(.failure(error))
             }

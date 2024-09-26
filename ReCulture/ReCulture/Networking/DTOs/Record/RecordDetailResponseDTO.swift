@@ -1,11 +1,14 @@
 //
-//  RecordResponseDTO.swift
+//  AllRecordsResponseDTO.swift
 //  ReCulture
 //
-//  Created by Jini on 6/3/24.
+//  Created by Suyeon Hwang on 9/27/24.
 //
 
-struct RecordResponseDTO: Codable {
+import Foundation
+
+/// 특정 기록을 상세 조회할 때 사용되는 DTO (북마크가 포함돼있음)
+struct RecordDetailResponseDTO: Codable {
     let id: Int
     let title: String
     let emoji: String
@@ -20,12 +23,12 @@ struct RecordResponseDTO: Codable {
     let authorId: Int
     let createdAt: String
     let updatedAt: String
-    
+
     let photos: [PhotoDoc]
     
     let Bookmark: [BookmarkIdData]
     let isBookmarked: Bool
-    
+
     struct PhotoDoc: Codable {
         let id: Int
         let url: String
@@ -33,8 +36,8 @@ struct RecordResponseDTO: Codable {
     }
 }
 
-extension RecordResponseDTO {
-    static func convertRecordDTOToModel(DTO: RecordResponseDTO) -> RecordModel {
+extension RecordDetailResponseDTO {
+    static func convertRecordDTOToModel(DTO: RecordDetailResponseDTO) -> RecordModel {
         return RecordModel(
             culture: RecordModel.Culture(
                 id: DTO.id,
@@ -48,7 +51,7 @@ extension RecordResponseDTO {
                 detail1: DTO.detail1,
                 detail2: DTO.detail2,
                 detail3: DTO.detail3,
-                detail4: DTO.detail4, 
+                detail4: DTO.detail4,
                 isBookmarked: DTO.isBookmarked
             ),
             photoDocs: DTO.photos.map { photoDoc in
@@ -60,7 +63,7 @@ extension RecordResponseDTO {
         )
     }
 
-    static func convertRecordDTOsToModels(DTOs: [RecordResponseDTO]) -> [RecordModel] {
+    static func convertRecordDTOsToModels(DTOs: [RecordDetailResponseDTO]) -> [RecordModel] {
         return DTOs.map { convertRecordDTOToModel(DTO: $0) }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchAPI: ServableAPI {
-    typealias Response = [RecordResponseDTO]
+    typealias Response = [AllRecordResponseDTO]
         
     var method: HTTPMethod { .get }
     var path: String { "/culture" }

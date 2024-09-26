@@ -189,7 +189,7 @@ class RecordDetailVC: UIViewController {
     }
     
     private func bind() {
-        viewModel.myRecordModelDidChange = { [weak self] in
+        viewModel.recordDetailDidChange = { [weak self] in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 guard let model = self.viewModel.getRecordDetail() else { return }

@@ -113,7 +113,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func bind() {
-        viewModel.myRecordModelDidChange = { [weak self] in
+        viewModel.allRecordModelDidChange = { [weak self] in
              DispatchQueue.main.async {
                  self?.contentTableView.reloadData()
              }
