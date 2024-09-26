@@ -604,6 +604,11 @@ extension RecordDetailVC: EditRecordDelegate {
     func doneEditingRecordVC() {
         print("=== record Detail VC ===")
         print("수정 완료~")
+        DispatchQueue.main.async { [weak self] in
+            self?.detailInfoView.subviews.forEach { view in
+                view.removeFromSuperview()
+            }
+        }
         viewModel.getRecordDetails(recordId: recordId)
     }
 }
