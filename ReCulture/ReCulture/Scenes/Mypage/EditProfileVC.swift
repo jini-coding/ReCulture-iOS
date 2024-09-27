@@ -6,34 +6,71 @@
 //
 
 import UIKit
+import PhotosUI
+
+protocol EditProfileDelegate: AnyObject {
+    func didUpdateProfile(nickname: String, bio: String)
+}
 
 class EditProfileVC: UIViewController {
     
+    // ViewModel
     let viewModel = MypageViewModel()
+    weak var delegate: EditProfileDelegate?
+
+    // UI Properties
+    private let profileImageViewWidth: CGFloat = 90
+    private let addProfileImageButtonWidth: CGFloat = 30
+    private var selectedInterest = ""
     
+    lazy var imageFileName = ""
+    lazy var selectedImage = UIImage()
+    
+    // Profile Image Picker
+    private lazy var phPicker: PHPickerViewController = {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        config.filter = .images
+        
+        let phPicker = PHPickerViewController(configuration: config)
+        phPicker.delegate = self
+        return phPicker
+    }()
+    
+    // UI Components
     let profileImage: UIImageView = {
         let imageview = UIImageView()
         imageview.backgroundColor = UIColor.rcGray200
         imageview.layer.cornerRadius = 45
         imageview.clipsToBounds = true
-        
+        imageview.contentMode = .scaleAspectFill
         return imageview
-    }()
-
-    let roundImage: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.rcGray300
-        view.layer.cornerRadius = 10
-        view.clipsToBounds = true
-        
-        return view
     }()
     
-    let plusImage: UIImageView = {
-        let imageview = UIImageView()
-        imageview.image = UIImage(named: "AddIcon")
-        
-        return imageview
+    var menuItems: [UIAction] {
+        var array: [UIAction] = []
+        RecordType.getAllRecordTypes().forEach { type in
+            array.append(UIAction(
+                title: type,
+                handler: { _ in
+                    self.selectedInterest = type
+                    self.interestRangeMenuBtn.configuration?.attributedTitle = AttributedString(type)
+                    self.interestRangeMenuBtn.configuration?.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                        NSAttributedString.Key.foregroundColor: UIColor.black]))
+                    self.interestRangeMenuBtn.setTitle(type, for: .normal)
+                }
+            ))
+        }
+        return array
+    }
+    
+    let addProfileImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.cameraIcon, for: .normal)
+        button.backgroundColor = .rcGray100
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(addProfileImageButtonDidTap), for: .touchUpInside)
+        return button
     }()
     
     let nicknameLabel: UILabel = {
@@ -41,22 +78,17 @@ class EditProfileVC: UIViewController {
         label.text = "닉네임"
         label.textColor = UIColor.rcGray400
         label.font = UIFont.rcFont14M()
-        
         return label
     }()
     
-    let nicknameTextfield: UITextField = {
+    lazy var nicknameTextfield: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "닉네임을 입력해주세요"
         textfield.backgroundColor = UIColor.rcGrayBg
         textfield.font = UIFont.rcFont16M()
         textfield.textColor = UIColor.black
         textfield.layer.cornerRadius = 8
-        
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.rcFont16M()
-         ]
-        textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
+        textfield.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         
         return textfield
     }()
@@ -66,11 +98,10 @@ class EditProfileVC: UIViewController {
         label.text = "소개"
         label.textColor = UIColor.rcGray400
         label.font = UIFont.rcFont14M()
-        
         return label
     }()
     
-    let introTextfield: UITextField = {
+    lazy var introTextfield: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "소개글을 입력해주세요"
         textfield.backgroundColor = UIColor.rcGrayBg
@@ -78,11 +109,7 @@ class EditProfileVC: UIViewController {
         textfield.textColor = UIColor.black
         textfield.layer.cornerRadius = 8
         
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.rcFont16M()
-         ]
-        textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
-        
+        textfield.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return textfield
     }()
     
@@ -91,11 +118,10 @@ class EditProfileVC: UIViewController {
         label.text = "생년월일"
         label.textColor = UIColor.rcGray400
         label.font = UIFont.rcFont14M()
-        
         return label
     }()
     
-    let birthTextField: UITextField = {
+    lazy var birthTextField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "생년월일을 입력해주세요"
         textfield.backgroundColor = UIColor.rcGrayBg
@@ -103,11 +129,7 @@ class EditProfileVC: UIViewController {
         textfield.textColor = UIColor.black
         textfield.layer.cornerRadius = 8
         
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.rcFont16M()
-         ]
-        textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
-        
+        textfield.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         return textfield
     }()
     
@@ -116,24 +138,28 @@ class EditProfileVC: UIViewController {
         label.text = "관심분야"
         label.textColor = UIColor.rcGray400
         label.font = UIFont.rcFont14M()
-        
         return label
     }()
     
-    let interestTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.placeholder = "관심분야를 설정해주세요"
-        textfield.backgroundColor = UIColor.rcGrayBg
-        textfield.font = UIFont.rcFont16M()
-        textfield.textColor = UIColor.black
-        textfield.layer.cornerRadius = 8
+    lazy var interestRangeMenuBtn: UIButton = {
+        let button = UIButton()
         
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.rcFont16M()
-         ]
-        textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .rcGrayBg
+        config.attributedTitle = "관심분야를 설정해주세요"
+        config.attributedTitle?.setAttributes(AttributeContainer([NSAttributedString.Key.font: UIFont.rcFont16M(),
+                                                                 NSAttributedString.Key.foregroundColor: UIColor.black]))
+        config.image = UIImage.chevronDown
+        config.imagePlacement = .trailing
+        config.imagePadding = 10
+        config.titleAlignment = .leading
+        config.background.cornerRadius = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
         
-        return textfield
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.contentHorizontalAlignment = .leading
+        button.configuration = config
+        return button
     }()
     
     let confirmButton: UIButton = {
@@ -144,12 +170,11 @@ class EditProfileVC: UIViewController {
         button.titleLabel?.font = UIFont.rcFont18M()
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        
         button.addTarget(self, action: #selector(didTapConfirmButton), for: .touchUpInside)
-        
         return button
     }()
-
+    
+    // Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -158,64 +183,117 @@ class EditProfileVC: UIViewController {
         bind()
         viewModel.getMyInfo(fromCurrentVC: self)
         
-        setupNavigationBar()
+        setupUI()
+        hideKeyboard()
+        
+        let menu = UIMenu(children: menuItems)
+        interestRangeMenuBtn.menu = menu
+        interestRangeMenuBtn.showsMenuAsPrimaryAction = true
+    }
+    
+    private func setupUI() {
         setupProfileImage()
+        setupAddProfileImageButton()
         setupInputNickname()
         setupInputIntro()
-        //setupInputBirth()
+        setupInputBirth()
         setupSelectField()
         setupConfirmButton()
     }
-    
+
+    // MARK: - Bind Data
     private func bind() {
+        let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
+            imageUrlStr.loadAsyncImage(profileImage)
+        
         viewModel.myPageModelDidChange = { [weak self] in
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.async {
                 self?.nicknameTextfield.text = self?.viewModel.getNickname()
                 self?.introTextfield.text = self?.viewModel.getBio()
-                self?.interestTextfield.text = self?.viewModel.getInterest()
+                self?.birthTextField.text = self?.viewModel.getBirth().toDate()?.toString()
+                self?.interestRangeMenuBtn.setTitle(self?.viewModel.getInterest(), for: .normal)
             }
         }
-        
+    }
+
+
+    // MARK: - Actions
+    
+    @objc private func addProfileImageButtonDidTap() {
+        self.present(phPicker, animated: true)
+    }
+
+    @objc func didTapConfirmButton() {
+        guard let nickname = nicknameTextfield.text,
+              let bio = introTextfield.text,
+              let birthdate = birthTextField.text,
+              let interest = interestRangeMenuBtn.title(for: .normal) else {
+            return
+        }
+
+        let finalSelectedImage: UIImage = selectedImage.size == .zero ? profileImage.image! : selectedImage
+        let imageData = finalSelectedImage.pngData() ?? Data()
+        let image = ImageFile(filename: imageFileName, data: imageData, type: "png")
+
+        viewModel.editMyProfile(
+            requestDTO: EditMyProfileRequestDTO(nickname: nickname, bio: bio, birthdate: birthdate, interest: interest),
+            profileImage: [image],
+            fromCurrentVC: self
+        )
+
+        let alertController = UIAlertController(
+            title: "수정되었습니다", message: "이전 화면으로 돌아갑니다", preferredStyle: .alert
+        )
+
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            
+            // Delegate 호출
+            self.delegate?.didUpdateProfile(nickname: nickname, bio: bio)
+            
+            // 이전 화면으로 돌아가기
+            self.navigationController?.popViewController(animated: true)
+        }
+
+        alertController.addAction(confirmAction)
+        self.present(alertController, animated: true)
+    }
+
+    
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func setupNavigationBar() {
-        self.navigationItem.title = "프로필 변경"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.rcFont18B()]
-        self.navigationController?.navigationBar.setBackgroundImage(nil, for:.default)
-        self.navigationController?.navigationBar.shadowImage = nil
-        self.navigationController?.navigationBar.layoutIfNeeded()
-        
+    @objc private func tfDidChange(_ sender: UITextField) {
+        confirmButton.isEnabled = !(nicknameTextfield.text?.isEmpty ?? true)
     }
-    
-    func setupProfileImage() {
+
+    // MARK: - Setup UI
+    private func setupProfileImage() {
         profileImage.translatesAutoresizingMaskIntoConstraints = false
-        roundImage.translatesAutoresizingMaskIntoConstraints = false
-        plusImage.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(profileImage)
-        view.addSubview(roundImage)
-        roundImage.addSubview(plusImage)
-        
         NSLayoutConstraint.activate([
             profileImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 32),
             profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            profileImage.heightAnchor.constraint(equalToConstant: 90),
-            profileImage.widthAnchor.constraint(equalToConstant: 90),
-            
-            roundImage.bottomAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: -2),
-            roundImage.trailingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: -10),
-            roundImage.heightAnchor.constraint(equalToConstant: 20),
-            roundImage.widthAnchor.constraint(equalToConstant: 20),
-            
-            plusImage.centerXAnchor.constraint(equalTo: roundImage.centerXAnchor),
-            plusImage.centerYAnchor.constraint(equalTo: roundImage.centerYAnchor),
-            plusImage.heightAnchor.constraint(equalToConstant: 18),
-            plusImage.widthAnchor.constraint(equalToConstant: 18),
+            profileImage.heightAnchor.constraint(equalToConstant: profileImageViewWidth),
+            profileImage.widthAnchor.constraint(equalToConstant: profileImageViewWidth)
         ])
-        
+        profileImage.layer.cornerRadius = profileImageViewWidth / 2
+    }
+
+    private func setupAddProfileImageButton() {
+        addProfileImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addProfileImageButton)
+        NSLayoutConstraint.activate([
+            addProfileImageButton.trailingAnchor.constraint(equalTo: profileImage.trailingAnchor),
+            addProfileImageButton.bottomAnchor.constraint(equalTo: profileImage.bottomAnchor),
+            addProfileImageButton.widthAnchor.constraint(equalToConstant: addProfileImageButtonWidth),
+            addProfileImageButton.heightAnchor.constraint(equalTo: addProfileImageButton.widthAnchor)
+        ])
+        addProfileImageButton.layer.cornerRadius = addProfileImageButtonWidth / 2
     }
     
-    func setupInputNickname() {
+    private func setupInputNickname() {
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
         nicknameTextfield.translatesAutoresizingMaskIntoConstraints = false
         
@@ -238,8 +316,8 @@ class EditProfileVC: UIViewController {
             nicknameTextfield.heightAnchor.constraint(equalToConstant: 52),
         ])
     }
-    
-    func setupInputIntro() {
+
+    private func setupInputIntro() {
         introLabel.translatesAutoresizingMaskIntoConstraints = false
         introTextfield.translatesAutoresizingMaskIntoConstraints = false
         
@@ -262,8 +340,8 @@ class EditProfileVC: UIViewController {
             introTextfield.heightAnchor.constraint(equalToConstant: 52),
         ])
     }
-    
-    func setupInputBirth() {
+
+    private func setupInputBirth() {
         birthLabel.translatesAutoresizingMaskIntoConstraints = false
         birthTextField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -286,77 +364,70 @@ class EditProfileVC: UIViewController {
             birthTextField.heightAnchor.constraint(equalToConstant: 52),
         ])
     }
-    
-    func setupSelectField() {
+
+    private func setupSelectField() {
+        
         interestLabel.translatesAutoresizingMaskIntoConstraints = false
-        interestTextfield.translatesAutoresizingMaskIntoConstraints = false
+        interestRangeMenuBtn.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(interestLabel)
-        view.addSubview(interestTextfield)
-        
-        // Left padding view
-        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: interestTextfield.frame.height))
-        interestTextfield.leftView = leftPaddingView
-        interestTextfield.leftViewMode = .always
+        view.addSubview(interestRangeMenuBtn)
         
         NSLayoutConstraint.activate([
-            interestLabel.topAnchor.constraint(equalTo: introTextfield.bottomAnchor, constant: 28),
+            interestLabel.topAnchor.constraint(equalTo: birthTextField.bottomAnchor, constant: 28),
             interestLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             interestLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            interestTextfield.topAnchor.constraint(equalTo: interestLabel.bottomAnchor, constant: 5),
-            interestTextfield.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            interestTextfield.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            interestTextfield.heightAnchor.constraint(equalToConstant: 52),
+            interestRangeMenuBtn.topAnchor.constraint(equalTo: interestLabel.bottomAnchor, constant: 20),
+            interestRangeMenuBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            interestRangeMenuBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            interestRangeMenuBtn.heightAnchor.constraint(equalToConstant: 52)
         ])
     }
-    
-    func setupConfirmButton() {
-        confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        
+
+    private func setupConfirmButton() {
         view.addSubview(confirmButton)
-        
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             confirmButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             confirmButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             confirmButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            confirmButton.heightAnchor.constraint(equalToConstant: 52),
+            confirmButton.heightAnchor.constraint(equalToConstant: 52)
         ])
-    }
-    
-    @objc func didTapConfirmButton() {
-//        guard let nickname = nicknameTextfield.text,
-//              let bio = introTextfield.text,
-//              let birthdate = birthTextField.text,
-//              let interest = interestTextfield.text else {
-//            return
-//        }
-//        
-//        let requestDTO: [String: Any] = [
-//            "nickname": nickname,
-//            "bio": bio,
-//            "birthdate": birthdate,
-//            "interest": interest,
-//            "photo":
-//        ]
-//        
-//        // profileImage는 예시로 비어 있는 [ImageFile]을 보냅니다.
-//        // 실제로는 사용자가 선택한 이미지를 이 배열에 담아야 합니다.
-//        let profileImages: [ImageFile] = []
-//        
-//        viewModel.editMyProfile(
-//            requestDTO: NewUserProfileRequestDTO(nickname: nickname, bio: bio, birthdate: birth, interest: interest),
-//            profileImage: [image],
-//            fromCurrentVC: self
-//        )
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        present(alertController, animated: true)
     }
 }
 
+// MARK: - PHPickerViewControllerDelegate
 
+extension EditProfileVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        if results.count != 0 {
+            if results[0].itemProvider.canLoadObject(ofClass: UIImage.self) {
+                results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    if let fileName = results[0].itemProvider.suggestedName {
+                        self.imageFileName = fileName
+                        print("선택된 이미지 파일 이름: \(fileName)")
+                    }
+                    self.selectedImage = image as! UIImage
+                    DispatchQueue.main.async {
+                        self.profileImage.image = self.selectedImage
+                    }
+                }
+            }
+        }
+        picker.dismiss(animated: true)
+    }
+}
+
+// MARK: - Keyboard Handling
+
+extension EditProfileVC {
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

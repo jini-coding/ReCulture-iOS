@@ -18,6 +18,7 @@ struct SearchModel {
     var detail2: String?
     var detail3: String?
     var detail4: String?
+    var createdAt: String?
     
     var photos: [PhotoModel]?
     
@@ -43,6 +44,7 @@ extension SearchModel {
             detail2: dto.detail2,
             detail3: dto.detail3,
             detail4: dto.detail4,
+            createdAt: dto.createdAt,
             photos: dto.photos?.map { photoDTO in
                 SearchModel.PhotoModel(
                     id: photoDTO.id,
@@ -52,4 +54,17 @@ extension SearchModel {
             } ?? []
         )
     }
+}
+
+struct UserSearchModel {
+    var id: Int?
+    var userId: Int?
+    var nickname: String?
+    var bio: String?
+    var birthdate: String?
+    var interest: String?
+    var profilePhoto: String?
+    var exp: Int?
+    var levelId: Int?
+    var level: String?
 }

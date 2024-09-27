@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     private let viewModel = SearchViewModel()
 
@@ -22,6 +22,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var selectedCategory: String = "전체"
     var isFetching = false //페이지네이션 로딩 상태
+    var isRecommendMode = false
     
     let searchTextField: UITextField = {
         let textfield = UITextField()
@@ -81,19 +82,26 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         view.backgroundColor = UIColor.rcMain
         
+        hideKeyboard()
+        
         setupSearchField()
         setupBookmarkButton()
         setupContentView()
         
         contentTableView.register(SearchContentCell.self, forCellReuseIdentifier: SearchContentCell.cellId)
         
+        searchTextField.delegate = self
         contentTableView.delegate = self
         contentTableView.dataSource = self
         
         
         bind()
-        viewModel.getAllRecords(fromCurrentVC: self)
-
+//        viewModel.getAllRecords(fromCurrentVC: self)
+        viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
+             DispatchQueue.main.async {
+                 self?.contentTableView.reloadData()
+             }
+         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,6 +125,34 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
              }
         }
         
+    }
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                 action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+        
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Dismiss the keyboard
+        textField.resignFirstResponder()
+        
+        // Check if the searchTextField has text
+        guard let searchString = textField.text, !searchString.isEmpty else {
+            return false
+        }
+        
+        // SearchedVC로 이동 및 검색어 전달
+        let searchedVC = SearchedVC()
+        searchedVC.searchText = searchString
+        searchedVC.searchTextField.text = searchString
+        navigationController?.pushViewController(searchedVC, animated: true)
+        
+        return true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -158,10 +194,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
             cell.titleLabel.text = model.title
 
-        if let date = model.date!.toDate() {
+        if let date = model.createdAt?.toDate() {
                 cell.createDateLabel.text = date.toString()
             } else {
-                cell.createDateLabel.text = model.date
+                cell.createDateLabel.text = model.createdAt
             }
             
             let category: String
@@ -208,6 +244,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = viewModel.getRecord(at: indexPath.row)
         let authorId = model.authorId ?? 1
+        print("Cell \(indexPath.row) selected")
         
         let userProfile = viewModel.getUserProfileModel(for: authorId)
         let vc = SearchRecordDetailVC()
@@ -226,7 +263,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("Title is nil")
         }
         vc.creator = userProfile?.nickname ?? "Unknown"
-        vc.createdAt = model.date?.toDate()?.toString() ?? model.date!
+        vc.createdAt = model.createdAt?.toDate()?.toString() ?? model.createdAt!
         
         if let photos = model.photos {
             vc.contentImage = photos.compactMap { $0.url }
@@ -243,14 +280,42 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
         
-        if position > (contentHeight - frameHeight - 100) && !isFetching {
-            if viewModel.canLoadMorePages() {
-                isFetching = true
-                viewModel.getAllRecords(fromCurrentVC: self)
-                isFetching = false
+        if position > (contentHeight - frameHeight - 100) && !isFetching && viewModel.canLoadMorePages() {
+            isFetching = true
+            
+            let previousContentHeight = contentTableView.contentSize.height
+            let previousOffsetY = scrollView.contentOffset.y
+
+            viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.contentTableView.reloadData()
+                    self.isFetching = false
+                    
+                    self.bounceTableView(self.contentTableView)
+
+                    let newContentHeight = self.contentTableView.contentSize.height
+                    let offsetYAdjustment = newContentHeight - previousContentHeight
+                    self.contentTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
+                }
             }
         }
     }
+
+    
+    func bounceTableView(_ tableView: UITableView) {
+        let contentOffsetY = tableView.contentOffset.y
+
+        UIView.animate(withDuration: 0.2, animations: {
+            tableView.contentOffset = CGPoint(x: 0, y: contentOffsetY - 20)
+        }) { _ in
+            UIView.animate(withDuration: 0.3) {
+                tableView.contentOffset = CGPoint(x: 0, y: contentOffsetY)
+            }
+        }
+    }
+
     
     func setupSearchField() {
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -271,7 +336,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let imageContainerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: 37, height: 37))
         imageContainerView.addSubview(searchIconImageView)
-        // Set the left view of the text field to the search icon image view
+        
         searchTextField.leftView = imageContainerView
         searchTextField.leftViewMode = .always
         
@@ -302,6 +367,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @objc func goToBookMark() {
         let vc = BookmarkListVC()
         vc.hidesBottomBarWhenPushed = true
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -310,7 +376,17 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         categoryView.translatesAutoresizingMaskIntoConstraints = false
         contentTableView.translatesAutoresizingMaskIntoConstraints = false
         
+        let recommendButton = UIButton(type: .system)
+        recommendButton.setTitle("추천", for: .normal) // 노란 버튼의 제목
+        recommendButton.setTitleColor(UIColor(hexCode: "#D97904"), for: .normal)
+        recommendButton.backgroundColor = UIColor(hexCode: "#FFF4AA")
+        recommendButton.layer.cornerRadius = 5
+        recommendButton.clipsToBounds = true
+        recommendButton.translatesAutoresizingMaskIntoConstraints = false
+        recommendButton.addTarget(self, action: #selector(recommendButtonTapped), for: .touchUpInside)
+
         view.addSubview(contentsView)
+        contentsView.addSubview(recommendButton)
         contentsView.addSubview(categoryView)
         contentsView.addSubview(contentTableView)
         
@@ -320,8 +396,13 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             contentsView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             contentsView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             
+            recommendButton.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 15),
+            recommendButton.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+            recommendButton.widthAnchor.constraint(equalToConstant: 36),
+            recommendButton.heightAnchor.constraint(equalToConstant: 31),
+
             categoryView.topAnchor.constraint(equalTo: contentsView.topAnchor),
-            categoryView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
+            categoryView.leadingAnchor.constraint(equalTo: recommendButton.trailingAnchor, constant: 10),
             categoryView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor),
             categoryView.heightAnchor.constraint(equalToConstant: 60),
             
@@ -332,7 +413,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ])
         
         setupCategoryButtons()
-
     }
     
     func setupCategoryButtons() {
@@ -374,7 +454,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 ])
             } else {
                 NSLayoutConstraint.activate([
-                    button.leadingAnchor.constraint(equalTo: categoryScrollView.leadingAnchor, constant: 16)
+                    button.leadingAnchor.constraint(equalTo: categoryScrollView.leadingAnchor)
                 ])
             }
 
@@ -390,6 +470,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             ])
         }
     }
+
     
     @objc func categoryButtonTapped(_ sender: UIButton) {
         if let selectedCategory = sender.currentTitle {
@@ -398,6 +479,51 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             viewModel.filterRecords(by: selectedCategory)
         }
     }
+    
+    @objc func recommendButtonTapped(_ sender: UIButton) {
+        isRecommendMode.toggle()
+
+        if isRecommendMode {
+            
+            sender.backgroundColor = UIColor(hexCode: "#F5D366")
+            
+            viewModel.clearRecords()
+            contentTableView.reloadData()
+
+            isFetching = true
+            
+            viewModel.getRecommendRecords(fromCurrentVC: self) { [weak self] in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.contentTableView.reloadData()
+                    self.isFetching = false
+                    
+                    self.bounceTableView(self.contentTableView)
+                }
+            }
+        } else {
+           
+            sender.backgroundColor = UIColor(hexCode: "#FFF4AA")
+            
+            viewModel.clearRecords()
+            contentTableView.reloadData()
+
+            isFetching = true
+            
+            viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
+                guard let self = self else { return }
+
+                DispatchQueue.main.async {
+                    self.contentTableView.reloadData()
+                    self.isFetching = false
+                    
+                    self.bounceTableView(self.contentTableView)
+                }
+            }
+        }
+    }
+
 
     func updateCategoryButtonAppearance() {
         for case let button as UIButton in categoryScrollView.subviews {

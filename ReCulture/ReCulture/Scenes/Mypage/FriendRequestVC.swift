@@ -9,6 +9,9 @@ import UIKit
 
 class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private let viewModel = MypageViewModel()
+    var pendings: [FollowStateDTO] = []
+    
     struct Friend {
         var profileImage: String
         var name: String
@@ -44,6 +47,9 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         view.backgroundColor = UIColor.white
         
+        bind()
+        viewModel.getPendingRequest()
+        
         setupNavigationBar()
         setTableView()
         
@@ -54,19 +60,56 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         requestTableView.dataSource = self
     }
     
+    private func bind() {
+        viewModel.pendingsDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.requestTableView.reloadData()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendData.count
+        return viewModel.pendings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = friendData[indexPath.row]
-         
+        let data = viewModel.pendings[indexPath.row] // 해당 인덱스의 pending 요청 데이터를 가져옴
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendRequestCell.cellId, for: indexPath) as! FriendRequestCell
         cell.selectionStyle = .none
-         // Assuming you have images added in assets
-        cell.profileImageView.image = UIImage(named: data.profileImage)
-        cell.nameLabel.text = data.name
-        cell.idLabel.text = data.id
+        
+        cell.requestId = data.id
+    
+        let authorId = data.fromUserID // 요청을 보낸 유저 ID
+        
+        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
+            cell.nameLabel.text = userProfile.nickname
+            cell.idLabel.text = "@\(authorId)"
+            if let profileImageUrl = userProfile.profilePhoto {
+                let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
+                imageUrlStr.loadAsyncImage(cell.profileImageView) // 프로필 이미지 비동기 로드
+            }
+        } else {
+            // 아직 로드되지 않은 경우 비동기로 프로필 데이터를 가져옴
+            viewModel.getUserProfile(userId: authorId) { userProfile in
+                DispatchQueue.main.async {
+                    cell.nameLabel.text = userProfile?.nickname
+                    cell.idLabel.text = "@\(authorId)"
+                    if let profileImageUrl = userProfile?.profilePhoto {
+                        let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
+                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+                    }
+                }
+            }
+        }
+        
+        cell.acceptAction = { [weak self] in
+            self?.viewModel.acceptRequest(requestId: data.id)
+        }
+        
+        cell.rejectAction = { [weak self] in
+            self?.viewModel.rejectRequest(requestId: data.id)
+        }
         
         return cell
     }
@@ -107,17 +150,24 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             requestTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    
 }
 
 class FriendRequestCell: UITableViewCell {
     
     static let cellId = "CellId"
     
+    var requestId: Int?
+    
+    var acceptAction: (() -> Void)?
+    var rejectAction: (() -> Void)?
+    
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = UIColor.rcGrayBg
         imageView.layer.cornerRadius = 20
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -152,6 +202,7 @@ class FriendRequestCell: UITableViewCell {
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        //button.addTarget(self, action: #selector(acceptRequest), for: .touchUpInside)
         
         return button
     }()
@@ -165,23 +216,47 @@ class FriendRequestCell: UITableViewCell {
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        //button.addTarget(self, action: #selector(denyRequest), for: .touchUpInside)
         
         return button
     }()
     
+//    @objc func acceptRequest() {
+//        self.viewModel.acceptRequest(requestId: Int)
+//        print("요청 수락")
+//    }
+//
+//    @objc func denyRequest() {
+//        self.viewModel.rejectRequest(requestId: Int)
+//        print("요청 거절")
+//    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        
+        acceptButton.addTarget(self, action: #selector(acceptTapped), for: .touchUpInside)
+        denyButton.addTarget(self, action: #selector(rejectTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc private func acceptTapped() {
+        acceptAction?()
+        print("수락")
+    }
+    
+    @objc private func rejectTapped() {
+        rejectAction?()
+        print("거절")
+    }
+    
     func setupLayout() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(idLabel)
+        //contentView.addSubview(idLabel)
         contentView.addSubview(acceptButton)
         contentView.addSubview(denyButton)
 
@@ -191,14 +266,19 @@ class FriendRequestCell: UITableViewCell {
             profileImageView.heightAnchor.constraint(equalToConstant: 40),
             profileImageView.widthAnchor.constraint(equalToConstant: 40),
             
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
             nameLabel.heightAnchor.constraint(equalToConstant: 24),
             nameLabel.widthAnchor.constraint(equalToConstant: 160),
             
-            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
-            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
-            idLabel.heightAnchor.constraint(equalToConstant: 14),
+//            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+//            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            nameLabel.heightAnchor.constraint(equalToConstant: 24),
+//            nameLabel.widthAnchor.constraint(equalToConstant: 160),
+            
+//            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
+//            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            idLabel.heightAnchor.constraint(equalToConstant: 14),
  
             acceptButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             acceptButton.trailingAnchor.constraint(equalTo: denyButton.leadingAnchor, constant: -4),

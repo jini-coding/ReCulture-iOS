@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TicketBookVC: UIViewController {
+final class TicketBookVC: UIViewController, TicketCustomizingDelegate {
     
     // MARK: - Properties
     
@@ -137,8 +137,14 @@ final class TicketBookVC: UIViewController {
     
     @objc func addNewButtonTapped() {
         let vc = TicketCustomizingVC()
+        vc.delegate = self
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didFinishCustomizingTicket() {
+        // Fetch the updated list of tickets
+        viewModel.getMyTicketBook(fromCurrentVC: self)
     }
     
     // MARK: - Functions

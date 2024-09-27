@@ -17,7 +17,7 @@ struct MyProfileAPI: ServableAPI {
 
 
 struct EidtMyProfileAPI: ServableAPI {
-    typealias Response = MyProfileDTO
+    typealias Response = EditMyProfileRequestDTO
     
     let requestDTO: [String: Any]
     let profileImage: [ImageFile]
@@ -34,5 +34,50 @@ struct EidtMyProfileAPI: ServableAPI {
                    parameters: requestDTO,
                    boundary: boundary,
                    imageFiles: profileImage)
+    }
+}
+
+struct LogoutAPI: ServableAPI {
+    typealias Response = LogoutResponse
+        
+    var method: HTTPMethod { .post }
+    var path: String { "/auth/logout" }
+    
+    // Add the "refresh" token to the headers as required
+    var headers: [String : String]? {
+        guard let refreshToken = KeychainManager.shared.getToken(type: .refreshToken) else {
+            return nil
+        }
+        
+        return [
+            "Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)",
+            "refresh": refreshToken
+        ]
+    }
+}
+
+struct WithdrawalAPI: ServableAPI {
+    typealias Response = WithdrawalResponse
+        
+    var method: HTTPMethod { .delete }
+    var path: String { "/user/delete" }
+    
+    var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
+}
+
+struct ChangePwAPI: ServableAPI {
+    typealias Response = ChangePwResponseDTO
+    
+    let requestDTO: [String: Any]
+        
+    var method: HTTPMethod { .put }
+    var path: String { "/auth/change_password" }
+    var headers: [String: String]? { [
+            "Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)",
+            "Content-Type": "application/json"
+        ] }
+
+    var body: Data? {
+        return try? JSONSerialization.data(withJSONObject: requestDTO, options: [])
     }
 }

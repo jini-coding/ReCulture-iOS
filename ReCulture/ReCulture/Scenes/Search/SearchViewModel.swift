@@ -16,6 +16,24 @@ class SearchViewModel {
         }
     }
     
+    private var allRecommendModels: [SearchModel] = [] {
+        didSet {
+            allRecommendModelsDidChange?()
+        }
+    }
+    
+    private var allSearchedModels: [SearchModel] = [] {
+        didSet {
+            allSearchedModelsDidChange?()
+        }
+    }
+    
+    private var allUserSearchedModels: [UserSearchModel] = [] {
+        didSet {
+            allUserSearchedModelsDidChange?()
+        }
+    }
+    
     private var userProfileModels: [Int: UserProfileModel] = [:] {
         didSet {
             userProfileModelsDidChange?()
@@ -24,9 +42,17 @@ class SearchViewModel {
     
     private var allRecords: [SearchModel] = []
     private var pagination: SearchResponseDTO.Pagination?
+    private var userpagination: UserSearchResponseDTO.UserPagination?
+    
+    private var allRecommendRecords: [SearchModel] = []
+    private var allSearchedRecords: [SearchModel] = []
+    private var allUserSearchedRecords: [UserSearchModel] = []
 
     var allSearchModelsDidChange: (() -> Void)?
+    var allRecommendModelsDidChange: (() -> Void)?
+    var allSearchedModelsDidChange: (() -> Void)?
     var userProfileModelsDidChange: (() -> Void)?
+    var allUserSearchedModelsDidChange: (() -> Void)?
     
     // MARK: - Functions
     
@@ -51,22 +77,112 @@ class SearchViewModel {
 //            }
 //        }
 //    }
-    func getAllRecords(fromCurrentVC: UIViewController) {
-        // Use default values of 1 for `currentPage` and 10 for `pageSize` if they are nil
-        let currentPage = pagination?.currentPage ?? 1
+    func getAllRecords(fromCurrentVC: UIViewController, completion: @escaping () -> Void) {
+        // If pagination already exists, increment the currentPage
+        let currentPage = (pagination?.currentPage ?? 0) + 1
         let pageSize = pagination?.pageSize ?? 10
-        
+
         NetworkManager.shared.getAllRecords(page: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToSearchModels(DTOs: responseDTO.data)
-                self.allRecords.append(contentsOf: models) // Append new results for multiple pages
+
+                // Append new records to the existing ones
+                self.allRecords.append(contentsOf: models)
+                self.allSearchModels = self.allRecords // Update the displayed records
                 self.pagination = responseDTO.pagination
-                self.allSearchModels = self.allRecords // Update the main array
+
+                print("Pagination info: \(String(describing: self.pagination))")
+                completion()
             case .failure(let error):
                 print("Error:", error)
+                let networkAlertController = self.networkErrorAlert(error)
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
+                completion()
             }
         }
+    }
+
+    
+    func getRecommendRecords(fromCurrentVC: UIViewController, completion: @escaping () -> Void) {
+        // Use default values of 1 for `currentPage` and 10 for `pageSize` if they are nil
+        let currentPage = pagination?.currentPage ?? 1
+        let pageSize = pagination?.pageSize ?? 10
+        
+        NetworkManager.shared.getRecommendRecords(page: currentPage, pageSize: pageSize) { result in
+            switch result {
+            case .success(let responseDTO):
+                let models = self.convertToSearchModels(DTOs: responseDTO.data)
+                self.allRecommendRecords = models
+                self.pagination = responseDTO.pagination
+                self.allSearchModels = self.allRecommendRecords
+                completion()
+                
+            case .failure(let error):
+                print("추천실패 Error:", error)
+                completion()
+            }
+        }
+    }
+
+    
+    func getSearchedRecords(fromCurrentVC: UIViewController, searchString: String, completion: @escaping () -> Void) {
+        
+        let searchString = searchString
+        print("searchString : \(searchString)")
+        let currentPage = pagination?.currentPage ?? 1
+        let pageSize = pagination?.pageSize ?? 10
+        
+        NetworkManager.shared.getSearchedRecords(searchString: searchString, page: currentPage, pageSize: pageSize) { result in
+            switch result {
+            case .success(let responseDTO):
+                let models = self.convertToSearchModels(DTOs: responseDTO.data)
+                self.allSearchedRecords = models
+                self.pagination = responseDTO.pagination
+                self.allSearchedModels = self.allSearchedRecords
+                print("=== 검색 성공 ===")
+                print(models)
+                print("===")
+                completion()
+            case .failure(let error):
+                print("검색 실패: \(error)")
+                completion()
+            }
+        }
+    }
+    
+    func getSearchedUsers(fromCurrentVC: UIViewController, nickname: String, completion: @escaping () -> Void) {
+        
+        let nickname = nickname
+        print("nickname : \(nickname)")
+        let currentPage = userpagination?.currentPage ?? 1
+        let pageSize = userpagination?.pageSize ?? 10
+        
+        NetworkManager.shared.getSearchedUsers(nickname: nickname, page: currentPage, pageSize: pageSize) { result in
+            switch result {
+            case .success(let responseDTO):
+                let models = self.convertToUserSearchModels(DTOs: responseDTO.data)
+                self.allUserSearchedRecords = models
+                self.userpagination = responseDTO.pagination
+                self.allUserSearchedModels = self.allUserSearchedRecords
+                print("=== 유저 검색 성공 ===")
+                print(models)
+                print("===")
+                completion()
+            case .failure(let error):
+                print("검색 실패: \(error)")
+                completion()
+            }
+        }
+    }
+    
+    func clearRecords() {
+        allRecords.removeAll()           // Clear all records
+        allRecommendRecords.removeAll()   // Clear recommended records
+        allSearchedRecords.removeAll()    // Clear searched records
+        allSearchModels.removeAll()       // Clear current displayed records (this will immediately affect the UI)
     }
 
     
@@ -99,6 +215,7 @@ class SearchViewModel {
                 detail2: dto.detail2,
                 detail3: dto.detail3,
                 detail4: dto.detail4,
+                createdAt: dto.createdAt,
                 photos: dto.photos?.map { photoDTO in
                     SearchModel.PhotoModel(
                         id: photoDTO.id,
@@ -110,12 +227,45 @@ class SearchViewModel {
         }
     }
     
+    private func convertToUserSearchModels(DTOs: [UserSearchResponseDTO.UserSearchRecordDTO]) -> [UserSearchModel] {
+        return DTOs.map { dto in
+            UserSearchModel(
+                id: dto.id,
+                userId: dto.userId,
+                nickname: dto.nickname,
+                bio: dto.bio,
+                birthdate: dto.birthdate,
+                interest: dto.interest,
+                profilePhoto: dto.profilePhoto,
+                exp: dto.exp,
+                levelId: dto.levelId,
+                level: dto.level
+            )
+        }
+    }
+    
     func recordCount() -> Int {
         return allSearchModels.count
     }
     
+    func searchedRecordCount() -> Int {
+        return allSearchedModels.count
+    }
+    
+    func userCount() -> Int {
+        return allUserSearchedModels.count
+    }
+    
     func getRecord(at index: Int) -> SearchModel {
         return allSearchModels[index]
+    }
+    
+    func getSearchedRecord(at index: Int) -> SearchModel {
+        return allSearchedModels[index]
+    }
+    
+    func getUser(at index: Int) -> UserSearchModel {
+        return allUserSearchedModels[index]
     }
     
     func getUserProfileModel(for userId: Int) -> UserProfileModel? {
@@ -135,6 +285,11 @@ class SearchViewModel {
     
     func canLoadMorePages() -> Bool {
         guard let pagination = pagination else { return false }
+        return pagination.currentPage < pagination.totalPages
+    }
+    
+    func canLoadMoreUserPages() -> Bool {
+        guard let pagination = userpagination else { return false }
         return pagination.currentPage < pagination.totalPages
     }
     

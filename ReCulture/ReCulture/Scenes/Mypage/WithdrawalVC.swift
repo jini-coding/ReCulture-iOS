@@ -9,6 +9,8 @@ import UIKit
 
 class WithdrawalVC: UIViewController {
     
+    let viewModel = MypageViewModel()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         
@@ -82,6 +84,7 @@ class WithdrawalVC: UIViewController {
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.isEnabled = false
+        button.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -96,6 +99,8 @@ class WithdrawalVC: UIViewController {
         setupReasonSelect()
         setupConfirmButton()
         
+        hideKeyboard()
+        
         reasonTextfield.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
@@ -106,6 +111,16 @@ class WithdrawalVC: UIViewController {
         self.navigationController?.navigationBar.shadowImage = nil
         self.navigationController?.navigationBar.layoutIfNeeded()
         
+    }
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                 action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+        
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func setupGuide() {
@@ -177,6 +192,36 @@ class WithdrawalVC: UIViewController {
             confirmButton.backgroundColor = UIColor.rcMain
             confirmButton.setTitleColor(UIColor.white, for: .normal)
         }
+    }
+    
+    @objc func confirmButtonTapped() {
+        withdraw()
+    }
+    
+    @objc func withdraw() {
+        let alertController = UIAlertController(
+            title: "탈퇴하시겠습니까?", message: nil,preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "탈퇴하기", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            performWithdrawal()
+            print("탈퇴 완료됨")
+            
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true)
+    }
+    
+    func performWithdrawal() {
+        viewModel.withdrawal(fromCurrentVC: self)
+        let refreshTokenDeleted = KeychainManager.shared.deleteToken(type: .refreshToken)
+        UserDefaults.standard.set(false, forKey: "isFirstLaunch")
     }
 }
 

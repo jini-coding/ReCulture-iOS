@@ -16,6 +16,7 @@ enum NetworkError: Error {
     /** response에 데이터가 없을 때 에러*/ case noData
     /** 디코딩 실패  에러*/ case unableToDecode
     /** 알 수 없는 에러*/ case unknownError
+    case invalidURL
 }
 
 extension NetworkError {
@@ -29,6 +30,7 @@ extension NetworkError {
         case .noData: return "데이터가 없습니다."
         case .unableToDecode: return "디코딩에 실패했습니다."
         case .unknownError: return "알 수 없는 오류입니다."
+        case .invalidURL: return "유효하지 않은 주소입니다."
         }
     }
 }

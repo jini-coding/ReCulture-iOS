@@ -59,6 +59,7 @@ extension SearchResponseDTO {
             detail2: DTO.detail2,
             detail3: DTO.detail3,
             detail4: DTO.detail4,
+            createdAt: DTO.createdAt,
             // Map photos array to PhotoModel array, provide an empty array if DTO.photos is nil
             photos: DTO.photos?.map { photoDTO in
                 SearchModel.PhotoModel(
@@ -66,7 +67,7 @@ extension SearchResponseDTO {
                     url: photoDTO.url,
                     culturePostId: photoDTO.culturePostId
                 )
-            } ?? [] // Use an empty array if DTO.photos is nil
+            } ?? []
         )
     }
 
@@ -75,3 +76,52 @@ extension SearchResponseDTO {
     }
 }
 
+
+struct UserSearchResponseDTO: Codable {
+    let timestamp: String
+    let success: Bool
+    let status: Int
+    let data: [UserSearchRecordDTO]
+    let pagination: UserPagination
+
+    struct UserSearchRecordDTO: Codable {
+        let id: Int
+        let userId: Int
+        let nickname: String?
+        let bio: String?
+        let birthdate: String?
+        let interest: String?
+        let profilePhoto: String?
+        let exp: Int
+        let levelId: Int
+        let level: String?
+    }
+
+    struct UserPagination: Codable {
+        let currentPage: Int
+        let pageSize: Int
+        let totalPages: Int
+        let totalProfiles: Int
+    }
+}
+
+extension UserSearchResponseDTO {
+    static func convertUserSearchRecordDTOToModel(DTO: UserSearchRecordDTO) -> UserSearchModel {
+        return UserSearchModel(
+            id: DTO.id,
+            userId: DTO.userId,
+            nickname: DTO.nickname,
+            bio: DTO.bio,
+            birthdate: DTO.birthdate,
+            interest: DTO.interest,
+            profilePhoto: DTO.profilePhoto,
+            exp: DTO.exp,
+            levelId: DTO.levelId,
+            level: DTO.level
+        )
+    }
+
+    static func convertUserSearchRecordDTOToModels(DTOs: [UserSearchRecordDTO]) -> [UserSearchModel] {
+        return DTOs.map { convertUserSearchRecordDTOToModel(DTO: $0) }
+    }
+}
