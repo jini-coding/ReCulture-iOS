@@ -68,8 +68,8 @@ struct BookmarkAuthorProfile: Codable {
 }
 
 extension BookmarkListDTO {
-    static func convertBookmarkListDTOToModel(DTO: BookmarkListItem) -> BookmarkModel {
-        return BookmarkModel(postId: DTO.postId,
+    static func convertBookmarkListDTOToModel(DTO: BookmarkListItem) -> BookmarkListModel {
+        return BookmarkListModel(postId: DTO.postId,
                              title: DTO.post.title,
                              postOwnerId: DTO.post.authorId,
                              postOwnerNickname: DTO.post.author.profile.nickname, 
@@ -79,7 +79,7 @@ extension BookmarkListDTO {
                              firstImageURL: DTO.post.photos[0].url)
     }
 
-    static func convertBookmarkListDTOsToModels(DTOs: [BookmarkListItem]) -> [BookmarkModel] {
+    static func convertBookmarkListDTOsToModels(DTOs: [BookmarkListItem]) -> [BookmarkListModel] {
         return DTOs.map { convertBookmarkListDTOToModel(DTO: $0) }
     }
 }

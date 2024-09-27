@@ -2,13 +2,18 @@
 //  BookmarkAPI.swift
 //  ReCulture
 //
-//  Created by Suyeon Hwang on 9/8/24.
+//  Created by Suyeon Hwang on 9/25/24.
 //
 
 struct BookmarkAPI: ServableAPI {
-    typealias Response = BookmarkListDTO
+    typealias Response = BookmarkDTO
     
-    var method: HTTPMethod { .get }
-    var path: String { "/bookmark" }
-    var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
+    let recordId: Int
+   
+    var requestBody: Encodable? { ["postId" : recordId] }
+    var method: HTTPMethod { .post }
+    var path: String { "/bookmark/toggle" }
+    var headers: [String : String]? {  ["Content-Type": "application/json",
+                                        "Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"]
+    }
 }
