@@ -10,25 +10,36 @@ import UIKit
 class RecordViewModel {
     // MARK: - Properties
         
-    private var myRecordModel: [RecordModel] = [] {
+    /// 기록이 리스트로 여러개 올 때의 각 기록 내용
+    private var myRecordModel: [AllRecordsModel] = [] {
         didSet {
-            myRecordModelDidChange?()
+            allRecordModelDidChange?()
         }
     }
     
+    /// 기록이 리스트로 여러개 올 때의 각 기록 내용
+    private var allRecordDetail: AllRecordsModel? {
+        didSet {
+            allRecordModelDidChange?()
+        }
+    }
+    
+    /// 특정 기록 '하나'의 상세 내용
     private var recordDetail: RecordModel? {
         didSet {
-            myRecordModelDidChange?()
+            recordDetailDidChange?()
         }
     }
     
-    private var allRecords: [RecordModel] = []  // Holds all records fetched from the server
-    private var filteredRecords: [RecordModel] = []
+    private var allRecords: [AllRecordsModel] = []  // Holds all records fetched from the server
+    private var filteredRecords: [AllRecordsModel] = []
     
-    var myRecordModelDidChange: (() -> Void)?
+    var allRecordModelDidChange: (() -> Void)?
+    var recordDetailDidChange: (() -> Void)?
     
     // MARK: - Functions
     
+    /// 내 기록탭에서 사용되는, 모든 기록 가져오는 함수
     func getmyRecords(fromCurrentVC: UIViewController){
         NetworkManager.shared.getMyRecords() { result in
             switch result {
@@ -49,10 +60,11 @@ class RecordViewModel {
         }
     }
     
-    func getRecordDetail(at index: Int) -> RecordModel {
+    func getRecordDetail(at index: Int) -> AllRecordsModel {
         return myRecordModel[index]
     }
 
+    /// 기록 아이디로 특정 기록 상세 내용 가져오기
     func getRecordDetails(recordId: Int) {
         NetworkManager.shared.getRecordDetails(recordId: recordId) { result in
             switch result {
@@ -77,7 +89,7 @@ class RecordViewModel {
         NetworkManager.shared.deleteRecord(postId: postId) { result in
             switch result {
             case .success(let model):
-                self.recordDetail = model
+                self.allRecordDetail = model
             case .failure(let error):
                 print("-- record detail view model --")
                 print(error)
@@ -92,7 +104,7 @@ class RecordViewModel {
         } else {
             // 특정 카테고리에 해당하는 레코드만 필터링
             let categoryId = categoryId(from: category)
-            myRecordModel = allRecords.filter { (record: RecordModel) -> Bool in
+            myRecordModel = allRecords.filter { (record: AllRecordsModel) -> Bool in
                 return record.culture.categoryId == categoryId
             }
         }
@@ -158,7 +170,7 @@ class RecordViewModel {
 //    }
 //
     
-    func getRecord(at index: Int) -> RecordModel {
+    func getRecord(at index: Int) -> AllRecordsModel {
         return myRecordModel[index]
     }
     

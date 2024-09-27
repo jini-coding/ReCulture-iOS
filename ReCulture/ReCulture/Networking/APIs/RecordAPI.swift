@@ -8,7 +8,7 @@
 import Foundation
 
 struct myRecordAPI: ServableAPI {
-    typealias Response = [RecordResponseDTO]
+    typealias Response = [AllRecordResponseDTO]
     
     var method: HTTPMethod { .get }
     var path: String { "/culture/my-culture" }
@@ -36,7 +36,7 @@ struct allRecordAPI: ServableAPI {
 }
 
 struct recordDetailAPI: ServableAPI {
-    typealias Response = RecordResponseDTO
+    typealias Response = RecordDetailResponseDTO
     
     let id: Int
         
@@ -47,7 +47,7 @@ struct recordDetailAPI: ServableAPI {
 }
 
 struct deleteRecordAPI: ServableAPI {
-    typealias Response = RecordResponseDTO
+    typealias Response = AllRecordResponseDTO
     
     let id: Int
         

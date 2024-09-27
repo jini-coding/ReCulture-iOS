@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0802302D2CA5D04E000C0771 /* AllRecordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0802302C2CA5D04E000C0771 /* AllRecordsModel.swift */; };
+		0802302F2CA5D2AF000C0771 /* RecordDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0802302E2CA5D2AF000C0771 /* RecordDetailResponseDTO.swift */; };
 		080ACDC72C8C71B100C44DE7 /* BookmarkListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */; };
 		080ACDC92C8CBF8A00C44DE7 /* BookmarkListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDC82C8CBF8A00C44DE7 /* BookmarkListAPI.swift */; };
 		080ACDCB2C8CBFA400C44DE7 /* BookmarkListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */; };
@@ -116,7 +118,7 @@
 		384315CA2C14D1C600D379F3 /* CustomizingThreeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315C92C14D1C600D379F3 /* CustomizingThreeVC.swift */; };
 		384315CC2C14D1CD00D379F3 /* CustomizingFourVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315CB2C14D1CD00D379F3 /* CustomizingFourVC.swift */; };
 		384315D82C1AB2A000D379F3 /* RecordRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315D72C1AB2A000D379F3 /* RecordRequestDTO.swift */; };
-		384315DA2C1AB2A800D379F3 /* RecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315D92C1AB2A800D379F3 /* RecordResponseDTO.swift */; };
+		384315DA2C1AB2A800D379F3 /* AllRecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315D92C1AB2A800D379F3 /* AllRecordResponseDTO.swift */; };
 		384315DC2C1AB2E800D379F3 /* RecordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315DB2C1AB2E800D379F3 /* RecordAPI.swift */; };
 		384315DE2C1AB43C00D379F3 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315DD2C1AB43C00D379F3 /* RecordModel.swift */; };
 		384315E02C1AB44300D379F3 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384315DF2C1AB44300D379F3 /* RecordViewModel.swift */; };
@@ -158,6 +160,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0802302C2CA5D04E000C0771 /* AllRecordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsModel.swift; sourceTree = "<group>"; };
+		0802302E2CA5D2AF000C0771 /* RecordDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailResponseDTO.swift; sourceTree = "<group>"; };
 		080ACDC62C8C71B100C44DE7 /* BookmarkListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListVC.swift; sourceTree = "<group>"; };
 		080ACDC82C8CBF8A00C44DE7 /* BookmarkListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListAPI.swift; sourceTree = "<group>"; };
 		080ACDCA2C8CBFA400C44DE7 /* BookmarkListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListDTO.swift; sourceTree = "<group>"; };
@@ -267,7 +271,7 @@
 		384315C92C14D1C600D379F3 /* CustomizingThreeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingThreeVC.swift; sourceTree = "<group>"; };
 		384315CB2C14D1CD00D379F3 /* CustomizingFourVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingFourVC.swift; sourceTree = "<group>"; };
 		384315D72C1AB2A000D379F3 /* RecordRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRequestDTO.swift; sourceTree = "<group>"; };
-		384315D92C1AB2A800D379F3 /* RecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResponseDTO.swift; sourceTree = "<group>"; };
+		384315D92C1AB2A800D379F3 /* AllRecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordResponseDTO.swift; sourceTree = "<group>"; };
 		384315DB2C1AB2E800D379F3 /* RecordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAPI.swift; sourceTree = "<group>"; };
 		384315DD2C1AB43C00D379F3 /* RecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
 		384315DF2C1AB44300D379F3 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
@@ -692,7 +696,8 @@
 			isa = PBXGroup;
 			children = (
 				384315D72C1AB2A000D379F3 /* RecordRequestDTO.swift */,
-				384315D92C1AB2A800D379F3 /* RecordResponseDTO.swift */,
+				384315D92C1AB2A800D379F3 /* AllRecordResponseDTO.swift */,
+				0802302E2CA5D2AF000C0771 /* RecordDetailResponseDTO.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -835,6 +840,7 @@
 				3850C3302C1B6C3900570424 /* RecordDetailVC.swift */,
 				384315DD2C1AB43C00D379F3 /* RecordModel.swift */,
 				384315DF2C1AB44300D379F3 /* RecordViewModel.swift */,
+				0802302C2CA5D04E000C0771 /* AllRecordsModel.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -990,6 +996,7 @@
 				089EDAD72C13473200D74C5F /* HomeModel.swift in Sources */,
 				384315EB2C1B1AEB00D379F3 /* SearchAPI.swift in Sources */,
 				0856A61E2C098F18001198E1 /* AddRecordPhotoVC.swift in Sources */,
+				0802302F2CA5D2AF000C0771 /* RecordDetailResponseDTO.swift in Sources */,
 				084528B42C75B5F6006B85B1 /* Server.swift in Sources */,
 				08A304432C122C360014F24B /* LoginResponseDTO.swift in Sources */,
 				3874B61A2BE4336B003376F7 /* HomeVC.swift in Sources */,
@@ -1073,6 +1080,7 @@
 				081F8D012C9F3777006D8D0B /* EditRecordResponseDTO.swift in Sources */,
 				389F8A6A2BF7246A004593B5 /* ViewFriendVC.swift in Sources */,
 				089EDACD2C12E2F400D74C5F /* Codable+.swift in Sources */,
+				0802302D2CA5D04E000C0771 /* AllRecordsModel.swift in Sources */,
 				08B856472BF1D9370034E86D /* TicketBookDetailVC.swift in Sources */,
 				3874B6202BE43383003376F7 /* MypageVC.swift in Sources */,
 				08B5A7392C9E01BD00B14AE2 /* EditRecordViewModel.swift in Sources */,
@@ -1096,7 +1104,7 @@
 				0866DBCB2C0B299200FBBDB5 /* UICollectionView+.swift in Sources */,
 				389F8A6C2BF72474004593B5 /* EditProfileVC.swift in Sources */,
 				384315ED2C1B31CA00D379F3 /* MypageModel.swift in Sources */,
-				384315DA2C1AB2A800D379F3 /* RecordResponseDTO.swift in Sources */,
+				384315DA2C1AB2A800D379F3 /* AllRecordResponseDTO.swift in Sources */,
 				08E7CC402C1A1B88001A233A /* MyCalendarAPI.swift in Sources */,
 				3850C3332C1B950F00570424 /* UserProfileAPI.swift in Sources */,
 				08A3044C2C1230C70014F24B /* TokenStateManager.swift in Sources */,

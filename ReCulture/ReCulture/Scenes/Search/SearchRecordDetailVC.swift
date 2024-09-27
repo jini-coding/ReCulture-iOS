@@ -53,7 +53,7 @@ class SearchRecordDetailVC: UIViewController {
                     ["셋리스트", "셋리스트/프로그램을 입력해주세요"]]],
         [.drama: [["제목", "어떤 드라마인가요?"],
                   ["장르", "어떤 장르의 드라마인가요?"],
-                  ["출연진 및 감독/극본", "출연진, 감독, 극본을 입력해주세요"]]],
+                  ["출연진 및 감독", "출연진, 감독을 입력해주세요"]]],
         [.book: [["책 이름", "어떤 책인가요?"],
                  ["저자", "누구의 책인가요?"],
                  ["독서 기간", "언제부터 언제까지 읽으셨나요?"],
@@ -207,7 +207,7 @@ class SearchRecordDetailVC: UIViewController {
     }
     
     private func bind() {
-        viewModel.myRecordModelDidChange = { [weak self] in
+        viewModel.recordDetailDidChange = { [weak self] in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 guard let model = self.viewModel.getRecordDetail() else { return }
