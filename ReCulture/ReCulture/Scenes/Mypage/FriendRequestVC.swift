@@ -221,6 +221,19 @@ class FriendRequestCell: UITableViewCell {
         return button
     }()
     
+    let followButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("팔로우", for: .normal)
+        button.backgroundColor = UIColor.rcMain
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.rcFont14M()
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
 //    @objc func acceptRequest() {
 //        self.viewModel.acceptRequest(requestId: Int)
 //        print("요청 수락")
@@ -245,11 +258,18 @@ class FriendRequestCell: UITableViewCell {
     @objc private func acceptTapped() {
         acceptAction?()
         print("수락")
+        
+        acceptButton.isHidden = true
+        denyButton.isHidden = true
+        
     }
     
     @objc private func rejectTapped() {
         rejectAction?()
         print("거절")
+        
+        acceptButton.isHidden = true
+        denyButton.isHidden = true
     }
     
     func setupLayout() {
