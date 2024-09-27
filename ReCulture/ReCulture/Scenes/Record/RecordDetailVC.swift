@@ -400,8 +400,8 @@ class RecordDetailVC: UIViewController {
     
     @objc func deleteRecord() {
         let alertController = UIAlertController(title: "삭제하시겠습니까?", message: "삭제한 기록은 복구할 수 없어요", preferredStyle: .alert)
-             
-        let confirmAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+        
+      let confirmAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel.deleteRecord(postId: self.recordId)
             print("\(self.recordId)번 기록 삭제 완료됨")

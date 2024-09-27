@@ -225,7 +225,6 @@ class FriendRequestCell: UITableViewCell {
 //        self.viewModel.acceptRequest(requestId: Int)
 //        print("요청 수락")
 //    }
-//
 //    @objc func denyRequest() {
 //        self.viewModel.rejectRequest(requestId: Int)
 //        print("요청 거절")

@@ -77,6 +77,7 @@ class SearchViewModel {
 //            }
 //        }
 //    }
+
     func getAllRecords(fromCurrentVC: UIViewController, completion: @escaping () -> Void) {
         // If pagination already exists, increment the currentPage
         let currentPage = (pagination?.currentPage ?? 0) + 1
@@ -94,6 +95,7 @@ class SearchViewModel {
 
                 print("Pagination info: \(String(describing: self.pagination))")
                 completion()
+
             case .failure(let error):
                 print("Error:", error)
                 let networkAlertController = self.networkErrorAlert(error)

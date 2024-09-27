@@ -43,7 +43,7 @@ class TicketCustomizingVC: UIViewController {
     var dateText: String?
     var commentText: String?
     var emojiText: String?
-    
+
     let viewModel = TicketCustomizingViewModel()
     var postNewTicketSuccess = false
     
@@ -176,7 +176,7 @@ class TicketCustomizingVC: UIViewController {
             print("emojiText: \(String(describing: emojiText))")
             print("commentText: \(String(describing: commentText))")
         }
-        
+
         if currentPage == 0 && (pages[0] as! CustomizingOneVC).imageFiles.isEmpty {
             allFieldsFilled = false
             let alertController = UIAlertController(title: "사진을 선택해주세요!", message: nil, preferredStyle: .alert)

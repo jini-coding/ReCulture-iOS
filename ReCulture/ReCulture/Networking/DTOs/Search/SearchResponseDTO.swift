@@ -5,7 +5,6 @@
 //  Created by Jini on 6/13/24.
 //
 
-
 struct SearchResponseDTO: Codable {
     let data: [SearchRecordDTO]
     let pagination: Pagination

@@ -130,4 +130,24 @@ extension UIFont {
         let font = UIFont(name: "AppleSDGothicNeo-Regular", size: 10) ?? UIFont.systemFont(ofSize: 10, weight: .regular)
         return applyLetterSpacing(to: font, withSpacing: -2)
     }
+    
+    static func rcTicket14Font() -> UIFont {
+        let font = UIFont(name: "Cafe24Shiningstar-v2.0", size: 214) ?? UIFont.systemFont(ofSize: 14, weight: .regular)
+        return applyLetterSpacing(to: font, withSpacing: -2)
+    }
+    
+    static func rcTicket16Font() -> UIFont {
+        let font = UIFont(name: "Cafe24Shiningstar-v2.0", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold)
+        return applyLetterSpacing(to: font, withSpacing: -2)
+    }
+    
+    static func rcTicket20Font() -> UIFont {
+        let font = UIFont(name: "Cafe24Shiningstar-v2.0", size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .bold)
+        return applyLetterSpacing(to: font, withSpacing: -2)
+    }
+    
+    static func rcTicket36Font() -> UIFont {
+        let font = UIFont(name: "Cafe24Shiningstar-v2.0", size: 36) ?? UIFont.systemFont(ofSize: 36, weight: .bold)
+        return applyLetterSpacing(to: font, withSpacing: -2)
+    }
 }
