@@ -22,7 +22,13 @@ class NetworkService: NetworkServable {
     ) where API : ServableAPI {
         let session = URLSession.shared
         
-        session.dataTask(with: api.urlRequest) { data, response, error in
+        // URLRequest를 생성하는 과정에서 쿼리 파라미터 추가
+        guard let urlRequest = try? createURLRequest(from: api) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        session.dataTask(with: urlRequest) { data, response, error in
             guard error == nil else {
                 let networkError = self.convertErrorToNetworkError(from: error!)
                 completion(.failure(networkError))
@@ -51,8 +57,6 @@ class NetworkService: NetworkServable {
                     if let jsonString = String(data: (data)!, encoding: .utf8) {
                         print("Received JSON: \(jsonString)")
                     }
-//                    let decodedData = try! self.decode(ErrorDTO.self, from: data!)
-//                    print(decodedData)
                     completion(.failure(NetworkError.serverError))
                 } catch {
                     completion(.failure(NetworkError.unknownError))
@@ -61,7 +65,44 @@ class NetworkService: NetworkServable {
         }
         .resume()
     }
+    
+    /// `ServableAPI`를 사용하여 URLRequest를 생성하는 함수
+    private func createURLRequest<API>(from api: API) throws -> URLRequest where API: ServableAPI {
+        var urlComponents = URLComponents(string: "\(api.baseURL)\(api.path)")
+        
+        // Ensure queryParams are added here
+        if let queryParams = api.queryParams, api.method == .get {
+            urlComponents?.queryItems = queryParams.map { URLQueryItem(name: $0.key, value: $0.value) }
+        }
+        
+        guard let url = urlComponents?.url else {
+            throw NetworkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = api.method.rawValue
+
+        // Headers 설정
+        if let headers = api.headers {
+            for (key, value) in headers {
+                request.addValue(value, forHTTPHeaderField: key)
+            }
+        }
+
+        if let requestBody = api.requestBody, let jsonData = try? JSONEncoder().encode(requestBody) {
+            request.httpBody = jsonData
+        }
+
+        if let multipartBody = api.multipartRequestBody {
+            request.httpBody = multipartBody
+        }
+
+        return request
+    }
+
 }
+
+
 
 extension NetworkService {
     private func convertErrorToNetworkError(from error: Error) -> NetworkError {

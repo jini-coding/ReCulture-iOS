@@ -9,6 +9,21 @@ import UIKit
 
 class EditPasswordVC: UIViewController {
 
+    private let viewModel = MypageViewModel()
+    
+    private var isValidNewPw = false {
+        willSet {
+            newValue ? removePwIsNotValidLabel() : addPwIsNotValidLabel()
+        }
+    }
+    
+    private var isPwSame = false {
+        willSet {
+            newValue ? removePwDoesNotMatchLabel() : addPwDoesNotMatchLabel()
+        }
+    }
+    
+    
     let currentPwLabel: UILabel = {
         let label = UILabel()
         label.text = "현재 비밀번호"
@@ -21,6 +36,7 @@ class EditPasswordVC: UIViewController {
     let currentPwTextfield: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "현재 비밀번호를 입력해주세요"
+        textfield.isSecureTextEntry = true
         textfield.backgroundColor = UIColor.rcGrayBg
         textfield.font = UIFont.rcFont16M()
         textfield.textColor = UIColor.black
@@ -46,6 +62,7 @@ class EditPasswordVC: UIViewController {
     let newPwTextfield: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "새 비밀번호를 입력해주세요"
+        textfield.isSecureTextEntry = true
         textfield.backgroundColor = UIColor.rcGrayBg
         textfield.font = UIFont.rcFont16M()
         textfield.textColor = UIColor.black
@@ -55,8 +72,17 @@ class EditPasswordVC: UIViewController {
              .font: UIFont.rcFont16M()
          ]
         textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
+        textfield.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         
         return textfield
+    }()
+    
+    let pwIsNotValidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호는 대소문자, 특수문자, 숫자 8자 이상의 조합이어야 합니다."
+        label.font = .rcFont12M()
+        label.textColor = .red.withAlphaComponent(0.5)
+        return label
     }()
     
     let renewPwLabel: UILabel = {
@@ -71,6 +97,7 @@ class EditPasswordVC: UIViewController {
     let renewPwTextfield: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "새 비밀번호를 다시 입력해주세요"
+        textfield.isSecureTextEntry = true
         textfield.backgroundColor = UIColor.rcGrayBg
         textfield.font = UIFont.rcFont16M()
         textfield.textColor = UIColor.black
@@ -80,8 +107,17 @@ class EditPasswordVC: UIViewController {
              .font: UIFont.rcFont16M()
          ]
         textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: placeholderAttributes)
+        textfield.addTarget(self, action: #selector(tfDidChange), for: .editingChanged)
         
         return textfield
+    }()
+    
+    let pwDoesNotMatchLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호가 일치하지 않습니다."
+        label.font = .rcFont12M()
+        label.textColor = .red.withAlphaComponent(0.5)
+        return label
     }()
     
     let confirmButton: UIButton = {
@@ -106,6 +142,71 @@ class EditPasswordVC: UIViewController {
         setupNewPw()
         setupRenewPw()
         setupConfirmButton()
+        
+        hideKeyboard()
+        
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        
+    }
+    
+    @objc func tfDidChange(_ sender: UITextField) {
+        isValidNewPw = newPwTextfield.text?.isValidPassword() ?? false
+        isPwSame = newPwTextfield.text == renewPwTextfield.text
+    }
+    
+    @objc func confirmButtonTapped() {
+        // Validate new passwords match
+        guard let currentPassword = currentPwTextfield.text,
+              let newPassword = newPwTextfield.text,
+              let renewPassword = renewPwTextfield.text else {
+            showAlert(message: "모든 필드를 입력해주세요.")
+            return
+        }
+
+        if !isPwSame {
+            showAlert(message: "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.")
+            return
+        }
+
+        if !isValidNewPw {
+            showAlert(message: "새 비밀번호는 대소문자, 특수문자, 숫자 8자 이상의 조합이어야 합니다.")
+            return
+        }
+        print("Request Data:", currentPassword, newPassword)
+
+        // If all validations pass, proceed to call viewModel.changePassword
+        viewModel.changePassword(curPassword: currentPassword, newPassword: newPassword, fromCurrentVC: self)
+    }
+    
+    func addPwIsNotValidLabel() {
+        view.addSubview(pwIsNotValidLabel)
+        pwIsNotValidLabel.isHidden = false
+        // Add layout code for pwIsNotValidLabel if needed
+    }
+
+    func removePwIsNotValidLabel() {
+        pwIsNotValidLabel.isHidden = true
+    }
+
+    func addPwDoesNotMatchLabel() {
+        view.addSubview(pwDoesNotMatchLabel)
+        pwDoesNotMatchLabel.isHidden = false
+        // Add layout code for pwDoesNotMatchLabel if needed
+    }
+
+    func removePwDoesNotMatchLabel() {
+        pwDoesNotMatchLabel.isHidden = true
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(confirmAction)
+        self.present(alert, animated: true)
+    }
+    
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
     
 
@@ -201,6 +302,16 @@ class EditPasswordVC: UIViewController {
             confirmButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             confirmButton.heightAnchor.constraint(equalToConstant: 52),
         ])
+    }
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                 action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+        
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

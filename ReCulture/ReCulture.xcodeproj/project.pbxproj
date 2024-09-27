@@ -133,6 +133,7 @@
 		3850C3352C1B960800570424 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3342C1B960800570424 /* UserProfileModel.swift */; };
 		3850C3382C1BC5ED00570424 /* FollowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3372C1BC5ED00570424 /* FollowAPI.swift */; };
 		3850C33A2C1BC66000570424 /* FollowDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3850C3392C1BC66000570424 /* FollowDTO.swift */; };
+		38589C2A2CA365DB006B35D2 /* SearchedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38589C292CA365DB006B35D2 /* SearchedVC.swift */; };
 		385FD0D42BFFC44A005F0532 /* SearchRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */; };
 		386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386325632C11EFCE00F96D0A /* LogoutModal.swift */; };
 		3874B5F22BE43247003376F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874B5F12BE43247003376F7 /* AppDelegate.swift */; };
@@ -283,7 +284,7 @@
 		3850C3342C1B960800570424 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		3850C3372C1BC5ED00570424 /* FollowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAPI.swift; sourceTree = "<group>"; };
 		3850C3392C1BC66000570424 /* FollowDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
-		38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Cafe24Shiningstar-v2.0.otf"; path = "../../../../../Downloads/Cafe24Shiningstar-v2.0/Cafe24Shiningstar-v2.0.otf"; sourceTree = "<group>"; };
+		38589C292CA365DB006B35D2 /* SearchedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedVC.swift; sourceTree = "<group>"; };
 		385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordDetailVC.swift; sourceTree = "<group>"; };
 		386325632C11EFCE00F96D0A /* LogoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModal.swift; sourceTree = "<group>"; };
 		3874B5EE2BE43247003376F7 /* ReCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -843,6 +844,7 @@
 			isa = PBXGroup;
 			children = (
 				3874B61B2BE43373003376F7 /* SearchVC.swift */,
+				38589C292CA365DB006B35D2 /* SearchedVC.swift */,
 				082BE8862CA4033E00FF6DF8 /* BookmarkModel.swift */,
 				385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */,
 				384315E62C1B1A8F00D379F3 /* SearchModel.swift */,
@@ -970,6 +972,7 @@
 				0845E5422C031F9E00B6A4D6 /* CustomTextField.swift in Sources */,
 				08A3044A2C1230A00014F24B /* KeychainManager.swift in Sources */,
 				386325642C11EFCE00F96D0A /* LogoutModal.swift in Sources */,
+				38589C2A2CA365DB006B35D2 /* SearchedVC.swift in Sources */,
 				08369CEF2C23066C005725C8 /* UIImageView+.swift in Sources */,
 				089EDAD52C1344EA00D74C5F /* MyProfileAPI.swift in Sources */,
 				089EDAD32C13449100D74C5F /* MyProfileDTO.swift in Sources */,

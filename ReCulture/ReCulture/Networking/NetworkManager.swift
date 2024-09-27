@@ -48,6 +48,69 @@ final class NetworkManager {
         }
     }
     
+    func postUserLogout(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<LogoutResponse, NetworkError>) -> Void
+    ) {
+        let logoutAPI = LogoutAPI()
+        
+        // Try to request logout
+        networkService.request(logoutAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+                print("로그아웃 완료")
+            case .failure(let error):
+                // Handle authentication error (e.g., token expired)
+                if case .userAuthError = error {
+                    // Retry logout after refreshing the token
+                    networkService.request(logoutAPI) { retryResult in
+                        switch retryResult {
+                        case .success(let DTO):
+                            completion(.success(DTO))
+                        case .failure(let retryError):
+                            completion(.failure(retryError))
+                        }
+                    }
+                } else {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func postUserWithdrawal(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<WithdrawalResponse, NetworkError>) -> Void
+    ) {
+        let withdrawalAPI = WithdrawalAPI()
+        
+        networkService.request(withdrawalAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+                print("탈퇴 완료")
+            case .failure(let error):
+                // Handle authentication error (e.g., token expired)
+                if case .userAuthError = error {
+                    // Retry logout after refreshing the token
+                    networkService.request(withdrawalAPI) { retryResult in
+                        switch retryResult {
+                        case .success(let DTO):
+                            completion(.success(DTO))
+                        case .failure(let retryError):
+                            completion(.failure(retryError))
+                        }
+                    }
+                } else {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    
+    
     /// 로그인된 유저의 프로필 조회하는 함수
     func getMyProfile(
         _ networkService: NetworkServable = NetworkService(),
@@ -128,6 +191,80 @@ final class NetworkManager {
             }
         }
     }
+    
+    func getRecommendRecords(
+        page: Int,
+        pageSize: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<SearchResponseDTO, NetworkError>) -> Void
+    ) {
+        let recordAPI = recommendRecordAPI(page: page, pageSize: pageSize)
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let responseDTO):
+                print("Success: \(responseDTO)")
+                completion(.success(responseDTO))
+            case .failure(let error):
+                print("Decoding error: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getSearchedRecords(
+        searchString: String,
+        page: Int,
+        pageSize: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<SearchResponseDTO, NetworkError>) -> Void
+    ) {
+        let recordAPI = searchRecordAPI(searchString: searchString, page: page, pageSize: pageSize)
+
+        // Verify the URL
+        let baseUrl = "http://34.64.120.187:8080"
+        print("Request URL: \(baseUrl)/api\(recordAPI.path)?searchString=\(searchString)&page=\(page)&pageSize=\(pageSize)")
+
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let responseDTO):
+                completion(.success(responseDTO))
+                print("search for \(searchString)")
+                print(responseDTO)
+                print("---------")
+            case .failure(let error):
+                print("Error during search: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func getSearchedUsers(
+        nickname: String,
+        page: Int,
+        pageSize: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<UserSearchResponseDTO, NetworkError>) -> Void
+    ) {
+        let recordAPI = searchUserAPI(nickname: nickname, page: page, pageSize: pageSize)
+
+        // Verify the URL
+        let baseUrl = "http://34.64.120.187:8080"
+        print("Request URL: \(baseUrl)/api\(recordAPI.path)?searchString=\(nickname)&page=\(page)&pageSize=\(pageSize)")
+
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let responseDTO):
+                completion(.success(responseDTO))
+                print("user search for \(nickname)")
+                print(responseDTO)
+                print("---------")
+            case .failure(let error):
+                print("Error during search: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+
 
     
     /// 내 기록 조회하는 함수
@@ -249,16 +386,33 @@ final class NetworkManager {
     
     /// 사용자 정보 수정
     func editMyProfile(
-        requestDTO: [String: Any],
+        requestDTO: EditMyProfileRequestDTO,
         profileImage: [ImageFile],
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<MyProfileModel, NetworkError>) -> Void
+        completion: @escaping (Result<EditMyProfileModel, NetworkError>) -> Void
     ) {
-        let editMyProfileAPI = EidtMyProfileAPI(requestDTO: requestDTO, profileImage: profileImage)
+        let editMyProfileAPI = EidtMyProfileAPI(requestDTO: requestDTO.toDictionary, profileImage: profileImage)
         networkService.request(editMyProfileAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(MyProfileDTO.convertMyProfileDTOToModel(DTO: DTO)))
+                completion(.success(EditMyProfileRequestDTO.convertEditMyProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 사용자 비번 수정
+    func changePw(
+        requestDTO: ChangePwRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<ChangePwResponseModel, NetworkError>) -> Void
+    ) {
+        let changePwAPI = ChangePwAPI(requestDTO: requestDTO.toDictionary)
+        networkService.request(changePwAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(ChangePwResponseDTO.convertChangePwResDTOToModel(DTO: DTO)))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -347,6 +501,24 @@ final class NetworkManager {
             }
         }
     }
+   
+    func sendRequest(
+        sendRequestDTO: SendRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<FollowStateModel, NetworkError>) -> Void
+    ){
+        let sendAPI = sendRequestAPI(requestDTO: sendRequestDTO)
+        networkService.request(sendAPI) { result in
+            switch result {
+            case .success(let DTO):
+                let models = FollowStateDTO.convertFollowStateDTOToModel(DTO: DTO)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+  
     
     /// 사용자의 북마크 기록들 리스트를 조회하는 함수입니다.
         func getBookmarkList(

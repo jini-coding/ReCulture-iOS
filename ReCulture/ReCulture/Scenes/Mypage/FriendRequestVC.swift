@@ -167,7 +167,7 @@ class FriendRequestCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.rcGray400
+        imageView.backgroundColor = UIColor.rcGrayBg
         imageView.layer.cornerRadius = 20
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -225,7 +225,6 @@ class FriendRequestCell: UITableViewCell {
 //        self.viewModel.acceptRequest(requestId: Int)
 //        print("요청 수락")
 //    }
-//    
 //    @objc func denyRequest() {
 //        self.viewModel.rejectRequest(requestId: Int)
 //        print("요청 거절")
@@ -256,7 +255,7 @@ class FriendRequestCell: UITableViewCell {
     func setupLayout() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(idLabel)
+        //contentView.addSubview(idLabel)
         contentView.addSubview(acceptButton)
         contentView.addSubview(denyButton)
 
@@ -266,14 +265,19 @@ class FriendRequestCell: UITableViewCell {
             profileImageView.heightAnchor.constraint(equalToConstant: 40),
             profileImageView.widthAnchor.constraint(equalToConstant: 40),
             
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
             nameLabel.heightAnchor.constraint(equalToConstant: 24),
             nameLabel.widthAnchor.constraint(equalToConstant: 160),
             
-            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
-            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
-            idLabel.heightAnchor.constraint(equalToConstant: 14),
+//            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+//            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            nameLabel.heightAnchor.constraint(equalToConstant: 24),
+//            nameLabel.widthAnchor.constraint(equalToConstant: 160),
+            
+//            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
+//            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            idLabel.heightAnchor.constraint(equalToConstant: 14),
  
             acceptButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             acceptButton.trailingAnchor.constraint(equalTo: denyButton.leadingAnchor, constant: -4),

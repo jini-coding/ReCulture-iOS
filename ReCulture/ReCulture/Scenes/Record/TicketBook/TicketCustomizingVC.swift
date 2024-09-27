@@ -12,6 +12,10 @@ protocol CompleteModalDelegate: AnyObject {
     func dismissCompleteModal()
 }
 
+protocol TicketCustomizingDelegate: AnyObject {
+    func didFinishCustomizingTicket()
+}
+
 extension TicketCustomizingVC: CompleteModalDelegate {
     func popupChecked(view: String) {
         // Handle the delegate callback
@@ -32,6 +36,8 @@ class TicketCustomizingVC: UIViewController {
     var selectedFrame: Int?
     var selectedUserImage: UIImage?
     var selectedMaskedUserImage: UIImage?
+    
+    weak var delegate: TicketCustomizingDelegate?
     
     var titleText: String?
     var dateText: String?
@@ -230,6 +236,75 @@ class TicketCustomizingVC: UIViewController {
         }
     }
     
+//    @objc func confirmButtonTapped() {
+//        let requestDTO = TicketRequestDTO(
+//            title: (pages[2] as! CustomizingThreeVC).titleTextfield.text!,
+//            emoji: (pages[2] as! CustomizingThreeVC).emojiTextfield.text!,
+//            date: ISO8601DateFormatter.string(from: (pages[2] as! CustomizingThreeVC).datePicker.date,
+//                                              timeZone: TimeZone(abbreviation: "KST")!,
+//                                              formatOptions: [.withInternetDateTime]),
+//            categoryId: (pages[1] as! CustomizingTwoVC).selectedCategoryId!,
+//            disclosure: "PUBLIC",
+//            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!,
+//            frameId: (pages[0] as! CustomizingOneVC).currentFrame)
+//        
+//        print("티켓북 아래와 같이 만들 예정")
+//        print(requestDTO)
+//        
+//        //LoadingIndicator.showLoading()
+//        
+//        viewModel.postNewTicket(
+//            requestDTO: requestDTO,
+//            photos: (pages[0] as! CustomizingOneVC).imageFiles,
+//            fromCurrentVC: self
+//        ){
+//            //LoadingIndicator.hideLoading()
+//            
+//            if (self.postNewTicketSuccess){
+//                print("postNewTicketSuccess:\(self.postNewTicketSuccess)")
+//                //self.presentCompleteModal()
+//                self.navigationController?.popViewController(animated: true)
+//            }
+//            else {
+//                let alert = UIAlertController(title: "티켓 커스터마이징에 실패하였습니다.", message: "다시 한 번 시도해주세요.", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "확인", style: .default))
+//                self.present(alert, animated: true)
+//            }
+//        }
+//    }
+    
+//    @objc func confirmButtonTapped() {
+//        let requestDTO = TicketRequestDTO(
+//            title: (pages[2] as! CustomizingThreeVC).titleTextfield.text!,
+//            emoji: (pages[2] as! CustomizingThreeVC).emojiTextfield.text!,
+//            date: ISO8601DateFormatter.string(from: (pages[2] as! CustomizingThreeVC).datePicker.date,
+//                                              timeZone: TimeZone(abbreviation: "KST")!,
+//                                              formatOptions: [.withInternetDateTime]),
+//            categoryId: (pages[1] as! CustomizingTwoVC).selectedCategoryId!,
+//            disclosure: "PUBLIC",
+//            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!,
+//            frameId: (pages[0] as! CustomizingOneVC).currentFrame)
+//        
+//        print("티켓북 아래와 같이 만들 예정")
+//        print(requestDTO)
+//        
+//        // Simulate the loading indicator and the ticket creation process
+//        viewModel.postNewTicket(
+//            requestDTO: requestDTO,
+//            photos: (pages[0] as! CustomizingOneVC).imageFiles,
+//            fromCurrentVC: self
+//        ){
+//            if self.postNewTicketSuccess {
+//                self.delegate?.didFinishCustomizingTicket()  // Notify delegate
+//                self.navigationController?.popViewController(animated: true)
+//            } else {
+//                let alert = UIAlertController(title: "티켓 커스터마이징에 실패하였습니다.", message: "다시 한 번 시도해주세요.", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "확인", style: .default))
+//                self.present(alert, animated: true)
+//            }
+//        }
+//    }
+    
     @objc func confirmButtonTapped() {
         let requestDTO = TicketRequestDTO(
             title: (pages[2] as! CustomizingThreeVC).titleTextfield.text!,
@@ -241,31 +316,91 @@ class TicketCustomizingVC: UIViewController {
             disclosure: "PUBLIC",
             review: (pages[2] as! CustomizingThreeVC).commentTextView.text!,
             frameId: (pages[0] as! CustomizingOneVC).currentFrame)
-        
+
         print("티켓북 아래와 같이 만들 예정")
         print(requestDTO)
-        
-        //LoadingIndicator.showLoading()
-        
+
+        // Simulate the loading indicator and the ticket creation process
         viewModel.postNewTicket(
             requestDTO: requestDTO,
             photos: (pages[0] as! CustomizingOneVC).imageFiles,
             fromCurrentVC: self
-        ){
-            //LoadingIndicator.hideLoading()
-            
-            if (self.postNewTicketSuccess){
-                print("postNewTicketSuccess:\(self.postNewTicketSuccess)")
-                //self.presentCompleteModal()
-                self.navigationController?.popViewController(animated: true)
-            }
-            else {
-                let alert = UIAlertController(title: "티켓 커스터마이징에 실패하였습니다.", message: "다시 한 번 시도해주세요.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "확인", style: .default))
+        ) {
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "티켓이 성공적으로 생성되었습니다!", message: nil, preferredStyle: .alert)
+                let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.delegate?.didFinishCustomizingTicket()
+                    
+                    // Navigate back after 6 seconds
+
+                }
+                alert.addAction(confirmAction)
                 self.present(alert, animated: true)
             }
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+            let alert = UIAlertController(title: "티켓이 성공적으로 생성되었습니다!", message: nil, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+                self.delegate?.didFinishCustomizingTicket()
+                
+                self.navigationController?.popViewController(animated: true)
+
+            }
+            alert.addAction(confirmAction)
+            self.present(alert, animated: true)
+        }
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+//            self.navigationController?.popViewController(animated: true)
+//        }
     }
+
+    
+    //122
+//    @objc func confirmButtonTapped() {
+//        let requestDTO = TicketRequestDTO(
+//            title: (pages[2] as! CustomizingThreeVC).titleTextfield.text!,
+//            emoji: (pages[2] as! CustomizingThreeVC).emojiTextfield.text!,
+//            date: ISO8601DateFormatter.string(from: (pages[2] as! CustomizingThreeVC).datePicker.date,
+//                                              timeZone: TimeZone(abbreviation: "KST")!,
+//                                              formatOptions: [.withInternetDateTime]),
+//            categoryId: (pages[1] as! CustomizingTwoVC).selectedCategoryId!,
+//            disclosure: "PUBLIC",
+//            review: (pages[2] as! CustomizingThreeVC).commentTextView.text!,
+//            frameId: (pages[0] as! CustomizingOneVC).currentFrame)
+//
+//        print("티켓북 아래와 같이 만들 예정")
+//        print(requestDTO)
+//
+//        // Simulate the loading indicator and the ticket creation process
+//        viewModel.postNewTicket(
+//            requestDTO: requestDTO,
+//            photos: (pages[0] as! CustomizingOneVC).imageFiles,
+//            fromCurrentVC: self
+//        ) {
+//            DispatchQueue.main.async {
+//                let alert = UIAlertController(title: "티켓이 성공적으로 생성되었습니다!", message: nil, preferredStyle: .alert)
+//                let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+//                   
+//                    self.delegate?.didFinishCustomizingTicket()
+//                    self.navigationController?.popViewController(animated: true)
+//                }
+//                alert.addAction(confirmAction)
+//                self.present(alert, animated: true)
+////                if self.postNewTicketSuccess {
+////                    // Show alert with a confirmation button to go back to the previous screen
+////
+////                } else {
+////                    let alert = UIAlertController(title: "티켓 커스터마이징에 실패하였습니다.", message: "다시 한 번 시도해주세요.", preferredStyle: .alert)
+////                    alert.addAction(UIAlertAction(title: "확인", style: .default))
+////                    self.present(alert, animated: true)
+////                }
+//            }
+//        }
+//    }
+
+
     
     func presentCompleteModal() {
         guard let tabBarController = tabBarController else { return }

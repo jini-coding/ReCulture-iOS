@@ -43,3 +43,22 @@ struct FollowStateModel {
     let createdAt: String
     let updatedAt: String
 }
+
+struct EditMyProfileModel {
+    var nickname: String?
+    var bio: String?
+    var birthdate: String?
+    var interest: String?
+    var photo: String?
+}
+
+struct ChangePwModel {
+    var cur_password: String?
+    var new_password: String?
+}
+
+struct ChangePwResponseModel {
+    var id: Int?
+    var email: String?
+    var createdAt: String?
+}

@@ -33,12 +33,16 @@ struct pendingAPI: ServableAPI {
 }
 
 struct sendRequestAPI: ServableAPI {
-    typealias Response = [FollowStateDTO]
+    typealias Response = FollowStateDTO
+    
+    let requestDTO: SendRequestDTO
     
     var method: HTTPMethod { .post }
     var path: String { "/follow/request" }
     var parameters: [String: String] { return [:] }
     var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
+
+    var requestBody: Encodable? { requestDTO }
 }
 
 struct acceptAPI: ServableAPI {

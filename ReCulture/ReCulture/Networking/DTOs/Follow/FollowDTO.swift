@@ -58,6 +58,9 @@ struct FollowStateDTO: Codable {
     let updatedAt: String
 }
 
+struct SendRequestDTO: Codable {
+    let receiverId: Int
+}
 
 extension FollowerDTO {
     static func convertFollowerDTOToModel(DTO: FollowerDTO) -> FollowerModel {

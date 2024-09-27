@@ -14,6 +14,8 @@ class ViewFriendVC: UIViewController, UIPageViewControllerDelegate, UIPageViewCo
     let segmentedControl = UISegmentedControl(items: ["팔로워", "팔로잉"])
     let containerView = UIView()
     
+    let searchViewModel = SearchViewModel()
+    
     let underLineView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.rcMain
@@ -243,10 +245,37 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
         cell.selectionStyle = .none
         
-        // Populate the cell with follower data
-        cell.nameLabel.text = "\(data.follower.id)"  // You can use data like name if available
-        cell.idLabel.text = data.follower.email
-
+        let authorId = data.followerID
+        
+        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
+                cell.nameLabel.text = userProfile.nickname
+                if let profileImageUrl = userProfile.profilePhoto {
+                    let baseUrl = "http://34.64.120.187:8080"
+                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                } else {
+                    print("Profile image URL is nil")
+                }
+            } else {
+                // Fetch user profile if not loaded yet
+                viewModel.getUserProfile(userId: authorId) { userProfile in
+                    DispatchQueue.main.async {
+                        cell.nameLabel.text = userProfile?.nickname
+                        if let profileImageUrl = userProfile?.profilePhoto {
+                            let baseUrl = "http://34.64.120.187:8080"
+                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        } else {
+                            print("Profile image URL is nil")
+                        }
+                    }
+                }
+            }
+        
+//        // Populate the cell with follower data
+//        cell.nameLabel.text = "\(data.follower.id)"  // You can use data like name if available
+//        cell.idLabel.text = data.follower.email
+        
         // Configure the follow button (this logic can be modified based on your use case)
         cell.followButton.setTitle("팔로우", for: .normal)
         cell.followButton.backgroundColor = UIColor.rcMain
@@ -258,14 +287,14 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
     
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let data = friendData[indexPath.row]
-//         
+//
 //        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
 //        cell.selectionStyle = .none
 //         // Assuming you have images added in assets
 //        cell.profileImageView.image = UIImage(named: data.profileImage)
 //        cell.nameLabel.text = data.name
 //        cell.idLabel.text = data.id
-//        
+//
 //        if (data.follow == true) {
 //            cell.followButton.setTitle("팔로잉", for: .normal)
 //            cell.followButton.backgroundColor = UIColor.rcGray000
@@ -277,7 +306,7 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
 //            cell.followButton.setTitleColor(UIColor.white, for: .normal)
 //            cell.followButton.titleLabel?.font = UIFont.rcFont14M()
 //        }
-//        
+//
 //        return cell
 //    }
     
@@ -374,8 +403,36 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
          
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellId, for: indexPath) as! FriendCell
         cell.selectionStyle = .none
-        cell.nameLabel.text = "\(data.following.id)"
-        cell.idLabel.text = data.following.email
+        
+        let authorId = data.followingID
+        
+        if let userProfile = viewModel.getUserProfileModel(for: authorId) {
+                cell.nameLabel.text = userProfile.nickname
+                if let profileImageUrl = userProfile.profilePhoto {
+                    let baseUrl = "http://34.64.120.187:8080"
+                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                } else {
+                    print("Profile image URL is nil")
+                }
+            } else {
+                // Fetch user profile if not loaded yet
+                viewModel.getUserProfile(userId: authorId) { userProfile in
+                    DispatchQueue.main.async {
+                        cell.nameLabel.text = userProfile?.nickname
+                        if let profileImageUrl = userProfile?.profilePhoto {
+                            let baseUrl = "http://34.64.120.187:8080"
+                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        } else {
+                            print("Profile image URL is nil")
+                        }
+                    }
+                }
+            }
+        
+//        cell.nameLabel.text = "\(data.following.id)"
+//        cell.idLabel.text = data.following.email
         
         // 설정에 따라 팔로우 버튼 업데이트
         cell.followButton.setTitle("팔로잉", for: .normal)
@@ -421,7 +478,7 @@ class FriendCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = UIColor.rcGrayBg
         imageView.layer.cornerRadius = 20
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -459,7 +516,7 @@ class FriendCell: UITableViewCell {
         
         return button
     }()
-//    
+//
 //    let denyButton: UIButton = {
 //        let button = UIButton()
 //        button.setTitle("거절", for: .normal)
@@ -469,7 +526,7 @@ class FriendCell: UITableViewCell {
 //        button.layer.cornerRadius = 8
 //        button.clipsToBounds = true
 //        button.translatesAutoresizingMaskIntoConstraints = false
-//        
+//
 //        return button
 //    }()
     
@@ -485,7 +542,7 @@ class FriendCell: UITableViewCell {
     func setupLayout() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(idLabel)
+        //contentView.addSubview(idLabel)
         contentView.addSubview(followButton)
         //contentView.addSubview(denyButton)
 
@@ -495,14 +552,19 @@ class FriendCell: UITableViewCell {
             profileImageView.heightAnchor.constraint(equalToConstant: 40),
             profileImageView.widthAnchor.constraint(equalToConstant: 40),
             
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
             nameLabel.heightAnchor.constraint(equalToConstant: 24),
             nameLabel.widthAnchor.constraint(equalToConstant: 160),
             
-            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
-            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
-            idLabel.heightAnchor.constraint(equalToConstant: 14),
+//            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+//            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            nameLabel.heightAnchor.constraint(equalToConstant: 24),
+//            nameLabel.widthAnchor.constraint(equalToConstant: 160),
+            
+//            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
+//            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
+//            idLabel.heightAnchor.constraint(equalToConstant: 14),
  
 //            acceptButton.centerYAnchor.constraint(equalTo: centerYAnchor),
 //            acceptButton.trailingAnchor.constraint(equalTo: denyButton.leadingAnchor, constant: -4),
@@ -520,5 +582,3 @@ class FriendCell: UITableViewCell {
     
     
 }
-
-

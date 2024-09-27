@@ -74,16 +74,15 @@ class MypageViewModel {
         }
     }
     
-    func editMyProfile(requestDTO: NewUserProfileRequestDTO, profileImage: [ImageFile], fromCurrentVC: UIViewController){
+    func editMyProfile(requestDTO: EditMyProfileRequestDTO, profileImage: [ImageFile], fromCurrentVC: UIViewController){
         
-        NetworkManager.shared.postNewUserProfile(newUserProfileRequestDTO: requestDTO,
+        NetworkManager.shared.editMyProfile(requestDTO: requestDTO,
                                                  profileImage: profileImage) { result in
             switch result {
             case .success(let responseDTO):
                 print(responseDTO)
-                UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 UserDefaults.standard.synchronize()
-                (fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
+                //(fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
             case .failure(let error):
                 let networkAlertController = self.networkErrorAlert(error)
                 print(error.localizedDescription)
@@ -94,6 +93,138 @@ class MypageViewModel {
             }
         }
     }
+    
+    func changePassword(curPassword: String, newPassword: String, fromCurrentVC: UIViewController) {
+        let requestDTO = ChangePwRequestDTO(cur_password: curPassword, new_password: newPassword)
+        
+        NetworkManager.shared.changePw(requestDTO: requestDTO) { result in
+            switch result {
+            case .success(let responseDTO):
+                print("Password changed successfully:", responseDTO)
+                
+                self.showChangePasswordSuccessAlert(fromCurrentVC: fromCurrentVC)
+                
+            case .failure(let error):
+                let networkAlertController = self.networkErrorAlert(error)
+                print("Failed to change password:", error)
+                
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
+            }
+        }
+    }
+    
+    func showChangePasswordSuccessAlert(fromCurrentVC: UIViewController) {
+        let alert = UIAlertController(title: "비밀번호 변경 완료", message: "비밀번호가 성공적으로 변경되었습니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(confirmAction)
+        
+        DispatchQueue.main.async {
+            fromCurrentVC.present(alert, animated: true)
+        }
+    }
+    
+    func logout(fromCurrentVC: UIViewController) {
+        NetworkManager.shared.postUserLogout() { result in
+            switch result {
+            case .success(let responseDTO):
+                print(responseDTO)
+
+                self.logoutshowSuccessAlert(fromCurrentVC: fromCurrentVC)
+                print("로그아웃완료")
+                
+            case .failure(let error):
+                let networkAlertController = self.networkErrorAlert(error)
+                print(error)
+                print("로그아웃실패")
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
+            }
+        }
+    }
+    
+
+    func logoutshowSuccessAlert(fromCurrentVC: UIViewController) {
+        let alert = UIAlertController(title: "로그아웃 성공", message: "로그아웃에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            let root = LoginVC()
+            let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+        }
+        alert.addAction(confirmAction)
+        
+        DispatchQueue.main.async {
+            fromCurrentVC.present(alert, animated: true)
+        }
+    }
+    
+    func setUserDefaultsInitial() {
+        UserDefaults.standard.set("", forKey: "accessToken")
+        UserDefaults.standard.set("", forKey: "refreshToken")
+        UserDefaults.standard.set("", forKey: "role")
+        UserDefaults.standard.set("", forKey: "memberId")
+    }
+    
+    func withdrawal(fromCurrentVC: UIViewController) {
+        NetworkManager.shared.postUserWithdrawal() { result in
+            switch result {
+            case .success(let responseDTO):
+                print(responseDTO)
+
+                self.withdrawalshowSuccessAlert(fromCurrentVC: fromCurrentVC)
+                print("탈퇴완료")
+                
+            case .failure(let error):
+                let networkAlertController = self.networkErrorAlert(error)
+                print(error)
+                print("탈퇴실패")
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
+            }
+        }
+    }
+    
+    func withdrawalshowSuccessAlert(fromCurrentVC: UIViewController) {
+        let alert = UIAlertController(title: "탈퇴 성공", message: "탈퇴하셨습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            let root = LoginVC()
+            let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+        }
+        alert.addAction(confirmAction)
+        
+        DispatchQueue.main.async {
+            fromCurrentVC.present(alert, animated: true)
+        }
+    }
+    
+    
+//    func editProfile(requestDTO: NewUserProfileRequestDTO, profileImage: [ImageFile], fromCurrentVC: UIViewController) {
+//
+//        NetworkManager.shared.postNewUserProfile(newUserProfileRequestDTO: requestDTO,
+//                                                 profileImage: profileImage) { result in
+//            switch result {
+//            case .success(let responseDTO):
+//                print(responseDTO)
+//                UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+//                UserDefaults.standard.set(responseDTO.nickname, forKey: "nickname")
+//                UserDefaults.standard.synchronize()
+//                UserDefaultsManager.shared.setData(value: requestDTO.nickname, key: .nickname)
+//                
+//                (fromCurrentVC as? NewUserProfileVC)?.newUserProfileSuccess = true
+//            case .failure(let error):
+//                let networkAlertController = self.networkErrorAlert(error)
+//                print(error.localizedDescription)
+//                print(error)
+//                DispatchQueue.main.async {
+//                    fromCurrentVC.present(networkAlertController, animated: true)
+//                }
+//            }
+//        }
+//    }
     
     func getFollowers() {
         NetworkManager.shared.getMyFollowers { [weak self] result in
@@ -146,6 +277,19 @@ class MypageViewModel {
         }
     }
     
+    func sendRequest(requestDTO: SendRequestDTO) {
+        NetworkManager.shared.sendRequest(sendRequestDTO: requestDTO) { result in
+            switch result {
+            case .success(let model):
+                self.requestState = model
+                print("친구요청 발송 완료")
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+            }
+        }
+    }
+    
     func acceptRequest(requestId: Int) {
         NetworkManager.shared.acceptRequest(requestId: requestId) { result in
             switch result {
@@ -169,9 +313,6 @@ class MypageViewModel {
             }
         }
     }
-    
-    
-    
     
     func getNickname() -> String {
         return myProfileModel.nickname ?? ""
@@ -197,6 +338,15 @@ class MypageViewModel {
         return userProfileModels[userId]
     }
     
+    func setNickname(_ nickname: String) {
+        myProfileModel.nickname = nickname
+        myPageModelDidChange?()  // 모델이 변경되었음을 알림
+    }
+    
+    func setBio(_ bio: String) {
+        myProfileModel.bio = bio
+        myPageModelDidChange?()  // 모델이 변경되었음을 알림
+    }
     
     
     private func networkErrorAlert(_ error: Error) -> UIAlertController{

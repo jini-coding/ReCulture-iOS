@@ -24,7 +24,7 @@ extension MypageVC: LogoutModalDelegate {
     }
 }
 
-class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, EditProfileDelegate {
     
     private let viewModel = MypageViewModel()
     
@@ -67,6 +67,8 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Do any additional setup after loading the view.
         navigationController?.isNavigationBarHidden = true
         
+        NotificationCenter.default.addObserver(self, selector: #selector(profileDidUpdate), name: NSNotification.Name("ProfileUpdated"), object: nil)
+        
         bind()
         viewModel.getMyInfo(fromCurrentVC: self)
         
@@ -77,7 +79,49 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         mypageTableView.delegate = self
         mypageTableView.dataSource = self
+
         
+    }
+    
+    func didUpdateProfile(nickname: String, bio: String) {
+        // ViewModel의 데이터를 업데이트
+        viewModel.setNickname(nickname)
+        viewModel.setBio(bio)
+        
+        // UI 업데이트
+        DispatchQueue.main.async {
+            self.mypageTableView.reloadData()
+        }
+    }
+    
+    @objc func profileDidUpdate(notification: NSNotification) {
+        
+        viewModel.getMyInfo(fromCurrentVC: self)
+        
+        if let userInfo = notification.userInfo as? [String: String],
+           let updatedNickname = userInfo["nickname"],
+           let updatedBio = userInfo["bio"] {
+            
+            
+            
+            // Update the view model with the new profile data
+            viewModel.setNickname(updatedNickname)
+            viewModel.setBio(updatedBio)
+            
+            // Reload the table view to reflect the updated data
+            DispatchQueue.main.async { [weak self] in
+                self?.mypageTableView.reloadData()
+            }
+        }
+    
+        // Alternatively, you could re-fetch the profile data if needed
+        viewModel.getMyInfo(fromCurrentVC: self)
+//        viewModel.getMyInfo(fromCurrentVC: self)
+//        
+//        // Reload the entire table view to reflect updated data
+//        DispatchQueue.main.async { [weak self] in
+//            self?.mypageTableView.reloadData()
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,13 +204,15 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         case "프로필 변경":
             print("프로필 변경 선택됨")
             let nextVC = EditProfileVC()
+            nextVC.delegate = self
             
             let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
             imageUrlStr.loadAsyncImage(nextVC.profileImage)
-            nextVC.nicknameTextfield.text = viewModel.getNickname()
-            nextVC.introTextfield.text = viewModel.getBio()
-            //nextVC.birthTextField.text = viewModel.getBirth().toDate()?.toString()
-            nextVC.interestTextfield.text = viewModel.getInterest()
+            nextVC.imageFileName = viewModel.getProfileImage()
+//            nextVC.nicknameTextfield.text = viewModel.getNickname()
+//            nextVC.introTextfield.text = viewModel.getBio()
+//            nextVC.birthTextField.text = viewModel.getBirth().toDate()?.toString()
+//            nextVC.interestRangeMenuBtn.setTitle(viewModel.getInterest(), for: .normal)
             
             nextVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextVC, animated: true)
@@ -211,7 +257,10 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             //cell.profileImageView.backgroundColor = UIColor.rcMain
             cell.nameLabel.text = "\(viewModel.getNickname())님"
+            print(viewModel.getNickname())
+            
             cell.commentLabel.text = "\(viewModel.getBio())"
+            print(viewModel.getBio())
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -277,6 +326,40 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func performLogout() {
         
+    }
+    
+    @objc func logout() {
+        let alertController = UIAlertController(
+            title: "로그아웃하시겠습니까?", message: nil,preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            performLogout()
+            print("로그아웃 완료됨")
+            
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true)
+    }
+    
+    func performLogout() {
+        viewModel.logout(fromCurrentVC: self)
+        
+        //let accessTokenDeleted = KeychainManager.shared.deleteToken(type: .accessToken)
+        let refreshTokenDeleted = KeychainManager.shared.deleteToken(type: .refreshToken)
+        UserDefaults.standard.set(false, forKey: "isFirstLaunch")
+    
+//        if accessTokenDeleted && refreshTokenDeleted {
+//            print("Both tokens were successfully deleted from the Keychain")
+//        } else {
+//            print("Failed to delete one or both tokens from the Keychain")
+//        }
     }
 }
 

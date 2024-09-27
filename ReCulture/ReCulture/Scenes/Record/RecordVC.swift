@@ -200,6 +200,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @objc func goToTicketBook(){
         let vc = TicketBookVC()
+        
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

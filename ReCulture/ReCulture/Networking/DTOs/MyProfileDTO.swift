@@ -18,6 +18,13 @@ struct MyProfileDTO: Codable {
     let level: String
 }
 
+struct EditMyProfileRequestDTO: Codable {
+    let nickname: String
+    let bio: String
+    let birthdate: String
+    let interest: String
+}
+
 extension MyProfileDTO {
     static func convertMyProfileDTOToModel(DTO: MyProfileDTO) -> MyProfileModel {
         return MyProfileModel(
@@ -30,6 +37,57 @@ extension MyProfileDTO {
             bio: DTO.bio,
             birthdate: DTO.birthdate,
             interest: DTO.interest
+        )
+    }
+}
+
+extension EditMyProfileRequestDTO {
+    static func convertEditMyProfileDTOToModel(DTO: EditMyProfileRequestDTO) -> EditMyProfileModel {
+        return EditMyProfileModel(
+            nickname: DTO.nickname,
+            bio: DTO.bio,
+            birthdate: DTO.birthdate,
+            interest: DTO.interest
+        )
+    }
+}
+
+struct LogoutResponse: Codable {
+    let message: String
+}
+
+struct WithdrawalResponse: Codable {
+    let id: Int
+    let email: String
+    let createdAt: String
+}
+
+struct ChangePwResponseDTO: Codable {
+    let id: Int
+    let email: String
+    let createdAt: String
+}
+
+struct ChangePwRequestDTO: Codable {
+    let cur_password: String
+    let new_password: String
+}
+
+extension ChangePwResponseDTO {
+    static func convertChangePwResDTOToModel(DTO: ChangePwResponseDTO) -> ChangePwResponseModel {
+        return ChangePwResponseModel(
+            id: DTO.id,
+            email: DTO.email,
+            createdAt: DTO.createdAt
+        )
+    }
+}
+
+extension ChangePwRequestDTO {
+    static func convertChangePwReqDTOToModel(DTO: ChangePwRequestDTO) -> ChangePwModel {
+        return ChangePwModel(
+            cur_password: DTO.cur_password,
+            new_password: DTO.new_password
         )
     }
 }
