@@ -15,14 +15,3 @@ struct LoginAPI: ServableAPI {
     var headers: [String : String]? { ["Content-Type": "application/json"] }
     var requestBody: Encodable? { requestDTO }
 }
-
-
-struct LogoutAPI: ServableAPI {
-    typealias Response = LogoutResponseDTO
-    
-    let refresh: String
-    
-    var method: HTTPMethod { .post }
-    var path: String { "/auth/logout" }
-    var headers: [String : String]? { ["Content-Type": "application/json"] }
-}

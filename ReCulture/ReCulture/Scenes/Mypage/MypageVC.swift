@@ -304,29 +304,29 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Ed
 //        present(vc, animated: true, completion: nil)
 //    }
     
-    @objc func logout() {
-        let alertController = UIAlertController(
-            title: "로그아웃하시겠습니까?", message: nil,preferredStyle: .alert)
-        
-        let confirmAction = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] _ in
-            guard let self = self else { return }
-            //performLogout()
-            print("로그아웃 완료됨")
-            
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-
-        self.present(alertController, animated: true)
-    }
-    
-    func performLogout() {
-        
-    }
+//    @objc func logout() {
+//        let alertController = UIAlertController(
+//            title: "로그아웃하시겠습니까?", message: nil,preferredStyle: .alert)
+//        
+//        let confirmAction = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] _ in
+//            guard let self = self else { return }
+//            //performLogout()
+//            print("로그아웃 완료됨")
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }
+//        
+//        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+//
+//        alertController.addAction(confirmAction)
+//        alertController.addAction(cancelAction)
+//
+//        self.present(alertController, animated: true)
+//    }
+//    
+//    func performLogout() {
+//        
+//    }
     
     @objc func logout() {
         let alertController = UIAlertController(

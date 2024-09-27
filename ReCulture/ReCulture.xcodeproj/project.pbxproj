@@ -779,7 +779,6 @@
 				089EDACC2C12E2F400D74C5F /* Codable+.swift */,
 				08369CEE2C23066C005725C8 /* UIImageView+.swift */,
 				08EEBE8B2C527ECA0098A7C8 /* UIScrollView+.swift */,
-				38589C192CA0A446006B35D2 /* Cafe24Shiningstar-v2.0.otf */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1234,7 +1233,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = RW3T7BP2JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReCulture/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진을 추가하기 위해 갤러리 접근 권한이 필요합니다.";
