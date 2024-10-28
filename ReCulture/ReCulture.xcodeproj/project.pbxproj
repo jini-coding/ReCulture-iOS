@@ -157,6 +157,7 @@
 		389F8A6E2BF7247F004593B5 /* WithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */; };
 		389F8A702BF725D4004593B5 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */; };
 		38D97E672BF5D0CE00A03D56 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E662BF5D0CE00A03D56 /* CALayer.swift */; };
+		38FA88A42CCF984100A0BA9A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FA88A32CCF984100A0BA9A /* UserProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -312,6 +313,7 @@
 		389F8A6D2BF7247F004593B5 /* WithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalVC.swift; sourceTree = "<group>"; };
 		389F8A6F2BF725D4004593B5 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		38D97E662BF5D0CE00A03D56 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		38FA88A32CCF984100A0BA9A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -850,6 +852,7 @@
 			children = (
 				3874B61B2BE43373003376F7 /* SearchVC.swift */,
 				38589C292CA365DB006B35D2 /* SearchedVC.swift */,
+				38FA88A32CCF984100A0BA9A /* UserProfileVC.swift */,
 				082BE8862CA4033E00FF6DF8 /* BookmarkModel.swift */,
 				385FD0D32BFFC44A005F0532 /* SearchRecordDetailVC.swift */,
 				384315E62C1B1A8F00D379F3 /* SearchModel.swift */,
@@ -983,6 +986,7 @@
 				089EDAD32C13449100D74C5F /* MyProfileDTO.swift in Sources */,
 				08CC1A0D2C590D8D00EC99BA /* CalendarDetailCell.swift in Sources */,
 				0833EF712BE4B9210024FB2C /* CustomCalendarView.swift in Sources */,
+				38FA88A42CCF984100A0BA9A /* UserProfileVC.swift in Sources */,
 				08D0CF372BF715E0005CBECA /* UIBezierPath+.swift in Sources */,
 				3874B6182BE43363003376F7 /* LoginVC.swift in Sources */,
 				384315E72C1B1A8F00D379F3 /* SearchModel.swift in Sources */,
