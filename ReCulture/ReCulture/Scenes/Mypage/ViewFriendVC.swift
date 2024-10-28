@@ -310,6 +310,13 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
 //        return cell
 //    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedFollower = viewModel.followers[indexPath.row]
+        let userProfileVC = UserProfileVC()
+        //userProfileVC.userId = selectedFollower.followerID // Pass any necessary data to UserProfileVC
+        navigationController?.pushViewController(userProfileVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
@@ -442,6 +449,14 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedFollowing = viewModel.followings[indexPath.row]
+        let userProfileVC = UserProfileVC()
+        //userProfileVC.userId = selectedFollowing.followingID // Pass any necessary data to UserProfileVC
+        navigationController?.pushViewController(userProfileVC, animated: true)
+    }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
