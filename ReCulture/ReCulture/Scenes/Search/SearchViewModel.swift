@@ -40,6 +40,12 @@ class SearchViewModel {
         }
     }
     
+    private var userProfileDetail: UserProfileModel? {
+        didSet {
+            userProfileDetailDidChange?()
+        }
+    }
+    
     private var allRecords: [SearchModel] = []
     private var pagination: SearchResponseDTO.Pagination?
     private var userpagination: UserSearchResponseDTO.UserPagination?
@@ -53,6 +59,7 @@ class SearchViewModel {
     var allSearchedModelsDidChange: (() -> Void)?
     var userProfileModelsDidChange: (() -> Void)?
     var allUserSearchedModelsDidChange: (() -> Void)?
+    var userProfileDetailDidChange: (() -> Void)?
     
     // MARK: - Functions
     
@@ -200,6 +207,26 @@ class SearchViewModel {
                 completion(nil)
             }
         }
+    }
+    
+    func getUserProfileDetails(userId: Int) {
+        NetworkManager.shared.getUserProfileDetails(userId: userId) { result in
+            switch result {
+            case .success(let model):
+                self.userProfileDetail = model
+            case .failure(let error):
+                print("-- record detail view model --")
+                print(error)
+            }
+        }
+    }
+    
+    func getUserdDetail() -> UserProfileModel? {
+        return userProfileDetail
+    }
+    
+    func getProfileImage() -> String {
+        return userProfileDetail?.profilePhoto ?? "no_img"
     }
     
     private func convertToSearchModels(DTOs: [SearchResponseDTO.SearchRecordDTO]) -> [SearchModel] {

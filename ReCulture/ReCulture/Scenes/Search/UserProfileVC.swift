@@ -11,6 +11,9 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     private let viewModel = RecordViewModel()
     private let myviewModel = MypageViewModel()
+    private let searchviewModel = SearchViewModel()
+    
+    var userId: Int = 0
     
     let profileView: UIView = {
         let view = UIView()
@@ -21,7 +24,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     let profileImg: UIImageView = {
         let imageview = UIImageView()
-        imageview.image = UIImage(named: "no_img")
+        imageview.backgroundColor = UIColor.rcGrayBg
         imageview.layer.cornerRadius = 30
         imageview.clipsToBounds = true
         
@@ -31,7 +34,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let nickname: UILabel = {
         let label = UILabel()
         label.font = UIFont.rcFont20B()
-        label.text = "수현"
+        label.text = ""
         
         return label
     }()
@@ -39,7 +42,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let level: UILabel = {
         let label = UILabel()
         label.font = UIFont.rcFont12SB()
-        label.text = "Level 3"
+        label.text = "Level 0"
         label.textColor = UIColor(hexCode: "#85888A")
         
         return label
@@ -55,7 +58,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let levelName: UILabel = {
         let label = UILabel()
         label.font = UIFont.rcFont12SB()
-        label.text = "Conqueror"
+        label.text = ""
         label.textColor = UIColor(hexCode: "#85888A")
         
         return label
@@ -64,7 +67,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let commentLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.rcFont12SB()
-        label.text = "한줄 소개 코멘트"
+        label.text = ""
         
         return label
     }()
@@ -78,7 +81,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         label.layer.borderWidth = 1.0
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 6
-        label.text = "뮤지컬"
+        label.text = "관심분야"
         label.textAlignment = .center
         
         return label
@@ -134,6 +137,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         contentTableView.register(UserRecordContentCell.self, forCellReuseIdentifier: UserRecordContentCell.cellId)
                 
         bind()
+        loadUserProfile(userId: userId)
         viewModel.getmyRecords(fromCurrentVC: self)
     }
     
@@ -144,6 +148,34 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
              }
         }
         
+        searchviewModel.userProfileDetailDidChange = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let userProfile = self.searchviewModel.getUserdDetail() {
+                    self.updateUI(with: userProfile)
+                }
+            }
+        }
+    }
+    
+    private func loadUserProfile(userId: Int) {
+        searchviewModel.getUserProfileDetails(userId: userId)
+    }
+    
+    private func updateUI(with profile: UserProfileModel) {
+        // Update each UI component with data from the profile
+        nickname.text = profile.nickname
+        level.text = "Level \(profile.levelId ?? 0)"
+        levelName.text = profile.level
+        commentLabel.text = profile.bio
+        interestName.text = profile.interest
+        
+        let imageUrlStr = "http://34.64.120.187:8080\(searchviewModel.getProfileImage())"
+        imageUrlStr.loadAsyncImage(profileImg)
+        
+//        if let profileImageURL = profile.profilePhoto {
+//            profileImageURL.loadAsyncImage(profileImg)
+//        }
     }
     
     func setupProfileView() {
@@ -260,8 +292,8 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.titleLabel.text = model.culture.title
         //cell.nameLabel.text = "\(myviewModel.getNickname())"
         cell.nameLabel.text = "별별"
-        
-        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
+
+        let imageUrlStr = "http://34.64.120.187:8080\(searchviewModel.getProfileImage())"
         imageUrlStr.loadAsyncImage(cell.profileImageView)
         
         cell.createDateLabel.text = model.culture.date.toDate()?.toString()

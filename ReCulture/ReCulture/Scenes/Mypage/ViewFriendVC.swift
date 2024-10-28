@@ -313,7 +313,8 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFollower = viewModel.followers[indexPath.row]
         let userProfileVC = UserProfileVC()
-        //userProfileVC.userId = selectedFollower.followerID // Pass any necessary data to UserProfileVC
+        //userProfileVC.userId = selectedFollower.followerID
+        userProfileVC.userId = 37
         navigationController?.pushViewController(userProfileVC, animated: true)
     }
     
@@ -454,6 +455,7 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         let selectedFollowing = viewModel.followings[indexPath.row]
         let userProfileVC = UserProfileVC()
         //userProfileVC.userId = selectedFollowing.followingID // Pass any necessary data to UserProfileVC
+        userProfileVC.userId = 37
         navigationController?.pushViewController(userProfileVC, animated: true)
     }
 

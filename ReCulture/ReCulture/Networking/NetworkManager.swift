@@ -587,4 +587,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 특정 유저 프로필 정보 보기
+    func getUserProfileDetails(userId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<UserProfileModel, NetworkError>) -> Void
+    ) {
+        let profileAPI = UserProfileAPI(id: userId)
+        networkService.request(profileAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(UserProfileDTO.convertUserProfileDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
