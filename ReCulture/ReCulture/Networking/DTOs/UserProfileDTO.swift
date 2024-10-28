@@ -21,15 +21,15 @@ struct UserProfileDTO: Codable {
 extension UserProfileDTO {
     static func convertUserProfileDTOToModel(DTO: UserProfileDTO) -> UserProfileModel {
         return UserProfileModel(
-            id: DTO.id,
+            userId: DTO.userId,
             nickname: DTO.nickname,
+            bio: DTO.bio, 
+            birthdate: DTO.birthdate, 
+            interest: DTO.interest,
             profilePhoto: DTO.profilePhoto,
             exp: DTO.exp,
-            levelNum: DTO.levelId,
-            levelName: DTO.level,
-            bio: DTO.bio,
-            birthdate: DTO.birthdate,
-            interest: DTO.interest
+            levelId: DTO.levelId,
+            level: DTO.level
         )
     }
 }
