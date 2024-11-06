@@ -15,3 +15,13 @@ struct UserProfileAPI: ServableAPI {
     var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
 }
 
+struct userRecordAPI: ServableAPI {
+    typealias Response = [AllRecordResponseDTO]
+    
+    let id: Int
+    
+    var method: HTTPMethod { .get }
+    var path: String { "/culture/user/\(id)" }
+    var parameters: [String: String] { return [:] }
+    var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
+}
