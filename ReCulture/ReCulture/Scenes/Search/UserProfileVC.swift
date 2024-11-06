@@ -170,8 +170,9 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         commentLabel.text = profile.bio
         interestName.text = profile.interest
         
-        let imageUrlStr = "http://34.64.120.187:8080\(searchviewModel.getProfileImage())"
-        imageUrlStr.loadAsyncImage(profileImg)
+//        let imageUrlStr = "http://34.64.120.187:8080\()"
+//        .loadAsyncImage(profileImg)
+        profileImg.loadImage(urlWithoutBaseURL: searchviewModel.getProfileImage())
         
 //        if let profileImageURL = profile.profilePhoto {
 //            profileImageURL.loadAsyncImage(profileImg)
@@ -298,9 +299,10 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if let userProfile = searchviewModel.getUserProfileModel(for: authorId) {
             cell.nameLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-                    let baseUrl = "http://34.64.120.187:8080"
-                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                    let baseUrl = "http://34.64.120.187:8080"
+//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                    cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                 } else {
                     print("Profile image URL is nil")
                 }
@@ -310,9 +312,10 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     DispatchQueue.main.async {
                         cell.nameLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-                            let baseUrl = "http://34.64.120.187:8080"
-                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                            let baseUrl = "http://34.64.120.187:8080"
+//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                            cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                         } else {
                             print("Profile image URL is nil")
                         }
@@ -350,12 +353,28 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.commentLabel.text = model.culture.review
         
         // Configure images
-        let imageUrls = model.photoDocs.map { "http://34.64.120.187:8080\($0.url)" }
+        let imageUrls = model.photoDocs.map { "\($0.url)" }
         cell.configureImages(imageUrls)
         
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = viewModel.getUserRecord(at: indexPath.row)
+        let authorId = model.culture.authorId
+        
+        let userProfile = searchviewModel.getUserProfileModel(for: authorId)
+        let vc = SearchRecordDetailVC()
+        
+        vc.recordId = model.culture.id
+        vc.titleText = model.culture.title
+
+        vc.creator = userProfile?.nickname ?? "Unknown"
+        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }
 
@@ -506,13 +525,10 @@ class UserRecordContentCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(nameLabel)
         contentView.addSubview(separateLineImageView)
-        //contentView.addSubview(idLabel)
         contentView.addSubview(createDateLabel)
         contentView.addSubview(categoryLabelView)
         categoryLabelView.addSubview(categoryLabel)
         contentView.addSubview(commentLabel)
-        //contentView.addSubview(categoryLabel)
-        //contentView.addSubview(contentImageView)
         
         contentView.addSubview(imageScrollView)
         imageScrollView.addSubview(imageStackView)
@@ -534,11 +550,6 @@ class UserRecordContentCell: UITableViewCell {
             separateLineImageView.heightAnchor.constraint(equalToConstant: 12),
             separateLineImageView.widthAnchor.constraint(equalToConstant: 1),
             
-            //idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-//            idLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
-//            idLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
-//            idLabel.heightAnchor.constraint(equalToConstant: 15),
-            
             createDateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
             createDateLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
             createDateLabel.heightAnchor.constraint(equalToConstant: 15),
@@ -550,10 +561,6 @@ class UserRecordContentCell: UITableViewCell {
             
             categoryLabel.centerXAnchor.constraint(equalTo: categoryLabelView.centerXAnchor),
             categoryLabel.centerYAnchor.constraint(equalTo: categoryLabelView.centerYAnchor),
-            
-//            createDateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-//            createDateLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
-//            createDateLabel.heightAnchor.constraint(equalToConstant: 15),
             
             titleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
@@ -591,7 +598,8 @@ class UserRecordContentCell: UITableViewCell {
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.backgroundColor = UIColor.lightGray
 
-            imageUrlStr.loadAsyncImage(imageView)
+            //imageUrlStr.loadAsyncImage(imageView)
+            imageView.loadImage(urlWithoutBaseURL: imageUrlStr)
 
             imageStackView.addArrangedSubview(imageView)
 
