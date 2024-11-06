@@ -31,11 +31,36 @@ class RecordViewModel {
         }
     }
     
+    /// 특정 유저의 기록들 내용
+    private var userRecordModel: [AllRecordsModel] = [] {
+        didSet {
+            allUserRecordModelDidChange?()
+        }
+    }
+    
+    /// 특정 유저의 기록이 리스트로 여러개 올 때의 각 기록 내용
+    private var allUserRecordDetail: AllRecordsModel? {
+        didSet {
+            allUserRecordModelDidChange?()
+        }
+    }
+    
+    
+    /// 특정 유저 기록 하나의 상세 내용
+    private var userrecordDetail: RecordModel? {
+        didSet {
+            userrecordDetailDidChange?()
+        }
+    }
+    
     private var allRecords: [AllRecordsModel] = []  // Holds all records fetched from the server
     private var filteredRecords: [AllRecordsModel] = []
+    private var userRecords: [AllRecordsModel] = [] // 특정 유저 기록
     
     var allRecordModelDidChange: (() -> Void)?
     var recordDetailDidChange: (() -> Void)?
+    var allUserRecordModelDidChange: (() -> Void)?
+    var userrecordDetailDidChange: (() -> Void)?
     
     // MARK: - Functions
     
@@ -85,6 +110,18 @@ class RecordViewModel {
         return myRecordModel.count
     }
     
+    func getUserRecordDetail(at index: Int) -> AllRecordsModel {
+        return userRecordModel[index]
+    }
+    
+    func getUserRecordDetail() -> RecordModel? {
+        return recordDetail
+    }
+    
+    func userrecordCount() -> Int {
+        return userRecordModel.count
+    }
+    
     func deleteRecord(postId: Int) {
         NetworkManager.shared.deleteRecord(postId: postId) { result in
             switch result {
@@ -106,6 +143,27 @@ class RecordViewModel {
             let categoryId = categoryId(from: category)
             myRecordModel = allRecords.filter { (record: AllRecordsModel) -> Bool in
                 return record.culture.categoryId == categoryId
+            }
+        }
+    }
+    
+    /// 특정 유저의 기록 가져오는 함수
+    func getuserRecords(userId: Int, fromCurrentVC: UIViewController){
+        NetworkManager.shared.getUserRecords(userId: userId) { result in
+            switch result {
+            case .success(let models):
+                self.userRecords = models
+                self.userRecordModel = models
+                print("-- user record view model --")
+                print(models)
+            case .failure(let error):
+                print("-- user record view model --")
+                print(error)
+                let networkAlertController = self.networkErrorAlert(error)
+
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
             }
         }
     }
@@ -172,6 +230,10 @@ class RecordViewModel {
     
     func getRecord(at index: Int) -> AllRecordsModel {
         return myRecordModel[index]
+    }
+    
+    func getUserRecord(at index: Int) -> AllRecordsModel {
+        return userRecordModel[index]
     }
     
     

@@ -384,6 +384,23 @@ final class NetworkManager {
         }
     }
     
+    /// 특정 유저 기록 불러오기
+    func getUserRecords(userId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[AllRecordsModel], NetworkError>) -> Void
+    ) {
+        let recordAPI = userRecordAPI(id: userId)
+        networkService.request(recordAPI) { result in
+            switch result {
+            case .success(let DTOs):
+                let models = AllRecordResponseDTO.convertRecordDTOsToMyRecordsModels(DTOs: DTOs)
+                completion(.success(models))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     /// 사용자 정보 수정
     func editMyProfile(
         requestDTO: EditMyProfileRequestDTO,

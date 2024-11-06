@@ -138,11 +138,11 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
         bind()
         loadUserProfile(userId: userId)
-        viewModel.getmyRecords(fromCurrentVC: self)
+        viewModel.getuserRecords(userId: userId, fromCurrentVC: self)
     }
     
     private func bind() {
-        viewModel.allRecordModelDidChange = { [weak self] in
+        viewModel.allUserRecordModelDidChange = { [weak self] in
              DispatchQueue.main.async {
                  self?.contentTableView.reloadData()
              }
@@ -217,7 +217,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             nickname.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 29),
             nickname.leadingAnchor.constraint(equalTo: profileImg.trailingAnchor, constant: 18),
-            nickname.widthAnchor.constraint(equalToConstant: 60),
+            nickname.widthAnchor.constraint(equalToConstant: 100),
             nickname.heightAnchor.constraint(equalToConstant: 28),
             
             level.topAnchor.constraint(equalTo: nickname.bottomAnchor, constant: 6),
@@ -280,24 +280,73 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.recordCount()
+        return viewModel.userrecordCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserRecordContentCell.cellId, for: indexPath) as! UserRecordContentCell
         cell.selectionStyle = .none
         
-        let model = viewModel.getRecord(at: indexPath.row)
+        let model = viewModel.getUserRecord(at: indexPath.row)
+        
+        let authorId = model.culture.authorId
+        let userProfile = searchviewModel.getUserProfileModel(for: authorId)
         
         cell.titleLabel.text = model.culture.title
         //cell.nameLabel.text = "\(myviewModel.getNickname())"
-        cell.nameLabel.text = "별별"
 
-        let imageUrlStr = "http://34.64.120.187:8080\(searchviewModel.getProfileImage())"
-        imageUrlStr.loadAsyncImage(cell.profileImageView)
+        if let userProfile = searchviewModel.getUserProfileModel(for: authorId) {
+            cell.nameLabel.text = userProfile.nickname
+                if let profileImageUrl = userProfile.profilePhoto {
+                    let baseUrl = "http://34.64.120.187:8080"
+                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                } else {
+                    print("Profile image URL is nil")
+                }
+            } else {
+                // Fetch user profile if not loaded yet
+                searchviewModel.getUserProfile(userId: authorId) { userProfile in
+                    DispatchQueue.main.async {
+                        cell.nameLabel.text = userProfile?.nickname
+                        if let profileImageUrl = userProfile?.profilePhoto {
+                            let baseUrl = "http://34.64.120.187:8080"
+                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        } else {
+                            print("Profile image URL is nil")
+                        }
+                    }
+                }
+            }
         
         cell.createDateLabel.text = model.culture.date.toDate()?.toString()
-        cell.categoryLabel.text = "영화"
+        
+        let category: String
+        switch model.culture.categoryId {
+        case 1:
+            category = "영화"
+        case 2:
+            category = "뮤지컬"
+        case 3:
+            category = "연극"
+        case 4:
+            category = "스포츠"
+        case 5:
+            category = "콘서트"
+        case 6:
+            category = "드라마"
+        case 7:
+            category = "독서"
+        case 8:
+            category = "전시회"
+        case 9:
+            category = "기타"
+        default:
+            category = "기타"
+        }
+        cell.categoryLabel.text = category
+        
         cell.commentLabel.text = model.culture.review
         
         // Configure images
