@@ -206,8 +206,9 @@ class MypageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Ed
             let nextVC = EditProfileVC()
             nextVC.delegate = self
             
-            let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
-            imageUrlStr.loadAsyncImage(nextVC.profileImage)
+//            let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
+//            imageUrlStr.loadAsyncImage(nextVC.profileImage)
+            nextVC.profileImage.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
             nextVC.imageFileName = viewModel.getProfileImage()
 //            nextVC.nicknameTextfield.text = viewModel.getNickname()
 //            nextVC.introTextfield.text = viewModel.getBio()

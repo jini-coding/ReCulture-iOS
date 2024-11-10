@@ -143,8 +143,9 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = model.culture.title
         cell.nameLabel.text = "\(myviewModel.getNickname())"
         
-        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
-        imageUrlStr.loadAsyncImage(cell.profileImageView)
+//        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
+//        imageUrlStr.loadAsyncImage(cell.profileImageView)
+        cell.profileImageView.loadImage(urlWithoutBaseURL: myviewModel.getProfileImage())
         
         cell.createDateLabel.text = model.culture.date.toDate()?.toString()
         cell.commentLabel.text = model.culture.review
@@ -553,6 +554,7 @@ class RecordContentCell: UITableViewCell {
             imageView.backgroundColor = UIColor.lightGray
 
             imageUrlStr.loadAsyncImage(imageView)
+            //imageView.loadImage(urlWithoutBaseURL: imageUrlStr)
 
             imageStackView.addArrangedSubview(imageView)
 

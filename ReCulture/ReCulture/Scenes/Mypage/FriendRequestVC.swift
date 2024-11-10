@@ -86,8 +86,9 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.nameLabel.text = userProfile.nickname
             cell.idLabel.text = "@\(authorId)"
             if let profileImageUrl = userProfile.profilePhoto {
-                let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
-                imageUrlStr.loadAsyncImage(cell.profileImageView) // 프로필 이미지 비동기 로드
+//                let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
+//                imageUrlStr.loadAsyncImage(cell.profileImageView) // 프로필 이미지 비동기 로드
+                cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
             }
         } else {
             // 아직 로드되지 않은 경우 비동기로 프로필 데이터를 가져옴
@@ -96,8 +97,9 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.nameLabel.text = userProfile?.nickname
                     cell.idLabel.text = "@\(authorId)"
                     if let profileImageUrl = userProfile?.profilePhoto {
-                        let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
-                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                        let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
+//                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                     }
                 }
             }

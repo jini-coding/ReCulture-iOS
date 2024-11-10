@@ -250,9 +250,10 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         if let userProfile = viewModel.getUserProfileModel(for: authorId) {
                 cell.nameLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-                    let baseUrl = "http://34.64.120.187:8080"
-                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                    let baseUrl = "http://34.64.120.187:8080"
+//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                    cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                 } else {
                     print("Profile image URL is nil")
                 }
@@ -262,9 +263,10 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async {
                         cell.nameLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-                            let baseUrl = "http://34.64.120.187:8080"
-                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                            let baseUrl = "http://34.64.120.187:8080"
+//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                            cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                         } else {
                             print("Profile image URL is nil")
                         }
@@ -417,9 +419,10 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         if let userProfile = viewModel.getUserProfileModel(for: authorId) {
                 cell.nameLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-                    let baseUrl = "http://34.64.120.187:8080"
-                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                    let baseUrl = "http://34.64.120.187:8080"
+//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                    cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                 } else {
                     print("Profile image URL is nil")
                 }
@@ -429,9 +432,10 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
                     DispatchQueue.main.async {
                         cell.nameLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-                            let baseUrl = "http://34.64.120.187:8080"
-                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                            let baseUrl = "http://34.64.120.187:8080"
+//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                            cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                         } else {
                             print("Profile image URL is nil")
                         }
