@@ -203,8 +203,10 @@ class EditProfileVC: UIViewController {
 
     // MARK: - Bind Data
     private func bind() {
-        let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
-            imageUrlStr.loadAsyncImage(profileImage)
+//        let imageUrlStr = "http://34.64.120.187:8080\(viewModel.getProfileImage())"
+//        imageUrlStr.loadAsyncImage(profileImage)
+        profileImage.loadImage(urlWithoutBaseURL: viewModel.getProfileImage())
+        
         
         viewModel.myPageModelDidChange = { [weak self] in
             DispatchQueue.main.async {

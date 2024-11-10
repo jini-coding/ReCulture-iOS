@@ -501,7 +501,8 @@ class SearchRecordDetailVC: UIViewController {
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.backgroundColor = UIColor.lightGray
             
-            imageUrl.loadAsyncImage(imageView)
+//            imageUrl.loadAsyncImage(imageView)
+            imageView.loadImage(urlWithoutBaseURL: imageUrlStr)
             
             imageStackView.addArrangedSubview(imageView)
             

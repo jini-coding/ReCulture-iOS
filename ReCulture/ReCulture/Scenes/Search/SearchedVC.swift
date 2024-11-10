@@ -415,9 +415,11 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if let userProfile = viewModel.getUserProfileModel(for: authorId!) {
                     cell.creatorLabel.text = userProfile.nickname
                     if let profileImageUrl = userProfile.profilePhoto {
-                        let baseUrl = "http://34.64.120.187:8080"
-                        let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                        let baseUrl = "http://34.64.120.187:8080"
+//                        let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                        imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
+                        
                     } else {
                         print("Profile image URL is nil")
                     }
@@ -427,9 +429,10 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         DispatchQueue.main.async {
                             cell.creatorLabel.text = userProfile?.nickname
                             if let profileImageUrl = userProfile?.profilePhoto {
-                                let baseUrl = "http://34.64.120.187:8080"
-                                let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-                                imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                                let baseUrl = "http://34.64.120.187:8080"
+//                                let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+//                                imageUrlStr.loadAsyncImage(cell.profileImageView)
+                                cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                             } else {
                                 print("Profile image URL is nil")
                             }
@@ -460,9 +463,10 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.categoryLabel.text = category
             
             if let firstPhoto = model.photos?.first, let photoUrl = firstPhoto.url {
-                let baseUrl = "http://34.64.120.187:8080"
-                let imageUrlStr = "\(baseUrl)\(photoUrl)"
-                imageUrlStr.loadAsyncImage(cell.contentImageView)
+//                let baseUrl = "http://34.64.120.187:8080"
+//                let imageUrlStr = "\(baseUrl)\(photoUrl)"
+//                imageUrlStr.loadAsyncImage(cell.contentImageView)
+                cell.contentImageView.loadImage(urlWithoutBaseURL: photoUrl)
             }
             
             return cell
@@ -475,9 +479,10 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.nameLabel.text = userModel.nickname
             
             if let profilePhotoUrl = userModel.profilePhoto {
-                let baseUrl = "http://34.64.120.187:8080"
-                let imageUrlStr = "\(baseUrl)\(profilePhotoUrl)"
-                imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                let baseUrl = "http://34.64.120.187:8080"
+//                let imageUrlStr = "\(baseUrl)\(profilePhotoUrl)"
+//                imageUrlStr.loadAsyncImage(cell.profileImageView)
+                cell.profileImageView.loadImage(urlWithoutBaseURL: profilePhotoUrl)
             }
             
             cell.followAction = { [weak self] in

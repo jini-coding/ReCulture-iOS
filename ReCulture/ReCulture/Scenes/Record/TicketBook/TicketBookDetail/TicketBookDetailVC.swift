@@ -461,8 +461,9 @@ class TicketBookDetailVC: UIViewController {
 //        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
 //        imageUrlStr.loadAsyncImage(ticketImageView)
         
-        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
-        imageUrlStr.loadAsyncImage(ticketImageView)
+//        let imageUrlStr = "http://34.64.120.187:8080\(ticketBookModel.imageURL)"
+//        imageUrlStr.loadAsyncImage(ticketImageView)
+        ticketImageView.loadImage(urlWithoutBaseURL: ticketBookModel.imageURL)
         //applyImageMask(frameID: ticketBookModel.frame)
         
         ticketTitleLabel.text = ticketBookModel.title
