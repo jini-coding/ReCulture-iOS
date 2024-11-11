@@ -14,6 +14,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     private let searchviewModel = SearchViewModel()
     
     var userId: Int = 0
+    var isCurrentUserProfile: Bool = false
     
     let profileView: UIView = {
         let view = UIView()
@@ -138,14 +139,41 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
         bind()
         loadUserProfile(userId: userId)
-        viewModel.getuserRecords(userId: userId, fromCurrentVC: self)
+        //viewModel.getuserRecords(userId: userId, fromCurrentVC: self)
+        
+        if let currentUserId = getCurrentUserId() {
+            if currentUserId == userId {
+                isCurrentUserProfile = true
+                viewModel.getmyRecords(fromCurrentVC: self)
+                followButton.isHidden = true
+            } else {
+                isCurrentUserProfile = false
+                viewModel.getuserRecords(userId: userId, fromCurrentVC: self)
+                followButton.isHidden = false
+            }
+        } else {
+            print("error")
+        }
     }
     
     private func bind() {
-        viewModel.allUserRecordModelDidChange = { [weak self] in
-             DispatchQueue.main.async {
-                 self?.contentTableView.reloadData()
-             }
+        let currentUserId = getCurrentUserId()
+        
+        if currentUserId == userId {
+            viewModel.allRecordModelDidChange = { [weak self] in
+                 DispatchQueue.main.async {
+                     print("Current user records did change, reloading data")
+                     self?.contentTableView.reloadData()
+                 }
+            }
+        }
+        else {
+            viewModel.allUserRecordModelDidChange = { [weak self] in
+                 DispatchQueue.main.async {
+                     print("Other user records did change, reloading data")
+                     self?.contentTableView.reloadData()
+                 }
+            }
         }
         
         searchviewModel.userProfileDetailDidChange = { [weak self] in
@@ -156,6 +184,10 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
             }
         }
+    }
+    
+    private func getCurrentUserId() -> Int? {
+        return UserDefaults.standard.integer(forKey: "userId")
     }
     
     private func loadUserProfile(userId: Int) {
@@ -281,96 +313,211 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.userrecordCount()
+        //return viewModel.userrecordCount()
+        return isCurrentUserProfile ? viewModel.recordCount() : viewModel.userrecordCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserRecordContentCell.cellId, for: indexPath) as! UserRecordContentCell
         cell.selectionStyle = .none
         
-        let model = viewModel.getUserRecord(at: indexPath.row)
+        //let model = viewModel.getUserRecord(at: indexPath.row)
+        let model = isCurrentUserProfile ? viewModel.getRecord(at: indexPath.row) : viewModel.getUserRecord(at: indexPath.row)
         
         let authorId = model.culture.authorId
         let userProfile = searchviewModel.getUserProfileModel(for: authorId)
         
-        cell.titleLabel.text = model.culture.title
-        //cell.nameLabel.text = "\(myviewModel.getNickname())"
+        if isCurrentUserProfile { // 현재 사용자의 프로필일 경우
+            cell.titleLabel.text = model.culture.title
+            cell.nameLabel.text = "\(myviewModel.getNickname())"
+            
+    //        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
+    //        imageUrlStr.loadAsyncImage(cell.profileImageView)
+            cell.profileImageView.loadImage(urlWithoutBaseURL: myviewModel.getProfileImage())
+            
+            let category: String
+            switch model.culture.categoryId {
+            case 1:
+                category = "영화"
+            case 2:
+                category = "뮤지컬"
+            case 3:
+                category = "연극"
+            case 4:
+                category = "스포츠"
+            case 5:
+                category = "콘서트"
+            case 6:
+                category = "드라마"
+            case 7:
+                category = "독서"
+            case 8:
+                category = "전시회"
+            case 9:
+                category = "기타"
+            default:
+                category = "기타"
+            }
+            cell.categoryLabel.text = category
+            
+            cell.createDateLabel.text = model.culture.date.toDate()?.toString()
+            cell.commentLabel.text = model.culture.review
+            
+            // Configure the images using the new method
+            let imageUrls = model.photoDocs.map { "\($0.url)" }
+            cell.configureImages(imageUrls)
+        }
+        else { // 다른 사용자의 프로필일 경우
+            cell.titleLabel.text = model.culture.title
+            //cell.nameLabel.text = "\(myviewModel.getNickname())"
 
-        if let userProfile = searchviewModel.getUserProfileModel(for: authorId) {
-            cell.nameLabel.text = userProfile.nickname
-                if let profileImageUrl = userProfile.profilePhoto {
-//                    let baseUrl = "http://34.64.120.187:8080"
-//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
-                    cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
+            if let userProfile = searchviewModel.getUserProfileModel(for: authorId) {
+                cell.nameLabel.text = userProfile.nickname
+                    if let profileImageUrl = userProfile.profilePhoto {
+    //                    let baseUrl = "http://34.64.120.187:8080"
+    //                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+    //                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+                        cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
+                    } else {
+                        print("Profile image URL is nil")
+                    }
                 } else {
-                    print("Profile image URL is nil")
-                }
-            } else {
-                // Fetch user profile if not loaded yet
-                searchviewModel.getUserProfile(userId: authorId) { userProfile in
-                    DispatchQueue.main.async {
-                        cell.nameLabel.text = userProfile?.nickname
-                        if let profileImageUrl = userProfile?.profilePhoto {
-//                            let baseUrl = "http://34.64.120.187:8080"
-//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
-                            cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
-                        } else {
-                            print("Profile image URL is nil")
+                    // Fetch user profile if not loaded yet
+                    searchviewModel.getUserProfile(userId: authorId) { userProfile in
+                        DispatchQueue.main.async {
+                            cell.nameLabel.text = userProfile?.nickname
+                            if let profileImageUrl = userProfile?.profilePhoto {
+    //                            let baseUrl = "http://34.64.120.187:8080"
+    //                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+    //                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+                                cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
+                            } else {
+                                print("Profile image URL is nil")
+                            }
                         }
                     }
                 }
+            
+            cell.createDateLabel.text = model.culture.date.toDate()?.toString()
+            
+            let category: String
+            switch model.culture.categoryId {
+            case 1:
+                category = "영화"
+            case 2:
+                category = "뮤지컬"
+            case 3:
+                category = "연극"
+            case 4:
+                category = "스포츠"
+            case 5:
+                category = "콘서트"
+            case 6:
+                category = "드라마"
+            case 7:
+                category = "독서"
+            case 8:
+                category = "전시회"
+            case 9:
+                category = "기타"
+            default:
+                category = "기타"
             }
-        
-        cell.createDateLabel.text = model.culture.date.toDate()?.toString()
-        
-        let category: String
-        switch model.culture.categoryId {
-        case 1:
-            category = "영화"
-        case 2:
-            category = "뮤지컬"
-        case 3:
-            category = "연극"
-        case 4:
-            category = "스포츠"
-        case 5:
-            category = "콘서트"
-        case 6:
-            category = "드라마"
-        case 7:
-            category = "독서"
-        case 8:
-            category = "전시회"
-        case 9:
-            category = "기타"
-        default:
-            category = "기타"
+            cell.categoryLabel.text = category
+            
+            cell.commentLabel.text = model.culture.review
+            
+            // Configure images
+            let imageUrls = model.photoDocs.map { "\($0.url)" }
+            cell.configureImages(imageUrls)
         }
-        cell.categoryLabel.text = category
         
-        cell.commentLabel.text = model.culture.review
-        
-        // Configure images
-        let imageUrls = model.photoDocs.map { "\($0.url)" }
-        cell.configureImages(imageUrls)
+//        cell.titleLabel.text = model.culture.title
+//        //cell.nameLabel.text = "\(myviewModel.getNickname())"
+//
+//        if let userProfile = searchviewModel.getUserProfileModel(for: authorId) {
+//            cell.nameLabel.text = userProfile.nickname
+//                if let profileImageUrl = userProfile.profilePhoto {
+////                    let baseUrl = "http://34.64.120.187:8080"
+////                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+////                    imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                    cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
+//                } else {
+//                    print("Profile image URL is nil")
+//                }
+//            } else {
+//                // Fetch user profile if not loaded yet
+//                searchviewModel.getUserProfile(userId: authorId) { userProfile in
+//                    DispatchQueue.main.async {
+//                        cell.nameLabel.text = userProfile?.nickname
+//                        if let profileImageUrl = userProfile?.profilePhoto {
+////                            let baseUrl = "http://34.64.120.187:8080"
+////                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
+////                            imageUrlStr.loadAsyncImage(cell.profileImageView)
+//                            cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
+//                        } else {
+//                            print("Profile image URL is nil")
+//                        }
+//                    }
+//                }
+//            }
+//        
+//        cell.createDateLabel.text = model.culture.date.toDate()?.toString()
+//        
+//        let category: String
+//        switch model.culture.categoryId {
+//        case 1:
+//            category = "영화"
+//        case 2:
+//            category = "뮤지컬"
+//        case 3:
+//            category = "연극"
+//        case 4:
+//            category = "스포츠"
+//        case 5:
+//            category = "콘서트"
+//        case 6:
+//            category = "드라마"
+//        case 7:
+//            category = "독서"
+//        case 8:
+//            category = "전시회"
+//        case 9:
+//            category = "기타"
+//        default:
+//            category = "기타"
+//        }
+//        cell.categoryLabel.text = category
+//        
+//        cell.commentLabel.text = model.culture.review
+//        
+//        // Configure images
+//        let imageUrls = model.photoDocs.map { "\($0.url)" }
+//        cell.configureImages(imageUrls)
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = viewModel.getUserRecord(at: indexPath.row)
-        let authorId = model.culture.authorId
-        
-        let userProfile = searchviewModel.getUserProfileModel(for: authorId)
+        let model = isCurrentUserProfile ? viewModel.getRecord(at: indexPath.row) : viewModel.getUserRecord(at: indexPath.row)
         let vc = SearchRecordDetailVC()
         
-        vc.recordId = model.culture.id
-        vc.titleText = model.culture.title
+        if isCurrentUserProfile {
+            vc.recordId = model.culture.id
+            vc.titleText = model.culture.title
+            vc.creator = myviewModel.getNickname() // 현재 사용자의 닉네임 설정
+            vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+        }
+        else {
+            let authorId = model.culture.authorId
+            let userProfile = searchviewModel.getUserProfileModel(for: authorId)
+            
+            vc.recordId = model.culture.id
+            vc.titleText = model.culture.title
 
-        vc.creator = userProfile?.nickname ?? "Unknown"
-        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+            vc.creator = userProfile?.nickname ?? "Unknown"
+            vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
+        }
 
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)

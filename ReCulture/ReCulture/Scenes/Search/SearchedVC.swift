@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     private let viewModel = SearchViewModel()
     private let userViewModel = MypageViewModel()
@@ -101,6 +101,8 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         setupTableViews()
         
         hideKeyboard()
+        
+        searchTextField.delegate = self
         
         recordTableView.delegate = self
         recordTableView.dataSource = self
@@ -272,6 +274,19 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("Reloading userTableView")
             userTableView.reloadData()
         }
+    }
+    
+    func textFieldShouldReturn2(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        guard let searchString = textField.text, !searchString.isEmpty else {
+            return false
+        }
+        
+        // 새로운 검색 실행
+        performSearch(searchText: searchString)
+        
+        return true
     }
     
     func setupCategoryView() {
@@ -474,6 +489,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendProfileCell.cellId, for: indexPath) as? FriendProfileCell else {
                 return UITableViewCell()
             }
+            cell.selectionStyle = .none
             
             let userModel = viewModel.getUser(at: indexPath.row)
             cell.nameLabel.text = userModel.nickname
@@ -569,11 +585,14 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         else if tableView == userTableView {
             
-//            let selectedUser = viewModel.followings[indexPath.row]
-//            let userProfileVC = UserProfileVC()
-//            //userProfileVC.userId = selectedFollowing.followingID
-//            userProfileVC.userId = selectedFollowing.followingID
-//            navigationController?.pushViewController(userProfileVC, animated: true)
+            let selectedUser = viewModel.getUser(at: indexPath.row)
+            let userProfileVC = UserProfileVC()
+            //userProfileVC.userId = selectedFollowing.followingID
+            userProfileVC.userId = selectedUser.userId!
+            
+            userProfileVC.hidesBottomBarWhenPushed = true
+            navigationController?.isNavigationBarHidden = false
+            navigationController?.pushViewController(userProfileVC, animated: true)
             
         }
     }
@@ -699,8 +718,30 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+//    private func performSearch(searchText: String) {
+//        // Fetch searched records
+//        viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText) { [weak self] in
+//            DispatchQueue.main.async {
+//                if self?.segmentedControl.selectedSegmentIndex == 0 {
+//                    self?.recordTableView.reloadData()
+//                }
+//            }
+//        }
+//        
+//        // Fetch searched users
+//        viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText) { [weak self] in
+//            DispatchQueue.main.async {
+//                if self?.segmentedControl.selectedSegmentIndex == 1 {
+//                    self?.userTableView.reloadData()
+//                }
+//            }
+//        }
+//    }
+    
     private func performSearch(searchText: String) {
-        // Fetch searched records
+        self.searchText = searchText // 현재 검색어 업데이트
+
+        // 검색 레코드 가져오기
         viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText) { [weak self] in
             DispatchQueue.main.async {
                 if self?.segmentedControl.selectedSegmentIndex == 0 {
@@ -709,7 +750,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        // Fetch searched users
+        // 검색 사용자 가져오기
         viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText) { [weak self] in
             DispatchQueue.main.async {
                 if self?.segmentedControl.selectedSegmentIndex == 1 {
@@ -718,22 +759,6 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
-//
-//    private func performSearch(searchText: String) {
-//        viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText) { [weak self] in
-//            DispatchQueue.main.async {
-//                print("리로드")
-//                self?.recordTableView.reloadData()
-//            }
-//        }
-//        viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText) { [weak self] in
-//            DispatchQueue.main.async {
-//                print("리로드")
-//                self?.recordTableView.reloadData()
-//            }
-//        }
-//    }
     
     func hideKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
