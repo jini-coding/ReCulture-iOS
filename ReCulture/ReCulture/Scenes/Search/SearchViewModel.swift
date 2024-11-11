@@ -229,6 +229,10 @@ class SearchViewModel {
         return userProfileDetail?.profilePhoto ?? "no_img"
     }
     
+    func getNickname() -> String {
+        return userProfileDetail?.nickname ?? "Unknown user"
+    }
+    
     private func convertToSearchModels(DTOs: [SearchResponseDTO.SearchRecordDTO]) -> [SearchModel] {
         return DTOs.map { dto in
             SearchModel(
