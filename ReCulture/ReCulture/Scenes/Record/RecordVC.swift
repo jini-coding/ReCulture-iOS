@@ -151,7 +151,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.commentLabel.text = model.culture.review
         
         // Configure the images using the new method
-        let imageUrls = model.photoDocs.map { "http://34.64.120.187:8080\($0.url)" }
+        let imageUrls = model.photoDocs.map { "\($0.url)" }
         cell.configureImages(imageUrls)
         
         return cell
@@ -553,8 +553,8 @@ class RecordContentCell: UITableViewCell {
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.backgroundColor = UIColor.lightGray
 
-            imageUrlStr.loadAsyncImage(imageView)
-            //imageView.loadImage(urlWithoutBaseURL: imageUrlStr)
+            //imageUrlStr.loadAsyncImage(imageView)
+            imageView.loadImage(urlWithoutBaseURL: imageUrlStr)
 
             imageStackView.addArrangedSubview(imageView)
 
