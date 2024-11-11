@@ -40,7 +40,8 @@ struct sendRequestAPI: ServableAPI {
     var method: HTTPMethod { .post }
     var path: String { "/follow/request" }
     var parameters: [String: String] { return [:] }
-    var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)"] }
+    var headers: [String : String]? { ["Authorization": "Bearer \(KeychainManager.shared.getToken(type: .accessToken)!)",
+                                       "Content-Type": "application/json"] }
 
     var requestBody: Encodable? { requestDTO }
 }

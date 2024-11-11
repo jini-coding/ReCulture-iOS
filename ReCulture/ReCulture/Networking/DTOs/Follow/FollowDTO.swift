@@ -58,7 +58,7 @@ struct FollowStateDTO: Codable {
     let updatedAt: String
 }
 
-struct SendRequestDTO: Codable {
+struct SendRequestDTO: Encodable {
     let receiverId: Int
 }
 

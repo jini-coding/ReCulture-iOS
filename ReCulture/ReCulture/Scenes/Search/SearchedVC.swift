@@ -489,9 +489,9 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 guard let self = self else { return }
                 
                 // Create the DTO with receiverId from userModel.id
-                let requestDTO = SendRequestDTO(receiverId: userModel.id!)
+                let requestDTO = SendRequestDTO(receiverId: userModel.userId!)
                 
-                print("Sending follow request for user ID: \(userModel.id)")
+                print("Sending follow request for user ID: \(userModel.userId)")
                 self.userViewModel.sendRequest(requestDTO: requestDTO)
             }
             
@@ -552,23 +552,29 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == recordTableView {
-            // Get the selected record
             let selectedRecord = viewModel.getSearchedRecord(at: indexPath.row)
             
-            // Initialize the detail view controller
             let detailVC = SearchRecordDetailVC()
             
-            // Pass the necessary data to the detail view controller
             detailVC.recordId = selectedRecord.id ?? 0
             detailVC.titleText = selectedRecord.title ?? "No Title"
             detailVC.creator = viewModel.getUserProfileModel(for: selectedRecord.authorId ?? 0)?.nickname ?? "Unknown Creator"
             detailVC.createdAt = selectedRecord.createdAt ?? "Unknown Date"
             detailVC.contentImage = selectedRecord.photos?.compactMap { $0.url } ?? []
 
-            // Navigate to the detail view controller
             detailVC.hidesBottomBarWhenPushed = true
             navigationController?.isNavigationBarHidden = false
             navigationController?.pushViewController(detailVC, animated: true)
+        }
+        
+        else if tableView == userTableView {
+            
+//            let selectedUser = viewModel.followings[indexPath.row]
+//            let userProfileVC = UserProfileVC()
+//            //userProfileVC.userId = selectedFollowing.followingID
+//            userProfileVC.userId = selectedFollowing.followingID
+//            navigationController?.pushViewController(userProfileVC, animated: true)
+            
         }
     }
 
@@ -995,7 +1001,7 @@ class FriendProfileCell: UITableViewCell {
          print("Follow button tapped")
         
          followButton.setTitle("요청중", for: .normal)
-         followButton.backgroundColor = UIColor.lightGray
+         followButton.backgroundColor = UIColor(hexCode: "#ECEFF7")
          followButton.setTitleColor(UIColor.black, for: .normal)
      }
 
