@@ -284,7 +284,7 @@ class MypageViewModel {
                 self.requestState = model
                 print("친구요청 발송 완료")
             case .failure(let error):
-                print("-- record detail view model --")
+                print("-- send follow request --")
                 print(error)
             }
         }
