@@ -62,6 +62,27 @@ final class TicketBookVC: UIViewController, TicketCustomizingDelegate {
         return view
     }()
     
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "아직 만들어진 티켓이 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -73,6 +94,8 @@ final class TicketBookVC: UIViewController, TicketCustomizingDelegate {
         
         setTagCollectionView()
         setTicketCollectionView()
+        
+        setupEmptyView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,9 +144,27 @@ final class TicketBookVC: UIViewController, TicketCustomizingDelegate {
         ])
     }
     
+    private func setupEmptyView() {
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyView)
+        
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            emptyView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        ])
+    }
+    
+    private func updateEmptyView() {
+        let hasData = viewModel.getMyTicketBookCount() > 0
+        emptyView.isHidden = hasData
+    }
+    
     private func bind() {
         viewModel.myTicketBookListDidChange = { [weak self] in
             DispatchQueue.main.async {
+                self?.updateEmptyView()
                 self?.ticketCollectionView.reloadData()
             }
         }

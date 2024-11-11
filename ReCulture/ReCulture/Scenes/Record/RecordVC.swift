@@ -76,7 +76,26 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return tableview
     }()
     
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "아직 작성한 기록이 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
 
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +118,8 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         contentTableView.rowHeight = UITableView.automaticDimension
         contentTableView.estimatedRowHeight = 390
+        
+        setupEmptyView()
         
         /// refresh 추가하게 되면 밑에 주석 해제
         /// RefreshControl 세팅
@@ -123,10 +144,15 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private func bind() {
         viewModel.allRecordModelDidChange = { [weak self] in
              DispatchQueue.main.async {
+                 self?.updateEmptyView()
                  self?.contentTableView.reloadData()
              }
         }
-        
+    }
+    
+    private func updateEmptyView() {
+        let hasData = viewModel.recordCount() > 0
+        emptyView.isHidden = hasData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -267,6 +293,18 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         setupCategoryButtons()
 
+    }
+    
+    private func setupEmptyView() {
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyView)
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: contentTableView.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: contentTableView.bottomAnchor)
+        ])
     }
     
     func setupCategoryButtons() {

@@ -124,6 +124,27 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return tableview
     }()
     
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "아직 작성된 기록이 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +153,16 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         setupProfileView()
         setupContentView()
+        
+        view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: recordContentsView.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: recordContentsView.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: recordContentsView.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: recordContentsView.bottomAnchor)
+        ])
         
         contentTableView.delegate = self
         contentTableView.dataSource = self
@@ -162,7 +193,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if currentUserId == userId {
             viewModel.allRecordModelDidChange = { [weak self] in
                  DispatchQueue.main.async {
-                     print("Current user records did change, reloading data")
+                     self?.updateEmptyView()
                      self?.contentTableView.reloadData()
                  }
             }
@@ -170,7 +201,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         else {
             viewModel.allUserRecordModelDidChange = { [weak self] in
                  DispatchQueue.main.async {
-                     print("Other user records did change, reloading data")
+                     self?.updateEmptyView()
                      self?.contentTableView.reloadData()
                  }
             }
@@ -192,6 +223,11 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     private func loadUserProfile(userId: Int) {
         searchviewModel.getUserProfileDetails(userId: userId)
+    }
+    
+    private func updateEmptyView() {
+        let hasData = isCurrentUserProfile ? viewModel.recordCount() > 0 : viewModel.userrecordCount() > 0
+        emptyView.isHidden = hasData
     }
     
     private func updateUI(with profile: UserProfileModel) {
