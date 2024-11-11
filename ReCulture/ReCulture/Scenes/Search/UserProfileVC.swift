@@ -329,11 +329,11 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         if isCurrentUserProfile { // 현재 사용자의 프로필일 경우
             cell.titleLabel.text = model.culture.title
-            cell.nameLabel.text = "\(myviewModel.getNickname())"
+            cell.nameLabel.text = searchviewModel.getNickname()
             
     //        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
     //        imageUrlStr.loadAsyncImage(cell.profileImageView)
-            cell.profileImageView.loadImage(urlWithoutBaseURL: myviewModel.getProfileImage())
+            cell.profileImageView.loadImage(urlWithoutBaseURL: searchviewModel.getProfileImage())
             
             let category: String
             switch model.culture.categoryId {
