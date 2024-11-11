@@ -130,6 +130,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func hideKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                                  action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
         
