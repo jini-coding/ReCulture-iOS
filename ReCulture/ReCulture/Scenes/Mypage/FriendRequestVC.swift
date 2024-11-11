@@ -10,6 +10,7 @@ import UIKit
 class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let viewModel = MypageViewModel()
+    private let searchviewModel = SearchViewModel()
     var pendings: [FollowStateDTO] = []
     
     struct Friend {
@@ -41,6 +42,27 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         return tableview
     }()
+    
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "아직 새로운 친구 요청이 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,14 +80,22 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         requestTableView.delegate = self
         requestTableView.dataSource = self
+        
+        setupEmptyView()
     }
     
     private func bind() {
         viewModel.pendingsDidChange = { [weak self] in
             DispatchQueue.main.async {
+                self?.updateEmptyView()
                 self?.requestTableView.reloadData()
             }
         }
+    }
+    
+    private func updateEmptyView() {
+        let hasData = viewModel.pendings.count > 0
+        emptyView.isHidden = hasData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,8 +116,6 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.nameLabel.text = userProfile.nickname
             cell.idLabel.text = "@\(authorId)"
             if let profileImageUrl = userProfile.profilePhoto {
-//                let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
-//                imageUrlStr.loadAsyncImage(cell.profileImageView) // 프로필 이미지 비동기 로드
                 cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
             }
         } else {
@@ -97,8 +125,6 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.nameLabel.text = userProfile?.nickname
                     cell.idLabel.text = "@\(authorId)"
                     if let profileImageUrl = userProfile?.profilePhoto {
-//                        let imageUrlStr = "http://34.64.120.187:8080\(profileImageUrl)"
-//                        imageUrlStr.loadAsyncImage(cell.profileImageView)
                         cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                     }
                 }
@@ -118,6 +144,26 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedUser = searchviewModel.getUser(at: indexPath.row)
+        let userProfileVC = UserProfileVC()
+        //userProfileVC.userId = selectedFollowing.followingID // Pass any necessary data to UserProfileVC
+        userProfileVC.userId = selectedUser.userId!
+        navigationController?.pushViewController(userProfileVC, animated: true)
+    }
+
+    private func setupEmptyView() {
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyView)
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: requestTableView.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: requestTableView.bottomAnchor)
+        ])
     }
     
     func setupTitleLabel() {

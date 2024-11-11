@@ -208,6 +208,27 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         
         return tableview
     }()
+    
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "아직 나를 팔로우한 친구가 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,14 +246,22 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         
         followerTableView.delegate = self
         followerTableView.dataSource = self
+        
+        setupEmptyView()
     }
     
     private func bind() {
         viewModel.followersDidChange = { [weak self] in
             DispatchQueue.main.async {
+                self?.updateEmptyView()
                 self?.followerTableView.reloadData()
             }
         }
+    }
+    
+    private func updateEmptyView() {
+        let hasData = viewModel.followers.count > 0
+        emptyView.isHidden = hasData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -356,6 +385,18 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
             followerTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private func setupEmptyView() {
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyView)
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: followerTableView.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: followerTableView.bottomAnchor)
+        ])
+    }
 }
 
 class FollowingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -377,6 +418,27 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         
         return tableview
     }()
+    
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "아직 팔로우하는 친구가 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -394,14 +456,22 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         
         followingTableView.delegate = self
         followingTableView.dataSource = self
+        
+        setupEmptyView()
     }
     
     private func bind() {
         viewModel.followingsDidChange = { [weak self] in
             DispatchQueue.main.async {
+                self?.updateEmptyView()
                 self?.followingTableView.reloadData()
             }
         }
+    }
+    
+    private func updateEmptyView() {
+        let hasData = viewModel.followings.count > 0
+        emptyView.isHidden = hasData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -487,6 +557,18 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
             followingTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             followingTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             followingTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setupEmptyView() {
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyView)
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: followingTableView.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: followingTableView.bottomAnchor)
         ])
     }
 }

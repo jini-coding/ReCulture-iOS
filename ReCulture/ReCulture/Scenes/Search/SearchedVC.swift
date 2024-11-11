@@ -88,6 +88,69 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         return tableView
     }()
     
+    let emptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "검색된 내용이 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
+    
+    let recordEmptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "검색된 내용이 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
+    
+    let userEmptyView: UIView = {
+        let view = UIView()
+        let label = UILabel()
+        
+        label.text = "검색된 유저가 없어요"
+        label.textColor = UIColor.rcGray300
+        label.font = UIFont.rcFont16M()
+        label.textAlignment = .center
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        view.isHidden = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
@@ -119,6 +182,8 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
         
         bind()
+        
+        //setupEmptyView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,6 +245,30 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         return true
     }
+    
+//    private func setupEmptyView() {
+//        emptyView.translatesAutoresizingMaskIntoConstraints = false
+//        contentsView.addSubview(emptyView)
+//        
+//        NSLayoutConstraint.activate([
+//            emptyView.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
+//            emptyView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
+//            emptyView.widthAnchor.constraint(equalTo: contentsView.widthAnchor),
+//            emptyView.heightAnchor.constraint(equalTo: contentsView.heightAnchor)
+//        ])
+//    }
+//    
+//    private func setupUserEmptyView() {
+//        userEmptyView.translatesAutoresizingMaskIntoConstraints = false
+//        contentsView.addSubview(userEmptyView)
+//        
+//        NSLayoutConstraint.activate([
+//            userEmptyView.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
+//            userEmptyView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
+//            userEmptyView.widthAnchor.constraint(equalTo: contentsView.widthAnchor),
+//            userEmptyView.heightAnchor.constraint(equalTo: contentsView.heightAnchor)
+//        ])
+//    }
     
     func setupContentsView() {
         view.addSubview(contentsView)
@@ -262,18 +351,16 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             categoryScrollView.isHidden = false
             recordTableView.isHidden = false
             userTableView.isHidden = true
-            
-            print("Reloading recordTableView")
             recordTableView.reloadData()
             
         } else {
             categoryScrollView.isHidden = true
             recordTableView.isHidden = true
             userTableView.isHidden = false
-            
-            print("Reloading userTableView")
             userTableView.reloadData()
         }
+        
+        //updateEmptyView()
     }
     
     func textFieldShouldReturn2(_ textField: UITextField) -> Bool {
@@ -596,59 +683,6 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
         }
     }
-
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let model = viewModel.getRecord(at: indexPath.row)
-//        let vc = SearchRecordDetailVC()
-//        vc.recordId = model.id ?? 0
-//        vc.titleText = model.title ?? "Unknown Title"
-//        vc.creator = "Creator"
-//        vc.createdAt = model.createdAt ?? "Unknown Date"
-//        vc.contentImage = model.photos?.compactMap { $0.url } ?? []
-//        
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if tableView == recordTableView {
-//            let model = viewModel.getSearchedRecord(at: indexPath.row)
-//            
-//            let detailModel = viewModel.getRecord(at: indexPath.row)
-//            
-//            let authorId = model.authorId ?? 1
-//            print("Cell \(indexPath.row) selected")
-//            
-//            let userProfile = viewModel.getUserProfileModel(for: authorId)
-//            let vc = SearchRecordDetailVC()
-//
-//            //        vc.recordId = model.id!
-//            //        vc.titleText = model.title!
-//            if let recordId = detailModel.id {
-//                vc.recordId = recordId
-//            } else {
-//                print("Record ID is nil")
-//            }
-//            
-//            if let titleText = detailModel.title {
-//                vc.titleText = titleText
-//            } else {
-//                print("Title is nil")
-//            }
-//            vc.creator = userProfile?.nickname ?? "Unknown"
-//            vc.createdAt = detailModel.createdAt?.toDate()?.toString() ?? model.createdAt!
-//            
-//            if let photos = detailModel.photos {
-//                vc.contentImage = photos.compactMap { $0.url }
-//            } else {
-//                vc.contentImage = []
-//            }
-//            
-//            vc.hidesBottomBarWhenPushed = true
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
-//
-//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
@@ -699,6 +733,16 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
 
+    private func updateEmptyView() {
+        let hasData = (segmentedControl.selectedSegmentIndex == 0)
+            ? viewModel.searchedRecordCount() > 0
+            : viewModel.userCount() > 0
+
+        emptyView.isHidden = hasData
+        recordTableView.isHidden = segmentedControl.selectedSegmentIndex == 0 ? !hasData : true
+        userTableView.isHidden = segmentedControl.selectedSegmentIndex == 1 ? !hasData : true
+    }
+
 
     private func bind() {
         viewModel.allSearchedModelsDidChange = { [weak self] in
@@ -741,7 +785,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     private func performSearch(searchText: String) {
         self.searchText = searchText // 현재 검색어 업데이트
 
-        // 검색 레코드 가져오기
+        // 검색된 기록 가져오기
         viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText) { [weak self] in
             DispatchQueue.main.async {
                 if self?.segmentedControl.selectedSegmentIndex == 0 {
@@ -750,7 +794,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
         
-        // 검색 사용자 가져오기
+        // 검색된 유저 가져오기
         viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText) { [weak self] in
             DispatchQueue.main.async {
                 if self?.segmentedControl.selectedSegmentIndex == 1 {
