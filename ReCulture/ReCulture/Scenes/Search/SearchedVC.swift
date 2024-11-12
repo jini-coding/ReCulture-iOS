@@ -13,7 +13,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     private let userViewModel = MypageViewModel()
 
     var selectedCategory: String = "전체"
-    var isFetching = false // 페이지네이션 로딩 상태
+    private var isFetching = false // 페이지네이션 로딩 상태
     var searchText: String?
     
     let underLineView: UIView = {
@@ -457,7 +457,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if let selectedCategory = sender.currentTitle {
             self.selectedCategory = selectedCategory
             updateCategoryButtonAppearance()
-            viewModel.filterRecords(by: selectedCategory)
+            viewModel.filterRecords(by: selectedCategory, isSearchMode: true)
         }
     }
     
@@ -690,44 +690,44 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let frameHeight = scrollView.frame.size.height
 
         if position > (contentHeight - frameHeight - 100) && !isFetching {
-            isFetching = true
             if segmentedControl.selectedSegmentIndex == 0 {
                 // Record Pagination
-                if viewModel.canLoadMorePages() {
-                    let previousContentHeight = recordTableView.contentSize.height
-                    let previousOffsetY = scrollView.contentOffset.y
-                    
-                    viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText ?? "") { [weak self] in
-                        guard let self = self else { return }
-                        DispatchQueue.main.async {
-                            self.recordTableView.reloadData()
-                            self.isFetching = false
-                            
-                            // Maintain the scroll position
-                            let newContentHeight = self.recordTableView.contentSize.height
-                            let offsetYAdjustment = newContentHeight - previousContentHeight
-                            self.recordTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
-                        }
-                    }
+                if viewModel.canLoadMoreSearchResultPages() {
+//                    let previousContentHeight = recordTableView.contentSize.height
+//                    let previousOffsetY = scrollView.contentOffset.y
+                    isFetching = true
+                    viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText ?? "") // { [weak self] in
+//                        guard let self = self else { return }
+//                        DispatchQueue.main.async {
+//                            self.recordTableView.reloadData()
+//                            self.isFetching = false
+//                            
+//                            // Maintain the scroll position
+//                            let newContentHeight = self.recordTableView.contentSize.height
+//                            let offsetYAdjustment = newContentHeight - previousContentHeight
+//                            self.recordTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
+//                        }
+//                    }
                 }
             } else if segmentedControl.selectedSegmentIndex == 1 {
                 // User Pagination
                 if viewModel.canLoadMoreUserPages() {
-                    let previousContentHeight = userTableView.contentSize.height
-                    let previousOffsetY = scrollView.contentOffset.y
+                    isFetching = true
+//                    let previousContentHeight = userTableView.contentSize.height
+//                    let previousOffsetY = scrollView.contentOffset.y
 
-                    viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText ?? "") { [weak self] in
-                        guard let self = self else { return }
-                        DispatchQueue.main.async {
-                            self.userTableView.reloadData()
-                            self.isFetching = false
-                            
-                            // Maintain the scroll position
-                            let newContentHeight = self.userTableView.contentSize.height
-                            let offsetYAdjustment = newContentHeight - previousContentHeight
-                            self.userTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
-                        }
-                    }
+                    viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText ?? "")  // { [weak self] in
+//                        guard let self = self else { return }
+//                        DispatchQueue.main.async {
+//                            self.userTableView.reloadData()
+//                            self.isFetching = false
+//                            
+//                            // Maintain the scroll position
+//                            let newContentHeight = self.userTableView.contentSize.height
+//                            let offsetYAdjustment = newContentHeight - previousContentHeight
+//                            self.userTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
+//                        }
+//                    }
                 }
             }
         }
@@ -747,17 +747,22 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     private func bind() {
         viewModel.allSearchedModelsDidChange = { [weak self] in
             DispatchQueue.main.async {
-                if self?.segmentedControl.selectedSegmentIndex == 0 {
+                self?.isFetching = true
+                //if self?.segmentedControl.selectedSegmentIndex == 0 {
                     self?.recordTableView.reloadData()
-                }
+                    self?.isFetching = false
+                //}
             }
         }
         
         viewModel.allUserSearchedModelsDidChange = { [weak self] in
             DispatchQueue.main.async {
-                if self?.segmentedControl.selectedSegmentIndex == 1 {
+                self?.isFetching = true
+                //if self?.segmentedControl.selectedSegmentIndex == 1 {
+                // 위의 if문 때문에 if문 안에 들어오지 못해서 isFetching이 계속 true임..
                     self?.userTableView.reloadData()
-                }
+                    self?.isFetching = false
+                //}
             }
         }
     }
@@ -786,22 +791,22 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.searchText = searchText // 현재 검색어 업데이트
 
         // 검색된 기록 가져오기
-        viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText) { [weak self] in
-            DispatchQueue.main.async {
-                if self?.segmentedControl.selectedSegmentIndex == 0 {
-                    self?.recordTableView.reloadData()
-                }
-            }
-        }
+        viewModel.getSearchedRecords(fromCurrentVC: self, searchString: searchText) // { [weak self] in
+//            DispatchQueue.main.async {
+//                if self?.segmentedControl.selectedSegmentIndex == 0 {
+//                    self?.recordTableView.reloadData()
+//                }
+//            }
+//        }
         
         // 검색된 유저 가져오기
-        viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText) { [weak self] in
-            DispatchQueue.main.async {
-                if self?.segmentedControl.selectedSegmentIndex == 1 {
-                    self?.userTableView.reloadData()
-                }
-            }
-        }
+        viewModel.getSearchedUsers(fromCurrentVC: self, nickname: searchText) // { [weak self] in
+//            DispatchQueue.main.async {
+//                if self?.segmentedControl.selectedSegmentIndex == 1 {
+//                    self?.userTableView.reloadData()
+//                }
+//            }
+//        }
     }
     
     func hideKeyboard() {

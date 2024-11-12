@@ -17,6 +17,7 @@ class SearchRecordDetailVC: UIViewController {
     var creator: String = ""
     var createdAt: String = ""
     var category: String = ""
+    var disclosure: String = ""
     var contentImage: [String] = []
     
     var isBookmarked: Bool = false {
@@ -153,6 +154,19 @@ class SearchRecordDetailVC: UIViewController {
         return label
     }()
     
+    let disclosureLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.rcFont14M()
+        label.textColor = UIColor.rcGray500
+        label.backgroundColor = UIColor.rcGrayBg
+        label.textAlignment = .center
+        label.layer.cornerRadius = 6
+        label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     let contentImageView: UIImageView = {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFill
@@ -241,13 +255,24 @@ class SearchRecordDetailVC: UIViewController {
                 self.createDateLabel.text = model.culture.date.toDate()?.toString() 
                 self.categoryLabel.text = category
                 
+                switch model.culture.disclosure {
+                case "PUBLIC":
+                    self.disclosure = "전체 공개"
+                case "FOLLOWER":
+                    self.disclosure = "팔로워 공개"
+                default:
+                    self.disclosure = "비공개"
+                }
+                self.disclosureLabel.text = self.disclosure
+                
                 self.contentImage = model.photoDocs.map { $0.url }
                 self.loadImagesIntoStackView()
 
                 if let imageUrl = self.contentImage.first {
-                    let baseUrl = "http://34.64.120.187:8080"
-                    let imageUrlStr = "\(baseUrl)\(imageUrl)"
-                    imageUrlStr.loadAsyncImage(self.contentImageView)
+//                    let baseUrl = "http://34.64.120.187:8080"
+//                    let imageUrlStr = "\(baseUrl)\(imageUrl)"
+//                    imageUrlStr.loadAsyncImage(self.contentImageView)
+                    self.contentImageView.loadImage(urlWithoutBaseURL: imageUrl)
                 }
 
                 if let recordType = RecordType(categoryId: model.culture.categoryId) {
@@ -431,12 +456,14 @@ class SearchRecordDetailVC: UIViewController {
         creatorLabel.text = creator
         createDateLabel.text = createdAt
         categoryLabel.text = category
+        disclosureLabel.text = disclosure
         
         contentsView.addSubview(titleLabel)
         contentsView.addSubview(creatorLabel)
         contentsView.addSubview(separateLineImageView)
         contentsView.addSubview(createDateLabel)
         contentsView.addSubview(categoryLabel)
+        contentsView.addSubview(disclosureLabel)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
@@ -456,8 +483,13 @@ class SearchRecordDetailVC: UIViewController {
             createDateLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
             createDateLabel.heightAnchor.constraint(equalToConstant: 14),
             
-            categoryLabel.topAnchor.constraint(equalTo: creatorLabel.bottomAnchor, constant: 12),
-            categoryLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+            disclosureLabel.topAnchor.constraint(equalTo: creatorLabel.bottomAnchor, constant: 12),
+            disclosureLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+            disclosureLabel.heightAnchor.constraint(equalToConstant: 22),
+            disclosureLabel.widthAnchor.constraint(equalToConstant: 75),
+            
+            categoryLabel.centerYAnchor.constraint(equalTo: disclosureLabel.centerYAnchor),
+            categoryLabel.leadingAnchor.constraint(equalTo: disclosureLabel.trailingAnchor, constant: 10),
             categoryLabel.heightAnchor.constraint(equalToConstant: 22),
             categoryLabel.widthAnchor.constraint(equalToConstant: 49)
         ])
