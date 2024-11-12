@@ -57,7 +57,7 @@ struct LogoutAPI: ServableAPI {
 }
 
 struct WithdrawalAPI: ServableAPI {
-    typealias Response = WithdrawalResponse
+    typealias Response = ChangePwResponseDTO
         
     var method: HTTPMethod { .delete }
     var path: String { "/user/delete" }

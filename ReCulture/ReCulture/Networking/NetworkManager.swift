@@ -81,14 +81,14 @@ final class NetworkManager {
     
     func postUserWithdrawal(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<WithdrawalResponse, NetworkError>) -> Void
+        completion: @escaping (Result<ChangePwResponseModel, NetworkError>) -> Void
     ) {
         let withdrawalAPI = WithdrawalAPI()
         
         networkService.request(withdrawalAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(DTO))
+                completion(.success(ChangePwResponseDTO.convertChangePwResDTOToModel(DTO: DTO)))
                 print("탈퇴 완료")
             case .failure(let error):
                 // Handle authentication error (e.g., token expired)
@@ -97,7 +97,7 @@ final class NetworkManager {
                     networkService.request(withdrawalAPI) { retryResult in
                         switch retryResult {
                         case .success(let DTO):
-                            completion(.success(DTO))
+                            completion(.success(ChangePwResponseDTO.convertChangePwResDTOToModel(DTO: DTO)))
                         case .failure(let retryError):
                             completion(.failure(retryError))
                         }
