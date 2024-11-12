@@ -63,12 +63,19 @@ struct WithdrawalResponse: Codable {
 }
 
 struct ChangePwResponseDTO: Codable {
-    let id: Int
-    let email: String
-    let createdAt: String
+    let timestamp: String
+    let success: Bool
+    let status: Int
+    let data: DataClass
+    
+    struct DataClass: Codable {
+        let id: Int
+        let email: String
+        let createdAt: String
+    }
 }
 
-struct ChangePwRequestDTO: Codable {
+struct ChangePwRequestDTO: Encodable {
     let cur_password: String
     let new_password: String
 }
@@ -76,9 +83,9 @@ struct ChangePwRequestDTO: Codable {
 extension ChangePwResponseDTO {
     static func convertChangePwResDTOToModel(DTO: ChangePwResponseDTO) -> ChangePwResponseModel {
         return ChangePwResponseModel(
-            id: DTO.id,
-            email: DTO.email,
-            createdAt: DTO.createdAt
+            id: DTO.data.id,
+            email: DTO.data.email,
+            createdAt: DTO.data.createdAt
         )
     }
 }

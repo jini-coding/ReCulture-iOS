@@ -68,7 +68,7 @@ struct WithdrawalAPI: ServableAPI {
 struct ChangePwAPI: ServableAPI {
     typealias Response = ChangePwResponseDTO
     
-    let requestDTO: [String: Any]
+    let requestDTO: ChangePwRequestDTO
         
     var method: HTTPMethod { .put }
     var path: String { "/auth/change_password" }
@@ -77,7 +77,5 @@ struct ChangePwAPI: ServableAPI {
             "Content-Type": "application/json"
         ] }
 
-    var body: Data? {
-        return try? JSONSerialization.data(withJSONObject: requestDTO, options: [])
-    }
+    var requestBody: Encodable? { requestDTO }
 }

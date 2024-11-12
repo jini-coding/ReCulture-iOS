@@ -425,7 +425,7 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<ChangePwResponseModel, NetworkError>) -> Void
     ) {
-        let changePwAPI = ChangePwAPI(requestDTO: requestDTO.toDictionary)
+        let changePwAPI = ChangePwAPI(requestDTO: requestDTO)
         networkService.request(changePwAPI) { result in
             switch result {
             case .success(let DTO):

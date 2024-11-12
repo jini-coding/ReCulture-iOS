@@ -117,7 +117,10 @@ class MypageViewModel {
     
     func showChangePasswordSuccessAlert(fromCurrentVC: UIViewController) {
         let alert = UIAlertController(title: "비밀번호 변경 완료", message: "비밀번호가 성공적으로 변경되었습니다.", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
+
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            fromCurrentVC.navigationController?.popViewController(animated: true)
+        }
         alert.addAction(confirmAction)
         
         DispatchQueue.main.async {
