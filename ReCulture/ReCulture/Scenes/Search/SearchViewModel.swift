@@ -310,13 +310,27 @@ class SearchViewModel {
         return userProfileModels[userId]
     }
 
-    func filterRecords(by category: String) {
-        if category == "전체" {
-            allSearchModels = allRecords
-        } else {
-            let categoryId = categoryId(from: category)
-            allSearchModels = allRecords.filter { (record: SearchModel) -> Bool in
-                return record.categoryId == categoryId
+    func filterRecords(by category: String, isSearchMode: Bool) {
+        // 검색 결과에 대해 필터링
+        if isSearchMode {
+            if category == "전체" {
+                allSearchedModels = allSearchedRecords
+            } else {
+                let categoryId = categoryId(from: category)
+                allSearchedModels = allSearchedRecords.filter { (record: SearchModel) -> Bool in
+                    return record.categoryId == categoryId
+                }
+            }
+        }
+        // 탐색 탭에서의 기록들에 대해 필터링
+        else {
+            if category == "전체" {
+                allSearchModels = allRecords
+            } else {
+                let categoryId = categoryId(from: category)
+                allSearchModels = allRecords.filter { (record: SearchModel) -> Bool in
+                    return record.categoryId == categoryId
+                }
             }
         }
     }

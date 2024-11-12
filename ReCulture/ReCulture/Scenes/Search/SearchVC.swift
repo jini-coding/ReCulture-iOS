@@ -494,7 +494,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if let selectedCategory = sender.currentTitle {
             self.selectedCategory = selectedCategory
             updateCategoryButtonAppearance()
-            viewModel.filterRecords(by: selectedCategory)
+            viewModel.filterRecords(by: selectedCategory, isSearchMode: false)
         }
     }
     
