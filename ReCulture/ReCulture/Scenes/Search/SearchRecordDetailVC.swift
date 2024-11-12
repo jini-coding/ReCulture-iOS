@@ -68,16 +68,16 @@ class SearchRecordDetailVC: UIViewController {
     ]
     
     
-    struct ContentDetail {
-        var version: String
-        var location: String
-        var casting: String
-        var comment: String
-    }
-    
-    let tempData = [
-        ContentDetail(version: "3회차", location: "디큐브 링크아트센터", casting: "최정원, 아이비, 민경아, 박건형, 최재림", comment: "시카고는 정말 볼 때마다 너무 재미있다... 이번에\n눈, 귀 둘 다 호강하고 왔지롱")
-    ]
+//    struct ContentDetail {
+//        var version: String
+//        var location: String
+//        var casting: String
+//        var comment: String
+//    }
+//    
+//    let tempData = [
+//        ContentDetail(version: "3회차", location: "디큐브 링크아트센터", casting: "최정원, 아이비, 민경아, 박건형, 최재림", comment: "시카고는 정말 볼 때마다 너무 재미있다... 이번에\n눈, 귀 둘 다 호강하고 왔지롱")
+//    ]
     
     let contentScrollView: UIScrollView = {
         let scrollview = UIScrollView()
@@ -98,8 +98,8 @@ class SearchRecordDetailVC: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blue
-        imageView.layer.cornerRadius = 14
+        imageView.backgroundColor = UIColor.lightGray
+        imageView.layer.cornerRadius = 11
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -113,6 +113,13 @@ class SearchRecordDetailVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
+    }()
+    
+    let profileContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
     }()
     
     let creatorLabel: UILabel = {
@@ -218,6 +225,10 @@ class SearchRecordDetailVC: UIViewController {
         setupTitleInfo()
         setupImage()
         setupInfoView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToProfileVC))
+        profileContainerView.addGestureRecognizer(tapGesture)
+        profileContainerView.isUserInteractionEnabled = true
     }
     
     private func bind() {
@@ -429,6 +440,15 @@ class SearchRecordDetailVC: UIViewController {
         bookmarkViewModel.postBookmarkToggle(recordId: recordId)
     }
     
+    @objc func goToProfileVC() {
+        let vc = UserProfileVC() // Initialize ProfileVC as needed
+        
+        let model = viewModel.getRecordDetail()
+        vc.userId = model!.culture.authorId
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func setupScrollView() {
         view.addSubview(contentScrollView)
         contentScrollView.addSubview(contentsView)
@@ -458,8 +478,11 @@ class SearchRecordDetailVC: UIViewController {
         categoryLabel.text = category
         disclosureLabel.text = disclosure
         
+        profileContainerView.addSubview(profileImageView)
+        profileContainerView.addSubview(creatorLabel)
         contentsView.addSubview(titleLabel)
-        contentsView.addSubview(creatorLabel)
+        contentsView.addSubview(profileContainerView)
+        //contentsView.addSubview(creatorLabel)
         contentsView.addSubview(separateLineImageView)
         contentsView.addSubview(createDateLabel)
         contentsView.addSubview(categoryLabel)
@@ -470,12 +493,22 @@ class SearchRecordDetailVC: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
             titleLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            creatorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            creatorLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+            profileContainerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 7),
+            profileContainerView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+            profileContainerView.heightAnchor.constraint(equalToConstant: 24),
+            
+            profileImageView.centerYAnchor.constraint(equalTo: profileContainerView.centerYAnchor),
+            profileImageView.leadingAnchor.constraint(equalTo: profileContainerView.leadingAnchor),
+            profileImageView.heightAnchor.constraint(equalToConstant: 22),
+            profileImageView.widthAnchor.constraint(equalToConstant: 22),
+            
+            creatorLabel.centerYAnchor.constraint(equalTo: profileContainerView.centerYAnchor),
+            creatorLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
+            creatorLabel.trailingAnchor.constraint(equalTo: profileContainerView.trailingAnchor),
             creatorLabel.heightAnchor.constraint(equalToConstant: 14),
             
             separateLineImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            separateLineImageView.leadingAnchor.constraint(equalTo: creatorLabel.trailingAnchor, constant: 8),
+            separateLineImageView.leadingAnchor.constraint(equalTo: profileContainerView.trailingAnchor, constant: 8),
             separateLineImageView.heightAnchor.constraint(equalToConstant: 12),
             separateLineImageView.widthAnchor.constraint(equalToConstant: 1),
             
@@ -483,7 +516,7 @@ class SearchRecordDetailVC: UIViewController {
             createDateLabel.leadingAnchor.constraint(equalTo: separateLineImageView.trailingAnchor, constant: 8),
             createDateLabel.heightAnchor.constraint(equalToConstant: 14),
             
-            disclosureLabel.topAnchor.constraint(equalTo: creatorLabel.bottomAnchor, constant: 12),
+            disclosureLabel.topAnchor.constraint(equalTo: profileContainerView.bottomAnchor, constant: 14),
             disclosureLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
             disclosureLabel.heightAnchor.constraint(equalToConstant: 22),
             disclosureLabel.widthAnchor.constraint(equalToConstant: 75),
@@ -559,35 +592,6 @@ class SearchRecordDetailVC: UIViewController {
             detailInfoView.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -16),
             detailInfoView.bottomAnchor.constraint(equalTo: contentsView.bottomAnchor, constant: -20)
         ])
-//
-//        let titles = [""]
-//        let details = [""]
-//
-//        var previousView: UIView?
-//        for index in 0..<titles.count {
-//            let titleLabel = UILabel()
-//            titleLabel.font = UIFont.rcFont14B()
-//            titleLabel.textColor = .black
-//            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//            let detailLabel = UILabel()
-//            detailLabel.font = UIFont.rcFont14M()
-//            detailLabel.textColor = .black
-//            detailLabel.translatesAutoresizingMaskIntoConstraints = false
-//            detailLabel.numberOfLines = 0
-//
-//            detailInfoView.addSubview(titleLabel)
-//            detailInfoView.addSubview(detailLabel)
-//
-//            NSLayoutConstraint.activate([
-//                titleLabel.topAnchor.constraint(equalTo: previousView?.bottomAnchor ?? detailInfoView.topAnchor, constant: 16),
-//                titleLabel.leadingAnchor.constraint(equalTo: detailInfoView.leadingAnchor, constant: 16),
-//
-//                detailLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-//                detailLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 15),
-//                detailLabel.trailingAnchor.constraint(equalTo: detailInfoView.trailingAnchor, constant: -16)
-//            ])
-//
-//            previousView = titleLabel
+        
     }
 }
