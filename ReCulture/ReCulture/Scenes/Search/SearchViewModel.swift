@@ -47,7 +47,9 @@ class SearchViewModel {
     }
     
     private var allRecords: [SearchModel] = []
-    private var pagination: SearchResponseDTO.Pagination?
+    private var paginationForAll: SearchResponseDTO.Pagination?
+    private var paginationForRecommend: SearchResponseDTO.Pagination?
+    private var paginationForSearchResult: SearchResponseDTO.Pagination?
     private var userpagination: UserSearchResponseDTO.UserPagination?
     
     private var allRecommendRecords: [SearchModel] = []
@@ -85,10 +87,10 @@ class SearchViewModel {
 //        }
 //    }
 
-    func getAllRecords(fromCurrentVC: UIViewController, completion: @escaping () -> Void) {
+    func getAllRecords(fromCurrentVC: UIViewController) {
         // If pagination already exists, increment the currentPage
-        let currentPage = (pagination?.currentPage ?? 0) + 1
-        let pageSize = pagination?.pageSize ?? 10
+        let currentPage = (paginationForAll?.currentPage ?? 0) + 1
+        let pageSize = paginationForAll?.pageSize ?? 10
 
         NetworkManager.shared.getAllRecords(page: currentPage, pageSize: pageSize) { result in
             switch result {
@@ -98,40 +100,37 @@ class SearchViewModel {
                 // Append new records to the existing ones
                 self.allRecords.append(contentsOf: models)
                 self.allSearchModels = self.allRecords // Update the displayed records
-                self.pagination = responseDTO.pagination
+                self.paginationForAll = responseDTO.pagination
 
-                print("Pagination info: \(String(describing: self.pagination))")
-                completion()
-
+                print("Pagination info: \(String(describing: self.paginationForAll))")
             case .failure(let error):
                 print("Error:", error)
                 let networkAlertController = self.networkErrorAlert(error)
                 DispatchQueue.main.async {
                     fromCurrentVC.present(networkAlertController, animated: true)
                 }
-                completion()
             }
         }
     }
 
     
-    func getRecommendRecords(fromCurrentVC: UIViewController, completion: @escaping () -> Void) {
+    func getRecommendRecords(fromCurrentVC: UIViewController) {
         // Use default values of 1 for `currentPage` and 10 for `pageSize` if they are nil
-        let currentPage = pagination?.currentPage ?? 1
-        let pageSize = pagination?.pageSize ?? 10
+        let currentPage = (paginationForRecommend?.currentPage ?? 0) + 1
+        let pageSize = paginationForRecommend?.pageSize ?? 10
         
         NetworkManager.shared.getRecommendRecords(page: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToSearchModels(DTOs: responseDTO.data)
-                self.allRecommendRecords = models
-                self.pagination = responseDTO.pagination
+                // Append new records to the existing ones
+                self.allRecommendRecords.append(contentsOf: models)
                 self.allSearchModels = self.allRecommendRecords
-                completion()
+                self.paginationForRecommend = responseDTO.pagination
                 
+                print("Pagination info (Recommend): \(String(describing: self.paginationForRecommend))")
             case .failure(let error):
                 print("추천실패 Error:", error)
-                completion()
             }
         }
     }
@@ -141,15 +140,15 @@ class SearchViewModel {
         
         let searchString = searchString
         print("searchString : \(searchString)")
-        let currentPage = pagination?.currentPage ?? 1
-        let pageSize = pagination?.pageSize ?? 10
+        let currentPage = paginationForSearchResult?.currentPage ?? 1
+        let pageSize = paginationForSearchResult?.pageSize ?? 10
         
         NetworkManager.shared.getSearchedRecords(searchString: searchString, page: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToSearchModels(DTOs: responseDTO.data)
                 self.allSearchedRecords = models
-                self.pagination = responseDTO.pagination
+                self.paginationForSearchResult = responseDTO.pagination
                 self.allSearchedModels = self.allSearchedRecords
                 print("=== 검색 성공 ===")
                 print(models)
@@ -192,6 +191,14 @@ class SearchViewModel {
         allRecommendRecords.removeAll()   // Clear recommended records
         allSearchedRecords.removeAll()    // Clear searched records
         allSearchModels.removeAll()       // Clear current displayed records (this will immediately affect the UI)
+        
+        clearPaginationDatas()
+    }
+    
+    func clearPaginationDatas() {
+        paginationForAll = nil
+        paginationForRecommend = nil
+        paginationForSearchResult = nil
     }
 
     
@@ -316,8 +323,19 @@ class SearchViewModel {
         }
     }
     
-    func canLoadMorePages() -> Bool {
-        guard let pagination = pagination else { return false }
+    func canLoadMorePages(isRecommendMode: Bool) -> Bool {
+        if isRecommendMode {
+            guard let pagination = paginationForRecommend else { return false }
+            return pagination.currentPage < pagination.totalPages
+        }
+        else {
+            guard let pagination = paginationForAll else { return false }
+            return pagination.currentPage < pagination.totalPages
+        }
+    }
+    
+    func canLoadMoreSearchResultPages() -> Bool {
+        guard let pagination = paginationForSearchResult else { return false }
         return pagination.currentPage < pagination.totalPages
     }
     
@@ -326,9 +344,9 @@ class SearchViewModel {
         return pagination.currentPage < pagination.totalPages
     }
     
-    var currentPage: Int? {
-        return pagination?.currentPage
-    }
+//    var currentPage: Int? {
+//        return pagination?.currentPage
+//    }
 
     private func categoryId(from category: String) -> Int {
         switch category {

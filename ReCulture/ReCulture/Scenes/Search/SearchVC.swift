@@ -21,7 +21,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     var selectedCategory: String = "전체"
-    var isFetching = false //페이지네이션 로딩 상태
+    var isFetching = false  // 페이지네이션 로딩 상태
     var isRecommendMode = false
     
     let searchTextField: UITextField = {
@@ -97,11 +97,15 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         bind()
 //        viewModel.getAllRecords(fromCurrentVC: self)
-        viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
-             DispatchQueue.main.async {
-                 self?.contentTableView.reloadData()
-             }
-         }
+        //isFetching = true
+//        viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
+//             DispatchQueue.main.async {
+//                 self?.contentTableView.reloadData()
+//                 self?.isFetching = false
+//                 self?.currentFetchingPage += 1
+//             }
+//         }
+        viewModel.getAllRecords(fromCurrentVC: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,11 +124,12 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     private func bind() {
         viewModel.allSearchModelsDidChange = { [weak self] in
-             DispatchQueue.main.async {
-                 self?.contentTableView.reloadData()
-             }
+            self?.isFetching = true
+            DispatchQueue.main.async {
+                self?.contentTableView.reloadData()
+                self?.isFetching = false
+            }
         }
-        
     }
     
     func hideKeyboard() {
@@ -285,26 +290,34 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
         
-        if position > (contentHeight - frameHeight - 100) && !isFetching && viewModel.canLoadMorePages() {
-            isFetching = true
+        if position > (contentHeight - frameHeight - 100) && !isFetching && viewModel.canLoadMorePages(isRecommendMode: isRecommendMode) {
+            print("=== Pagination Info, scrollViewDidScroll ===")
+            print("=== Pagination Info, isFetching: \(isFetching)")
+            print("=== Pagination Info, can fetch more (inside if)")
+//            let previousContentHeight = contentTableView.contentSize.height
+//            let previousOffsetY = scrollView.contentOffset.y
+            isFetching = true  // 여기서 한 번 true로 세팅해주어야 위의 if문에서 필터링 되어 또 같은 페이지를 다시 불러오지 않음
             
-            let previousContentHeight = contentTableView.contentSize.height
-            let previousOffsetY = scrollView.contentOffset.y
-
-            viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    self.contentTableView.reloadData()
-                    self.isFetching = false
-                    
-                    self.bounceTableView(self.contentTableView)
-
-                    let newContentHeight = self.contentTableView.contentSize.height
-                    let offsetYAdjustment = newContentHeight - previousContentHeight
-                    self.contentTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
-                }
+            if isRecommendMode {
+                viewModel.getRecommendRecords(fromCurrentVC: self)
             }
+            else {
+                viewModel.getAllRecords(fromCurrentVC: self)
+            }
+//            viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
+//                guard let self = self else { return }
+//                
+//                DispatchQueue.main.async {
+//                    self.contentTableView.reloadData()
+//                    self.isFetching = false
+//                    
+//                    self.bounceTableView(self.contentTableView)
+//
+//                    let newContentHeight = self.contentTableView.contentSize.height
+//                    let offsetYAdjustment = newContentHeight - previousContentHeight
+//                    self.contentTableView.setContentOffset(CGPoint(x: 0, y: previousOffsetY + offsetYAdjustment), animated: false)
+//                }
+//            }
         }
     }
 
@@ -495,18 +508,9 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             viewModel.clearRecords()
             contentTableView.reloadData()
 
-            isFetching = true
+//            isFetching = true
             
-            viewModel.getRecommendRecords(fromCurrentVC: self) { [weak self] in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    self.contentTableView.reloadData()
-                    self.isFetching = false
-                    
-                    self.bounceTableView(self.contentTableView)
-                }
-            }
+            viewModel.getRecommendRecords(fromCurrentVC: self)
         } else {
            
             sender.backgroundColor = UIColor(hexCode: "#FFF4AA")
@@ -514,18 +518,20 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             viewModel.clearRecords()
             contentTableView.reloadData()
 
-            isFetching = true
+            viewModel.getAllRecords(fromCurrentVC: self)
             
-            viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
-                guard let self = self else { return }
-
-                DispatchQueue.main.async {
-                    self.contentTableView.reloadData()
-                    self.isFetching = false
-                    
-                    self.bounceTableView(self.contentTableView)
-                }
-            }
+//            isFetching = true
+//            
+//            viewModel.getAllRecords(fromCurrentVC: self) { [weak self] in
+//                guard let self = self else { return }
+//
+//                DispatchQueue.main.async {
+//                    self.contentTableView.reloadData()
+//                    self.isFetching = false
+//                    
+//                    self.bounceTableView(self.contentTableView)
+//                }
+//            }
         }
     }
 

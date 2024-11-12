@@ -693,7 +693,7 @@ class SearchedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             isFetching = true
             if segmentedControl.selectedSegmentIndex == 0 {
                 // Record Pagination
-                if viewModel.canLoadMorePages() {
+                if viewModel.canLoadMoreSearchResultPages() {
                     let previousContentHeight = recordTableView.contentSize.height
                     let previousOffsetY = scrollView.contentOffset.y
                     
