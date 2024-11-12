@@ -15,6 +15,7 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     var userId: Int = 0
     var isCurrentUserProfile: Bool = false
+    var followings: [FollowingModel] = []
     
     let profileView: UIView = {
         let view = UIView()
@@ -99,10 +100,10 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     let followButton: UIButton = {
         let button = UIButton()
-        button.setTitle("팔로우", for: .normal)
+        button.setTitle("", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.rcFont14M()
-        button.backgroundColor = UIColor.rcMain
+        button.backgroundColor = UIColor.rcGrayBg
         button.layer.cornerRadius = 8
         
         return button
@@ -172,6 +173,11 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         loadUserProfile(userId: userId)
         //viewModel.getuserRecords(userId: userId, fromCurrentVC: self)
         
+        myviewModel.getFollowingInfo { [weak self] followings in
+            self?.followings = followings
+            self?.updateFollowButton()
+        }
+        
         if let currentUserId = getCurrentUserId() {
             if currentUserId == userId {
                 isCurrentUserProfile = true
@@ -184,6 +190,24 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         } else {
             print("error")
+        }
+    }
+    
+    private func updateFollowButton() {
+        let isFollowing = followings.contains { $0.following.id == userId }
+        
+        DispatchQueue.main.async { [weak self] in
+            if isFollowing {
+                self?.followButton.setTitle("팔로잉", for: .normal)
+                self?.followButton.backgroundColor = UIColor.rcGray000
+                self?.followButton.layer.borderColor = UIColor.rcGray300.cgColor
+                self?.followButton.layer.borderWidth = 1
+                self?.followButton.setTitleColor(UIColor.rcGray800, for: .normal)
+            } else {
+                self?.followButton.setTitle("팔로우", for: .normal)
+                self?.followButton.backgroundColor = UIColor.rcMain
+                self?.followButton.setTitleColor(UIColor.white, for: .normal)
+            }
         }
     }
     

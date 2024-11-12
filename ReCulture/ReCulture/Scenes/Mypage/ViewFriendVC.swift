@@ -279,9 +279,6 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
         if let userProfile = viewModel.getUserProfileModel(for: authorId) {
                 cell.nameLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-//                    let baseUrl = "http://34.64.120.187:8080"
-//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
                     cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                 } else {
                     print("Profile image URL is nil")
@@ -292,9 +289,6 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async {
                         cell.nameLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-//                            let baseUrl = "http://34.64.120.187:8080"
-//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
                             cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                         } else {
                             print("Profile image URL is nil")
@@ -303,15 +297,10 @@ class FollowerViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         
-//        // Populate the cell with follower data
-//        cell.nameLabel.text = "\(data.follower.id)"  // You can use data like name if available
-//        cell.idLabel.text = data.follower.email
-        
-        // Configure the follow button (this logic can be modified based on your use case)
-        cell.followButton.setTitle("팔로우", for: .normal)
-        cell.followButton.backgroundColor = UIColor.rcMain
-        cell.followButton.setTitleColor(UIColor.white, for: .normal)
-        cell.followButton.titleLabel?.font = UIFont.rcFont14M()
+//        cell.followButton.setTitle("팔로우", for: .normal)
+//        cell.followButton.backgroundColor = UIColor.rcMain
+//        cell.followButton.setTitleColor(UIColor.white, for: .normal)
+//        cell.followButton.titleLabel?.font = UIFont.rcFont14M()
         
         return cell
     }
@@ -489,9 +478,6 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         if let userProfile = viewModel.getUserProfileModel(for: authorId) {
                 cell.nameLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-//                    let baseUrl = "http://34.64.120.187:8080"
-//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
                     cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                 } else {
                     print("Profile image URL is nil")
@@ -502,9 +488,6 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
                     DispatchQueue.main.async {
                         cell.nameLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-//                            let baseUrl = "http://34.64.120.187:8080"
-//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
                             cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                         } else {
                             print("Profile image URL is nil")
@@ -517,10 +500,10 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
 //        cell.idLabel.text = data.following.email
         
         // 설정에 따라 팔로우 버튼 업데이트
-        cell.followButton.setTitle("팔로잉", for: .normal)
-        cell.followButton.backgroundColor = UIColor.rcGray000
-        cell.followButton.setTitleColor(UIColor.rcGray800, for: .normal)
-        cell.followButton.titleLabel?.font = UIFont.rcFont14M()
+//        cell.followButton.setTitle("팔로잉", for: .normal)
+//        cell.followButton.backgroundColor = UIColor.rcGray000
+//        cell.followButton.setTitleColor(UIColor.rcGray800, for: .normal)
+//        cell.followButton.titleLabel?.font = UIFont.rcFont14M()
         
         return cell
     }
@@ -646,7 +629,7 @@ class FriendCell: UITableViewCell {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
         //contentView.addSubview(idLabel)
-        contentView.addSubview(followButton)
+        //contentView.addSubview(followButton)
         //contentView.addSubview(denyButton)
 
         NSLayoutConstraint.activate([
@@ -674,10 +657,10 @@ class FriendCell: UITableViewCell {
 //            acceptButton.heightAnchor.constraint(equalToConstant: 34),
 //            acceptButton.widthAnchor.constraint(equalToConstant: 68),
             
-            followButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            followButton.heightAnchor.constraint(equalToConstant: 34),
-            followButton.widthAnchor.constraint(equalToConstant: 84)
+//            followButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+//            followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+//            followButton.heightAnchor.constraint(equalToConstant: 34),
+//            followButton.widthAnchor.constraint(equalToConstant: 84)
             
         ])
         
