@@ -1052,7 +1052,7 @@ class FriendProfileCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
         
-        followButton.addTarget(self, action: #selector(followTapped), for: .touchUpInside)
+        //followButton.addTarget(self, action: #selector(followTapped), for: .touchUpInside)
         acceptButton.addTarget(self, action: #selector(acceptTapped), for: .touchUpInside)
         denyButton.addTarget(self, action: #selector(rejectTapped), for: .touchUpInside)
     }
@@ -1071,21 +1071,21 @@ class FriendProfileCell: UITableViewCell {
         print("거절")
     }
     
-    @objc private func followTapped() {
-         followAction?()
-         print("Follow button tapped")
-        
-         followButton.setTitle("요청중", for: .normal)
-         followButton.backgroundColor = UIColor(hexCode: "#ECEFF7")
-         followButton.setTitleColor(UIColor.black, for: .normal)
-     }
+//    @objc private func followTapped() {
+//         followAction?()
+//         print("Follow button tapped")
+//        
+//         followButton.setTitle("요청중", for: .normal)
+//         followButton.backgroundColor = UIColor(hexCode: "#ECEFF7")
+//         followButton.setTitleColor(UIColor.black, for: .normal)
+//     }
 
     
     func setupLayout() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
         //contentView.addSubview(idLabel)
-        contentView.addSubview(followButton)
+        //contentView.addSubview(followButton)
 
         NSLayoutConstraint.activate([
             profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -1107,10 +1107,10 @@ class FriendProfileCell: UITableViewCell {
 //            idLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 12),
 //            idLabel.heightAnchor.constraint(equalToConstant: 14),
  
-            followButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            followButton.heightAnchor.constraint(equalToConstant: 34),
-            followButton.widthAnchor.constraint(equalToConstant: 84)
+//            followButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+//            followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+//            followButton.heightAnchor.constraint(equalToConstant: 34),
+//            followButton.widthAnchor.constraint(equalToConstant: 84)
             
         ])
         

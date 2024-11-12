@@ -441,7 +441,7 @@ class SearchRecordDetailVC: UIViewController {
     }
     
     @objc func goToProfileVC() {
-        let vc = UserProfileVC() // Initialize ProfileVC as needed
+        let vc = UserProfileVC()
         
         let model = viewModel.getRecordDetail()
         vc.userId = model!.culture.authorId

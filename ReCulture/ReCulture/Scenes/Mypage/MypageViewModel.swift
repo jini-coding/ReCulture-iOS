@@ -233,9 +233,8 @@ class MypageViewModel {
         NetworkManager.shared.getMyFollowers { [weak self] result in
             switch result {
             case .success(let followersDTOs):
-                // Convert DTOs to Models
                 let followersModels = FollowerDTO.convertFollowerDTOsToModels(DTOs: followersDTOs)
-                self?.followers = followersModels  // Assign the converted models
+                self?.followers = followersModels
             case .failure(let error):
                 print(error)
             }
@@ -246,11 +245,24 @@ class MypageViewModel {
         NetworkManager.shared.getMyFollowings { [weak self] result in
             switch result {
             case .success(let followingsDTOs):
-                // Convert DTOs to Models
                 let followingsModels = FollowingDTO.convertFollowingDTOsToModels(DTOs: followingsDTOs)
-                self?.followings = followingsModels  // Assign the converted models
+                self?.followings = followingsModels
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    func getFollowingInfo(completion: @escaping ([FollowingModel]) -> Void) {
+        NetworkManager.shared.getMyFollowings { [weak self] result in
+            switch result {
+            case .success(let followingsDTOs):
+                let followingsModels = FollowingDTO.convertFollowingDTOsToModels(DTOs: followingsDTOs)
+                self?.followings = followingsModels
+                completion(followingsModels)
+            case .failure(let error):
+                print(error)
+                completion([])
             }
         }
     }
