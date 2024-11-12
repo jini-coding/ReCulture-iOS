@@ -136,52 +136,50 @@ class SearchViewModel {
     }
 
     
-    func getSearchedRecords(fromCurrentVC: UIViewController, searchString: String, completion: @escaping () -> Void) {
+    func getSearchedRecords(fromCurrentVC: UIViewController, searchString: String) {
         
         let searchString = searchString
         print("searchString : \(searchString)")
-        let currentPage = paginationForSearchResult?.currentPage ?? 1
+        let currentPage = (paginationForSearchResult?.currentPage ?? 0) + 1
         let pageSize = paginationForSearchResult?.pageSize ?? 10
         
         NetworkManager.shared.getSearchedRecords(searchString: searchString, page: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToSearchModels(DTOs: responseDTO.data)
-                self.allSearchedRecords = models
+                self.allSearchedRecords.append(contentsOf: models)
                 self.paginationForSearchResult = responseDTO.pagination
                 self.allSearchedModels = self.allSearchedRecords
                 print("=== 검색 성공 ===")
                 print(models)
                 print("===")
-                completion()
+                print("Pagination info (SEARCH RECORD): \(String(describing: self.paginationForSearchResult))")
             case .failure(let error):
                 print("검색 실패: \(error)")
-                completion()
             }
         }
     }
     
-    func getSearchedUsers(fromCurrentVC: UIViewController, nickname: String, completion: @escaping () -> Void) {
+    func getSearchedUsers(fromCurrentVC: UIViewController, nickname: String) {
         
         let nickname = nickname
         print("nickname : \(nickname)")
-        let currentPage = userpagination?.currentPage ?? 1
+        let currentPage = (userpagination?.currentPage ?? 0) + 1
         let pageSize = userpagination?.pageSize ?? 10
         
         NetworkManager.shared.getSearchedUsers(nickname: nickname, page: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let responseDTO):
                 let models = self.convertToUserSearchModels(DTOs: responseDTO.data)
-                self.allUserSearchedRecords = models
+                self.allUserSearchedRecords.append(contentsOf: models)
                 self.userpagination = responseDTO.pagination
                 self.allUserSearchedModels = self.allUserSearchedRecords
                 print("=== 유저 검색 성공 ===")
                 print(models)
                 print("===")
-                completion()
+                print("Pagination info (SEARCH USER): \(String(describing: self.userpagination))")
             case .failure(let error):
                 print("검색 실패: \(error)")
-                completion()
             }
         }
     }
