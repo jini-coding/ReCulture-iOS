@@ -26,7 +26,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var selectedCategory: String = "전체"
     
     /// refresh control
-//    private let refreshControl = UIRefreshControl()
+    let refreshControl = UIRefreshControl()
     
     let biglabel: UILabel = {
         let label = UILabel()
@@ -121,8 +121,9 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         /// refresh 추가하게 되면 밑에 주석 해제
         /// RefreshControl 세팅
-//        refreshControl.addTarget(self, action: #selector(refreshControlDidChange), for: .valueChanged)
-//        refreshControl.tintColor = .rcLightPurple
+        refreshControl.addTarget(self, action: #selector(refreshControlDidChange), for: .valueChanged)
+        refreshControl.tintColor = .rcLightPurple
+        contentTableView.refreshControl = refreshControl
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,9 +207,11 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// refresh control 추가 시 여기에 액션 정의 (ex. 페이지 넘버 초기화 등)
-//    @objc private func refreshControlDidChange() {
-//
-//    }
+    @objc private func refreshControlDidChange() {
+        viewModel.getmyRecords(fromCurrentVC: self)
+
+        refreshControl.endRefreshing()
+    }
     
     func setupHeaderView() {
         biglabel.translatesAutoresizingMaskIntoConstraints = false

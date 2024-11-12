@@ -24,6 +24,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var isFetching = false  // 페이지네이션 로딩 상태
     var isRecommendMode = false
     
+    let refreshControl = UIRefreshControl()
+    
     let searchTextField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "검색어를 입력해주세요"
@@ -106,6 +108,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
 //             }
 //         }
         viewModel.getAllRecords(fromCurrentVC: self)
+        
+        refreshControl.addTarget(self, action: #selector(refreshControlDidChange), for: .valueChanged)
+        refreshControl.tintColor = .rcLightPurple
+        contentTableView.refreshControl = refreshControl
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,6 +137,36 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
         }
     }
+    
+    @objc private func refreshControlDidChange() {
+        isFetching = true
+
+        // 새로고침이 시작되기 직전에 데이터를 지우기 위해 약간의 지연 추가
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.viewModel.clearRecords()
+            
+            self.viewModel.getAllRecords(fromCurrentVC: self)
+
+            DispatchQueue.main.async {
+                self.contentTableView.reloadData()
+                self.refreshControl.endRefreshing()
+                self.isFetching = false
+            }
+        }
+    }
+    
+//    @objc private func refreshControlDidChange() {
+//        viewModel.clearRecords()
+//        isFetching = true
+//
+//        viewModel.getAllRecords(fromCurrentVC: self)
+//        
+//        DispatchQueue.main.async {
+//            self.contentTableView.reloadData()
+//            self.refreshControl.endRefreshing()
+//            self.isFetching = false
+//        }
+//    }
     
     func hideKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -176,22 +212,15 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if let userProfile = viewModel.getUserProfileModel(for: authorId!) {
                 cell.creatorLabel.text = userProfile.nickname
                 if let profileImageUrl = userProfile.profilePhoto {
-//                    let baseUrl = "http://34.64.120.187:8080"
-//                    let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                    imageUrlStr.loadAsyncImage(cell.profileImageView)
                     cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                 } else {
                     print("Profile image URL is nil")
                 }
             } else {
-                // Fetch user profile if not loaded yet
                 viewModel.getUserProfile(userId: authorId!) { userProfile in
                     DispatchQueue.main.async {
                         cell.creatorLabel.text = userProfile?.nickname
                         if let profileImageUrl = userProfile?.profilePhoto {
-//                            let baseUrl = "http://34.64.120.187:8080"
-//                            let imageUrlStr = baseUrl + profileImageUrl // Safely unwrap the URL
-//                            imageUrlStr.loadAsyncImage(cell.profileImageView)
                             cell.profileImageView.loadImage(urlWithoutBaseURL: profileImageUrl)
                         } else {
                             print("Profile image URL is nil")
@@ -234,9 +263,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.categoryLabel.text = category
             
             if let firstPhotoDoc = model.photos?.first, let photoUrl = firstPhotoDoc.url {
-//                let baseUrl = "http://34.64.120.187:8080"
-//                let imageUrlStr = "\(baseUrl)\(photoUrl)"
-//                imageUrlStr.loadAsyncImage(cell.contentImageView)
                 cell.contentImageView.loadImage(urlWithoutBaseURL: photoUrl)
             } else {
                 print("Photo URL is nil")

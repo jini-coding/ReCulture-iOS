@@ -122,7 +122,7 @@ class EditPasswordVC: UIViewController {
     
     let confirmButton: UIButton = {
         let button = UIButton()
-        button.setTitle("저장", for: .normal)
+        button.setTitle("변경하기", for: .normal)
         button.backgroundColor = UIColor.rcMain
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.rcFont18M()
@@ -155,7 +155,6 @@ class EditPasswordVC: UIViewController {
     }
     
     @objc func confirmButtonTapped() {
-        // Validate new passwords match
         guard let currentPassword = currentPwTextfield.text,
               let newPassword = newPwTextfield.text,
               let renewPassword = renewPwTextfield.text else {
@@ -174,14 +173,12 @@ class EditPasswordVC: UIViewController {
         }
         print("Request Data:", currentPassword, newPassword)
 
-        // If all validations pass, proceed to call viewModel.changePassword
         viewModel.changePassword(curPassword: currentPassword, newPassword: newPassword, fromCurrentVC: self)
     }
     
     func addPwIsNotValidLabel() {
         view.addSubview(pwIsNotValidLabel)
         pwIsNotValidLabel.isHidden = false
-        // Add layout code for pwIsNotValidLabel if needed
     }
 
     func removePwIsNotValidLabel() {
@@ -191,7 +188,6 @@ class EditPasswordVC: UIViewController {
     func addPwDoesNotMatchLabel() {
         view.addSubview(pwDoesNotMatchLabel)
         pwDoesNotMatchLabel.isHidden = false
-        // Add layout code for pwDoesNotMatchLabel if needed
     }
 
     func removePwDoesNotMatchLabel() {
