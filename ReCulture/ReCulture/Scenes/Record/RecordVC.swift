@@ -28,8 +28,6 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     /// refresh control
 //    private let refreshControl = UIRefreshControl()
     
-    //image는 가로스크롤 추가 예정
-    
     let biglabel: UILabel = {
         let label = UILabel()
         label.text = "내 기록"
@@ -165,53 +163,19 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let model = viewModel.getRecord(at: indexPath.row)
         
-        // Set up the text labels
         cell.titleLabel.text = model.culture.title
         cell.nameLabel.text = "\(myviewModel.getNickname())"
         
-//        let imageUrlStr = "http://34.64.120.187:8080\(myviewModel.getProfileImage())"
-//        imageUrlStr.loadAsyncImage(cell.profileImageView)
         cell.profileImageView.loadImage(urlWithoutBaseURL: myviewModel.getProfileImage())
         
         cell.createDateLabel.text = model.culture.date.toDate()?.toString()
         cell.commentLabel.text = model.culture.review
         
-        // Configure the images using the new method
         let imageUrls = model.photoDocs.map { "\($0.url)" }
         cell.configureImages(imageUrls)
         
         return cell
     }
-
-
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return tempData.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let data = tempData[indexPath.row]
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: RecordContentCell.cellId, for: indexPath) as! RecordContentCell
-//        cell.selectionStyle = .none
-//
-//        cell.profileImageView.image = UIImage(named: data.profileImage)
-//        cell.titleLabel.text = data.title
-//        cell.nameLabel.text = data.name
-//        cell.idLabel.text = data.id
-//        cell.createDateLabel.text = data.createdAt
-//        cell.commentLabel.text = data.comment
-//        //cell.categoryLabel.text = data.category
-//
-//        if let contentImage = data.contentImages.first {
-//            cell.contentImageView.image = UIImage(named: contentImage)
-//        }
-//
-//        return cell
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 390
-//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = viewModel.getRecord(at: indexPath.row)
@@ -221,8 +185,9 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         // 선택된 데이터를 디테일 뷰 컨트롤러에 전달
         vc.recordId = model.culture.id
-//        vc.titleText = model.culture.title
+        vc.titleText = model.culture.title
         vc.creator = "\(myviewModel.getNickname())"
+        vc.profileImageView.loadImage(urlWithoutBaseURL: myviewModel.getProfileImage())
 //        vc.createdAt = model.culture.date.toDate()?.toString() ?? model.culture.date
 //        //vc.category = "\(model.culture.categoryId)"
 //        vc.contentImage = model.photoDocs.map { $0.url }
@@ -324,7 +289,7 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         var previousButton: UIButton?
 
         for category in categories {
-            // Create button
+            
             let button = UIButton(type: .system)
             button.setTitle(category, for: .normal)
             button.backgroundColor = category == selectedCategory ? UIColor.rcMain : UIColor.rcGray000
@@ -333,10 +298,8 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             button.clipsToBounds = true
             button.translatesAutoresizingMaskIntoConstraints = false
 
-            // Add button to scrollView
             categoryScrollView.addSubview(button)
 
-            // Set button constraints
             NSLayoutConstraint.activate([
                 button.centerYAnchor.constraint(equalTo: categoryView.centerYAnchor),
                 button.widthAnchor.constraint(equalToConstant: 65),
@@ -359,7 +322,6 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
 
-        // Set content size of scrollView based on buttons
         if let lastButton = previousButton {
             NSLayoutConstraint.activate([
                 lastButton.trailingAnchor.constraint(equalTo: categoryScrollView.trailingAnchor, constant: -16)
@@ -368,18 +330,16 @@ class RecordVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func categoryButtonTapped(_ sender: UIButton) {
-        // Update UI based on selected category
         if let selectedCategory = sender.currentTitle {
             self.selectedCategory = selectedCategory
             updateCategoryButtonAppearance()
             print("\(selectedCategory) 버튼 선택됨")
             viewModel.filterRecords(by: selectedCategory)
-                        // Perform actions based on selected category...
         }
     }
 
     func updateCategoryButtonAppearance() {
-        // Iterate through scrollView's subviews to update buttons
+        
         for case let button as UIButton in categoryScrollView.subviews {
             if let category = button.currentTitle {
                 button.backgroundColor = category == selectedCategory ? UIColor.rcMain : UIColor.rcGray000

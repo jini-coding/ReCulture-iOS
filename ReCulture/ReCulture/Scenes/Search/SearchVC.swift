@@ -273,6 +273,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             print("Title is nil")
         }
         vc.creator = userProfile?.nickname ?? "Unknown"
+        vc.profileImageView.loadImage(urlWithoutBaseURL: userProfile?.profilePhoto ?? "no_img")
         vc.createdAt = model.createdAt?.toDate()?.toString() ?? model.createdAt!
         
         if let photos = model.photos {
