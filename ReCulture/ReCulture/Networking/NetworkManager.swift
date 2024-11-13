@@ -524,6 +524,17 @@ final class NetworkManager {
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<FollowStateModel, NetworkError>) -> Void
     ){
+        /// 보내는 json 구조 확인용
+//        do {
+//            let jsonData = try JSONEncoder().encode(sendRequestDTO)
+//            if let jsonString = String(data: jsonData, encoding: .utf8) {
+//                print("Request JSON Body: \(jsonString)")
+//            }
+//        } catch {
+//            print("Failed to encode SendRequestDTO: \(error)")
+//            return
+//        }
+        
         let sendAPI = sendRequestAPI(requestDTO: sendRequestDTO)
         networkService.request(sendAPI) { result in
             switch result {
