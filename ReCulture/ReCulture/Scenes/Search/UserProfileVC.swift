@@ -13,6 +13,8 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     private let myviewModel = MypageViewModel()
     private let searchviewModel = SearchViewModel()
     
+    var followAction: (() -> Void)?
+    
     var userId: Int = 0
     var isCurrentUserProfile: Bool = false
     var followings: [FollowingModel] = []
@@ -191,6 +193,16 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         } else {
             print("error")
         }
+        
+        followAction = { [weak self] in
+            guard let self = self else { return }
+            let requestDTO = SendRequestDTO(receiverId: self.userId)
+            
+            print("Sending follow request for user ID: \(self.userId)")
+            self.myviewModel.sendRequest(requestDTO: requestDTO)
+        }
+        
+        followButton.addTarget(self, action: #selector(followTapped), for: .touchUpInside)
     }
     
     private func updateFollowButton() {
@@ -203,10 +215,12 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self?.followButton.layer.borderColor = UIColor.rcGray300.cgColor
                 self?.followButton.layer.borderWidth = 1
                 self?.followButton.setTitleColor(UIColor.rcGray800, for: .normal)
+                self?.followButton.isEnabled = false
             } else {
                 self?.followButton.setTitle("팔로우", for: .normal)
                 self?.followButton.backgroundColor = UIColor.rcMain
                 self?.followButton.setTitleColor(UIColor.white, for: .normal)
+                self?.followButton.isEnabled = true
             }
         }
     }
@@ -269,6 +283,17 @@ class UserProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 //        if let profileImageURL = profile.profilePhoto {
 //            profileImageURL.loadAsyncImage(profileImg)
 //        }
+    }
+    
+    @objc private func followTapped() {
+        followAction?()
+        print("Follow button tapped")
+    
+        followButton.setTitle("요청중", for: .normal)
+        followButton.backgroundColor = UIColor(hexCode: "#ECEFF7")
+        followButton.layer.borderColor = UIColor.rcGray300.cgColor
+        followButton.layer.borderWidth = 1
+        followButton.setTitleColor(UIColor.black, for: .normal)
     }
     
     func setupProfileView() {
