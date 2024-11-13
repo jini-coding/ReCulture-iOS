@@ -21,6 +21,13 @@ final class HomeVC: UIViewController {
         return view
     }()
     
+    let headerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.rcMain
+        
+        return view
+    }()
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
@@ -82,6 +89,9 @@ final class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = UIColor.rcMain
 
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("앱 최초 실행 값: \(isFirstLaunch)")
@@ -97,6 +107,7 @@ final class HomeVC: UIViewController {
         setupNavigation()
         
         // set up layout
+        setupHeaderView()
         setScrollView()
         setContentView()
         setUserLevelInfoView()
@@ -113,8 +124,16 @@ final class HomeVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewModel.getMyProfile(fromCurrentVC: self)
-        setupNavigation()
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+            
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     // MARK: - Layouts
@@ -122,12 +141,39 @@ final class HomeVC: UIViewController {
     private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = .rcMain
-      
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithDefaultBackground()
+//        appearance.backgroundColor = .rcMain
+//      
+//        self.navigationController?.navigationBar.standardAppearance = appearance
+//        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    private func setupHeaderView() {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        currentLevelLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(headerView)
+        headerView.addSubview(logoImageView)
+        headerView.addSubview(currentLevelLabel)
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 35),
+            
+            logoImageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
+            logoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            logoImageView.widthAnchor.constraint(equalToConstant: 45),
+            logoImageView.heightAnchor.constraint(equalToConstant: 45),
+            
+            currentLevelLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8),
+            currentLevelLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+            currentLevelLabel.heightAnchor.constraint(equalToConstant: 24),
+            
+        ])
     }
     
     private func setScrollView() {
@@ -138,7 +184,7 @@ final class HomeVC: UIViewController {
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }

@@ -12,6 +12,7 @@ final class CalendarDetailModal: UIViewController {
     // MARK: - Properties
     
     private weak var homeVC: HomeVC?
+    private let myviewModel = MypageViewModel()
     
     private static let minimumLineSpacing: CGFloat = 12
     private static let minimumInteritemSpacing: CGFloat = 12
@@ -61,6 +62,8 @@ final class CalendarDetailModal: UIViewController {
         view.backgroundColor = .black.withAlphaComponent(0.4)
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
+        
+        myviewModel.getMyInfo(fromCurrentVC: self)
 
         setContentView()
         setDateLabel()
@@ -147,10 +150,11 @@ extension CalendarDetailModal: UICollectionViewDelegate, UICollectionViewDataSou
         let dataForThisCell = recordDetailDataList[indexPath.item]
         
         if let homeVC = self.homeVC {
-            homeVC.dismiss(animated: true) {
+            homeVC.dismiss(animated: true) { [self] in
                 // 상세 페이지로 이동
                 let vc = RecordDetailVC()
                 vc.recordId = dataForThisCell.recordId
+                vc.profileImageView.loadImage(urlWithoutBaseURL: myviewModel.getProfileImage())
                 vc.creator = UserDefaultsManager.shared.getData(type: String.self, forKey: .nickname)
 
                 vc.hidesBottomBarWhenPushed = true
