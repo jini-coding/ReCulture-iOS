@@ -104,7 +104,7 @@ final class HomeVC: UIViewController {
         bind()
         viewModel.getMyProfile(fromCurrentVC: self)
         viewModel.getMyCalendar(yearAndMonthFormatted: getTodaysYearAndMonth(), fromCurrentVC: self)
-        setupNavigation()
+        //setupNavigation()
         
         // set up layout
         setupHeaderView()
@@ -315,7 +315,7 @@ final class HomeVC: UIViewController {
         attributedString.addAttribute(.font, value: UIFont.rcFont16B(), range: (text as NSString).range(of: "Level \(levelNum)"))
         currentLevelLabel.attributedText = attributedString
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: currentLevelLabel)
     }
     
     private func setLevelProgress() {
