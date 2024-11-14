@@ -147,10 +147,12 @@ class FriendRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedUser = searchviewModel.getUser(at: indexPath.row)
+        let data = viewModel.pendings[indexPath.row]
+        
+        let selectedUser = data.fromUserID
+        
         let userProfileVC = UserProfileVC()
-        //userProfileVC.userId = selectedFollowing.followingID // Pass any necessary data to UserProfileVC
-        userProfileVC.userId = selectedUser.userId!
+        userProfileVC.userId = selectedUser
         navigationController?.pushViewController(userProfileVC, animated: true)
     }
 
