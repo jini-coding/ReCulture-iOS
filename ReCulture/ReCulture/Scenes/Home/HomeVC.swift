@@ -162,7 +162,7 @@ final class HomeVC: UIViewController {
             headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 35),
+            headerView.heightAnchor.constraint(equalToConstant: 50),
             
             logoImageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
             logoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
